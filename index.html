@@ -3,1125 +3,1190 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>Chaitrali's Kitchen — Pure Veg Marathi Tiffin &amp; Catering</title>
-  <meta name="description" content="Homemade pure vegetarian Indian food with authentic Marathi touches. Weekly tiffin service and catering for birthdays, graduations, poojas and festivals.">
+  <title>Chaitrali's Kitchen — Pure Veg Marathi Tiffin & Catering, Quincy MA</title>
+  <meta name="description" content="Authentic homemade pure vegetarian Marathi cuisine. Weekly tiffin service and catering for all occasions in Quincy, Milton, Braintree, Randolph MA.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <style>
-    /* ── RESET & BASE ─────────────────────────────────────────── */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
-    html { scroll-behavior: smooth; }
-    html, body {
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100%;
-    }
+    html { scroll-behavior:smooth }
+    html, body { overflow-x:hidden; width:100%; max-width:100% }
 
     :root {
-      --saffron:  #E8851A;
-      --clay:     #C25F2A;
-      --turmeric: #F4C44A;
-      --dark:     #1A1A1A;
-      --body:     #3C3C43;
-      --subtle:   #6E6E73;
-      --light:    #9B948E;
-      --rule:     #D2D2D7;
-      --bg:       #FFFFFF;
-      --bg-alt:   #F5F5F7;
-      --cream:    #FAF7F2;
-      --warm-white: #FEFCF8;
-      --leaf:     #3B6B3A;
-      --mist:     #F0EBE3;
-      --border:   rgba(26,26,26,0.08);
-    }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--dark);
+      --terra:   #C25F2A;
+      --saffron: #E8851A;
+      --gold:    #D4A24C;
+      --dark:    #1C1208;
+      --forest:  #2C4A2E;
+      --cream:   #FAF6EF;
+      --off:     #F2EDE4;
+      --text:    #3A2E1E;
+      --muted:   #7A6A55;
+      --white:   #FFFFFF;
     }
 
-    section, footer, .trust, .wrap {
-      width: 100%;
-      overflow: hidden;
-    }
+    body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); }
 
-    /* ── NAV ─────────────────────────────────────────────────── */
+    img { display:block; max-width:100%; }
+
+    /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px; height: 64px;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(232,133,26,0.12);
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 48px; height:68px;
+      background:rgba(28,18,8,0.82);
+      backdrop-filter:blur(24px) saturate(160%);
+      -webkit-backdrop-filter:blur(24px) saturate(160%);
     }
-    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--dark); text-decoration: none; }
-    .nav-logo span { color: var(--saffron); }
-    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
-    .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: var(--subtle); text-decoration: none; transition: color .2s; }
-    .nav-links a:hover { color: var(--saffron); }
-    .nav-cta { background: var(--saffron); color: #fff !important; padding: 8px 20px; border-radius: 100px; font-weight: 500 !important; transition: background .2s !important; }
-    .nav-cta:hover { background: var(--clay) !important; }
-    @media (max-width: 860px) { .nav-links li:not(:last-child) { display: none; } nav { padding: 0 20px; } }
+    .nav-logo {
+      font-family:'Cormorant Garamond',serif;
+      font-size:26px; font-weight:500; color:#fff;
+      text-decoration:none; letter-spacing:0.01em;
+      display:flex; flex-direction:column; line-height:1;
+    }
+    .nav-logo .sub { font-size:9px; letter-spacing:0.22em; color:var(--gold); font-family:'DM Sans',sans-serif; font-weight:400; text-transform:uppercase; margin-top:3px; }
+    .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+    .nav-links a { font-size:13px; letter-spacing:0.05em; color:rgba(255,255,255,0.75); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-btn {
+      background:var(--terra); color:#fff; padding:9px 22px;
+      border-radius:100px; font-size:13px; font-weight:600;
+      text-decoration:none; letter-spacing:0.04em;
+      transition:background .2s; white-space:nowrap;
+    }
+    .nav-btn:hover { background:var(--saffron); }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+    .hamburger span { width:24px; height:2px; background:#fff; border-radius:2px; transition:.3s; }
+    @media(max-width:860px) {
+      nav { padding:0 20px; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+    }
 
-    /* ── HERO ─────────────────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
-      background: var(--bg);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 5% 80px;
+      position:relative; min-height:100vh;
+      display:flex; align-items:flex-end;
+      overflow:hidden;
     }
-    .hero-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
-      align-items: center;
+    .hero-img {
+      position:absolute; inset:0; z-index:0;
+      background:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=1600&q=85&auto=format&fit=crop') center/cover no-repeat;
     }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(59,107,58,.07);
-      border: 1px solid rgba(59,107,58,.18);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--leaf);
-      margin-bottom: 28px;
+    .hero-img::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(20,10,2,0.90) 0%, rgba(20,10,2,0.45) 50%, rgba(20,10,2,0.15) 100%);
+    }
+    .hero-content {
+      position:relative; z-index:1;
+      width:100%; max-width:1160px; margin:0 auto;
+      padding:160px 48px 80px;
+    }
+    .hero-label {
+      display:inline-block; font-size:11px; letter-spacing:0.22em;
+      text-transform:uppercase; color:var(--gold);
+      border:1px solid rgba(212,162,76,0.4); border-radius:100px;
+      padding:5px 16px; margin-bottom:24px; font-weight:500;
     }
     .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(44px, 5.5vw, 76px);
-      font-weight: 300;
-      line-height: 1.08;
-      color: var(--dark);
-      margin-bottom: 24px;
-      letter-spacing: -.02em;
-    }
-    .hero h1 em { font-style: italic; color: var(--saffron); }
-    .hero .sub {
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--subtle);
-      max-width: 460px;
-      font-weight: 300;
-      margin-bottom: 36px;
-    }
-    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
-    .hero-img {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-width: 0;
-    }
-    .hero-img img {
-      width: 100%;
-      max-width: 420px;
-      height: auto;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,.10));
-      animation: floatIn 1s ease-out both;
-    }
-    @keyframes floatIn { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-    .text-side { animation: fadeUp .8s ease-out both; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-
-    /* ── BUTTONS ──────────────────────────────────────────────── */
-    .btn-primary, .btn-ghost, .btn-w, .btn-o {
-      display: inline-block; padding: 13px 30px; border-radius: 100px; font-size: 14px; font-weight: 500;
-      text-decoration: none; transition: all .2s; cursor: pointer; border: none; font-family: 'DM Sans', sans-serif;
-    }
-    .btn-primary { background: var(--saffron); color: #fff; }
-    .btn-primary:hover { background: var(--clay); transform: translateY(-1px); }
-    .btn-ghost { background: transparent; color: var(--dark); border: 1px solid rgba(26,26,26,.2); }
-    .btn-ghost:hover { border-color: var(--saffron); color: var(--saffron); }
-    .btn-w { background:#fff; color:var(--saffron); box-shadow:0 4px 20px rgba(0,0,0,.14); }
-    .btn-w:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.2); }
-    .btn-o { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.38); }
-    .btn-o:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.65); transform:translateY(-2px); }
-
-    /* ── HIGHLIGHTS BAR ───────────────────────────────────────── */
-    .trust {
-      background: var(--bg-alt);
-      border-top: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-      padding: 32px 40px;
-    }
-    .trust-inner {
-      max-width: 960px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: center;
-      gap: 40px; flex-wrap: wrap;
-    }
-    .trust .item { display:flex; align-items:center; gap:12px; }
-    .trust .item-icon {
-      width:48px; height:48px; border-radius:12px;
-      background:rgba(232,133,26,.10);
-      display:flex; align-items:center; justify-content:center;
-      font-size:22px; flex-shrink:0;
-    }
-    .trust .item-text strong { display:block; font-size:13px; font-weight:500; color:var(--dark); margin-bottom:2px; }
-    .trust .item-text span  { font-size:11px; color:var(--subtle); }
-
-    /* ── OUR STORY ────────────────────────────────────────────── */
-    .story { background: var(--bg); padding: 96px 40px; }
-    .story .inner {
-      max-width: 960px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1.1fr;
-      gap: 72px; align-items: center;
-    }
-    .visual {
-      border-radius: 24px; overflow: hidden; aspect-ratio: 4/5;
-      background: linear-gradient(145deg, var(--saffron) 0%, var(--clay) 55%, #7A2E0E 100%);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 32px 64px rgba(232,133,26,.18);
-      position: relative; min-width: 0;
-    }
-    .visual::before {
-      content:''; position:absolute; top:-32px; right:-32px;
-      width:160px; height:160px;
-      border:1px solid rgba(255,255,255,.15); border-radius:50%;
-    }
-    .visual-inner { text-align:center; color:#fff; padding:40px; position:relative; z-index:1; }
-    .visual-emoji { font-size:72px; margin-bottom:20px; display:block; }
-    .visual-quote {
       font-family:'Cormorant Garamond',serif;
-      font-size:22px; font-weight:300; font-style:italic;
-      line-height:1.5; opacity:.92;
+      font-size:clamp(52px,7vw,96px); font-weight:500; line-height:1.05;
+      color:#fff; margin-bottom:20px; letter-spacing:-0.01em;
     }
-    .eyebrow { font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--saffron); margin-bottom:12px; }
-    .story h2 {
+    .hero h1 em { font-style:italic; color:var(--gold); }
+    .hero p {
+      font-size:18px; color:rgba(255,255,255,0.78); max-width:520px;
+      line-height:1.6; margin-bottom:40px; font-weight:300;
+    }
+    .hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+    .btn-primary {
+      background:var(--terra); color:#fff;
+      padding:14px 32px; border-radius:100px;
+      font-size:14px; font-weight:600; letter-spacing:0.05em;
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+      transition:background .2s, transform .2s;
+    }
+    .btn-primary:hover { background:var(--saffron); transform:translateY(-2px); }
+    .btn-outline {
+      border:1.5px solid rgba(255,255,255,0.5); color:#fff;
+      padding:14px 32px; border-radius:100px;
+      font-size:14px; font-weight:500; letter-spacing:0.05em;
+      text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+      transition:border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color:#fff; background:rgba(255,255,255,0.08); }
+    .hero-trust {
+      position:absolute; bottom:0; left:0; right:0; z-index:1;
+      background:rgba(255,255,255,0.06); backdrop-filter:blur(12px);
+      border-top:1px solid rgba(255,255,255,0.1);
+      display:flex; justify-content:center; gap:0;
+    }
+    .trust-item {
+      display:flex; align-items:center; gap:10px;
+      padding:18px 40px; color:rgba(255,255,255,0.85);
+      font-size:13px; letter-spacing:0.04em; font-weight:400;
+      border-right:1px solid rgba(255,255,255,0.1);
+    }
+    .trust-item:last-child { border-right:none; }
+    .trust-icon { font-size:18px; }
+    @media(max-width:700px) {
+      .hero-content { padding:120px 20px 80px; }
+      .hero-trust { display:none; }
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-label {
+      font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+      color:var(--terra); font-weight:600; margin-bottom:12px; display:block;
+    }
+    .section-title {
       font-family:'Cormorant Garamond',serif;
-      font-size: clamp(32px,3.5vw,48px); font-weight:300; line-height:1.1;
-      color:var(--dark); margin-bottom:24px; letter-spacing:-.01em;
+      font-size:clamp(36px,4.5vw,56px); font-weight:500; line-height:1.12;
+      color:var(--dark); margin-bottom:16px; letter-spacing:-0.01em;
     }
-    .story h2 em { font-style:italic; color:var(--saffron); }
-    .pull {
+    .section-sub {
+      font-size:16px; color:var(--muted); line-height:1.65; max-width:560px; font-weight:300;
+    }
+    .section-head { margin-bottom:56px; }
+    .section-head.center { text-align:center; }
+    .section-head.center .section-sub { margin:0 auto; }
+
+    /* ── OUR STORY ── */
+    .story { background:var(--white); padding:100px 48px; }
+    .story-inner {
+      max-width:1160px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+    }
+    .story-img-wrap {
+      position:relative; border-radius:16px; overflow:hidden;
+      aspect-ratio:4/5;
+    }
+    .story-img-wrap img { width:100%; height:100%; object-fit:cover; }
+    .story-img-accent {
+      position:absolute; bottom:24px; right:-20px;
+      background:var(--forest); color:#fff;
+      padding:20px 24px; border-radius:12px;
       font-family:'Cormorant Garamond',serif;
-      font-size:20px; font-weight:300; font-style:italic;
-      color:var(--saffron); line-height:1.5;
-      border-left:2px solid var(--saffron); padding-left:20px; margin:28px 0;
+      font-size:15px; font-style:italic;
+      box-shadow:0 8px 32px rgba(0,0,0,0.2);
+      max-width:200px; line-height:1.4;
     }
-    .body-text { font-size:15px; font-weight:300; line-height:1.9; color:var(--subtle); margin-bottom:14px; }
-
-    /* ── SECTION SHARED ───────────────────────────────────────── */
-    .section-label { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--saffron); margin-bottom:14px; }
-    h2.sec { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,4.5vw,46px); font-weight:400; line-height:1.15; margin-bottom:18px; }
-    h2.sec em { color:var(--saffron); }
-    .section-intro { color:var(--subtle); font-size:16px; line-height:1.7; max-width:620px; margin-bottom:44px; }
-    .container { max-width:1080px; margin:0 auto; }
-
-    /* ── TIFFIN ───────────────────────────────────────────────── */
-    .tiffin-sec { background: var(--cream); padding: 90px 24px; }
-    .week-of { display:inline-block; background:rgba(232,133,26,.1); color:var(--clay); font-size:13px; padding:6px 16px; border-radius:100px; margin-bottom:20px; }
-    .tiffin-wrap { background:var(--warm-white); border-radius:20px; padding:8px; overflow-x:auto; border:1px solid var(--border); }
-    table.tiffin { width:100%; border-collapse:collapse; min-width:760px; }
-    table.tiffin th { font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--light); font-weight:500; text-align:left; padding:16px 14px 10px; border-bottom:1px solid var(--border); }
-    table.tiffin td { padding:14px; font-size:14px; color:var(--dark); border-bottom:1px solid var(--border); vertical-align:top; }
-    table.tiffin tr:last-child td { border-bottom:none; }
-    table.tiffin td.day { font-family:'Cormorant Garamond',serif; font-size:18px; color:var(--saffron); white-space:nowrap; }
-    .tiffin-meta { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px; margin-top:34px; }
-    .meta-card { background:var(--warm-white); border:1px solid var(--border); border-radius:16px; padding:24px; }
-    .meta-card h4 { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--leaf); margin-bottom:10px; }
-    .meta-card p { font-size:14px; color:var(--subtle); line-height:1.65; }
-    .meta-card .meta-price { font-family:'Cormorant Garamond',serif; font-size:30px; color:var(--dark); }
-    .meta-card .meta-price small { font-size:14px; color:var(--light); font-family:'DM Sans',sans-serif; }
-    .zone-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
-    .zone-pills span { background:rgba(59,107,58,.08); color:var(--leaf); font-size:13px; padding:5px 14px; border-radius:100px; }
-
-    /* ── CATERING ─────────────────────────────────────────────── */
-    .catering-sec { background:var(--bg-alt); padding:90px 24px; }
-    .cat-group { margin-bottom:36px; }
-    .cat-group h3 { font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--dark); margin-bottom:16px; }
-    .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
-    .dish { background:var(--bg); border:1px solid var(--border); border-radius:16px; padding:20px; }
-    .dish-top { display:flex; justify-content:space-between; gap:12px; margin-bottom:6px; }
-    .dish-top .name { font-weight:500; font-size:15px; }
-    .dish-top .dish-price { color:var(--saffron); font-weight:500; white-space:nowrap; font-size:15px; }
-    .dish .unit { font-size:12px; color:var(--light); margin-bottom:8px; }
-    .dish .desc { font-size:13.5px; color:var(--subtle); line-height:1.6; }
-    .dish-badges { margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
-    .dbadge { font-size:11px; padding:3px 10px; border-radius:100px; letter-spacing:.03em; }
-    .dbadge.spicy { background:rgba(194,95,42,.1); color:var(--clay); }
-    .dbadge.allergen { background:var(--mist); color:var(--subtle); }
-
-    /* ── SEASONAL ─────────────────────────────────────────────── */
-    .seasonal-sec { background:var(--bg); padding:90px 24px; }
-    .seasonal-box { background:linear-gradient(160deg,rgba(232,133,26,.07),rgba(244,196,74,.09)); border:1px solid rgba(232,133,26,.2); border-radius:24px; padding:44px; }
-    .seasonal-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; margin-top:18px; }
-    .seasonal-box .dish { background:rgba(254,252,248,.85); }
-    .occasion-tag { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--clay); margin-bottom:6px; }
-    .order-by { font-size:12px; color:var(--leaf); margin-top:8px; }
-
-    /* ── MENU (Google Sheets) ─────────────────────────────────── */
-    .menu-wrap { background: var(--bg-alt); padding: 80px 40px; }
-    .menu-inner { max-width: 980px; margin: 0 auto; }
-    .hdr { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:32px; }
-    .menu-wrap h2 {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(28px,3.5vw,44px); font-weight:300;
-      color:var(--dark); line-height:1.1; letter-spacing:-.01em;
-    }
-    .menu-wrap h2 em { font-style:italic; color:var(--saffron); }
-    .pill { display:flex; align-items:center; gap:7px; font-size:12px; color:var(--subtle); }
-    .dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
-    .dot-live    { background:#34C759; animation:blink 2s infinite; }
-    .dot-loading { background:var(--turmeric); animation:pulse .9s infinite; }
-    .dot-err     { background:#FF3B30; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.4)} }
-    .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
-    .tab {
-      padding:8px 20px; border-radius:100px; font-size:13px; font-weight:500;
-      cursor:pointer; border:1.5px solid var(--rule);
-      background:var(--bg); color:var(--subtle);
-      transition:all .2s; font-family:'DM Sans',sans-serif; white-space:nowrap;
-    }
-    .tab.on, .tab:hover { background:var(--saffron); color:#fff; border-color:var(--saffron); }
-    .grid {
-      display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
-      gap:2px; border-radius:18px; overflow:hidden;
-      box-shadow:0 1px 20px rgba(0,0,0,.07);
-    }
-    .card {
-      background:var(--bg); padding:24px;
-      display:flex; gap:14px; align-items:flex-start;
-      position:relative; overflow:hidden; transition:background .2s; min-width:0;
-    }
-    .card::before {
-      content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-      background:var(--saffron); transform:scaleY(0); transform-origin:top; transition:transform .25s;
-    }
-    .card:hover { background:#FFFBF5; }
-    .card:hover::before { transform:scaleY(1); }
-    .emoji {
-      width:48px; height:48px; border-radius:12px;
-      background:var(--bg-alt); display:flex; align-items:center;
-      justify-content:center; font-size:24px; flex-shrink:0; transition:transform .2s;
-    }
-    .card:hover .emoji { transform:scale(1.1); }
-    .card .cbody { flex:1; min-width:0; }
-    .card .cname { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:500; color:var(--dark); margin-bottom:4px; }
-    .card .cdesc { font-size:12.5px; line-height:1.65; color:var(--subtle); margin-bottom:12px; word-break:break-word; }
-    .card .cfoot { display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
-    .cprice { font-size:17px; font-weight:500; color:var(--saffron); }
-    .ctags  { display:flex; gap:4px; flex-wrap:wrap; }
-    .ctag   { font-size:9px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:4px; }
-    .tv { background:rgba(59,107,58,.08);  color:var(--leaf); }
-    .ts { background:rgba(194,95,42,.08);  color:var(--clay); }
-    .tn { background:rgba(232,133,26,.10); color:var(--saffron); }
-    .sk-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:2px; border-radius:18px; overflow:hidden; }
-    .sk-card { background:var(--bg); padding:24px; display:flex; gap:14px; }
-    .sk-e, .sk-l {
-      background:linear-gradient(90deg,#F5F5F7 25%,#FFFFFF 50%,#F5F5F7 75%);
-      background-size:200% 100%; animation:sh 1.4s infinite;
-    }
-    .sk-e { width:48px; height:48px; border-radius:12px; flex-shrink:0; }
-    .sk-b { flex:1; display:flex; flex-direction:column; gap:9px; margin-top:4px; }
-    .sk-l { height:11px; border-radius:5px; }
-    @keyframes sh { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-    .fbar { margin-top:16px; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
-    .fbar-txt { font-size:11px; color:var(--subtle); }
-    .refresh { font-size:11px; color:var(--saffron); background:none; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; padding:0; }
-    .refresh:hover { opacity:.7; }
-
-    /* ── HOW IT WORKS ─────────────────────────────────────────── */
-    .order-sec { background:var(--bg); padding:96px 40px; }
-    .order-sec .inner { max-width:900px; margin:0 auto; text-align:center; }
-    .order-sec .eyebrow { margin-bottom:12px; }
-    .order-sec h2 {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(32px,4vw,52px); font-weight:300;
-      color:var(--dark); margin-bottom:16px; letter-spacing:-.01em;
-    }
-    .order-sec h2 em { font-style:italic; color:var(--saffron); }
-    .order-sec .sub { font-size:16px; font-weight:300; line-height:1.75; color:var(--subtle); max-width:480px; margin:0 auto 64px; }
-    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .step {
-      background:var(--bg-alt); border:1px solid var(--rule);
-      border-radius:20px; padding:36px 28px;
-      position:relative; text-align:center;
-      transition:border-color .2s, transform .2s, box-shadow .2s;
-    }
-    .step:hover { border-color:rgba(232,133,26,.3); transform:translateY(-4px); box-shadow:0 16px 40px rgba(232,133,26,.08); }
-    .step-num {
-      position:absolute; top:-13px; left:50%; transform:translateX(-50%);
-      width:26px; height:26px; border-radius:50%;
-      background:var(--saffron); color:#fff;
-      font-size:11px; font-weight:600;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .step-icon { font-size:38px; margin-bottom:18px; display:block; }
-    .step h3 { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:500; color:var(--dark); margin-bottom:10px; }
-    .step p  { font-size:13px; line-height:1.75; color:var(--subtle); }
-
-    /* ── ORDER FORMS ──────────────────────────────────────────── */
-    .order-forms { background:var(--cream); padding:90px 24px; }
-    .order-wrap { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
-    .order-card { background:var(--warm-white); border:1px solid var(--border); border-radius:20px; padding:32px; }
-    .order-card h3 { font-family:'Cormorant Garamond',serif; font-size:27px; margin-bottom:6px; }
-    .order-card > p { font-size:14px; color:var(--subtle); margin-bottom:22px; }
-    .field { margin-bottom:16px; }
-    .field label { display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--light); margin-bottom:6px; }
-    .field input, .field select, .field textarea {
-      width:100%; padding:11px 14px; border:1px solid rgba(26,26,26,.15); border-radius:10px;
-      font-family:'DM Sans',sans-serif; font-size:14px; background:var(--warm-white); color:var(--dark);
-    }
-    .field textarea { resize:vertical; min-height:64px; }
-    .field input:focus, .field select:focus, .field textarea:focus { outline:none; border-color:var(--saffron); }
-    .field-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .order-btns { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
-
-    /* ── REVIEWS ──────────────────────────────────────────────── */
-    .reviews-wrap { background:var(--bg-alt); padding:96px 40px; }
-    .reviews-inner { max-width:980px; margin:0 auto; }
-    .reviews-wrap h2 {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(28px,3.5vw,44px); font-weight:300;
-      color:var(--dark); line-height:1.1; margin-bottom:8px; letter-spacing:-.01em;
-    }
-    .reviews-wrap h2 em { font-style:italic; color:var(--saffron); }
-    .reviews-wrap .sub { font-size:15px; font-weight:300; line-height:1.75; color:var(--subtle); margin-bottom:12px; }
-    .reviews-wrap .pill { display:inline-flex; align-items:center; gap:7px; font-size:12px; color:var(--subtle); margin-bottom:40px; }
-    .r-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:16px; }
-    .r-card {
-      background:var(--bg); border:1px solid var(--rule);
-      border-radius:18px; padding:28px;
-      transition:border-color .2s, box-shadow .2s; min-width:0;
-    }
-    .r-card:hover { border-color:rgba(232,133,26,.3); box-shadow:0 8px 24px rgba(232,133,26,.07); }
-    .stars { color:var(--saffron); font-size:13px; letter-spacing:2px; margin-bottom:14px; }
-    .r-text {
-      font-family:'Cormorant Garamond',serif;
-      font-size:17px; font-weight:300; font-style:italic;
-      line-height:1.65; color:var(--dark); margin-bottom:22px; word-break:break-word;
-    }
-    .author { display:flex; align-items:center; gap:12px; }
-    .avatar {
-      width:38px; height:38px; border-radius:50%; flex-shrink:0;
-      background:linear-gradient(135deg,var(--saffron),var(--clay));
-      display:flex; align-items:center; justify-content:center;
-      font-size:13px; font-weight:600; color:#fff;
-    }
-    .aname { font-size:13px; font-weight:500; color:var(--dark); }
-    .aloc  { font-size:11px; color:var(--subtle); margin-top:2px; }
-    .adate { font-size:10px; color:var(--rule); margin-top:1px; }
-    .rsk-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:16px; }
-    .rsk-card { background:var(--bg); border:1px solid var(--rule); border-radius:18px; padding:28px; }
-    .rsk-l {
-      height:12px; border-radius:6px; margin-bottom:10px;
-      background:linear-gradient(90deg,#F5F5F7 25%,#fff 50%,#F5F5F7 75%);
-      background-size:200% 100%; animation:sk 1.4s infinite;
-    }
-    @keyframes sk { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-    /* ── PAYMENT ──────────────────────────────────────────────── */
-    .payment-sec { background:var(--bg); padding:90px 24px; }
-    .info-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
-    .pay-card { background:var(--warm-white); border:1px solid var(--border); border-radius:16px; padding:26px; }
-    .pay-card h4 { font-size:14px; margin-bottom:8px; }
-    .pay-card .handle { font-family:'Cormorant Garamond',serif; font-size:21px; color:var(--saffron); word-break:break-all; }
-    .pay-card p { font-size:13.5px; color:var(--subtle); line-height:1.6; margin-top:8px; }
-    .allergy-box { margin-top:30px; background:rgba(194,95,42,.06); border:1px solid rgba(194,95,42,.25); border-radius:16px; padding:28px; }
-    .allergy-box h4 { color:var(--clay); font-size:14px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:10px; }
-    .allergy-box p { font-size:14px; color:var(--subtle); line-height:1.75; }
-
-    /* ── CTA ──────────────────────────────────────────────────── */
-    .cta {
-      background: linear-gradient(135deg, var(--saffron) 0%, var(--clay) 60%, #7A2E0E 100%);
-      padding: 80px 40px; text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .cta::before {
-      content:''; position:absolute; inset:0;
-      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30 L35 20 L40 30 L35 40 Z' fill='white' fill-opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events:none;
-    }
-    .cta-inner { position:relative; z-index:1; max-width:560px; margin:0 auto; }
-    .cta .eyebrow { color:rgba(255,255,255,.65); margin-bottom:14px; }
-    .cta h2 {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(32px,5vw,56px); font-weight:300; color:#fff;
-      line-height:1.1; margin-bottom:18px; letter-spacing:-.01em;
-    }
-    .cta h2 em { font-style:italic; opacity:.85; }
-    .cta .sub { font-size:16px; font-weight:300; line-height:1.75; color:rgba(255,255,255,.68); margin-bottom:44px; }
-    .btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-
-    /* ── FOOTER ───────────────────────────────────────────────── */
-    .footer {
-      background: var(--dark);
-      border-top: 1px solid var(--rule);
-      padding: 60px 40px 40px;
-    }
-    .footer .inner { max-width:960px; margin:0 auto; }
-    .footer .top { display:grid; grid-template-columns:2fr 1fr 1fr; gap:48px; margin-bottom:48px; }
-    .brand-name { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:500; color:#fff; margin-bottom:12px; display:block; }
-    .brand-name em { font-style:normal; color:var(--saffron); }
-    .brand-desc { font-size:13px; line-height:1.75; color:rgba(255,255,255,.4); max-width:240px; }
-    .col h4 { font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.3); margin-bottom:18px; }
-    .col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .col a  { font-size:13px; color:rgba(255,255,255,.55); text-decoration:none; transition:color .2s; }
-    .col a:hover { color:var(--turmeric); }
-    .divider { border:none; border-top:1px solid rgba(255,255,255,.08); margin-bottom:24px; }
-    .bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
-    .copy { font-size:11px; color:rgba(255,255,255,.3); }
-    .hidden { display:none !important; }
-    .load-error { text-align:center; padding:40px; color:var(--subtle); font-size:14px; }
-
-    /* ── MOBILE ───────────────────────────────────────────────── */
-    @media (max-width: 860px) {
-      .order-wrap { grid-template-columns:1fr; }
-    }
-    @media (max-width: 768px) {
-      .hero { padding:100px 20px 60px; min-height:auto; }
-      .hero-inner { grid-template-columns:1fr; text-align:center; gap:32px; }
-      .text-side { display:flex; flex-direction:column; align-items:center; }
-      .hero-img { order:-1; }
-      .hero-img img { max-width:220px; }
-      .trust { padding:24px 20px; }
-      .trust-inner { gap:20px; justify-content:flex-start; }
-      .trust .item { flex:0 0 calc(50% - 10px); }
+    .story-img-accent strong { display:block; font-style:normal; font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; font-family:'DM Sans',sans-serif; font-weight:500; }
+    .story-text .section-title { margin-bottom:24px; }
+    .story-text p { font-size:16px; color:var(--muted); line-height:1.75; margin-bottom:20px; font-weight:300; }
+    .story-text p strong { color:var(--text); font-weight:500; }
+    .story-sig { font-family:'Cormorant Garamond',serif; font-size:28px; font-style:italic; color:var(--terra); margin-top:32px; }
+    @media(max-width:860px) {
+      .story-inner { grid-template-columns:1fr; gap:40px; }
       .story { padding:60px 20px; }
-      .story .inner { grid-template-columns:1fr; gap:36px; }
-      .visual { aspect-ratio:16/9; }
-      .visual-emoji { font-size:48px; margin-bottom:12px; }
-      .visual-quote { font-size:16px; }
-      .tiffin-sec, .catering-sec, .seasonal-sec, .order-forms, .payment-sec { padding:60px 20px; }
-      .seasonal-box { padding:28px 20px; }
-      .menu-wrap { padding:56px 20px; }
-      .hdr { flex-direction:column; align-items:flex-start; gap:12px; }
-      .tabs { gap:6px; }
-      .tab { padding:7px 16px; font-size:12px; }
-      .grid    { grid-template-columns:1fr; }
-      .sk-grid { grid-template-columns:1fr; }
-      .order-sec { padding:60px 20px; }
-      .order-sec .sub { margin-bottom:40px; }
-      .steps { grid-template-columns:1fr; gap:28px; }
-      .reviews-wrap { padding:60px 20px; }
-      .r-grid   { grid-template-columns:1fr; }
-      .rsk-grid { grid-template-columns:1fr; }
-      .cta { padding:60px 20px; }
-      .btns { flex-direction:column; align-items:center; }
-      .btn-w, .btn-o { width:100%; max-width:280px; text-align:center; }
-      .footer { padding:48px 20px 32px; }
-      .footer .top { grid-template-columns:1fr; gap:32px; }
-      .cat-grid { grid-template-columns:1fr; }
-      .seasonal-grid { grid-template-columns:1fr; }
-      .field-row { grid-template-columns:1fr; }
+      .story-img-accent { right:20px; }
     }
-    @media (max-width: 400px) {
-      .trust .item { flex:0 0 100%; }
-      .hero h1 { font-size:38px; }
+
+    /* ── MENU CATEGORIES ── */
+    .menu-cats { background:var(--cream); padding:100px 48px; }
+    .menu-cats-inner { max-width:1160px; margin:0 auto; }
+    .cats-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
     }
+    .cat-card {
+      position:relative; border-radius:14px; overflow:hidden;
+      aspect-ratio:3/4; cursor:pointer;
+      transition:transform .3s;
+    }
+    .cat-card:hover { transform:translateY(-6px); }
+    .cat-card img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+    .cat-card:hover img { transform:scale(1.06); }
+    .cat-card::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(20,10,2,0.88) 0%, rgba(20,10,2,0.1) 55%, transparent 100%);
+    }
+    .cat-info {
+      position:absolute; bottom:0; left:0; right:0; z-index:1;
+      padding:24px 20px;
+    }
+    .cat-info h3 {
+      font-family:'Cormorant Garamond',serif;
+      font-size:22px; font-weight:500; color:#fff;
+      letter-spacing:0.02em; margin-bottom:4px;
+    }
+    .cat-info p { font-size:12px; color:rgba(255,255,255,0.7); letter-spacing:0.05em; }
+    .cat-arrow { font-size:11px; color:var(--gold); letter-spacing:0.08em; margin-top:8px; display:block; }
+    @media(max-width:860px) {
+      .cats-grid { grid-template-columns:repeat(2,1fr); }
+      .menu-cats { padding:60px 20px; }
+    }
+    @media(max-width:500px) { .cats-grid { grid-template-columns:1fr 1fr; gap:12px; } }
+
+    /* ── TIFFIN ── */
+    .tiffin-section { background:var(--forest); padding:100px 48px; }
+    .tiffin-inner { max-width:1160px; margin:0 auto; }
+    .tiffin-section .section-label { color:var(--gold); }
+    .tiffin-section .section-title { color:#fff; }
+    .tiffin-section .section-sub { color:rgba(255,255,255,0.65); }
+    .tiffin-layout { display:grid; grid-template-columns:1fr 380px; gap:60px; align-items:start; }
+    .tiffin-table-wrap { overflow-x:auto; }
+    table.tiffin-tbl {
+      width:100%; border-collapse:collapse;
+      font-size:14px; color:rgba(255,255,255,0.85);
+    }
+    table.tiffin-tbl th {
+      text-align:left; padding:10px 14px;
+      font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--gold); font-weight:500;
+      border-bottom:1px solid rgba(255,255,255,0.12);
+    }
+    table.tiffin-tbl td {
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      vertical-align:top;
+    }
+    table.tiffin-tbl tr:hover td { background:rgba(255,255,255,0.04); }
+    table.tiffin-tbl .day-cell {
+      font-weight:500; color:#fff; white-space:nowrap;
+    }
+    table.tiffin-tbl .sweet-cell { color:var(--gold); }
+    .tiffin-card {
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:16px; padding:32px;
+    }
+    .tiffin-card h3 {
+      font-family:'Cormorant Garamond',serif;
+      font-size:28px; color:#fff; font-weight:500; margin-bottom:8px;
+    }
+    .tiffin-card .price-line { color:var(--gold); font-size:15px; margin-bottom:24px; }
+    .tiffin-card .price-line strong { font-size:36px; font-family:'Cormorant Garamond',serif; font-weight:500; }
+    .tiffin-card ul { list-style:none; margin-bottom:28px; }
+    .tiffin-card ul li {
+      display:flex; align-items:flex-start; gap:10px;
+      padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.08);
+      font-size:14px; color:rgba(255,255,255,0.75);
+    }
+    .tiffin-card ul li:last-child { border-bottom:none; }
+    .tiffin-card ul li .li-dot { color:var(--gold); font-size:16px; margin-top:1px; flex-shrink:0; }
+    .tiffin-card .btn-gold {
+      display:block; text-align:center;
+      background:var(--gold); color:var(--dark);
+      padding:13px 24px; border-radius:100px;
+      font-size:14px; font-weight:600; letter-spacing:0.05em;
+      text-decoration:none; transition:opacity .2s;
+    }
+    .tiffin-card .btn-gold:hover { opacity:0.88; }
+    @media(max-width:860px) {
+      .tiffin-layout { grid-template-columns:1fr; }
+      .tiffin-section { padding:60px 20px; }
+    }
+
+    /* ── OCCASIONS ── */
+    .occasions { background:var(--white); padding:100px 48px; }
+    .occasions-inner { max-width:1160px; margin:0 auto; }
+    .occ-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+    }
+    .occ-card {
+      position:relative; border-radius:14px; overflow:hidden;
+      aspect-ratio:1/1; cursor:pointer;
+      transition:transform .3s;
+    }
+    .occ-card:hover { transform:translateY(-4px); }
+    .occ-card img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+    .occ-card:hover img { transform:scale(1.06); }
+    .occ-card::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(20,10,2,0.82) 0%, rgba(20,10,2,0.05) 60%);
+    }
+    .occ-info {
+      position:absolute; bottom:0; left:0; right:0; z-index:1;
+      padding:20px 18px;
+    }
+    .occ-icon { font-size:20px; margin-bottom:6px; display:block; }
+    .occ-info h3 {
+      font-size:16px; font-weight:500; color:#fff;
+      letter-spacing:0.02em;
+    }
+    .occ-cta { padding:56px 0 0; text-align:center; }
+    .occ-cta p { font-size:16px; color:var(--muted); }
+    .occ-cta a { color:var(--terra); font-weight:500; text-decoration:none; }
+    .occ-cta a:hover { text-decoration:underline; }
+    @media(max-width:860px) {
+      .occ-grid { grid-template-columns:repeat(2,1fr); }
+      .occasions { padding:60px 20px; }
+    }
+
+    /* ── CATERING MENU ── */
+    .catering-section { background:var(--off); padding:100px 48px; }
+    .catering-inner { max-width:1160px; margin:0 auto; }
+    .cat-tabs {
+      display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px;
+    }
+    .cat-tab {
+      padding:8px 20px; border-radius:100px; font-size:13px;
+      border:1.5px solid rgba(44,74,46,0.25); background:transparent;
+      color:var(--text); cursor:pointer; transition:.2s; font-weight:500;
+      font-family:'DM Sans',sans-serif;
+    }
+    .cat-tab.active, .cat-tab:hover { background:var(--forest); color:#fff; border-color:var(--forest); }
+    .dish-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    }
+    .dish-card {
+      background:var(--white); border-radius:12px; padding:22px;
+      border:1px solid rgba(0,0,0,0.06);
+      transition:box-shadow .2s;
+    }
+    .dish-card:hover { box-shadow:0 8px 32px rgba(0,0,0,0.08); }
+    .dish-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px; }
+    .dish-name { font-size:15px; font-weight:500; color:var(--dark); line-height:1.3; }
+    .dish-price { font-size:15px; font-weight:600; color:var(--terra); white-space:nowrap; }
+    .dish-unit { font-size:11px; color:var(--muted); display:block; text-align:right; margin-top:2px; }
+    .dish-desc { font-size:13px; color:var(--muted); line-height:1.55; margin-bottom:10px; }
+    .dish-tags { display:flex; gap:6px; flex-wrap:wrap; }
+    .dish-tag {
+      font-size:10px; padding:3px 9px; border-radius:100px;
+      font-weight:500; letter-spacing:0.04em;
+    }
+    .tag-spicy { background:#FDECEA; color:#C0392B; }
+    .tag-contains { background:#EFF3EE; color:var(--forest); }
+    @media(max-width:860px) {
+      .dish-grid { grid-template-columns:1fr; }
+      .catering-section { padding:60px 20px; }
+    }
+
+    /* ── TESTIMONIAL ── */
+    .testimonial { background:var(--forest); padding:100px 48px; overflow:hidden; }
+    .testimonial-inner {
+      max-width:1160px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+    }
+    .test-text blockquote {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(30px,3.5vw,46px); font-weight:400; line-height:1.3;
+      color:#fff; font-style:italic; margin-bottom:32px;
+    }
+    .test-text blockquote::before { content:'\201C'; color:var(--gold); font-size:1.4em; line-height:0; vertical-align:-0.3em; margin-right:4px; }
+    .stars { color:var(--gold); font-size:18px; margin-bottom:12px; letter-spacing:2px; }
+    .test-by { font-size:13px; color:rgba(255,255,255,0.6); letter-spacing:0.08em; }
+    .test-by strong { color:rgba(255,255,255,0.9); font-weight:500; }
+    .test-img { border-radius:16px; overflow:hidden; aspect-ratio:5/6; }
+    .test-img img { width:100%; height:100%; object-fit:cover; }
+    @media(max-width:860px) {
+      .testimonial-inner { grid-template-columns:1fr; }
+      .test-img { aspect-ratio:16/9; }
+      .testimonial { padding:60px 20px; }
+    }
+
+    /* ── REVIEWS GRID ── */
+    .reviews-section { background:var(--cream); padding:100px 48px; }
+    .reviews-inner { max-width:1160px; margin:0 auto; }
+    .reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+    .review-card {
+      background:var(--white); border-radius:12px; padding:28px;
+      border:1px solid rgba(0,0,0,0.06);
+    }
+    .review-stars { color:var(--gold); font-size:14px; letter-spacing:2px; margin-bottom:14px; }
+    .review-text { font-size:15px; color:var(--text); line-height:1.65; font-style:italic; margin-bottom:18px; font-weight:300; }
+    .review-by { font-size:13px; color:var(--muted); }
+    .review-by strong { color:var(--text); font-weight:500; }
+    .review-skeleton { background:var(--off); border-radius:12px; padding:28px; }
+    .skel-line { background:linear-gradient(90deg,#e2ddd6 25%,#ede8e0 50%,#e2ddd6 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; border-radius:6px; margin-bottom:10px; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    @media(max-width:860px) {
+      .reviews-grid { grid-template-columns:1fr; }
+      .reviews-section { padding:60px 20px; }
+    }
+
+    /* ── GALLERY ── */
+    .gallery { background:var(--white); padding:100px 48px; }
+    .gallery-inner { max-width:1160px; margin:0 auto; }
+    .gallery-strip {
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1fr 2fr;
+      gap:12px; height:320px;
+    }
+    .gallery-strip .g-img { border-radius:10px; overflow:hidden; }
+    .gallery-strip .g-img img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+    .gallery-strip .g-img:hover img { transform:scale(1.06); }
+    @media(max-width:860px) {
+      .gallery-strip { grid-template-columns:repeat(3,1fr); height:auto; }
+      .gallery-strip .g-img { aspect-ratio:1/1; }
+      .gallery { padding:60px 20px; }
+    }
+    @media(max-width:500px) { .gallery-strip { grid-template-columns:repeat(2,1fr); } }
+
+    /* ── ORDER ── */
+    .order-section { background:var(--off); padding:100px 48px; }
+    .order-inner { max-width:1160px; margin:0 auto; }
+    .order-tabs { display:flex; gap:0; margin-bottom:40px; border:1.5px solid var(--forest); border-radius:100px; overflow:hidden; width:fit-content; }
+    .order-tab {
+      padding:10px 32px; font-size:14px; font-weight:500;
+      background:transparent; color:var(--forest);
+      border:none; cursor:pointer; transition:.2s; font-family:'DM Sans',sans-serif;
+    }
+    .order-tab.active { background:var(--forest); color:#fff; }
+    .order-panel { display:none; }
+    .order-panel.active { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+    .order-form-group { display:flex; flex-direction:column; gap:4px; margin-bottom:18px; }
+    .order-form-group label { font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); font-weight:500; }
+    .order-form-group input, .order-form-group select, .order-form-group textarea {
+      padding:12px 16px; border:1.5px solid rgba(0,0,0,0.12);
+      border-radius:10px; font-size:14px; font-family:'DM Sans',sans-serif;
+      background:var(--white); color:var(--dark); outline:none;
+      transition:border-color .2s;
+    }
+    .order-form-group input:focus, .order-form-group select:focus, .order-form-group textarea:focus { border-color:var(--forest); }
+    .order-form-group textarea { resize:vertical; min-height:80px; }
+    .form-send-btns { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+    .btn-wa {
+      display:inline-flex; align-items:center; gap:8px;
+      background:#25D366; color:#fff;
+      padding:12px 24px; border-radius:100px;
+      font-size:14px; font-weight:600; text-decoration:none;
+      transition:opacity .2s;
+    }
+    .btn-wa:hover { opacity:0.88; }
+    .btn-email {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--terra); color:#fff;
+      padding:12px 24px; border-radius:100px;
+      font-size:14px; font-weight:600; text-decoration:none;
+      transition:opacity .2s;
+    }
+    .btn-email:hover { opacity:0.88; }
+    .order-info-box { background:var(--white); border-radius:14px; padding:32px; border:1px solid rgba(0,0,0,0.06); }
+    .order-info-box h3 { font-family:'Cormorant Garamond',serif; font-size:24px; margin-bottom:20px; color:var(--dark); font-weight:500; }
+    .info-row { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid rgba(0,0,0,0.05); font-size:14px; }
+    .info-row:last-child { border-bottom:none; }
+    .info-icon { font-size:18px; flex-shrink:0; }
+    .info-label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:3px; font-weight:500; }
+    .info-val { color:var(--text); line-height:1.45; }
+    @media(max-width:860px) {
+      .order-panel.active { grid-template-columns:1fr; }
+      .order-section { padding:60px 20px; }
+    }
+
+    /* ── PAYMENT ── */
+    .payment-section { background:var(--dark); padding:80px 48px; }
+    .payment-inner { max-width:1160px; margin:0 auto; }
+    .payment-section .section-title { color:#fff; }
+    .payment-section .section-label { color:var(--gold); }
+    .payment-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+    .pay-card {
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:14px; padding:28px; text-align:center;
+    }
+    .pay-icon { font-size:32px; margin-bottom:12px; }
+    .pay-card h3 { font-size:16px; color:#fff; font-weight:500; margin-bottom:8px; }
+    .pay-card p { font-size:14px; color:rgba(255,255,255,0.55); margin-bottom:12px; }
+    .pay-handle { font-size:15px; color:var(--gold); font-weight:500; word-break:break-all; }
+    .pay-note { text-align:center; margin-top:32px; font-size:13px; color:rgba(255,255,255,0.4); line-height:1.6; max-width:600px; margin-left:auto; margin-right:auto; }
+    @media(max-width:860px) {
+      .payment-grid { grid-template-columns:1fr; }
+      .payment-section { padding:60px 20px; }
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      position:relative; padding:100px 48px; overflow:hidden;
+      background:url('https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=1400&q=80&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .cta-banner::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(44,74,46,0.92) 0%, rgba(28,18,8,0.88) 100%);
+    }
+    .cta-content { position:relative; z-index:1; text-align:center; max-width:680px; margin:0 auto; }
+    .cta-content .section-label { color:var(--gold); display:block; margin-bottom:16px; }
+    .cta-content h2 {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(36px,5vw,64px); color:#fff; font-weight:500; margin-bottom:20px; line-height:1.1;
+    }
+    .cta-content p { font-size:16px; color:rgba(255,255,255,0.72); margin-bottom:40px; line-height:1.6; font-weight:300; }
+    .cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    @media(max-width:700px) { .cta-banner { padding:70px 20px; } }
+
+    /* ── FOOTER ── */
+    footer {
+      background:var(--dark); padding:56px 48px 32px;
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .footer-inner {
+      max-width:1160px; margin:0 auto;
+      display:grid; grid-template-columns:2fr 1fr 1fr; gap:60px;
+      padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand .logo {
+      font-family:'Cormorant Garamond',serif;
+      font-size:28px; font-weight:500; color:#fff; margin-bottom:4px;
+    }
+    .footer-brand .logo-sub { font-size:10px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:18px; }
+    .footer-brand p { font-size:14px; color:rgba(255,255,255,0.45); line-height:1.65; max-width:300px; font-weight:300; }
+    .footer-col h4 { font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); font-weight:500; margin-bottom:20px; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:10px; }
+    .footer-col ul li a { font-size:14px; color:rgba(255,255,255,0.5); text-decoration:none; transition:color .2s; }
+    .footer-col ul li a:hover { color:rgba(255,255,255,0.9); }
+    .footer-col p { font-size:14px; color:rgba(255,255,255,0.5); line-height:1.65; }
+    .footer-bottom {
+      max-width:1160px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      padding-top:28px; font-size:12px; color:rgba(255,255,255,0.25);
+    }
+    @media(max-width:860px) {
+      .footer-inner { grid-template-columns:1fr 1fr; gap:40px; }
+      footer { padding:48px 20px 24px; }
+    }
+    @media(max-width:560px) { .footer-inner { grid-template-columns:1fr; } }
+
+    /* ── ALLERGY BANNER ── */
+    .allergy-banner { background:var(--off); padding:20px 48px; }
+    .allergy-inner { max-width:1160px; margin:0 auto; display:flex; align-items:flex-start; gap:12px; }
+    .allergy-icon { font-size:20px; flex-shrink:0; margin-top:1px; }
+    .allergy-inner p { font-size:13px; color:var(--muted); line-height:1.55; }
+    @media(max-width:700px) { .allergy-banner { padding:16px 20px; } }
   </style>
 </head>
 <body>
 
-  <!-- ══ NAV ══════════════════════════════════════════════════ -->
-  <nav>
-    <a class="nav-logo" href="#">Chaitrali's <span>Kitchen</span></a>
-    <ul class="nav-links">
-      <li><a href="#tiffin">Tiffin</a></li>
-      <li><a href="#catering">Catering</a></li>
-      <li><a href="#menu">Menu</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#payment">Payment</a></li>
-      <li><a href="#order-forms" class="nav-cta">Order Now</a></li>
-    </ul>
-  </nav>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    Chaitrali's
+    <span class="sub">Kitchen</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#tiffin">Tiffin</a></li>
+    <li><a href="#catering">Catering</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#order" class="nav-btn">Request a Quote →</a></li>
+  </ul>
+  <div class="hamburger" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='flex'?'none':'flex'">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-  <!-- ══ 1. HERO ═══════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div class="text-side">
-        <div class="badge">🌿 Homemade · Pure Veg · Marathi Touch</div>
-        <h1>Ghara-sarkhi chav,<br><em>Marathi</em> touch</h1>
-        <p class="sub">Weekly tiffin and festive catering made from scratch — varan-bhaat with toop, puran poli, modak and everything that tastes like aaji's kitchen.</p>
-        <div class="hero-ctas">
-          <a href="#tiffin" class="btn-primary">This Week's Tiffin</a>
-          <a href="#catering" class="btn-ghost">Catering Menu</a>
-        </div>
-      </div>
-      <div class="hero-img">
-        <img src="https://drive.google.com/thumbnail?id=1-wQE4Z1PcPcjq8rys7IfwKNSMznDvqIX&sz=w800"
-             alt="Chaitrali's Kitchen Logo"
-             onerror="this.style.display='none'">
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ 2. HIGHLIGHTS BAR ══════════════════════════════════════ -->
-  <div class="trust">
-    <div class="trust-inner">
-      <div class="item"><div class="item-icon">🌿</div><div class="item-text"><strong>100% Pure Veg</strong><span>No meat, no eggs, ever</span></div></div>
-      <div class="item"><div class="item-icon">🫙</div><div class="item-text"><strong>Fresh Spices</strong><span>Ground in-house daily</span></div></div>
-      <div class="item"><div class="item-icon">🤍</div><div class="item-text"><strong>Made to Order</strong><span>Never pre-cooked</span></div></div>
-      <div class="item"><div class="item-icon">📦</div><div class="item-text"><strong>Local Delivery</strong><span>Greater Quincy area</span></div></div>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <span class="hero-label">✦ Pure Veg · Homemade · Marathi</span>
+    <h1>Authentic Flavors,<br><em>Beautifully</em> Prepared.</h1>
+    <p>Homemade with love. Crafted for your special moments — from daily tiffin to grand celebrations.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">Explore Menu →</a>
+      <a href="#order" class="btn-outline">Plan Your Event →</a>
     </div>
   </div>
+  <div class="hero-trust">
+    <div class="trust-item"><span class="trust-icon">🌿</span>100% Pure Vegetarian</div>
+    <div class="trust-item"><span class="trust-icon">🏡</span>Homemade in Quincy, MA</div>
+    <div class="trust-item"><span class="trust-icon">🛵</span>Delivery to 4 Cities</div>
+    <div class="trust-item"><span class="trust-icon">⭐</span>5-Star Rated</div>
+  </div>
+</section>
 
-  <!-- ══ 3. OUR STORY ══════════════════════════════════════════ -->
-  <section class="story">
-    <div class="inner">
-      <div class="visual">
-        <div class="visual-inner">
-          <span class="visual-emoji">🫕</span>
-          <div class="visual-quote">"Every dish carries<br>a memory from home."</div>
+<!-- OUR STORY -->
+<section class="story" id="story">
+  <div class="story-inner">
+    <div class="story-img-wrap">
+      <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=900&q=85&auto=format&fit=crop" alt="Chaitrali cooking" loading="lazy">
+      <div class="story-img-accent">
+        <strong>Serving Since</strong>
+        "Aaji chi recipe, aajchi chav"
+      </div>
+    </div>
+    <div class="story-text">
+      <span class="section-label">Our Kitchen</span>
+      <h2 class="section-title">Food that feels<br>like home.</h2>
+      <p>At Chaitrali's Kitchen, every dish is prepared with the warmth of home cooking and the attention to detail your special occasions deserve. Born from a love of <strong>authentic Marathi cuisine</strong>, each meal carries the flavors of Maharashtra — from varan-bhaat to puran poli.</p>
+      <p>We cook with no shortcuts, no artificial preservatives, and absolutely <strong>no meat or eggs — ever</strong>. Just pure vegetarian food the way it was meant to taste.</p>
+      <p>Based in <strong>Quincy, MA</strong>, we serve the greater South Shore — bringing the warmth of an Indian kitchen to your table every week.</p>
+      <div class="story-sig">— Chaitrali</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU CATEGORIES -->
+<section class="menu-cats" id="menu">
+  <div class="menu-cats-inner">
+    <div class="section-head center">
+      <span class="section-label">Explore Our Menu</span>
+      <h2 class="section-title">A taste of Maharashtra</h2>
+      <p class="section-sub">From everyday comfort food to festive spreads — all cooked fresh with authentic Marathi spices.</p>
+    </div>
+    <div class="cats-grid">
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80&auto=format&fit=crop" alt="Maharashtrian food" loading="lazy">
+        <div class="cat-info">
+          <h3>Maharashtrian</h3>
+          <p>Traditional favorites</p>
+          <span class="cat-arrow">Explore →</span>
         </div>
       </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=600&q=80&auto=format&fit=crop" alt="North Indian" loading="lazy">
+        <div class="cat-info">
+          <h3>Tiffin Meals</h3>
+          <p>Weekly home-cooked lunch</p>
+          <span class="cat-arrow">See this week →</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&q=80&auto=format&fit=crop" alt="Snacks and chaat" loading="lazy">
+        <div class="cat-info">
+          <h3>Snacks & Starters</h3>
+          <p>Perfect for gatherings</p>
+          <span class="cat-arrow">Explore →</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1571502253271-d0bf0c7c6a4a?w=600&q=80&auto=format&fit=crop" alt="Sweets" loading="lazy">
+        <div class="cat-info">
+          <h3>Sweets & Desserts</h3>
+          <p>A sweet ending</p>
+          <span class="cat-arrow">Explore →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIFFIN -->
+<section class="tiffin-section" id="tiffin">
+  <div class="tiffin-inner">
+    <div class="section-head" style="margin-bottom:48px;">
+      <span class="section-label">Weekly Tiffin Service</span>
+      <h2 class="section-title" style="color:#fff;">This week's menu</h2>
+      <p class="section-sub">Fresh, home-cooked Marathi lunch delivered Monday–Friday. Order by 8 PM the previous day.</p>
+    </div>
+    <div class="tiffin-layout">
       <div>
-        <div class="eyebrow">Our Story</div>
-        <h2>Cooking is <em>Chaitrali's</em><br>love language</h2>
-        <div class="pull">"Food is the thread that connects us to our roots."</div>
-        <p class="body-text">Born and raised in India, Chaitrali has been cooking since she was old enough to stand at the stove. Her kitchen is where old Marathi recipes meet a new home — where the scent of cardamom, turmeric, and ghee tells the story of generations.</p>
-        <p class="body-text">Every meal is prepared to order, by hand, with ingredients sourced fresh. No shortcuts. No compromises. Just real Indian food, the way it was always meant to taste.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ 4. TIFFIN (from data/menu.json) ═══════════════════════ -->
-  <section class="tiffin-sec" id="tiffin">
-    <div class="container">
-      <div class="section-label">Weekly Tiffin</div>
-      <h2 class="sec">This Week's <em>Tiffin</em> Menu</h2>
-      <p class="section-intro">A fresh, balanced Marathi ghar-gutti meal every day — bhaji, amti or varan, rice, soft polya, koshimbir and sometimes a little sweet surprise.</p>
-      <div class="week-of hidden" id="week-of"></div>
-      <div class="tiffin-wrap">
-        <table class="tiffin">
-          <thead>
-            <tr><th>Day</th><th>Bhaji / Sabzi</th><th>Amti / Dal</th><th>Rice</th><th>Poli</th><th>Koshimbir / Side</th><th>Sweet</th></tr>
-          </thead>
-          <tbody id="tiffin-body">
-            <tr><td colspan="7" class="load-error">Loading this week's menu…</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="tiffin-meta">
-        <div class="meta-card">
-          <h4>Weekly Plan</h4>
-          <div class="meta-price">$<span id="price-week">—</span> <small>/ week</small></div>
-          <p id="tiffin-days">Monday to Friday</p>
+        <div class="tiffin-table-wrap">
+          <table class="tiffin-tbl" id="tiffin-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Bhaji</th>
+                <th>Dal / Amti</th>
+                <th>Rice</th>
+                <th>Sweet</th>
+              </tr>
+            </thead>
+            <tbody id="tiffin-body">
+              <tr><td colspan="5" style="text-align:center;padding:32px;color:rgba(255,255,255,0.4);">Loading menu…</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="meta-card">
-          <h4>Single Day</h4>
-          <div class="meta-price">$<span id="price-single">—</span> <small>/ tiffin</small></div>
-          <p id="order-cutoff"></p>
-        </div>
-        <div class="meta-card">
-          <h4>Delivery Zones</h4>
-          <div class="zone-pills" id="zones"></div>
-          <p id="delivery-note" style="margin-top:10px"></p>
-        </div>
+        <p id="tiffin-weekof" style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:14px;letter-spacing:0.05em;"></p>
       </div>
-    </div>
-  </section>
-
-  <!-- ══ 5. CATERING (from data/menu.json) ═════════════════════ -->
-  <section class="catering-sec" id="catering">
-    <div class="container">
-      <div class="section-label">Catering</div>
-      <h2 class="sec">Catering for Your <em>Celebrations</em></h2>
-      <p class="section-intro">Birthday parties, graduation parties, poojas, baby showers, get-togethers — pure veg Marathi food made with love. <span id="catering-notice"></span></p>
-      <div id="catering-groups"><div class="load-error">Loading catering menu…</div></div>
-    </div>
-  </section>
-
-  <!-- ══ 6. SEASONAL SPECIALS (from data/menu.json) ════════════ -->
-  <section class="seasonal-sec" id="seasonal-section">
-    <div class="container">
-      <div class="seasonal-box">
-        <div class="section-label">Festival Specials</div>
-        <h2 class="sec" id="seasonal-title">Seasonal <em>Specials</em></h2>
-        <p class="section-intro" style="margin-bottom:0">Handmade festival favorites, available for a limited time. Order early — quantities are limited.</p>
-        <div class="seasonal-grid" id="seasonal-grid"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ 7. MENU CARDS (from Google Sheets) ════════════════════ -->
-  <div class="menu-wrap" id="menu">
-    <div class="menu-inner">
-      <div class="hdr">
-        <div>
-          <div class="eyebrow">À La Carte Menu</div>
-          <h2>Made Fresh, <em>Every Day</em></h2>
-        </div>
-        <div class="pill">
-          <div class="dot dot-loading" id="dot"></div>
-          <span id="status">Loading…</span>
-        </div>
-      </div>
-      <div class="tabs" id="tabs">
-        <button class="tab on" data-cat="all" onclick="filter('all')">All Items</button>
-      </div>
-      <div id="grid">
-        <div class="sk-grid">
-          <div class="sk-card"><div class="sk-e"></div><div class="sk-b"><div class="sk-l" style="width:55%"></div><div class="sk-l" style="width:85%"></div><div class="sk-l" style="width:38%"></div></div></div>
-          <div class="sk-card"><div class="sk-e"></div><div class="sk-b"><div class="sk-l" style="width:65%"></div><div class="sk-l" style="width:75%"></div><div class="sk-l" style="width:44%"></div></div></div>
-          <div class="sk-card"><div class="sk-e"></div><div class="sk-b"><div class="sk-l" style="width:50%"></div><div class="sk-l" style="width:90%"></div><div class="sk-l" style="width:40%"></div></div></div>
-          <div class="sk-card"><div class="sk-e"></div><div class="sk-b"><div class="sk-l" style="width:60%"></div><div class="sk-l" style="width:80%"></div><div class="sk-l" style="width:35%"></div></div></div>
-        </div>
-      </div>
-      <div class="fbar">
-        <span class="fbar-txt" id="ts"></span>
-        <button class="refresh" onclick="loadMenu()">↻ Refresh</button>
+      <div class="tiffin-card" id="tiffin-card">
+        <h3>Weekly Tiffin Plan</h3>
+        <div class="price-line">From <strong id="price-week">$70</strong><span>/week</span></div>
+        <ul>
+          <li><span class="li-dot">✦</span>Mon–Fri lunch delivery</li>
+          <li><span class="li-dot">✦</span>Bhaji + Dal/Amti + Rice + Poli (3)</li>
+          <li><span class="li-dot">✦</span>Koshimbir or side salad</li>
+          <li><span class="li-dot">✦</span>Sweet on special days</li>
+          <li><span class="li-dot">✦</span>Free delivery in zone</li>
+          <li><span class="li-dot">✦</span>Pickup from Quincy, MA</li>
+        </ul>
+        <a href="#order" class="btn-gold">Order Weekly Tiffin →</a>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ══ 8. HOW IT WORKS ════════════════════════════════════════ -->
-  <section class="order-sec">
-    <div class="inner">
-      <div class="eyebrow">How It Works</div>
-      <h2>Simple as <em>Sunday Lunch</em></h2>
-      <p class="sub">Order your favourite home-cooked Indian meal in three easy steps.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <span class="step-icon">📋</span>
-          <h3>Browse the Menu</h3>
-          <p>Check the weekly tiffin, catering options, and à la carte menu — updated fresh from the kitchen.</p>
+<!-- OCCASIONS -->
+<section class="occasions" id="occasions">
+  <div class="occasions-inner">
+    <div class="section-head center">
+      <span class="section-label">Made for Your Occasion</span>
+      <h2 class="section-title">Every celebration,<br>catered beautifully.</h2>
+      <p class="section-sub">From intimate poojas to grand weddings — Chaitrali's Kitchen brings authentic Marathi flavors to every occasion.</p>
+    </div>
+    <div class="occ-grid">
+      <div class="occ-card">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80&auto=format&fit=crop" alt="Private gathering" loading="lazy">
+        <div class="occ-info">
+          <span class="occ-icon">👨‍👩‍👧‍👦</span>
+          <h3>Private Gatherings</h3>
         </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <span class="step-icon">📱</span>
-          <h3>Place Your Order</h3>
-          <p>Use the order form below or message Chaitrali on WhatsApp — your order message is pre-written.</p>
+      </div>
+      <div class="occ-card">
+        <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=500&q=80&auto=format&fit=crop" alt="Birthday celebration" loading="lazy">
+        <div class="occ-info">
+          <span class="occ-icon">🎂</span>
+          <h3>Birthdays & Celebrations</h3>
         </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <span class="step-icon">🎁</span>
-          <h3>Receive with Love</h3>
-          <p>Your freshly packed meal arrives — cooked to order, sealed warm, and ready to enjoy at your table.</p>
+      </div>
+      <div class="occ-card">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=500&q=80&auto=format&fit=crop" alt="Wedding catering" loading="lazy">
+        <div class="occ-info">
+          <span class="occ-icon">💍</span>
+          <h3>Weddings & Milestones</h3>
+        </div>
+      </div>
+      <div class="occ-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=80&auto=format&fit=crop" alt="Corporate events" loading="lazy">
+        <div class="occ-info">
+          <span class="occ-icon">🏢</span>
+          <h3>Poojas & Festivals</h3>
         </div>
       </div>
     </div>
-  </section>
+    <div class="occ-cta">
+      <p>Planning something special? <a href="#order">Let's talk →</a></p>
+    </div>
+  </div>
+</section>
 
-  <!-- ══ 9. ORDER FORMS (from data/menu.json) ══════════════════ -->
-  <section class="order-forms" id="order-forms">
-    <div class="container">
-      <div class="section-label">Place an Order</div>
-      <h2 class="sec">Order in <em>Two Minutes</em></h2>
-      <p class="section-intro">Fill in the details and tap WhatsApp or Email — your order message is pre-written for you.</p>
-      <div class="order-wrap">
-        <div class="order-card">
-          <h3>🍱 Tiffin Order</h3>
-          <p>Fresh ghar-ka-khana, delivered or picked up.</p>
-          <div class="field">
-            <label>Plan</label>
-            <select id="t-plan">
-              <option>Weekly plan (Mon–Fri)</option>
-              <option>Single day trial</option>
-            </select>
-          </div>
-          <div class="field-row">
-            <div class="field"><label>Start date</label><input type="date" id="t-date"></div>
-            <div class="field"><label>Number of tiffins</label><input type="number" id="t-qty" min="1" value="1"></div>
-          </div>
-          <div class="field">
-            <label>Delivery or pickup</label>
-            <select id="t-mode"></select>
-          </div>
-          <div class="field"><label>Food allergies (please list all)</label><input type="text" id="t-allergy" placeholder="e.g. peanuts, dairy — or 'none'"></div>
-          <div class="order-btns">
-            <button class="btn-primary" onclick="sendOrder('tiffin','wa')">💬 Order on WhatsApp</button>
-            <button class="btn-ghost" onclick="sendOrder('tiffin','email')">📧 Order by Email</button>
-          </div>
+<!-- CATERING MENU -->
+<section class="catering-section" id="catering">
+  <div class="catering-inner">
+    <div class="section-head">
+      <span class="section-label">Catering Menu</span>
+      <h2 class="section-title">Order by the dish,<br>tray, or full spread.</h2>
+      <p class="section-sub">Minimum 72 hours notice. All items cooked fresh to order.</p>
+    </div>
+    <div class="cat-tabs" id="cat-tabs"></div>
+    <div class="dish-grid" id="dish-grid">
+      <div class="review-skeleton"><div class="skel-line" style="height:18px;width:60%;"></div><div class="skel-line" style="height:14px;margin-top:8px;width:90%;"></div></div>
+      <div class="review-skeleton"><div class="skel-line" style="height:18px;width:60%;"></div><div class="skel-line" style="height:14px;margin-top:8px;width:90%;"></div></div>
+      <div class="review-skeleton"><div class="skel-line" style="height:18px;width:60%;"></div><div class="skel-line" style="height:14px;margin-top:8px;width:90%;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <div class="testimonial-inner">
+    <div class="test-text">
+      <div class="stars">★★★★★</div>
+      <blockquote>It tasted just like home. The food was absolutely delicious and our guests couldn't stop talking about it.</blockquote>
+      <p class="test-by"><strong>— Happy Chaitrali's Kitchen Guest</strong><br>Quincy, MA</p>
+    </div>
+    <div class="test-img">
+      <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=700&q=80&auto=format&fit=crop" alt="Marathi food spread" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="reviews-inner">
+    <div class="section-head center">
+      <span class="section-label">What Our Guests Say</span>
+      <h2 class="section-title">Stories from our table</h2>
+    </div>
+    <div class="reviews-grid" id="reviews-grid">
+      <div class="review-skeleton"><div class="skel-line" style="height:14px;width:40%;"></div><div class="skel-line" style="height:60px;margin-top:12px;"></div><div class="skel-line" style="height:12px;margin-top:12px;width:50%;"></div></div>
+      <div class="review-skeleton"><div class="skel-line" style="height:14px;width:40%;"></div><div class="skel-line" style="height:60px;margin-top:12px;"></div><div class="skel-line" style="height:12px;margin-top:12px;width:50%;"></div></div>
+      <div class="review-skeleton"><div class="skel-line" style="height:14px;width:40%;"></div><div class="skel-line" style="height:60px;margin-top:12px;"></div><div class="skel-line" style="height:12px;margin-top:12px;width:50%;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="gallery-inner">
+    <div class="section-head center">
+      <span class="section-label">A Taste of Chaitrali's Kitchen</span>
+      <h2 class="section-title">Food made with love</h2>
+    </div>
+    <div class="gallery-strip">
+      <div class="g-img"><img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80&auto=format&fit=crop" alt="Indian thali" loading="lazy"></div>
+      <div class="g-img"><img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=400&q=80&auto=format&fit=crop" alt="Samosa" loading="lazy"></div>
+      <div class="g-img"><img src="https://images.unsplash.com/photo-1571502253271-d0bf0c7c6a4a?w=400&q=80&auto=format&fit=crop" alt="Gulab jamun" loading="lazy"></div>
+      <div class="g-img"><img src="https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=400&q=80&auto=format&fit=crop" alt="Biryani" loading="lazy"></div>
+      <div class="g-img"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80&auto=format&fit=crop" alt="Dal rice" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order-section" id="order">
+  <div class="order-inner">
+    <div class="section-head">
+      <span class="section-label">Place an Order</span>
+      <h2 class="section-title">Ready to order?</h2>
+      <p class="section-sub">Choose your order type and send us the details — we'll confirm within a few hours.</p>
+    </div>
+    <div class="order-tabs">
+      <button class="order-tab active" onclick="switchOrder('tiffin',this)">Weekly Tiffin</button>
+      <button class="order-tab" onclick="switchOrder('catering',this)">Catering</button>
+    </div>
+
+    <!-- Tiffin Order -->
+    <div class="order-panel active" id="panel-tiffin">
+      <div>
+        <div class="order-form-group">
+          <label>Your Name</label>
+          <input type="text" id="t-name" placeholder="Priya Sharma">
         </div>
-        <div class="order-card">
-          <h3>🎉 Catering Order</h3>
-          <p>Tell us about your event — we'll plan the menu with you.</p>
-          <div class="field">
-            <label>What's the event?</label>
-            <select id="c-event">
-              <option>Birthday party</option>
-              <option>Graduation party</option>
-              <option>Pooja / religious function</option>
-              <option>Baby shower / Dohale Jevan</option>
-              <option>House party / get-together</option>
-              <option>Festival celebration</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="field-row">
-            <div class="field"><label>Event date</label><input type="date" id="c-date"></div>
-            <div class="field"><label>How many people?</label><input type="number" id="c-guests" min="1" placeholder="25"></div>
-          </div>
-          <div class="field">
-            <label>Pickup or delivery</label>
-            <select id="c-mode">
-              <option>Pickup</option>
-              <option>Delivery (please share address on chat)</option>
-            </select>
-          </div>
-          <div class="field"><label>Dishes you'd like / notes</label><textarea id="c-items" placeholder="e.g. Misal pav for 25, puran poli, masale bhaat…"></textarea></div>
-          <div class="field"><label>Food allergies in your group</label><input type="text" id="c-allergy" placeholder="e.g. tree nuts — or 'none'"></div>
-          <div class="order-btns">
-            <button class="btn-primary" onclick="sendOrder('catering','wa')">💬 Enquire on WhatsApp</button>
-            <button class="btn-ghost" onclick="sendOrder('catering','email')">📧 Enquire by Email</button>
-          </div>
+        <div class="order-form-group">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" id="t-phone" placeholder="+1 617 555 0000">
         </div>
+        <div class="order-form-group">
+          <label>Delivery Address</label>
+          <input type="text" id="t-addr" placeholder="123 Main St, Quincy MA 02169">
+        </div>
+        <div class="order-form-group">
+          <label>Start Date</label>
+          <input type="date" id="t-date">
+        </div>
+        <div class="order-form-group">
+          <label>Plan</label>
+          <select id="t-plan">
+            <option value="weekly">Weekly Plan (Mon–Fri) — $70</option>
+            <option value="single">Single Meal — $16</option>
+          </select>
+        </div>
+        <div class="order-form-group">
+          <label>Notes / Allergies</label>
+          <textarea id="t-notes" placeholder="Any special requests or allergy information…"></textarea>
+        </div>
+        <div class="form-send-btns">
+          <a href="#" id="wa-tiffin" class="btn-wa">📱 WhatsApp Order</a>
+          <a href="#" id="em-tiffin" class="btn-email">✉️ Email Order</a>
+        </div>
+      </div>
+      <div class="order-info-box">
+        <h3>Tiffin Details</h3>
+        <div class="info-row"><span class="info-icon">📅</span><div><div class="info-label">Schedule</div><div class="info-val" id="info-days">Monday to Friday</div></div></div>
+        <div class="info-row"><span class="info-icon">⏰</span><div><div class="info-label">Order Cutoff</div><div class="info-val" id="info-cutoff">8 PM previous day</div></div></div>
+        <div class="info-row"><span class="info-icon">🛵</span><div><div class="info-label">Delivery Zones</div><div class="info-val" id="info-zones">Quincy, Milton, Braintree, Randolph</div></div></div>
+        <div class="info-row"><span class="info-icon">💰</span><div><div class="info-label">Pricing</div><div class="info-val" id="info-price">$70/week · $16 single</div></div></div>
+        <div class="info-row"><span class="info-icon">📍</span><div><div class="info-label">Pickup</div><div class="info-val" id="info-pickup">Available from Quincy, MA</div></div></div>
       </div>
     </div>
-  </section>
 
-  <!-- ══ 10. REVIEWS (from Google Sheets) ══════════════════════ -->
-  <div class="reviews-wrap" id="reviews">
-    <div class="reviews-inner">
-      <div class="eyebrow">Reviews</div>
-      <h2>Words from <em>Happy Hearts</em></h2>
-      <p class="sub">Real people, real memories, real food.</p>
-      <div class="pill">
-        <div class="dot dot-loading" id="rdot"></div>
-        <span id="rstatus">Loading…</span>
-      </div>
-      <div id="rgrid">
-        <div class="rsk-grid">
-          <div class="rsk-card"><div class="rsk-l" style="width:25%"></div><div class="rsk-l" style="width:90%"></div><div class="rsk-l" style="width:80%"></div><div class="rsk-l" style="width:40%"></div></div>
-          <div class="rsk-card"><div class="rsk-l" style="width:25%"></div><div class="rsk-l" style="width:85%"></div><div class="rsk-l" style="width:75%"></div><div class="rsk-l" style="width:45%"></div></div>
-          <div class="rsk-card"><div class="rsk-l" style="width:25%"></div><div class="rsk-l" style="width:88%"></div><div class="rsk-l" style="width:70%"></div><div class="rsk-l" style="width:38%"></div></div>
+    <!-- Catering Order -->
+    <div class="order-panel" id="panel-catering">
+      <div>
+        <div class="order-form-group">
+          <label>Your Name</label>
+          <input type="text" id="c-name" placeholder="Sneha Patil">
+        </div>
+        <div class="order-form-group">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" id="c-phone" placeholder="+1 617 555 0000">
+        </div>
+        <div class="order-form-group">
+          <label>Event Date</label>
+          <input type="date" id="c-date">
+        </div>
+        <div class="order-form-group">
+          <label>Event Type</label>
+          <select id="c-event">
+            <option value="pooja">Pooja / Puja</option>
+            <option value="birthday">Birthday Party</option>
+            <option value="wedding">Wedding / Engagement</option>
+            <option value="graduation">Graduation</option>
+            <option value="corporate">Corporate Event</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="order-form-group">
+          <label>Guest Count</label>
+          <input type="number" id="c-guests" placeholder="25" min="10">
+        </div>
+        <div class="order-form-group">
+          <label>Dishes Requested</label>
+          <textarea id="c-dishes" placeholder="e.g. Misal Pav (50 pax), Kothimbir Vadi (3 trays), Puran Poli (2 dozen)…"></textarea>
+        </div>
+        <div class="order-form-group">
+          <label>Notes / Special Requirements</label>
+          <textarea id="c-notes" placeholder="Allergies, dietary restrictions, delivery address…"></textarea>
+        </div>
+        <div class="form-send-btns">
+          <a href="#" id="wa-catering" class="btn-wa">📱 WhatsApp Order</a>
+          <a href="#" id="em-catering" class="btn-email">✉️ Email Order</a>
         </div>
       </div>
-      <div class="fbar" style="margin-top:24px">
-        <span class="fbar-txt">Powered by Google Sheets · <span id="rts"></span></span>
-        <button class="refresh" onclick="loadReviews()">↻ Refresh</button>
+      <div class="order-info-box">
+        <h3>Catering Info</h3>
+        <div class="info-row"><span class="info-icon">⏳</span><div><div class="info-label">Advance Notice</div><div class="info-val" id="info-cat-notice">Minimum 72 hours</div></div></div>
+        <div class="info-row"><span class="info-icon">💳</span><div><div class="info-label">Payment</div><div class="info-val">Due at order confirmation</div></div></div>
+        <div class="info-row"><span class="info-icon">🌿</span><div><div class="info-label">Diet</div><div class="info-val">100% Pure Vegetarian — no meat, no eggs, ever</div></div></div>
+        <div class="info-row"><span class="info-icon">📍</span><div><div class="info-label">Service Area</div><div class="info-val" id="info-cat-zones">Quincy, Milton, Braintree, Randolph</div></div></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ══ 11. PAYMENT (from data/menu.json) ═════════════════════ -->
-  <section class="payment-sec" id="payment">
-    <div class="container">
-      <div class="section-label">Payment</div>
-      <h2 class="sec">Simple, <em>Honest</em> Payment</h2>
-      <p class="section-intro">No online checkout, no card fees — pay the way neighbors do.</p>
-      <div class="info-grid">
-        <div class="pay-card"><h4>Zelle</h4><div class="handle" id="pay-zelle">—</div></div>
-        <div class="pay-card"><h4>Venmo</h4><div class="handle" id="pay-venmo">—</div></div>
-        <div class="pay-card"><h4>Good to know</h4><p id="pay-note"></p></div>
+<!-- PAYMENT -->
+<section class="payment-section" id="payment">
+  <div class="payment-inner">
+    <div class="section-head">
+      <span class="section-label">Payment</span>
+      <h2 class="section-title">Easy payment options</h2>
+    </div>
+    <div class="payment-grid">
+      <div class="pay-card">
+        <div class="pay-icon">💸</div>
+        <h3>Zelle</h3>
+        <p>Fast bank transfer</p>
+        <div class="pay-handle" id="pay-zelle">chaitraliskitchen@gmail.com</div>
       </div>
-      <div class="allergy-box">
-        <h4>⚠️ Food Allergy Disclosure</h4>
-        <p id="allergy-note"></p>
+      <div class="pay-card">
+        <div class="pay-icon">📱</div>
+        <h3>Venmo</h3>
+        <p>Quick mobile payment</p>
+        <div class="pay-handle" id="pay-venmo">@Chaitralis-Kitchen</div>
+      </div>
+      <div class="pay-card">
+        <div class="pay-icon">💵</div>
+        <h3>Cash</h3>
+        <p>At pickup only</p>
+        <div class="pay-handle">Accepted at Quincy pickup</div>
       </div>
     </div>
-  </section>
+    <p class="pay-note" id="pay-note">Payment due at order confirmation for catering. Cash accepted at pickup.</p>
+  </div>
+</section>
 
-  <!-- ══ 12. CTA ════════════════════════════════════════════════ -->
-  <section class="cta">
-    <div class="cta-inner">
-      <div class="eyebrow">Ready to Order?</div>
-      <h2>Let's Feed You<br><em>Something Beautiful</em></h2>
-      <p class="sub">Skip the restaurant. Get authentic, handmade Indian food delivered with care, straight from Chaitrali's kitchen to your table.</p>
-      <div class="btns">
-        <a href="#" id="cta-wa" class="btn-w">📱 Order on WhatsApp</a>
-        <a href="#" id="cta-email" class="btn-o">✉️ Send an Email</a>
-      </div>
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-content">
+    <span class="section-label">✦ Let's Cook Together</span>
+    <h2>Planning your next gathering?</h2>
+    <p>Tell us what you're celebrating, how many guests you're hosting, and what you're craving. We'll take care of the rest.</p>
+    <div class="cta-btns">
+      <a href="#" id="cta-wa" class="btn-primary">📱 WhatsApp Us →</a>
+      <a href="#" id="cta-email" class="btn-outline">✉️ Send an Email</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══ 13. FOOTER ═════════════════════════════════════════════ -->
-  <footer class="footer">
-    <div class="inner">
-      <div class="top">
-        <div>
-          <span class="brand-name">Chaitrali's<em>.</em>Kitchen</span>
-          <p class="brand-desc" id="footer-tag">Handmade pure veg Indian cuisine crafted with love, delivered to your door in the greater Quincy, MA area.</p>
-        </div>
-        <div class="col">
-          <h4>Connect</h4>
-          <ul>
-            <li><a id="f-wa" href="#">WhatsApp</a></li>
-            <li><a id="f-email" href="#">Email</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Facebook</a></li>
-          </ul>
-        </div>
-        <div class="col">
-          <h4>Sections</h4>
-          <ul>
-            <li><a href="#tiffin">Weekly Tiffin</a></li>
-            <li><a href="#catering">Catering</a></li>
-            <li><a href="#menu">À La Carte Menu</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#payment">Payment</a></li>
-          </ul>
-        </div>
-      </div>
-      <hr class="divider">
-      <div class="bottom">
-        <span class="copy">© <span id="year"></span> Chaitrali's Kitchen · Pure vegetarian home kitchen · Made with प्रेम in Quincy, MA</span>
-      </div>
+<!-- ALLERGY BANNER -->
+<div class="allergy-banner">
+  <div class="allergy-inner">
+    <span class="allergy-icon">⚠️</span>
+    <p id="allergy-text">Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Please inform us of all allergies when ordering.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">Chaitrali's</div>
+      <div class="logo-sub">Kitchen</div>
+      <p>Authentic homemade pure vegetarian Marathi cuisine, crafted with love in Quincy, MA. Serving the South Shore since day one.</p>
     </div>
-  </footer>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#tiffin">Weekly Tiffin</a></li>
+        <li><a href="#catering">Catering</a></li>
+        <li><a href="#order">Order Now</a></li>
+        <li><a href="#payment">Payment</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p id="footer-contact">Quincy, MA<br><br>Free delivery within service zones.<br>Pickup always available.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Chaitrali's Kitchen. All rights reserved.</span>
+    <span>🌿 Pure Veg · Serving with love in your area</span>
+  </div>
+</footer>
 
-  <script>
-    // ════════════════════════════════════════════════════════════
-    // PART A — Load tiffin/catering/seasonal/payment from data/menu.json
-    // ════════════════════════════════════════════════════════════
-    let S = {};
-    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+<script>
+  /* ── ORDER TAB SWITCH ── */
+  function switchOrder(tab, btn) {
+    document.querySelectorAll('.order-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.order-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    btn.classList.add('active');
+  }
 
-    async function initJson() {
-      let d;
-      try {
-        const res = await fetch('data/menu.json?v=' + Date.now());
-        d = await res.json();
-      } catch (e) {
-        document.getElementById('tiffin-body').innerHTML =
-          '<tr><td colspan="7" class="load-error">Menu could not load. Run from a local server or the live GitHub Pages site.</td></tr>';
-        return;
-      }
-      S = d.settings || {};
+  /* ── BUILD WHATSAPP / EMAIL ── */
+  function buildTiffinOrder() {
+    const name  = document.getElementById('t-name').value || '(name)';
+    const phone = document.getElementById('t-phone').value || '(phone)';
+    const addr  = document.getElementById('t-addr').value || '(address)';
+    const date  = document.getElementById('t-date').value || '(date)';
+    const plan  = document.getElementById('t-plan').selectedOptions[0].text;
+    const notes = document.getElementById('t-notes').value;
+    return `Hello Chaitrali's Kitchen! 🙏\n\nI'd like to order a tiffin plan:\n\nName: ${name}\nPhone: ${phone}\nAddress: ${addr}\nStart Date: ${date}\nPlan: ${plan}${notes ? '\nNotes: ' + notes : ''}\n\nPlease confirm availability. Thank you!`;
+  }
+  function buildCateringOrder() {
+    const name   = document.getElementById('c-name').value || '(name)';
+    const phone  = document.getElementById('c-phone').value || '(phone)';
+    const date   = document.getElementById('c-date').value || '(date)';
+    const event  = document.getElementById('c-event').selectedOptions[0].text;
+    const guests = document.getElementById('c-guests').value || '(count)';
+    const dishes = document.getElementById('c-dishes').value || '(to be discussed)';
+    const notes  = document.getElementById('c-notes').value;
+    return `Hello Chaitrali's Kitchen! 🙏\n\nI'd like to inquire about catering:\n\nName: ${name}\nPhone: ${phone}\nEvent Date: ${date}\nEvent Type: ${event}\nGuest Count: ${guests}\nDishes: ${dishes}${notes ? '\nNotes: ' + notes : ''}\n\nPlease let me know your availability and pricing. Thank you!`;
+  }
 
-      // Settings / payment / footer
-      if (S.tagline) document.getElementById('footer-tag').textContent = S.tagline;
-      document.getElementById('price-week').textContent   = S.tiffin_price_week   || '—';
-      document.getElementById('price-single').textContent = S.tiffin_price_single || '—';
-      document.getElementById('tiffin-days').textContent  = S.tiffin_days         || '';
-      document.getElementById('order-cutoff').textContent = S.order_cutoff        || '';
-      document.getElementById('delivery-note').textContent= S.delivery_note       || '';
-      document.getElementById('catering-notice').textContent = S.catering_min_notice ? '(' + S.catering_min_notice + '.)' : '';
-      document.getElementById('pay-zelle').textContent    = S.payment_zelle       || '—';
-      document.getElementById('pay-venmo').textContent    = S.payment_venmo       || '—';
-      document.getElementById('pay-note').textContent     = S.payment_note        || '';
-      document.getElementById('allergy-note').textContent = S.allergy_note        || '';
-      document.getElementById('year').textContent         = new Date().getFullYear();
-      const waHref = 'https://wa.me/' + (S.phone_whatsapp || '');
-      const emailHref = 'mailto:' + (S.email || '');
-      document.getElementById('f-wa').href       = waHref;
-      document.getElementById('f-email').href    = emailHref;
-      document.getElementById('cta-wa').href     = waHref;
-      document.getElementById('cta-email').href  = emailHref;
+  /* ── INIT FROM menu.json ── */
+  async function initJson() {
+    let d;
+    try {
+      const res = await fetch('data/menu.json?v=' + Date.now());
+      d = await res.json();
+    } catch(e) { console.warn('menu.json not loaded:', e); return; }
 
-      // Delivery zones
-      const zones = (S.delivery_zones || '').split(',').map(z => z.trim()).filter(Boolean);
-      document.getElementById('zones').innerHTML = zones.map(z => '<span>' + esc(z) + '</span>').join('');
-      const tMode = document.getElementById('t-mode');
-      tMode.innerHTML = zones.map(z => '<option>Delivery — ' + esc(z) + '</option>').join('') +
-        '<option>Pickup' + (S.pickup_city ? ' (' + esc(S.pickup_city) + ')' : '') + '</option>';
+    const S = d.settings || {};
 
-      // Tiffin week
-      if (d.tiffin?.week_of) {
-        const w = document.getElementById('week-of');
-        w.textContent = 'Week of ' + d.tiffin.week_of;
-        w.classList.remove('hidden');
-      }
-      document.getElementById('tiffin-body').innerHTML = (d.tiffin?.days || []).map(r => `
+    // Tiffin table
+    const tbody = document.getElementById('tiffin-body');
+    if (d.tiffin && d.tiffin.days) {
+      tbody.innerHTML = d.tiffin.days.map(day => `
         <tr>
-          <td class="day">${esc(r.day)}</td><td>${esc(r.bhaji)}</td><td>${esc(r.amti)}</td>
-          <td>${esc(r.rice)}</td><td>${esc(r.poli)}</td><td>${esc(r.side)}</td><td>${esc(r.sweet)}</td>
-        </tr>`).join('') || '<tr><td colspan="7" class="load-error">This week\'s menu is being updated — check back soon!</td></tr>';
-
-      // Catering
-      const orderCat = ['Starters','Mains','Rice','Sweets','Drinks'];
-      const groups = {};
-      (d.catering || []).forEach(i => (groups[i.category] = groups[i.category] || []).push(i));
-      const cats = [...orderCat.filter(c => groups[c]), ...Object.keys(groups).filter(c => !orderCat.includes(c))];
-      document.getElementById('catering-groups').innerHTML = cats.length ? cats.map(c => `
-        <div class="cat-group">
-          <h3>${esc(c)}</h3>
-          <div class="cat-grid">${groups[c].map(cateringDishCard).join('')}</div>
-        </div>`).join('') : '<p class="load-error">Catering menu coming soon.</p>';
-
-      // Seasonal
-      const sg = document.getElementById('seasonal-grid');
-      if ((d.seasonal || []).length) {
-        const occ = [...new Set(d.seasonal.map(i => i.occasion))];
-        if (occ.length === 1) document.getElementById('seasonal-title').innerHTML = esc(occ[0]) + ' <em>Specials</em>';
-        sg.innerHTML = d.seasonal.map(i => `
-          <div class="dish">
-            <div class="occasion-tag">${esc(i.occasion)}</div>
-            <div class="dish-top"><span class="name">${esc(i.name)}</span><span class="dish-price">$${esc(i.price)}</span></div>
-            <div class="unit">${esc(i.unit)}</div>
-            <div class="desc">${esc(i.description)}</div>
-            ${i.order_by ? '<div class="order-by">📅 Order by ' + esc(i.order_by) + '</div>' : ''}
-          </div>`).join('');
-      } else {
-        document.getElementById('seasonal-section').classList.add('hidden');
-      }
+          <td class="day-cell">${day.day}</td>
+          <td>${day.bhaji || '—'}</td>
+          <td>${day.amti || '—'}</td>
+          <td>${day.rice || '—'}</td>
+          <td class="sweet-cell">${day.sweet || '—'}</td>
+        </tr>`).join('');
+      const wof = document.getElementById('tiffin-weekof');
+      if (wof && d.tiffin.week_of) wof.textContent = 'Week of ' + d.tiffin.week_of;
     }
 
-    function cateringDishCard(i) {
-      const allergens = (i.contains || '').split(',').map(a => a.trim()).filter(Boolean);
-      return `
-        <div class="dish">
-          <div class="dish-top"><span class="name">${esc(i.name)}</span><span class="dish-price">$${esc(i.price)}</span></div>
-          <div class="unit">${esc(i.unit)}</div>
-          <div class="desc">${esc(i.description)}</div>
-          <div class="dish-badges">
-            ${i.spicy ? '<span class="dbadge spicy">🌶 Spicy</span>' : ''}
-            ${allergens.map(a => '<span class="dbadge allergen">' + esc(a) + '</span>').join('')}
-          </div>
-        </div>`;
-    }
+    // Tiffin card prices
+    const pw = document.getElementById('price-week');
+    if (pw && S.tiffin_price_week) pw.textContent = '$' + S.tiffin_price_week;
 
-    function sendOrder(kind, via) {
-      const v = id => document.getElementById(id).value.trim();
-      let msg;
-      if (kind === 'tiffin') {
-        msg = `Namaskar! I'd like to order tiffin from ${S.business_name || "Chaitrali's Kitchen"}.\n` +
-          `• Plan: ${v('t-plan')}\n• Start date: ${v('t-date') || '(flexible)'}\n` +
-          `• Number of tiffins: ${v('t-qty')}\n• Delivery/Pickup: ${v('t-mode')}\n` +
-          `• Allergies: ${v('t-allergy') || 'none mentioned'}`;
-      } else {
-        msg = `Namaskar! I'd like to enquire about catering from ${S.business_name || "Chaitrali's Kitchen"}.\n` +
-          `• Event: ${v('c-event')}\n• Date: ${v('c-date') || '(to be decided)'}\n` +
-          `• Guests: ${v('c-guests') || '?'}\n• Pickup/Delivery: ${v('c-mode')}\n` +
-          `• Dishes/notes: ${v('c-items') || '(open to suggestions)'}\n` +
-          `• Allergies in group: ${v('c-allergy') || 'none mentioned'}`;
-      }
-      if (via === 'wa') {
-        window.open('https://wa.me/' + (S.phone_whatsapp || '') + '?text=' + encodeURIComponent(msg), '_blank');
-      } else {
-        const subj = kind === 'tiffin' ? 'Tiffin order' : 'Catering enquiry — ' + v('c-event');
-        window.location.href = 'mailto:' + (S.email || '') + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(msg);
-      }
-    }
-
-    // ════════════════════════════════════════════════════════════
-    // PART B — Load à la carte menu + reviews from Google Sheets CSV
-    // ════════════════════════════════════════════════════════════
-    const MENU_SHEET    = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTHwi5zA1_qZU7tyMRHkXx6G4M14vvYP6rh2HHSTatXEv1ZsfZqtsEhPW_d0ak7-4v3tE5YoBKCC0fr/pub?output=csv';
-    const REVIEWS_SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSzmm-f7nm8CBegu1lprNmnkV6paDuFahYLXcf69wl7xbbS20CKmzAlxENJwOJJYqvXQ_Wa1yru0czi/pub?gid=260701258&single=true&output=csv';
-
-    let all = [], active = 'all';
-
-    function splitRow(row) {
-      const out = []; let cur = '', q = false;
-      for (const c of row) {
-        if (c === '"') q = !q;
-        else if (c === ',' && !q) { out.push(cur); cur = ''; }
-        else cur += c;
-      }
-      out.push(cur);
-      return out.map(v => v.replace(/^"|"$/g, '').trim());
-    }
-
-    function parseCSV(text, filterFn) {
-      const rows = text.trim().split('\n').filter(r => r.trim());
-      if (rows.length < 2) return [];
-      const headers = splitRow(rows[0]).map(h => h.trim().toLowerCase());
-      return rows.slice(1).map(row => {
-        const vals = splitRow(row);
-        const obj = {};
-        headers.forEach((h, i) => obj[h] = (vals[i] || '').trim());
-        return obj;
-      }).filter(filterFn);
-    }
-
-    function buildTabs(items) {
-      const catMap = {};
-      items.forEach(i => { if (i.category && !catMap[i.category.toLowerCase()]) catMap[i.category.toLowerCase()] = i.category; });
-      const cats = ['all', ...Object.values(catMap)];
-      document.getElementById('tabs').innerHTML = cats.map(c =>
-        `<button class="tab ${c === active ? 'on' : ''}" data-cat="${c}" onclick="filter('${c}')">${c === 'all' ? 'All Items' : c}</button>`
+    // Catering menu
+    if (d.catering) {
+      const cats = [...new Set(d.catering.map(i => i.category))];
+      const tabsEl = document.getElementById('cat-tabs');
+      tabsEl.innerHTML = ['All', ...cats].map((c, i) =>
+        `<button class="cat-tab${i===0?' active':''}" onclick="filterDishes('${c}',this)">${c}</button>`
       ).join('');
+      window._dishes = d.catering;
+      renderDishes(d.catering);
     }
 
-    function renderMenu(items) {
-      const show = active === 'all'
-        ? items.filter(i => i.available !== 'FALSE')
-        : items.filter(i => i.category === active && i.available !== 'FALSE');
-      document.getElementById('grid').innerHTML = '<div class="grid">' +
-        show.map(item => {
-          const tags = [
-            item.veg   === 'TRUE' ? '<span class="ctag tv">🌿 Veg</span>'   : '',
-            item.spicy === 'TRUE' ? '<span class="ctag ts">🌶 Spicy</span>' : '',
-            item.isnew === 'TRUE' ? '<span class="ctag tn">✨ New</span>'   : '',
-          ].filter(Boolean).join('');
-          return `<div class="card">
-            <div class="emoji">${item.emoji || '🍽️'}</div>
-            <div class="cbody">
-              <div class="cname">${item.name}</div>
-              <div class="cdesc">${item.description}</div>
-              <div class="cfoot">
-                <div class="cprice">$${parseFloat(item.price).toFixed(2)}</div>
-                <div class="ctags">${tags}</div>
-              </div>
-            </div>
-          </div>`;
-        }).join('') + '</div>';
-    }
-
-    function filter(cat) {
-      active = cat;
-      document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.cat === cat));
-      renderMenu(all);
-    }
-
-    async function loadMenu() {
-      document.getElementById('dot').className = 'dot dot-loading';
-      document.getElementById('status').textContent = 'Loading…';
-      try {
-        const res = await fetch(MENU_SHEET);
-        const text = await res.text();
-        all = parseCSV(text, r => r.name);
-        buildTabs(all);
-        renderMenu(all);
-        const visible = all.filter(i => i.available !== 'FALSE').length;
-        document.getElementById('dot').className = 'dot dot-live';
-        document.getElementById('status').textContent = `Live · ${visible} items`;
-        document.getElementById('ts').textContent = 'Updated ' + new Date().toLocaleTimeString();
-      } catch (e) {
-        document.getElementById('dot').className = 'dot dot-err';
-        document.getElementById('status').textContent = 'Could not load menu';
+    // Seasonal specials — inject before catering if any
+    if (d.seasonal && d.seasonal.length > 0) {
+      // add a seasonal category
+      const extra = d.seasonal.map(s => ({
+        name: s.name, category: 'Seasonal', price: s.price,
+        unit: s.unit, description: s.description + (s.order_by ? ' Order by: ' + s.order_by : ''),
+        spicy: false, contains: ''
+      }));
+      if (window._dishes) {
+        window._dishes = [...window._dishes, ...extra];
       }
     }
 
-    function renderReviews(reviews) {
-      document.getElementById('rgrid').innerHTML = '<div class="r-grid">' +
-        reviews.map(r => {
-          const name = r.name || 'Guest';
-          let rating = parseInt(r['rating (1-5)'] || r.rating || 5);
-          if (isNaN(rating) || rating < 1) rating = 5;
-          if (rating > 5) rating = 5;
-          const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-          return `<div class="r-card">
-            <div class="stars">${'★'.repeat(rating)}</div>
-            <div class="r-text">"${esc(r.review)}"</div>
-            <div class="author">
-              <div class="avatar">${initials}</div>
-              <div>
-                <div class="aname">${esc(name)}</div>
-                <div class="aloc">${esc(r.location || '')}</div>
-                <div class="adate">${esc(r.date || '')}</div>
-              </div>
-            </div>
-          </div>`;
-        }).join('') + '</div>';
+    // Info boxes
+    if (S.tiffin_days) document.getElementById('info-days').textContent = S.tiffin_days;
+    if (S.order_cutoff) document.getElementById('info-cutoff').textContent = S.order_cutoff;
+    if (S.delivery_zones) {
+      document.getElementById('info-zones').textContent = S.delivery_zones;
+      document.getElementById('info-cat-zones').textContent = S.delivery_zones;
+    }
+    if (S.tiffin_price_week && S.tiffin_price_single) {
+      document.getElementById('info-price').textContent = `$${S.tiffin_price_week}/week · $${S.tiffin_price_single} single`;
+    }
+    if (S.pickup_city) document.getElementById('info-pickup').textContent = 'Available from ' + S.pickup_city;
+    if (S.catering_min_notice) document.getElementById('info-cat-notice').textContent = S.catering_min_notice;
+    if (S.payment_zelle) document.getElementById('pay-zelle').textContent = S.payment_zelle;
+    if (S.payment_venmo) document.getElementById('pay-venmo').textContent = S.payment_venmo;
+    if (S.payment_note) document.getElementById('pay-note').textContent = S.payment_note;
+    if (S.allergy_note) document.getElementById('allergy-text').textContent = S.allergy_note;
+    if (S.email) document.getElementById('footer-contact').innerHTML =
+      `Quincy, MA<br><a href="mailto:${S.email}" style="color:rgba(255,255,255,0.5);text-decoration:none;">${S.email}</a><br><br>Free delivery within service zones.`;
+
+    // WhatsApp / email links
+    const phone = S.phone_whatsapp || '';
+    const email = S.email || '';
+    document.getElementById('wa-tiffin').addEventListener('click', e => {
+      e.preventDefault();
+      window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(buildTiffinOrder()), '_blank');
+    });
+    document.getElementById('em-tiffin').addEventListener('click', e => {
+      e.preventDefault();
+      window.open('mailto:' + email + '?subject=Tiffin Order&body=' + encodeURIComponent(buildTiffinOrder()));
+    });
+    document.getElementById('wa-catering').addEventListener('click', e => {
+      e.preventDefault();
+      window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(buildCateringOrder()), '_blank');
+    });
+    document.getElementById('em-catering').addEventListener('click', e => {
+      e.preventDefault();
+      window.open('mailto:' + email + '?subject=Catering Enquiry&body=' + encodeURIComponent(buildCateringOrder()));
+    });
+    if (phone) {
+      document.getElementById('cta-wa').href = 'https://wa.me/' + phone;
+    }
+    if (email) {
+      document.getElementById('cta-email').href = 'mailto:' + email;
     }
 
-    async function loadReviews() {
-      document.getElementById('rdot').className = 'dot dot-loading';
-      document.getElementById('rstatus').textContent = 'Loading…';
-      try {
-        const res = await fetch(REVIEWS_SHEET);
-        if (!res.ok) throw new Error();
-        const text = await res.text();
-        const reviews = parseCSV(text, r => r.name && r.review);
-        if (!reviews.length) throw new Error('empty');
-        renderReviews(reviews);
-        document.getElementById('rdot').className = 'dot dot-live';
-        document.getElementById('rstatus').textContent = `Live · ${reviews.length} reviews`;
-        document.getElementById('rts').textContent = 'Updated ' + new Date().toLocaleTimeString();
-      } catch (e) {
-        document.getElementById('rdot').className = 'dot dot-err';
-        document.getElementById('rstatus').textContent = 'Could not load reviews';
-      }
+    // Reviews from JSON
+    if (d.reviews && d.reviews.length) {
+      document.getElementById('reviews-grid').innerHTML = d.reviews.map(r => `
+        <div class="review-card">
+          <div class="review-stars">${'★'.repeat(r.rating)}</div>
+          <p class="review-text">"${r.text}"</p>
+          <div class="review-by"><strong>${r.name}</strong> · ${r.location} · ${r.date}</div>
+        </div>`).join('');
     }
+  }
 
-    // ── INIT ─────────────────────────────────────────────────────
-    initJson();
-    loadMenu();
-    loadReviews();
-  </script>
+  function renderDishes(dishes) {
+    const grid = document.getElementById('dish-grid');
+    if (!dishes.length) { grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1;">No dishes in this category.</p>'; return; }
+    grid.innerHTML = dishes.map(d => `
+      <div class="dish-card">
+        <div class="dish-top">
+          <div class="dish-name">${d.name}</div>
+          <div><div class="dish-price">$${d.price}</div><span class="dish-unit">${d.unit}</span></div>
+        </div>
+        <p class="dish-desc">${d.description}</p>
+        <div class="dish-tags">
+          ${d.spicy ? '<span class="dish-tag tag-spicy">🌶 Spicy</span>' : ''}
+          ${d.contains ? '<span class="dish-tag tag-contains">Contains: ' + d.contains + '</span>' : ''}
+        </div>
+      </div>`).join('');
+  }
+
+  function filterDishes(cat, btn) {
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = cat === 'All' ? window._dishes : (window._dishes || []).filter(d => d.category === cat);
+    renderDishes(filtered || []);
+  }
+
+  /* ── GOOGLE SHEETS REVIEWS (fallback) ── */
+  const REVIEWS_SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSzmm-f7nm8CBegu1lprNmnkV6paDuFahYLXcf69wl7xbbS20CKmzAlxENJwOJJYqvXQ_Wa1yru0czi/pub?gid=260701258&single=true&output=csv';
+
+  function splitRow(row) {
+    const cells = []; let cur = ''; let inQ = false;
+    for (let i = 0; i < row.length; i++) {
+      const ch = row[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cells.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    cells.push(cur.trim()); return cells;
+  }
+  function parseCSV(txt) {
+    const lines = txt.trim().split(/\r?\n/);
+    const headers = splitRow(lines[0]);
+    return lines.slice(1).map(l => {
+      const vals = splitRow(l);
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = (vals[i] || '').replace(/^"|"$/g, '').trim());
+      return obj;
+    }).filter(r => Object.values(r).some(v => v));
+  }
+
+  /* ── RUN ── */
+  initJson();
+</script>
 </body>
 </html>
