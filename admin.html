@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaitrali's Kitchen — Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
+    :root {
+      --green: #2C4A2E;
+      --green-light: #3d6640;
+      --gold: #D4A24C;
+      --terra: #C25F2A;
+      --cream: #FAF6EF;
+      --off: #F2EDE4;
+      --dark: #1C1208;
+      --text: #3A2E1E;
+      --muted: #7A6A55;
+      --border: #DDD5C8;
+      --white: #FFFFFF;
+      --red: #C0392B;
+      --success: #27AE60;
+    }
+    body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; }
+
+    /* LOGIN */
+    #login-screen {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      background:var(--green);
+    }
+    .login-box {
+      background:var(--white); border-radius:20px; padding:48px 40px;
+      width:100%; max-width:380px; text-align:center;
+      box-shadow:0 24px 64px rgba(0,0,0,0.2);
+    }
+    .login-box img { height:100px; width:auto; margin:0 auto 20px; display:block; }
+    .login-box h1 { font-size:22px; font-weight:600; color:var(--dark); margin-bottom:6px; }
+    .login-box p { font-size:14px; color:var(--muted); margin-bottom:28px; }
+    .login-box input {
+      width:100%; padding:12px 16px; border:1.5px solid var(--border);
+      border-radius:10px; font-size:15px; font-family:'DM Sans',sans-serif;
+      outline:none; transition:border-color .2s; margin-bottom:12px;
+    }
+    .login-box input:focus { border-color:var(--green); }
+    .login-box button {
+      width:100%; padding:13px; background:var(--green); color:#fff;
+      border:none; border-radius:10px; font-size:15px; font-weight:600;
+      cursor:pointer; font-family:'DM Sans',sans-serif; transition:background .2s;
+    }
+    .login-box button:hover { background:var(--green-light); }
+    .login-error { color:var(--red); font-size:13px; margin-top:10px; display:none; }
+
+    /* ADMIN LAYOUT */
+    #admin-screen { display:none; }
+    .admin-nav {
+      background:var(--green); padding:0 32px; height:60px;
+      display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:100;
+    }
+    .admin-nav .brand { color:#fff; font-size:16px; font-weight:600; display:flex; align-items:center; gap:10px; }
+    .admin-nav .brand img { height:44px; }
+    .admin-nav .logout { color:rgba(255,255,255,0.6); font-size:13px; cursor:pointer; border:none; background:none; font-family:'DM Sans',sans-serif; }
+    .admin-nav .logout:hover { color:#fff; }
+
+    .admin-body { max-width:960px; margin:0 auto; padding:32px 24px 80px; }
+
+    /* TABS */
+    .tabs { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:32px; overflow-x:auto; }
+    .tab-btn {
+      padding:12px 24px; border:none; background:none; cursor:pointer;
+      font-size:14px; font-weight:500; color:var(--muted);
+      font-family:'DM Sans',sans-serif; white-space:nowrap;
+      border-bottom:2px solid transparent; margin-bottom:-2px;
+      transition:.2s;
+    }
+    .tab-btn.active { color:var(--green); border-bottom-color:var(--green); }
+    .tab-btn:hover { color:var(--green); }
+
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+
+    /* CARDS */
+    .card {
+      background:var(--white); border-radius:14px; padding:28px;
+      border:1px solid var(--border); margin-bottom:20px;
+    }
+    .card-title { font-size:16px; font-weight:600; color:var(--dark); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+    .card-title span { font-size:18px; }
+
+    /* FORM ELEMENTS */
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    .form-row.three { grid-template-columns:1fr 1fr 1fr; }
+    .form-row.one { grid-template-columns:1fr; }
+    .fg { display:flex; flex-direction:column; gap:5px; }
+    .fg label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+    .fg input, .fg select, .fg textarea {
+      padding:10px 14px; border:1.5px solid var(--border);
+      border-radius:8px; font-size:14px; font-family:'DM Sans',sans-serif;
+      color:var(--dark); outline:none; transition:border-color .2s; background:var(--white);
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--green); }
+    .fg textarea { resize:vertical; min-height:64px; }
+
+    /* DAY ROWS */
+    .day-row {
+      background:var(--off); border-radius:10px; padding:16px 18px;
+      margin-bottom:12px;
+    }
+    .day-label { font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin-bottom:12px; }
+    .day-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+    .day-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+
+    /* DISH LIST */
+    .dish-list { display:flex; flex-direction:column; gap:12px; }
+    .dish-item {
+      background:var(--off); border-radius:10px; padding:16px 18px;
+      border:1px solid var(--border); position:relative;
+    }
+    .dish-item .remove-btn {
+      position:absolute; top:12px; right:14px;
+      background:none; border:none; color:var(--muted); cursor:pointer;
+      font-size:18px; line-height:1; transition:color .2s;
+    }
+    .dish-item .remove-btn:hover { color:var(--red); }
+    .dish-row { display:grid; grid-template-columns:2fr 1fr 1fr; gap:10px; margin-bottom:10px; }
+    .dish-row-2 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+
+    /* BUTTONS */
+    .btn-add {
+      display:inline-flex; align-items:center; gap:6px;
+      background:transparent; border:1.5px dashed var(--green);
+      color:var(--green); padding:9px 20px; border-radius:8px;
+      font-size:13px; font-weight:500; cursor:pointer;
+      font-family:'DM Sans',sans-serif; transition:.2s; margin-top:8px;
+    }
+    .btn-add:hover { background:rgba(44,74,46,0.06); }
+    .btn-save {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--green); color:#fff; padding:12px 28px;
+      border-radius:100px; font-size:14px; font-weight:600;
+      border:none; cursor:pointer; font-family:'DM Sans',sans-serif;
+      transition:background .2s;
+    }
+    .btn-save:hover { background:var(--green-light); }
+    .btn-download {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--terra); color:#fff; padding:12px 28px;
+      border-radius:100px; font-size:14px; font-weight:600;
+      border:none; cursor:pointer; font-family:'DM Sans',sans-serif;
+      transition:background .2s;
+    }
+    .btn-download:hover { opacity:.88; }
+
+    /* SAVE BAR */
+    .save-bar {
+      position:fixed; bottom:0; left:0; right:0; z-index:200;
+      background:var(--white); border-top:1px solid var(--border);
+      padding:16px 32px; display:flex; align-items:center; justify-content:space-between;
+      gap:16px; box-shadow:0 -4px 24px rgba(0,0,0,0.08);
+    }
+    .save-bar p { font-size:14px; color:var(--muted); }
+    .save-bar .btns { display:flex; gap:12px; }
+    .toast {
+      position:fixed; bottom:80px; right:24px; z-index:300;
+      background:var(--success); color:#fff; padding:12px 20px;
+      border-radius:10px; font-size:14px; font-weight:500;
+      box-shadow:0 4px 16px rgba(0,0,0,0.15);
+      transform:translateY(20px); opacity:0; transition:.3s;
+      pointer-events:none;
+    }
+    .toast.show { transform:translateY(0); opacity:1; }
+
+    /* REVIEW ITEMS */
+    .review-item {
+      background:var(--off); border-radius:10px; padding:16px 18px;
+      border:1px solid var(--border); margin-bottom:12px; position:relative;
+    }
+    .review-item .remove-btn {
+      position:absolute; top:12px; right:14px;
+      background:none; border:none; color:var(--muted); cursor:pointer;
+      font-size:18px; line-height:1;
+    }
+    .review-item .remove-btn:hover { color:var(--red); }
+
+    /* INSTRUCTIONS */
+    .how-to {
+      background:linear-gradient(135deg, #EDF5EE, #F5F0E8);
+      border:1px solid rgba(44,74,46,0.15);
+      border-radius:12px; padding:20px 24px; margin-bottom:28px;
+    }
+    .how-to h3 { font-size:14px; font-weight:600; color:var(--green); margin-bottom:10px; }
+    .how-to ol { padding-left:18px; }
+    .how-to ol li { font-size:13px; color:var(--text); line-height:1.7; }
+    .how-to ol li strong { color:var(--green); }
+
+    @media(max-width:600px) {
+      .form-row, .form-row.three { grid-template-columns:1fr; }
+      .day-grid, .day-grid-2 { grid-template-columns:1fr 1fr; }
+      .dish-row, .dish-row-2 { grid-template-columns:1fr 1fr; }
+      .admin-body { padding:20px 16px 100px; }
+      .save-bar { padding:12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <img src="logo.png" alt="Chaitrali's Kitchen" onerror="this.style.display='none'">
+    <h1>Chaitrali's Kitchen</h1>
+    <p>Admin Panel — Enter password to continue</p>
+    <input type="password" id="pwd-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Sign In</button>
+    <p class="login-error" id="login-err">❌ Incorrect password. Please try again.</p>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-screen">
+  <nav class="admin-nav">
+    <div class="brand">
+      <img src="logo.png" onerror="this.style.display='none'">
+      Admin Panel
+    </div>
+    <button class="logout" onclick="doLogout()">Sign Out</button>
+  </nav>
+
+  <div class="admin-body">
+
+    <div class="how-to">
+      <h3>📋 How to update the website</h3>
+      <ol>
+        <li>Make your changes in any tab below</li>
+        <li>Click <strong>💾 Save Changes</strong> at the bottom</li>
+        <li>Click <strong>⬇️ Download menu.json</strong></li>
+        <li>Put the downloaded file into your <strong>Chaitralis-Kitchen-03 → data</strong> folder (replace the old one)</li>
+        <li>Open Terminal and run: <strong>cd "/Users/sandeepjadhav/Documents/GitHub/Chaitralis-Kitchen-03" && git add data/menu.json && git commit -m "Update menu" && git push</strong></li>
+      </ol>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('tiffin',this)">🍱 Weekly Tiffin</button>
+      <button class="tab-btn" onclick="switchTab('catering',this)">🍽️ Catering Menu</button>
+      <button class="tab-btn" onclick="switchTab('seasonal',this)">🌸 Seasonal</button>
+      <button class="tab-btn" onclick="switchTab('reviews',this)">⭐ Reviews</button>
+      <button class="tab-btn" onclick="switchTab('settings',this)">⚙️ Settings</button>
+    </div>
+
+    <!-- TIFFIN TAB -->
+    <div class="tab-panel active" id="tab-tiffin">
+      <div class="card">
+        <div class="card-title"><span>📅</span> Week of</div>
+        <div class="form-row one">
+          <div class="fg">
+            <label>Week of (e.g. Aug 3 – Aug 7, 2026)</label>
+            <input type="text" id="week_of" placeholder="Aug 3 – Aug 7, 2026">
+          </div>
+        </div>
+      </div>
+
+      <div id="days-container"></div>
+    </div>
+
+    <!-- CATERING TAB -->
+    <div class="tab-panel" id="tab-catering">
+      <div id="catering-list" class="dish-list"></div>
+      <button class="btn-add" onclick="addDish()">+ Add Dish</button>
+    </div>
+
+    <!-- SEASONAL TAB -->
+    <div class="tab-panel" id="tab-seasonal">
+      <div id="seasonal-list" class="dish-list"></div>
+      <button class="btn-add" onclick="addSeasonal()">+ Add Seasonal Item</button>
+    </div>
+
+    <!-- REVIEWS TAB -->
+    <div class="tab-panel" id="tab-reviews">
+      <div id="reviews-list"></div>
+      <button class="btn-add" onclick="addReview()">+ Add Review</button>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div class="tab-panel" id="tab-settings">
+      <div class="card">
+        <div class="card-title"><span>📞</span> Contact & Ordering</div>
+        <div class="form-row">
+          <div class="fg"><label>WhatsApp Number (with country code)</label><input type="text" id="s_phone_whatsapp" placeholder="16175550000"></div>
+          <div class="fg"><label>Email Address</label><input type="email" id="s_email" placeholder="chaitraliskitchen@gmail.com"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>💰</span> Tiffin Pricing</div>
+        <div class="form-row three">
+          <div class="fg"><label>Weekly Price ($)</label><input type="number" id="s_tiffin_price_week" placeholder="70"></div>
+          <div class="fg"><label>Single Meal Price ($)</label><input type="number" id="s_tiffin_price_single" placeholder="16"></div>
+          <div class="fg"><label>Days</label><input type="text" id="s_tiffin_days" placeholder="Monday to Friday"></div>
+        </div>
+        <div class="form-row one">
+          <div class="fg"><label>Order Cutoff Note</label><input type="text" id="s_order_cutoff" placeholder="Order by 8 PM the previous day"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>🛵</span> Delivery</div>
+        <div class="form-row">
+          <div class="fg"><label>Delivery Zones (comma separated)</label><input type="text" id="s_delivery_zones" placeholder="Quincy, Milton, Braintree, Randolph"></div>
+          <div class="fg"><label>Pickup City</label><input type="text" id="s_pickup_city" placeholder="Quincy, MA"></div>
+        </div>
+        <div class="form-row one">
+          <div class="fg"><label>Delivery Note</label><input type="text" id="s_delivery_note"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>💳</span> Payment</div>
+        <div class="form-row">
+          <div class="fg"><label>Zelle (email or phone)</label><input type="text" id="s_payment_zelle"></div>
+          <div class="fg"><label>Venmo Handle</label><input type="text" id="s_payment_venmo" placeholder="@Chaitralis-Kitchen"></div>
+        </div>
+        <div class="form-row one">
+          <div class="fg"><label>Payment Note</label><input type="text" id="s_payment_note"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>⚠️</span> Other</div>
+        <div class="form-row one">
+          <div class="fg"><label>Allergy / Kitchen Note</label><textarea id="s_allergy_note"></textarea></div>
+        </div>
+        <div class="form-row one">
+          <div class="fg"><label>Catering Min Notice</label><input type="text" id="s_catering_min_notice" placeholder="72 hours advance notice for catering orders"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- admin-body -->
+
+  <!-- SAVE BAR -->
+  <div class="save-bar">
+    <p>Make changes above, then save and download.</p>
+    <div class="btns">
+      <button class="btn-save" onclick="saveAll()">💾 Save Changes</button>
+      <button class="btn-download" onclick="downloadJson()">⬇️ Download menu.json</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">✅ Saved! Now click Download menu.json</div>
+</div><!-- admin-screen -->
+
+<script>
+/* ── PASSWORD ── */
+const PASSWORD = 'chaitrali2025';
+
+function doLogin() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+function doLogout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('admin-screen').style.display = 'none';
+  document.getElementById('pwd-input').value = '';
+}
+
+/* ── TABS ── */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ── DEFAULT DATA ── */
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+let DATA = {
+  settings: {
+    business_name:"Chaitrali's Kitchen",
+    tagline:"Pure Veg · Homemade · Marathi Chavichi Athavan",
+    phone_whatsapp:"1XXXXXXXXXX",
+    email:"chaitraliskitchen@gmail.com",
+    tiffin_price_week:"70",
+    tiffin_price_single:"16",
+    tiffin_days:"Monday to Friday",
+    order_cutoff:"Order by 8 PM the previous day",
+    delivery_zones:"Quincy, Milton, Braintree, Randolph",
+    delivery_note:"Free delivery within zones for weekly plans. Pickup available for all orders.",
+    pickup_city:"Quincy, MA",
+    payment_zelle:"chaitraliskitchen@gmail.com",
+    payment_venmo:"@Chaitralis-Kitchen",
+    payment_note:"Cash accepted at pickup. Payment due at order confirmation for catering.",
+    allergy_note:"Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard.",
+    catering_min_notice:"72 hours advance notice for catering orders"
+  },
+  tiffin: {
+    week_of:"",
+    days: DAYS.map(d => ({ day:d, bhaji:'', amti:'', rice:'', poli:'Poli (Chapati) x3', side:'', sweet:'', notes:'' }))
+  },
+  catering: [],
+  seasonal: [],
+  reviews: []
+};
+
+/* ── LOAD FROM FILE OR LOCALSTORAGE ── */
+async function loadData() {
+  // Try loading from saved local copy first
+  const saved = localStorage.getItem('ck_admin_data');
+  if (saved) {
+    try { DATA = JSON.parse(saved); } catch(e) {}
+  }
+  // Try fetching live menu.json
+  try {
+    const res = await fetch('../data/menu.json?v=' + Date.now());
+    if (res.ok) { DATA = await res.json(); localStorage.setItem('ck_admin_data', JSON.stringify(DATA)); }
+  } catch(e) {}
+  renderAll();
+}
+
+function renderAll() {
+  renderTiffin();
+  renderCatering();
+  renderSeasonal();
+  renderReviews();
+  renderSettings();
+}
+
+/* ── TIFFIN ── */
+function renderTiffin() {
+  document.getElementById('week_of').value = DATA.tiffin.week_of || '';
+  const container = document.getElementById('days-container');
+  container.innerHTML = '';
+  (DATA.tiffin.days || []).forEach((day, i) => {
+    container.innerHTML += `
+    <div class="card">
+      <div class="day-label">📅 ${day.day}</div>
+      <div class="day-grid">
+        <div class="fg"><label>Bhaji (Vegetable)</label><input type="text" data-day="${i}" data-field="bhaji" value="${day.bhaji||''}"></div>
+        <div class="fg"><label>Dal / Amti</label><input type="text" data-day="${i}" data-field="amti" value="${day.amti||''}"></div>
+        <div class="fg"><label>Rice</label><input type="text" data-day="${i}" data-field="rice" value="${day.rice||''}"></div>
+      </div>
+      <div class="day-grid-2">
+        <div class="fg"><label>Side / Koshimbir</label><input type="text" data-day="${i}" data-field="side" value="${day.side||''}"></div>
+        <div class="fg"><label>Sweet (leave blank if none)</label><input type="text" data-day="${i}" data-field="sweet" value="${day.sweet||''}"></div>
+      </div>
+    </div>`;
+  });
+}
+
+/* ── CATERING ── */
+function renderCatering() {
+  const list = document.getElementById('catering-list');
+  list.innerHTML = '';
+  (DATA.catering || []).forEach((d, i) => {
+    list.innerHTML += dishHTML(i, d);
+  });
+}
+function dishHTML(i, d) {
+  const cats = ['Starters','Mains','Rice','Sweets','Drinks','Other'];
+  return `<div class="dish-item" id="dish-${i}">
+    <button class="remove-btn" onclick="removeDish(${i})">✕</button>
+    <div class="dish-row">
+      <div class="fg"><label>Dish Name</label><input type="text" data-di="${i}" data-f="name" value="${d.name||''}"></div>
+      <div class="fg"><label>Category</label>
+        <select data-di="${i}" data-f="category">
+          ${cats.map(c=>`<option value="${c}"${d.category===c?' selected':''}>${c}</option>`).join('')}
+        </select>
+      </div>
+      <div class="fg"><label>Price ($)</label><input type="number" data-di="${i}" data-f="price" value="${d.price||''}"></div>
+    </div>
+    <div class="dish-row-2">
+      <div class="fg"><label>Unit (e.g. per tray)</label><input type="text" data-di="${i}" data-f="unit" value="${d.unit||''}"></div>
+      <div class="fg"><label>Contains (allergens)</label><input type="text" data-di="${i}" data-f="contains" value="${d.contains||''}"></div>
+      <div class="fg"><label>Spicy?</label>
+        <select data-di="${i}" data-f="spicy">
+          <option value="false"${!d.spicy?' selected':''}>No</option>
+          <option value="true"${d.spicy?' selected':''}>Yes 🌶</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg" style="margin-top:10px;"><label>Description</label><input type="text" data-di="${i}" data-f="description" value="${d.description||''}"></div>
+  </div>`;
+}
+function addDish() {
+  DATA.catering.push({name:'',category:'Starters',price:0,unit:'per tray',description:'',spicy:false,contains:''});
+  renderCatering();
+  document.getElementById('catering-list').lastElementChild.scrollIntoView({behavior:'smooth'});
+}
+function removeDish(i) {
+  if(confirm('Remove this dish?')) { DATA.catering.splice(i,1); renderCatering(); }
+}
+
+/* ── SEASONAL ── */
+function renderSeasonal() {
+  const list = document.getElementById('seasonal-list');
+  list.innerHTML = '';
+  (DATA.seasonal || []).forEach((s, i) => {
+    list.innerHTML += `<div class="dish-item" id="sea-${i}">
+      <button class="remove-btn" onclick="removeSeasonal(${i})">✕</button>
+      <div class="dish-row">
+        <div class="fg"><label>Item Name</label><input type="text" data-si="${i}" data-f="name" value="${s.name||''}"></div>
+        <div class="fg"><label>Occasion</label><input type="text" data-si="${i}" data-f="occasion" value="${s.occasion||''}"></div>
+        <div class="fg"><label>Price ($)</label><input type="number" data-si="${i}" data-f="price" value="${s.price||''}"></div>
+      </div>
+      <div class="dish-row-2">
+        <div class="fg"><label>Unit</label><input type="text" data-si="${i}" data-f="unit" value="${s.unit||''}"></div>
+        <div class="fg"><label>Order By Date</label><input type="text" data-si="${i}" data-f="order_by" value="${s.order_by||''}"></div>
+        <div class="fg"><label>Description</label><input type="text" data-si="${i}" data-f="description" value="${s.description||''}"></div>
+      </div>
+    </div>`;
+  });
+}
+function addSeasonal() {
+  DATA.seasonal.push({occasion:'',name:'',price:0,unit:'per box',description:'',order_by:''});
+  renderSeasonal();
+}
+function removeSeasonal(i) {
+  if(confirm('Remove this item?')) { DATA.seasonal.splice(i,1); renderSeasonal(); }
+}
+
+/* ── REVIEWS ── */
+function renderReviews() {
+  const list = document.getElementById('reviews-list');
+  list.innerHTML = '';
+  (DATA.reviews || []).forEach((r, i) => {
+    list.innerHTML += `<div class="review-item" id="rev-${i}">
+      <button class="remove-btn" onclick="removeReview(${i})">✕</button>
+      <div class="form-row">
+        <div class="fg"><label>Name</label><input type="text" data-ri="${i}" data-f="name" value="${r.name||''}"></div>
+        <div class="fg"><label>Location</label><input type="text" data-ri="${i}" data-f="location" value="${r.location||''}"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Rating (1–5)</label>
+          <select data-ri="${i}" data-f="rating">
+            ${[5,4,3,2,1].map(n=>`<option value="${n}"${r.rating===n?' selected':''}>${n} ★</option>`).join('')}
+          </select>
+        </div>
+        <div class="fg"><label>Date (e.g. Jan 2026)</label><input type="text" data-ri="${i}" data-f="date" value="${r.date||''}"></div>
+      </div>
+      <div class="fg"><label>Review Text</label><textarea data-ri="${i}" data-f="text">${r.text||''}</textarea></div>
+    </div>`;
+  });
+}
+function addReview() {
+  DATA.reviews.push({name:'',location:'',rating:5,text:'',date:''});
+  renderReviews();
+}
+function removeReview(i) {
+  if(confirm('Remove this review?')) { DATA.reviews.splice(i,1); renderReviews(); }
+}
+
+/* ── SETTINGS ── */
+function renderSettings() {
+  const S = DATA.settings || {};
+  Object.keys(S).forEach(k => {
+    const el = document.getElementById('s_' + k);
+    if (el) el.value = S[k] || '';
+  });
+}
+
+/* ── COLLECT ALL DATA ── */
+function collectAll() {
+  // Tiffin
+  DATA.tiffin.week_of = document.getElementById('week_of').value.trim();
+  document.querySelectorAll('[data-day]').forEach(el => {
+    const i = +el.dataset.day, f = el.dataset.field;
+    if (DATA.tiffin.days[i]) DATA.tiffin.days[i][f] = el.value.trim();
+  });
+
+  // Catering
+  document.querySelectorAll('[data-di]').forEach(el => {
+    const i = +el.dataset.di, f = el.dataset.f;
+    if (DATA.catering[i]) {
+      let v = el.value.trim();
+      if (f === 'price') v = parseFloat(v) || 0;
+      if (f === 'spicy') v = v === 'true';
+      DATA.catering[i][f] = v;
+    }
+  });
+
+  // Seasonal
+  document.querySelectorAll('[data-si]').forEach(el => {
+    const i = +el.dataset.si, f = el.dataset.f;
+    if (DATA.seasonal[i]) {
+      let v = el.value.trim();
+      if (f === 'price') v = parseFloat(v) || 0;
+      DATA.seasonal[i][f] = v;
+    }
+  });
+
+  // Reviews
+  document.querySelectorAll('[data-ri]').forEach(el => {
+    const i = +el.dataset.ri, f = el.dataset.f;
+    if (DATA.reviews[i]) {
+      let v = el.tagName === 'TEXTAREA' ? el.value.trim() : el.value.trim();
+      if (f === 'rating') v = parseInt(v) || 5;
+      DATA.reviews[i][f] = v;
+    }
+  });
+
+  // Settings
+  const S = DATA.settings || {};
+  ['phone_whatsapp','email','tiffin_price_week','tiffin_price_single','tiffin_days',
+   'order_cutoff','delivery_zones','delivery_note','pickup_city',
+   'payment_zelle','payment_venmo','payment_note','allergy_note','catering_min_notice'
+  ].forEach(k => {
+    const el = document.getElementById('s_' + k);
+    if (el) S[k] = el.value.trim();
+  });
+  DATA.settings = S;
+}
+
+function saveAll() {
+  collectAll();
+  localStorage.setItem('ck_admin_data', JSON.stringify(DATA));
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function downloadJson() {
+  collectAll();
+  const json = JSON.stringify(DATA, null, 2);
+  const blob = new Blob([json], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'menu.json';
+  a.click();
+}
+</script>
+</body>
+</html>
