@@ -39,12 +39,15 @@
       -webkit-backdrop-filter:blur(24px) saturate(160%);
     }
     .nav-logo {
-      font-family:'Cormorant Garamond',serif;
-      font-size:26px; font-weight:500; color:#fff;
-      text-decoration:none; letter-spacing:0.01em;
-      display:flex; flex-direction:column; line-height:1;
+      text-decoration:none;
+      display:flex; align-items:center; gap:0;
     }
-    .nav-logo .sub { font-size:9px; letter-spacing:0.22em; color:var(--gold); font-family:'DM Sans',sans-serif; font-weight:400; text-transform:uppercase; margin-top:3px; }
+    .nav-logo img {
+      height:52px; width:auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+      transition: transform .2s;
+    }
+    .nav-logo:hover img { transform: scale(1.04); }
     .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
     .nav-links a { font-size:13px; letter-spacing:0.05em; color:rgba(255,255,255,0.75); text-decoration:none; transition:color .2s; }
     .nav-links a:hover { color:var(--gold); }
@@ -550,8 +553,7 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    Chaitrali's
-    <span class="sub">Kitchen</span>
+    <img src="logo.png" alt="Chaitrali's Kitchen">
   </a>
   <ul class="nav-links">
     <li><a href="#story">Our Story</a></li>
@@ -972,8 +974,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <div class="logo">Chaitrali's</div>
-      <div class="logo-sub">Kitchen</div>
+      <img src="logo.png" alt="Chaitrali's Kitchen" style="height:80px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1) opacity(0.85);">
       <p>Authentic homemade pure vegetarian Marathi cuisine, crafted with love in Quincy, MA. Serving the South Shore since day one.</p>
     </div>
     <div class="footer-col">
