@@ -1,0 +1,297 @@
+{
+  "settings": {
+    "business_name": "Chaitrali's Kitchen",
+    "tagline": "Pure Veg · Homemade · Marathi Chavichi Athavan",
+    "phone_whatsapp": "1XXXXXXXXXX",
+    "email": "chaitraliskitchen@gmail.com",
+    "tiffin_price_week": "70",
+    "tiffin_price_single": "16",
+    "tiffin_days": "Monday to Friday",
+    "order_cutoff": "Order by 8 PM the previous day",
+    "delivery_zones": "Quincy, Milton, Braintree, Randolph",
+    "delivery_note": "Free delivery within zones for weekly plans. Pickup available for all orders.",
+    "pickup_city": "Quincy, MA",
+    "payment_zelle": "chaitraliskitchen@gmail.com",
+    "payment_venmo": "@Chaitralis-Kitchen",
+    "payment_note": "Cash accepted at pickup. Payment due at order confirmation for catering.",
+    "allergy_note": "Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible with any dish. Please tell us about all allergies when ordering — we will honestly advise what is safe.",
+    "catering_min_notice": "72 hours advance notice for catering orders"
+  },
+  "tiffin": {
+    "week_of": "Aug 3 – Aug 7, 2026",
+    "days": [
+      {
+        "day": "Monday",
+        "bhaji": "Batata Bhaji",
+        "amti": "Varan (Toor Dal)",
+        "rice": "Steamed Rice",
+        "poli": "Poli (Chapati) x3",
+        "side": "Kakdi Koshimbir",
+        "sweet": "Shira",
+        "notes": ""
+      },
+      {
+        "day": "Tuesday",
+        "bhaji": "Matki Usal",
+        "amti": "Katachi Amti",
+        "rice": "Steamed Rice",
+        "poli": "Poli (Chapati) x3",
+        "side": "Beetroot Koshimbir",
+        "sweet": "—",
+        "notes": "Medium spicy"
+      },
+      {
+        "day": "Wednesday",
+        "bhaji": "Bharli Vangi",
+        "amti": "Varan (Moong Dal)",
+        "rice": "Masale Bhaat",
+        "poli": "Poli (Chapati) x3",
+        "side": "Papad + Pickle",
+        "sweet": "Gulab Jamun",
+        "notes": ""
+      },
+      {
+        "day": "Thursday",
+        "bhaji": "Flower-Batata Rassa",
+        "amti": "Tomato Saar",
+        "rice": "Jeera Rice",
+        "poli": "Poli (Chapati) x3",
+        "side": "Kobi Koshimbir",
+        "sweet": "—",
+        "notes": ""
+      },
+      {
+        "day": "Friday",
+        "bhaji": "Paneer Bhurji",
+        "amti": "Dal Fry",
+        "rice": "Veg Pulao",
+        "poli": "Poli (Chapati) x3",
+        "side": "Boondi Raita",
+        "sweet": "Kheer",
+        "notes": "Friday special"
+      }
+    ]
+  },
+  "catering": [
+    {
+      "name": "Kothimbir Vadi (24 pcs)",
+      "category": "Starters",
+      "price": 28,
+      "unit": "per tray",
+      "description": "Crispy coriander-gram flour fritters, a Maharashtrian classic.",
+      "spicy": false,
+      "contains": "Gluten"
+    },
+    {
+      "name": "Alu Vadi (24 pcs)",
+      "category": "Starters",
+      "price": 30,
+      "unit": "per tray",
+      "description": "Colocasia leaf rolls with sweet-spicy gram flour filling.",
+      "spicy": false,
+      "contains": "Gluten, Sesame"
+    },
+    {
+      "name": "Batata Vada (24 pcs)",
+      "category": "Starters",
+      "price": 26,
+      "unit": "per tray",
+      "description": "Golden potato fritters with dry garlic chutney.",
+      "spicy": true,
+      "contains": "Gluten"
+    },
+    {
+      "name": "Sabudana Vada (24 pcs)",
+      "category": "Starters",
+      "price": 30,
+      "unit": "per tray",
+      "description": "Crispy sago-peanut patties, upvas friendly.",
+      "spicy": false,
+      "contains": "Peanuts"
+    },
+    {
+      "name": "Thalipeeth (12 pcs)",
+      "category": "Starters",
+      "price": 24,
+      "unit": "per dozen",
+      "description": "Multigrain spiced flatbread served with loni (white butter).",
+      "spicy": true,
+      "contains": "Gluten, Dairy"
+    },
+    {
+      "name": "Misal Pav",
+      "category": "Mains",
+      "price": 8,
+      "unit": "per person",
+      "description": "Fiery sprouted matki curry with farsan, onion, lemon & pav.",
+      "spicy": true,
+      "contains": "Gluten, Peanuts"
+    },
+    {
+      "name": "Pav Bhaji",
+      "category": "Mains",
+      "price": 7,
+      "unit": "per person",
+      "description": "Buttery mashed vegetable bhaji with soft pav.",
+      "spicy": true,
+      "contains": "Gluten, Dairy"
+    },
+    {
+      "name": "Paneer Makhani",
+      "category": "Mains",
+      "price": 55,
+      "unit": "per tray",
+      "description": "Paneer in a rich tomato-cashew gravy (half tray serves ~10).",
+      "spicy": false,
+      "contains": "Dairy, Nuts"
+    },
+    {
+      "name": "Bharli Vangi",
+      "category": "Mains",
+      "price": 50,
+      "unit": "per tray",
+      "description": "Baby eggplants stuffed with goda masala-peanut filling.",
+      "spicy": true,
+      "contains": "Peanuts"
+    },
+    {
+      "name": "Zunka with Bhakri",
+      "category": "Mains",
+      "price": 6,
+      "unit": "per person",
+      "description": "Rustic gram-flour zunka with jowar bhakri.",
+      "spicy": true,
+      "contains": ""
+    },
+    {
+      "name": "Masale Bhaat",
+      "category": "Rice",
+      "price": 45,
+      "unit": "per tray",
+      "description": "Fragrant spiced rice with vegetables and goda masala.",
+      "spicy": true,
+      "contains": "Nuts"
+    },
+    {
+      "name": "Veg Pulao",
+      "category": "Rice",
+      "price": 40,
+      "unit": "per tray",
+      "description": "Mild basmati pulao with seasonal vegetables.",
+      "spicy": false,
+      "contains": ""
+    },
+    {
+      "name": "Varan Bhaat with Toop",
+      "category": "Rice",
+      "price": 35,
+      "unit": "per tray",
+      "description": "Comforting dal-rice with homemade ghee.",
+      "spicy": false,
+      "contains": "Dairy"
+    },
+    {
+      "name": "Puran Poli (6 pcs)",
+      "category": "Sweets",
+      "price": 24,
+      "unit": "per half dozen",
+      "description": "Soft poli stuffed with jaggery-chana dal puran, served with toop.",
+      "spicy": false,
+      "contains": "Gluten, Dairy"
+    },
+    {
+      "name": "Shrikhand (32 oz)",
+      "category": "Sweets",
+      "price": 18,
+      "unit": "per container",
+      "description": "Thick saffron-cardamom strained yogurt.",
+      "spicy": false,
+      "contains": "Dairy, Nuts"
+    },
+    {
+      "name": "Basundi (32 oz)",
+      "category": "Sweets",
+      "price": 20,
+      "unit": "per container",
+      "description": "Slow-thickened sweetened milk with nutmeg & nuts.",
+      "spicy": false,
+      "contains": "Dairy, Nuts"
+    },
+    {
+      "name": "Kharvas (12 pcs)",
+      "category": "Sweets",
+      "price": 22,
+      "unit": "per tray",
+      "description": "Traditional steamed milk pudding with jaggery & cardamom.",
+      "spicy": false,
+      "contains": "Dairy"
+    },
+    {
+      "name": "Sol Kadhi (1 gal)",
+      "category": "Drinks",
+      "price": 25,
+      "unit": "per gallon",
+      "description": "Cooling kokum-coconut milk digestive drink.",
+      "spicy": false,
+      "contains": ""
+    },
+    {
+      "name": "Masala Chai (1 gal)",
+      "category": "Drinks",
+      "price": 20,
+      "unit": "per gallon",
+      "description": "Ginger-cardamom chai brewed with whole milk.",
+      "spicy": false,
+      "contains": "Dairy"
+    }
+  ],
+  "seasonal": [
+    {
+      "occasion": "Ganesh Chaturthi",
+      "name": "Ukdiche Modak (11 pcs)",
+      "price": 25,
+      "unit": "per box",
+      "description": "Steamed rice-flour modak with coconut-jaggery saran. Bappa's favorite.",
+      "order_by": "Sep 10, 2026"
+    },
+    {
+      "occasion": "Ganesh Chaturthi",
+      "name": "Talniche Modak (11 pcs)",
+      "price": 22,
+      "unit": "per box",
+      "description": "Golden fried modak with coconut-jaggery filling.",
+      "order_by": "Sep 10, 2026"
+    },
+    {
+      "occasion": "Ganesh Chaturthi",
+      "name": "Panchkhadya Prasad (8 oz)",
+      "price": 10,
+      "unit": "per box",
+      "description": "Traditional prasad of coconut, khadisakhar, dry dates, poppy seeds & almonds.",
+      "order_by": "Sep 10, 2026"
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Priya S.",
+      "location": "Quincy, MA",
+      "rating": 5,
+      "text": "The weekly tiffin tastes exactly like aaji's cooking. The masale bhaat and puran poli bring tears to my eyes.",
+      "date": "Jan 2026"
+    },
+    {
+      "name": "Sneha K.",
+      "location": "Milton, MA",
+      "rating": 5,
+      "text": "Ordered catering for my daughter's birthday — the misal pav and kothimbir vadi disappeared in minutes!",
+      "date": "Mar 2026"
+    },
+    {
+      "name": "Ananya R.",
+      "location": "Braintree, MA",
+      "rating": 5,
+      "text": "Her ukdiche modak for Ganesh Chaturthi are pure magic. Just like home in Pune.",
+      "date": "Sep 2025"
+    }
+  ]
+}
