@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaitrali's Kitchen — Coming Soon</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -28,31 +28,55 @@
     background-size: cover;
     background-position: center;
     background-color: #2C4A2E;
-    filter: brightness(0.45);
+    filter: brightness(0.38);
     z-index: 0;
   }
 
   .content {
     position: relative;
     z-index: 1;
-    padding: 40px 24px;
+    padding: 48px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .badge {
     font-size: 11px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #D4A24C;
-    margin-bottom: 20px;
+    margin-bottom: 28px;
     display: block;
+    font-weight: 500;
+  }
+
+  .logo-wrap {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid rgba(212,162,76,0.5);
+    background: rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .logo-wrap img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 50%;
   }
 
   h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.4rem, 7vw, 4rem);
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
     font-weight: 700;
     line-height: 1.1;
-    margin-bottom: 16px;
+    margin-bottom: 6px;
   }
 
   h1 em {
@@ -67,11 +91,20 @@
     margin: 20px auto;
   }
 
-  p {
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.75);
+  .sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.72);
     font-weight: 300;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+  }
+
+  .location {
+    font-size: 0.88rem;
+    color: rgba(212,162,76,0.8);
+    margin-top: 6px;
+    letter-spacing: 0.06em;
+    font-weight: 400;
   }
 
   .coming {
@@ -87,10 +120,19 @@
 <body>
   <div class="bg"></div>
   <div class="content">
-    <span class="badge">✦ Homemade · Pure Veg · Marathi ✦</span>
+    <span class="badge">✦ Homemade &nbsp;·&nbsp; Pure Veg ✦</span>
+
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Chaitrali's Kitchen Logo">
+    </div>
+
     <h1>Chaitrali's <em>Kitchen</em></h1>
+
     <div class="line"></div>
-    <p>Authentic homemade Marathi cuisine<br>Quincy, MA</p>
+
+    <p class="sub">Authentic Maharashtrian Home Style Cuisine</p>
+    <p class="location">Shrewsbury → Now Quincy, MA</p>
+
     <p class="coming">Coming Shortly…</p>
   </div>
 </body>
