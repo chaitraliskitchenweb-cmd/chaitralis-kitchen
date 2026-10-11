@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Event Special Menu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&family=Rozha+One&display=swap">
+<style>
+  :root {
+    --cream:    #fdf6e8;
+    --cream2:   #f9eecc;
+    --maroon:   #8b1a1a;
+    --gold:     #b8860b;
+    --gold-lt:  #d4a017;
+    --green:    #2d5a1b;
+    --green-lt: #3a7322;
+    --orange:   #e07020;
+    --fg:       #2a1a0a;
+    --fg-soft:  #6b4c2a;
+    --border:   #d4b896;
+    --border2:  #c8a870;
+    color-scheme: light;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--fg);
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── EVENT SELECTOR ── */
+  .event-nav {
+    background: var(--green);
+    padding: 10px 20px;
+    display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  }
+  .event-btn {
+    padding: 6px 18px; border-radius: 100px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    border: 1.5px solid rgba(255,255,255,.3);
+    background: transparent; color: rgba(255,255,255,.75);
+    font-family: 'Poppins', sans-serif;
+    transition: all .2s;
+  }
+  .event-btn:hover  { background: rgba(255,255,255,.15); color: #fff; }
+  .event-btn.active { background: var(--gold-lt); color: var(--fg); border-color: var(--gold-lt); }
+
+  .event-page { display: none; }
+  .event-page.visible { display: block; }
+
+  /* ── FESTIVE HEADER ── */
+  .fest-header {
+    position: relative;
+    text-align: center;
+    padding: 0 20px 28px;
+    overflow: hidden;
+  }
+
+  /* Marigold garland top border */
+  .garland {
+    width: 100%; height: 22px;
+    background: repeating-linear-gradient(
+      90deg,
+      #e8640a 0px, #e8640a 18px,
+      #f0a020 18px, #f0a020 26px,
+      #e8640a 26px, #e8640a 36px,
+      #2d5a1b 36px, #2d5a1b 44px
+    );
+    opacity: .85;
+  }
+  .garland-dots {
+    background: var(--green);
+    height: 8px;
+  }
+
+  .fest-header-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 24px;
+  }
+
+  /* Deity / event illustration */
+  .deity-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .deity-svg {
+    width: min(200px, 45vw);
+    filter: drop-shadow(0 4px 20px rgba(180,100,0,.25));
+  }
+
+  .fest-brand {
+    font-size: 10px; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .fest-title {
+    font-family: 'Rozha One', Georgia, serif;
+    font-size: clamp(2.4rem, 8vw, 3.8rem);
+    color: var(--maroon);
+    line-height: 1.05;
+    text-shadow: 0 1px 0 rgba(255,255,255,.6);
+  }
+  .fest-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+    color: var(--green);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .order-banner {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--maroon);
+    color: #fff;
+    padding: 7px 24px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .order-banner strong { color: var(--gold-lt); }
+
+  /* Licensed badge */
+  .licensed-badge {
+    display: inline-block;
+    margin-top: 10px;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 4px 14px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* ── MENU BODY ── */
+  .menu-body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* Section card */
+  .menu-section {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .menu-section.span2 { grid-column: span 2; }
+  .menu-section.span3 { grid-column: span 3; }
+
+  .section-head {
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    text-align: center;
+  }
+  .section-head.gold { background: var(--gold); color: var(--fg); }
+  .section-head.maroon { background: var(--maroon); color: #fff; }
+
+  .section-body { padding: 10px 12px; }
+
+  /* Dish row */
+  .dish-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .dish-row:last-child { border-bottom: none; }
+
+  .dish-img {
+    width: 44px; height: 44px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--cream2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    overflow: hidden;
+  }
+  .dish-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .dish-details { flex: 1; min-width: 0; }
+  .dish-dname {
+    font-weight: 600; font-size: 12.5px; color: var(--maroon);
+    line-height: 1.2;
+  }
+  .dish-sub { font-size: 10.5px; color: var(--fg-soft); margin-top: 1px; }
+
+  .dish-price {
+    text-align: right;
+    flex-shrink: 0;
+    min-width: 60px;
+  }
+  .dish-price .price-line {
+    font-size: 11px; color: var(--fg-soft); line-height: 1.6;
+    white-space: nowrap;
+  }
+  .dish-price .price-line strong {
+    font-weight: 700; color: var(--fg); margin-left: 4px;
+  }
+
+  /* Festival sweets section */
+  .sweets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+  .sweet-card {
+    text-align: center;
+    padding: 10px 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--cream);
+  }
+  .sweet-icon { font-size: 28px; margin-bottom: 6px; }
+  .sweet-name { font-weight: 600; font-size: 12px; color: var(--maroon); line-height: 1.3; }
+  .sweet-price { font-size: 12px; font-weight: 700; color: var(--green); margin-top: 4px; }
+
+  /* ── FOOTER INFO BAR ── */
+  .menu-footer {
+    max-width: 960px; margin: 0 auto 0;
+    padding: 0 16px 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .footer-card {
+    background: var(--fg);
+    color: #fff;
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+  }
+  .footer-card .fc-label { font-size: 10px; opacity: .6; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+  .footer-card .fc-val { font-size: 15px; font-weight: 700; }
+  .footer-card.contact { background: var(--maroon); }
+  .footer-card.contact .fc-val { font-size: 20px; letter-spacing: .04em; }
+
+  .pickup-strip {
+    background: var(--green);
+    color: #fff;
+    max-width: 960px; margin: 0 auto;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    font-size: 12.5px; font-weight: 600;
+    overflow: hidden;
+  }
+  .strip-half {
+    flex: 1;
+    padding: 10px 16px;
+    text-align: center;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .strip-half + .strip-half { border-left: 1px solid rgba(255,255,255,.2); }
+
+  @media (max-width: 620px) {
+    .menu-body { grid-template-columns: 1fr; }
+    .menu-section.span2, .menu-section.span3 { grid-column: span 1; }
+    .sweets-grid { grid-template-columns: 1fr 1fr; }
+    .menu-footer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- EVENT NAV -->
+<nav class="event-nav">
+  <button class="event-btn active" data-event="ganpati">🐘 Ganpati Festival</button>
+  <button class="event-btn" data-event="diwali">🪔 Diwali</button>
+  <button class="event-btn" data-event="holi">🌸 Holi</button>
+  <button class="event-btn" data-event="custom">🎉 Custom Event</button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     GANPATI PAGE
+════════════════════════════════════════════ -->
+<div class="event-page visible" id="page-ganpati">
+
+  <!-- Festive Header -->
+  <div class="fest-header" style="background: linear-gradient(180deg, #fdf0d0 0%, #fde8b0 60%, #fdf6e8 100%);">
+    <div class="garland"></div>
+    <div class="garland-dots"></div>
+
+    <div class="fest-header-inner">
+      <!-- Ganesha SVG illustration -->
+      <div class="deity-wrap">
+        <svg class="deity-svg" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Lotus base -->
+          <ellipse cx="100" cy="228" rx="62" ry="14" fill="#e8b4c0" opacity=".5"/>
+          <!-- Petals -->
+          <g opacity=".85">
+            <ellipse cx="100" cy="218" rx="18" ry="10" fill="#f48fb1" transform="rotate(-30 100 218)"/>
+            <ellipse cx="100" cy="218" rx="18" ry="10" fill="#f48fb1" transform="rotate(30 100 218)"/>
+            <ellipse cx="100" cy="218" rx="18" ry="10" fill="#ec407a"/>
+            <ellipse cx="72" cy="212" rx="15" ry="9" fill="#f48fb1"/>
+            <ellipse cx="128" cy="212" rx="15" ry="9" fill="#f48fb1"/>
+          </g>
+          <!-- Body / dhoti -->
+          <ellipse cx="100" cy="185" rx="52" ry="48" fill="#f9a825"/>
+          <ellipse cx="100" cy="190" rx="48" ry="40" fill="#fb8c00" opacity=".3"/>
+          <!-- Belly -->
+          <ellipse cx="100" cy="192" rx="26" ry="22" fill="#e65100" opacity=".18"/>
+          <!-- Navel dot -->
+          <circle cx="100" cy="198" r="4" fill="#bf360c" opacity=".4"/>
+          <!-- Arms -->
+          <ellipse cx="52" cy="170" rx="18" ry="10" fill="#f9a825" transform="rotate(-30 52 170)"/>
+          <ellipse cx="148" cy="170" rx="18" ry="10" fill="#f9a825" transform="rotate(30 148 170)"/>
+          <!-- Hands -->
+          <circle cx="38" cy="162" r="10" fill="#f9a825"/>
+          <circle cx="162" cy="162" r="10" fill="#f9a825"/>
+          <!-- Modak in left hand -->
+          <ellipse cx="30" cy="152" rx="10" ry="12" fill="#fff9c4"/>
+          <path d="M24 152 Q30 142 36 152" stroke="#f9a825" stroke-width="1.5" fill="none"/>
+          <!-- Abhaya mudra right hand lines -->
+          <line x1="156" y1="156" x2="168" y2="156" stroke="#e65100" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="155" y1="160" x2="169" y2="160" stroke="#e65100" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="156" y1="164" x2="168" y2="164" stroke="#e65100" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Neck -->
+          <rect x="84" y="124" width="32" height="22" rx="8" fill="#f9a825"/>
+          <!-- Mala / necklace -->
+          <path d="M84 136 Q100 146 116 136" stroke="#b8860b" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="100" cy="145" r="5" fill="#b8860b"/>
+          <!-- Head -->
+          <ellipse cx="100" cy="102" rx="50" ry="52" fill="#f9a825"/>
+          <!-- Ears -->
+          <ellipse cx="50" cy="100" rx="20" ry="26" fill="#f9a825"/>
+          <ellipse cx="50" cy="100" rx="13" ry="17" fill="#fb8c00" opacity=".4"/>
+          <ellipse cx="150" cy="100" rx="20" ry="26" fill="#f9a825"/>
+          <ellipse cx="150" cy="100" rx="13" ry="17" fill="#fb8c00" opacity=".4"/>
+          <!-- Trunk -->
+          <path d="M86 122 Q72 140 80 156 Q84 162 90 158 Q96 154 92 140 Q100 148 106 142 Q112 136 100 122" fill="#f9a825" stroke="#e65100" stroke-width="1" opacity=".8"/>
+          <!-- Eyes -->
+          <ellipse cx="84" cy="96" rx="10" ry="10" fill="white"/>
+          <ellipse cx="116" cy="96" rx="10" ry="10" fill="white"/>
+          <circle cx="85" cy="96" r="6" fill="#1a0a00"/>
+          <circle cx="117" cy="96" r="6" fill="#1a0a00"/>
+          <circle cx="83" cy="94" r="2" fill="white"/>
+          <circle cx="115" cy="94" r="2" fill="white"/>
+          <!-- Eyebrows -->
+          <path d="M76 87 Q84 83 92 87" stroke="#5d2c0a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M108 87 Q116 83 124 87" stroke="#5d2c0a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- Tilak / third eye -->
+          <ellipse cx="100" cy="82" rx="6" ry="4" fill="#b71c1c" opacity=".8"/>
+          <circle cx="100" cy="82" r="2" fill="#ffcc02"/>
+          <!-- Crown / mukut -->
+          <path d="M60 76 Q62 50 100 46 Q138 50 140 76" fill="#b8860b"/>
+          <path d="M68 72 Q70 54 100 50 Q130 54 132 72" fill="#d4a017"/>
+          <!-- Crown gems -->
+          <circle cx="100" cy="52" r="6" fill="#e53935"/>
+          <circle cx="82" cy="58" r="4" fill="#43a047"/>
+          <circle cx="118" cy="58" r="4" fill="#1e88e5"/>
+          <!-- Crown top peak -->
+          <path d="M94 46 Q100 38 106 46" fill="#b8860b"/>
+          <circle cx="100" cy="37" r="4" fill="#ffcc02"/>
+          <!-- Om symbol on crown -->
+          <text x="100" y="70" text-anchor="middle" font-size="13" fill="#8b1a1a" font-family="serif" opacity=".7">ॐ</text>
+        </svg>
+      </div>
+
+      <p class="fest-brand">Chaitrali's Kitchen LLC · Homemade with Love</p>
+      <div class="fest-title">Ganpati</div>
+      <div class="fest-subtitle">Special Festival Menu</div>
+      <div class="order-banner">Book your order by <strong>10 September</strong></div>
+      <br>
+      <span class="licensed-badge">✓ Licensed Food Vendor</span>
+    </div>
+  </div>
+
+  <!-- Menu Grid -->
+  <div class="menu-body">
+
+    <!-- APPETIZER -->
+    <div class="menu-section">
+      <div class="section-head">Appetizer</div>
+      <div class="section-body">
+        <div class="dish-row">
+          <div class="dish-img">🟤</div>
+          <div class="dish-details"><div class="dish-dname">Mini Batata Vada</div></div>
+          <div class="dish-price"><div class="price-line">50 pcs <strong>$100</strong></div></div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">⚪</div>
+          <div class="dish-details"><div class="dish-dname">Mini Sabudana Vada</div></div>
+          <div class="dish-price"><div class="price-line">50 pcs <strong>$100</strong></div></div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🟨</div>
+          <div class="dish-details"><div class="dish-dname">Kothimbir Vadi</div></div>
+          <div class="dish-price">
+            <div class="price-line">50 pcs <strong>$80</strong></div>
+            <div class="price-line">100 pcs <strong>$160</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🥛</div>
+          <div class="dish-details"><div class="dish-dname">Dahivada</div></div>
+          <div class="dish-price">
+            <div class="price-line">25 pcs <strong>$57</strong></div>
+            <div class="price-line">50 pcs <strong>$115</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🟠</div>
+          <div class="dish-details"><div class="dish-dname">Farali Misal</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$80</strong></div>
+            <div class="price-line">Full <strong>$160</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🍚</div>
+          <div class="dish-details"><div class="dish-dname">Sabudana Khichadi</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$75</strong></div>
+            <div class="price-line">Full <strong>$150</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN ENTRY -->
+    <div class="menu-section">
+      <div class="section-head maroon">Main Entry</div>
+      <div class="section-body">
+        <div class="dish-row">
+          <div class="dish-img">🍛</div>
+          <div class="dish-details"><div class="dish-dname">Veg Kurma</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$75</strong></div>
+            <div class="price-line">Full <strong>$150</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🍆</div>
+          <div class="dish-details"><div class="dish-dname">Bharli Vangi</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$80</strong></div>
+            <div class="price-line">Full <strong>$160</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🥔</div>
+          <div class="dish-details"><div class="dish-dname">Alu Fadfad</div><div class="dish-sub">(Patal Bhaji)</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$80</strong></div>
+            <div class="price-line">Full <strong>$160</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🥔</div>
+          <div class="dish-details"><div class="dish-dname">Batata Sukhi</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$60</strong></div>
+            <div class="price-line">Full <strong>$120</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🫘</div>
+          <div class="dish-details"><div class="dish-dname">Matki Usal</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$70</strong></div>
+            <div class="price-line">Full <strong>$140</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🫘</div>
+          <div class="dish-details"><div class="dish-dname">Chavli Usal</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$70</strong></div>
+            <div class="price-line">Full <strong>$140</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🫘</div>
+          <div class="dish-details"><div class="dish-dname">Moong Usal</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$70</strong></div>
+            <div class="price-line">Full <strong>$140</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAL + BREAD + RICE column -->
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <!-- DAL -->
+      <div class="menu-section">
+        <div class="section-head">Dal</div>
+        <div class="section-body">
+          <div class="dish-row">
+            <div class="dish-img">🟡</div>
+            <div class="dish-details"><div class="dish-dname">Varan</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$50</strong></div>
+              <div class="price-line">Full <strong>$100</strong></div>
+            </div>
+          </div>
+          <div class="dish-row">
+            <div class="dish-img">🟠</div>
+            <div class="dish-details"><div class="dish-dname">Shevgyachi Amti</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$60</strong></div>
+              <div class="price-line">Full <strong>$120</strong></div>
+            </div>
+          </div>
+          <div class="dish-row">
+            <div class="dish-img">🍅</div>
+            <div class="dish-details"><div class="dish-dname">Tomato Saar</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$50</strong></div>
+              <div class="price-line">Full <strong>$100</strong></div>
+            </div>
+          </div>
+          <div class="dish-row">
+            <div class="dish-img">🥛</div>
+            <div class="dish-details"><div class="dish-dname">Soal Kadhi</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$50</strong></div>
+              <div class="price-line">Full <strong>$100</strong></div>
+            </div>
+          </div>
+          <div class="dish-row">
+            <div class="dish-img">🥛</div>
+            <div class="dish-details"><div class="dish-dname">Maharastriyan Kadhi</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$55</strong></div>
+              <div class="price-line">Full <strong>$110</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- BREAD -->
+      <div class="menu-section">
+        <div class="section-head gold">Bread</div>
+        <div class="section-body">
+          <div class="dish-row">
+            <div class="dish-img">🫓</div>
+            <div class="dish-details"><div class="dish-dname">Puri</div></div>
+            <div class="dish-price"><div class="price-line"><strong>$2 each</strong></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- RICE -->
+      <div class="menu-section">
+        <div class="section-head">Rice</div>
+        <div class="section-body">
+          <div class="dish-row">
+            <div class="dish-img">🍚</div>
+            <div class="dish-details"><div class="dish-dname">Masale Bhat</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$80</strong></div>
+              <div class="price-line">Full <strong>$160</strong></div>
+            </div>
+          </div>
+          <div class="dish-row">
+            <div class="dish-img">🍚</div>
+            <div class="dish-details"><div class="dish-dname">Veg Pulao</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$80</strong></div>
+              <div class="price-line">Full <strong>$160</strong></div>
+            </div>
+          </div>
+          <div class="dish-row">
+            <div class="dish-img">🥥</div>
+            <div class="dish-details"><div class="dish-dname">Narali Bhat</div></div>
+            <div class="dish-price">
+              <div class="price-line">Half <strong>$80</strong></div>
+              <div class="price-line">Full <strong>$160</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SWEET -->
+    <div class="menu-section span2">
+      <div class="section-head maroon">Sweet</div>
+      <div class="section-body">
+        <div class="dish-row">
+          <div class="dish-img">🫓</div>
+          <div class="dish-details"><div class="dish-dname">Puranpoli</div></div>
+          <div class="dish-price">
+            <div class="price-line">10 pcs <strong>$50</strong></div>
+            <div class="price-line">25 pcs <strong>$125</strong></div>
+            <div class="price-line">50 pcs <strong>$240</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🍮</div>
+          <div class="dish-details"><div class="dish-dname">Kesar Shrikhand</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$80</strong></div>
+            <div class="price-line">Full <strong>$150</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🥕</div>
+          <div class="dish-details"><div class="dish-dname">Gajar Halwa</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$70</strong></div>
+            <div class="price-line">Full <strong>$145</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🌾</div>
+          <div class="dish-details"><div class="dish-dname">Mango Sheera</div></div>
+          <div class="dish-price">
+            <div class="price-line">Half <strong>$75</strong></div>
+            <div class="price-line">Full <strong>$150</strong></div>
+          </div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🍬</div>
+          <div class="dish-details"><div class="dish-dname">Jalebi</div></div>
+          <div class="dish-price"><div class="price-line"><strong>$15 / lb</strong></div></div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🟤</div>
+          <div class="dish-details"><div class="dish-dname">Boondi Ladoo</div></div>
+          <div class="dish-price"><div class="price-line"><strong>$15 / lb</strong></div></div>
+        </div>
+        <div class="dish-row">
+          <div class="dish-img">🟡</div>
+          <div class="dish-details"><div class="dish-dname">Motichur Ladoo</div></div>
+          <div class="dish-price"><div class="price-line"><strong>$15 / lb</strong></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GANESH FESTIVAL SWEETS -->
+    <div class="menu-section">
+      <div class="section-head gold">✨ Ganesh Festival Sweets</div>
+      <div class="sweets-grid">
+        <div class="sweet-card">
+          <div class="sweet-icon">🍡</div>
+          <div class="sweet-name">Panchamrut Modak</div>
+          <div class="sweet-price">(11) for $22</div>
+        </div>
+        <div class="sweet-card">
+          <div class="sweet-icon">🍡</div>
+          <div class="sweet-name">Churma Modak</div>
+          <div class="sweet-price">(11) for $22</div>
+        </div>
+        <div class="sweet-card">
+          <div class="sweet-icon">🍡</div>
+          <div class="sweet-name">Gulkand Mawa Modak</div>
+          <div class="sweet-price">(11) for $22</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /menu-body -->
+
+  <!-- Footer -->
+  <div class="menu-footer">
+    <div class="footer-card contact">
+      <div class="fc-label">📞 Contact to Order</div>
+      <div class="fc-val">617-320-5229</div>
+    </div>
+    <div class="footer-card">
+      <div class="fc-label">Location</div>
+      <div class="fc-val">Shrewsbury, MA</div>
+    </div>
+  </div>
+  <div class="pickup-strip" style="max-width:960px;margin:8px auto 16px;border-radius:10px;">
+    <div class="strip-half">📍 Pick Up · Shrewsbury</div>
+    <div class="strip-half">🚚 Delivery Available with Fee</div>
+  </div>
+
+</div><!-- /ganpati page -->
+
+
+<!-- ══════════════════════════════════════════
+     DIWALI PAGE (placeholder)
+════════════════════════════════════════════ -->
+<div class="event-page" id="page-diwali">
+  <div class="fest-header" style="background:linear-gradient(180deg,#1a0a2e 0%,#2d0a4e 50%,#fdf6e8 100%);">
+    <div class="garland" style="background:repeating-linear-gradient(90deg,#ff9800 0,#ff9800 18px,#ffc107 18px,#ffc107 26px,#ff5722 26px,#ff5722 36px,#9c27b0 36px,#9c27b0 44px);"></div>
+    <div class="garland-dots" style="background:#4a0080;"></div>
+    <div class="fest-header-inner">
+      <div style="font-size:100px;margin:20px 0 10px;filter:drop-shadow(0 0 20px #ffc107);">🪔</div>
+      <p class="fest-brand" style="color:#ffc107;">Chaitrali's Kitchen LLC · Homemade with Love</p>
+      <div class="fest-title" style="color:#ffc107;">Diwali</div>
+      <div class="fest-subtitle" style="color:#f9a825;">Festival of Lights Menu</div>
+      <div class="order-banner" style="background:#4a0080;">Menu <strong>Coming Soon</strong></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:60px 20px;color:var(--fg-soft);">
+    <p style="font-size:16px;font-weight:600;">🪔 Diwali Special Menu</p>
+    <p style="margin-top:8px;font-size:13px;">Menu will be announced closer to the festival.<br>Contact us at <strong>617-320-5229</strong> to pre-book.</p>
+  </div>
+</div>
+
+<!-- HOLI PAGE (placeholder) -->
+<div class="event-page" id="page-holi">
+  <div class="fest-header" style="background:linear-gradient(180deg,#fff8e1 0%,#f3e5f5 50%,#e8f5e9 100%);">
+    <div class="garland" style="background:repeating-linear-gradient(90deg,#e91e63 0,#e91e63 18px,#9c27b0 18px,#9c27b0 26px,#2196f3 26px,#2196f3 36px,#4caf50 36px,#4caf50 44px);"></div>
+    <div class="garland-dots" style="background:#9c27b0;"></div>
+    <div class="fest-header-inner">
+      <div style="font-size:100px;margin:20px 0 10px;">🌸</div>
+      <p class="fest-brand" style="color:#9c27b0;">Chaitrali's Kitchen LLC · Homemade with Love</p>
+      <div class="fest-title" style="color:#9c27b0;">Holi</div>
+      <div class="fest-subtitle" style="color:#e91e63;">Festival of Colors Menu</div>
+      <div class="order-banner" style="background:#9c27b0;">Menu <strong>Coming Soon</strong></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:60px 20px;color:var(--fg-soft);">
+    <p style="font-size:16px;font-weight:600;">🌸 Holi Special Menu</p>
+    <p style="margin-top:8px;font-size:13px;">Menu will be announced closer to the festival.<br>Contact us at <strong>617-320-5229</strong> to pre-book.</p>
+  </div>
+</div>
+
+<!-- CUSTOM EVENT PAGE -->
+<div class="event-page" id="page-custom">
+  <div class="fest-header" style="background:linear-gradient(180deg,#f3f4f6 0%,#e8eecc 100%);">
+    <div class="garland" style="background:repeating-linear-gradient(90deg,#6b820d 0,#6b820d 18px,#b8860b 18px,#b8860b 26px,#6b820d 26px,#6b820d 36px,#8b1a1a 36px,#8b1a1a 44px);"></div>
+    <div class="garland-dots" style="background:#6b820d;"></div>
+    <div class="fest-header-inner">
+      <div style="font-size:90px;margin:20px 0 10px;">🎉</div>
+      <p class="fest-brand">Chaitrali's Kitchen LLC · Homemade with Love</p>
+      <div class="fest-title" style="font-size:2.4rem;">Custom Event</div>
+      <div class="fest-subtitle">Birthday · Anniversary · Puja · Gathering</div>
+      <div class="order-banner">Call to plan your <strong>custom menu</strong></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:48px 20px;max-width:560px;margin:0 auto;">
+    <p style="font-size:16px;font-weight:600;color:var(--maroon);">Plan Your Dream Event Menu</p>
+    <p style="margin-top:10px;font-size:13px;color:var(--fg-soft);line-height:1.7;">We cater birthdays, anniversaries, pujas, baby showers, and all celebrations with authentic Maharashtrian home cooking. Menu customized to your event and guest count.</p>
+    <div style="margin-top:24px;background:var(--maroon);color:#fff;padding:16px 24px;border-radius:12px;display:inline-block;">
+      <div style="font-size:11px;opacity:.7;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">Call or WhatsApp</div>
+      <div style="font-size:22px;font-weight:700;letter-spacing:.04em;">617-320-5229</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const btns   = document.querySelectorAll('.event-btn');
+  const pages  = document.querySelectorAll('.event-page');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ev = btn.dataset.event;
+      btns.forEach(b => b.classList.remove('active'));
+      pages.forEach(p => p.classList.remove('visible'));
+      btn.classList.add('active');
+      document.getElementById('page-' + ev).classList.add('visible');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
