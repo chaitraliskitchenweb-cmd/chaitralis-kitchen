@@ -7,50 +7,64 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap">
 <style>
   :root {
-    --bg:        #f7f8f2;
-    --bg-card:   #ffffff;
-    --fg:        #1c2410;
-    --fg-soft:   #5a6340;
-    --olive:     #6b820d;
-    --olive-lt:  #e8eecc;
-    --navy:      #1A2B4A;
-    --amber:     #c47d0a;
-    --divider:   #dde3bf;
-    --pill-past: #e8eaf0;
-    --pill-now:  #6b820d;
-    --pill-next: #fff3d6;
+    /* Brand */
+    --olive:      #6b820d;
+    --olive-dk:   #536609;
+    --olive-lt:   #f0f3e2;  /* very light, barely green */
+    --amber:      #c47d0a;
+    --amber-lt:   #fff8ed;
+    --navy:       #1A2B4A;
+
+    /* Surfaces */
+    --bg:         #f9f9f7;  /* warm off-white, nearly neutral */
+    --bg-card:    #ffffff;
+    --bg-muted:   #f3f3f1;  /* light grey for tags */
+
+    /* Text */
+    --fg:         #1c1c1a;
+    --fg-soft:    #6b6b63;
+    --fg-xsoft:   #9a9a90;
+
+    /* Borders */
+    --border:     #e4e4df;
+    --border-soft:#ececea;
+
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg:        #181e0d;
-      --bg-card:   #222d10;
-      --fg:        #eef2d8;
-      --fg-soft:   #9aad6a;
-      --olive:     #96b714;
-      --olive-lt:  #2a3810;
-      --navy:      #c5d4f0;
-      --amber:     #e09a22;
-      --divider:   #334018;
-      --pill-past: #2a2e3a;
-      --pill-now:  #3d5200;
-      --pill-next: #3a2e08;
+      --olive:      #96b714;
+      --olive-dk:   #b0d018;
+      --olive-lt:   #1e2610;
+      --amber:      #e09a22;
+      --amber-lt:   #241a06;
+      --navy:       #c5d4f0;
+      --bg:         #18181a;
+      --bg-card:    #222222;
+      --bg-muted:   #2c2c2c;
+      --fg:         #f0f0ec;
+      --fg-soft:    #a0a098;
+      --fg-xsoft:   #666660;
+      --border:     #333330;
+      --border-soft:#2a2a28;
       color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --bg:        #181e0d;
-    --bg-card:   #222d10;
-    --fg:        #eef2d8;
-    --fg-soft:   #9aad6a;
-    --olive:     #96b714;
-    --olive-lt:  #2a3810;
-    --navy:      #c5d4f0;
-    --amber:     #e09a22;
-    --divider:   #334018;
-    --pill-past: #2a2e3a;
-    --pill-now:  #3d5200;
-    --pill-next: #3a2e08;
+    --olive:      #96b714;
+    --olive-dk:   #b0d018;
+    --olive-lt:   #1e2610;
+    --amber:      #e09a22;
+    --amber-lt:   #241a06;
+    --navy:       #c5d4f0;
+    --bg:         #18181a;
+    --bg-card:    #222222;
+    --bg-muted:   #2c2c2c;
+    --fg:         #f0f0ec;
+    --fg-soft:    #a0a098;
+    --fg-xsoft:   #666660;
+    --border:     #333330;
+    --border-soft:#2a2a28;
     color-scheme: dark;
   }
 
@@ -64,11 +78,14 @@
     line-height: 1.6;
     padding-inline: 20px;
     padding-block: 40px 60px;
+    max-width: 900px;
+    margin-inline: auto;
   }
 
+  /* ── PAGE HEADER ── */
   .page-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
   }
   .page-header .eyebrow {
     font-size: 11px;
@@ -80,10 +97,9 @@
   }
   .page-header h1 {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
     font-weight: 700;
     color: var(--fg);
-    text-wrap: balance;
     line-height: 1.15;
   }
   .page-header h1 em {
@@ -91,219 +107,249 @@
     color: var(--olive);
   }
   .page-header .subtitle {
-    margin-top: 10px;
-    font-size: 13px;
+    margin-top: 8px;
+    font-size: 12.5px;
     color: var(--fg-soft);
   }
   .divider-leaf {
-    margin: 18px auto 0;
-    width: 48px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--olive), transparent);
+    margin: 16px auto 0;
+    width: 40px;
+    height: 2px;
+    background: var(--olive);
     border-radius: 2px;
+    opacity: .45;
   }
 
+  /* ── WEEK TABS ── */
   .week-tabs {
     display: flex;
     gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
   }
   .week-tab {
-    padding: 8px 22px;
+    padding: 7px 20px;
     border-radius: 100px;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    border: 2px solid transparent;
-    transition: all .2s;
+    border: 1.5px solid var(--border);
+    background: var(--bg-card);
+    color: var(--fg-soft);
+    transition: all .18s;
+    font-family: 'Poppins', sans-serif;
   }
+  .week-tab:hover { border-color: var(--olive); color: var(--olive); }
   .week-tab:focus-visible { outline: 2px solid var(--olive); outline-offset: 2px; }
-  .week-tab.past  { background: var(--pill-past); color: var(--fg-soft); border-color: var(--divider); }
-  .week-tab.now   { background: var(--pill-now);  color: #fff; border-color: var(--olive); }
-  .week-tab.next  { background: var(--pill-next); color: var(--amber); border-color: var(--amber); }
-  .week-tab.active.past  { border-color: var(--fg-soft); }
-  .week-tab.active.now   { box-shadow: 0 4px 16px rgba(107,130,13,.35); }
-  .week-tab.active.next  { border-color: var(--amber); box-shadow: 0 4px 16px rgba(196,125,10,.2); }
 
+  /* Active states — only ONE tab glows green at a time */
+  .week-tab.active {
+    background: var(--olive);
+    color: #fff;
+    border-color: var(--olive);
+    font-weight: 600;
+    box-shadow: 0 3px 12px rgba(107,130,13,.25);
+  }
+  .week-tab.next.active {
+    background: var(--amber);
+    border-color: var(--amber);
+    box-shadow: 0 3px 12px rgba(196,125,10,.22);
+  }
+
+  /* ── WEEK PANEL ── */
   .week-panel { display: none; }
   .week-panel.visible { display: block; }
 
+  /* ── WEEK HEADER ── */
   .week-header {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 28px;
-    padding: 18px 22px;
+    margin-bottom: 24px;
+    padding: 16px 20px;
     background: var(--bg-card);
-    border-radius: 14px;
-    border: 1.5px solid var(--divider);
+    border-radius: 12px;
+    border: 1px solid var(--border);
   }
   .week-badge {
     flex-shrink: 0;
-    width: 48px; height: 48px;
+    width: 40px; height: 40px;
     border-radius: 50%;
+    background: var(--bg-muted);
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
+    font-size: 20px;
   }
-  .badge-past  { background: var(--pill-past); }
-  .badge-now   { background: var(--olive-lt); }
-  .badge-next  { background: var(--pill-next); }
   .week-header-text .label {
-    font-size: 11px; font-weight: 600; letter-spacing: .1em;
-    text-transform: uppercase; color: var(--fg-soft); margin-bottom: 2px;
+    font-size: 10.5px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--fg-xsoft); margin-bottom: 2px;
   }
   .week-header-text .dates {
-    font-size: 15px; font-weight: 600; color: var(--fg);
+    font-size: 14.5px; font-weight: 600; color: var(--fg);
   }
   .week-status {
     margin-left: auto;
-    padding: 4px 14px;
+    padding: 3px 12px;
     border-radius: 100px;
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: .08em;
+    letter-spacing: .06em;
     text-transform: uppercase;
   }
-  .status-past  { background: var(--pill-past); color: var(--fg-soft); }
-  .status-now   { background: var(--olive); color: #fff; }
-  .status-next  { background: var(--pill-next); color: var(--amber); }
+  .status-past  { background: var(--bg-muted);  color: var(--fg-soft); }
+  .status-now   { background: var(--olive);      color: #fff; }
+  .status-next  { background: var(--amber-lt);   color: var(--amber); border: 1px solid #f0d090; }
 
+  /* ── DISH GRID ── */
   .dish-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 10px;
   }
   .dish-card {
     background: var(--bg-card);
-    border: 1.5px solid var(--divider);
-    border-radius: 12px;
-    padding: 16px 18px;
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    padding: 14px 16px;
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: 11px;
     transition: border-color .15s, box-shadow .15s;
   }
   .dish-card:hover {
-    border-color: var(--olive);
-    box-shadow: 0 4px 18px rgba(107,130,13,.12);
+    border-color: var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
   }
+  /* A small coloured dot — only olive, no card-level green fill */
   .dish-dot {
     flex-shrink: 0;
-    width: 8px; height: 8px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--olive);
-    margin-top: 6px;
+    margin-top: 7px;
+    opacity: .7;
   }
   .dish-info { min-width: 0; }
   .dish-name {
     font-weight: 600;
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--fg);
     line-height: 1.3;
   }
-  .dish-name-marathi {
-    font-size: 12px;
+  .dish-desc {
+    font-size: 11.5px;
     color: var(--fg-soft);
     margin-top: 2px;
+    line-height: 1.4;
   }
+  /* Tags: neutral grey, NOT green */
   .dish-tag {
     display: inline-block;
     margin-top: 6px;
     padding: 2px 8px;
     border-radius: 100px;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 500;
-    background: var(--olive-lt);
-    color: var(--olive);
+    background: var(--bg-muted);
+    color: var(--fg-soft);
+    border: 1px solid var(--border);
+  }
+  /* Spicy gets a warm amber tint */
+  .dish-tag.spicy {
+    background: var(--amber-lt);
+    color: var(--amber);
+    border-color: #f0d090;
   }
 
+  /* ── TIFFIN INFO BANNER ── */
   .tiffin-info {
-    margin-top: 28px;
-    padding: 18px 22px;
+    margin-top: 24px;
+    padding: 16px 20px;
     background: var(--bg-card);
-    border-radius: 14px;
-    border: 1.5px solid var(--divider);
+    border-radius: 12px;
+    border: 1px solid var(--border);
     display: flex;
-    gap: 28px;
+    gap: 24px;
     flex-wrap: wrap;
   }
-  .tiffin-fact { flex: 1; min-width: 120px; }
+  .tiffin-fact { flex: 1; min-width: 110px; }
   .tiffin-fact .fact-label {
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--fg-soft);
-    margin-bottom: 4px;
+    color: var(--fg-xsoft);
+    margin-bottom: 3px;
   }
   .tiffin-fact .fact-value {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
     color: var(--fg);
   }
 
+  /* ── NOTICE ── */
   .week-notice {
-    margin-top: 28px;
-    padding: 14px 18px;
-    border-radius: 10px;
-    font-size: 13px;
+    margin-top: 24px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 12.5px;
     line-height: 1.5;
-    border-left: 3px solid var(--olive);
-    background: var(--olive-lt);
+    background: var(--bg-muted);
     color: var(--fg-soft);
+    border: 1px solid var(--border);
   }
 
+  /* ── HOW IT WORKS ── */
   .how-section {
-    margin-top: 56px;
-    padding-top: 40px;
-    border-top: 1.5px solid var(--divider);
+    margin-top: 52px;
+    padding-top: 36px;
+    border-top: 1px solid var(--border);
   }
   .how-section h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     color: var(--fg);
   }
   .how-steps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
   }
   .how-step {
     background: var(--bg-card);
-    border: 1.5px solid var(--divider);
-    border-radius: 12px;
-    padding: 20px;
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    padding: 18px 16px;
     text-align: center;
   }
-  .how-icon { font-size: 26px; margin-bottom: 10px; }
-  .how-step h3 { font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--fg); }
-  .how-step p  { font-size: 12px; color: var(--fg-soft); line-height: 1.5; }
+  .how-icon { font-size: 24px; margin-bottom: 8px; }
+  .how-step h3 { font-size: 12.5px; font-weight: 600; margin-bottom: 5px; color: var(--fg); }
+  .how-step p  { font-size: 11.5px; color: var(--fg-soft); line-height: 1.5; }
 
+  /* ── ORDER CTA — olive but contained ── */
   .order-cta {
-    margin-top: 40px;
+    margin-top: 32px;
     text-align: center;
-    padding: 32px 24px;
-    background: var(--olive);
-    border-radius: 16px;
+    padding: 28px 24px;
+    background: var(--navy);
+    border-radius: 14px;
     color: #fff;
   }
   .order-cta h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-style: italic;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
-  .order-cta p  { font-size: 13px; opacity: .85; margin-bottom: 16px; }
-  .order-cta .cta-contact {
+  .order-cta p  { font-size: 12.5px; opacity: .7; margin-bottom: 16px; }
+  .order-cta .cta-btn {
     display: inline-block;
     padding: 10px 28px;
-    background: #fff;
-    color: var(--olive);
+    background: var(--olive);
+    color: #fff;
     border-radius: 100px;
     font-weight: 600;
     font-size: 13px;
@@ -311,10 +357,11 @@
     letter-spacing: .03em;
   }
 
-  @media (max-width: 480px) {
-    .week-header { flex-wrap: wrap; }
+  @media (max-width: 500px) {
+    .week-header { flex-wrap: wrap; gap: 10px; }
     .week-status { margin-left: 0; }
-    .tiffin-info { gap: 16px; }
+    .tiffin-info { gap: 14px; }
+    .dish-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -336,7 +383,7 @@
 <!-- PAST WEEK -->
 <div class="week-panel" id="panel-past" role="tabpanel">
   <div class="week-header">
-    <div class="week-badge badge-past">📅</div>
+    <div class="week-badge">📅</div>
     <div class="week-header-text">
       <div class="label">Last Week</div>
       <div class="dates">Oct 1 – Oct 6, 2026</div>
@@ -344,10 +391,10 @@
     <span class="week-status status-past">Ended</span>
   </div>
   <div class="dish-grid">
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Aloo Methi</div><div class="dish-name-marathi">Potato with Fenugreek Leaves</div><span class="dish-tag">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Dal Fry</div><div class="dish-name-marathi">Tempered Yellow Lentils</div><span class="dish-tag">Dal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Bhindi Masala</div><div class="dish-name-marathi">Spiced Okra</div><span class="dish-tag">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Tomato Saar</div><div class="dish-name-marathi">Thin Tomato Soup</div><span class="dish-tag">Rassa</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Aloo Methi</div><div class="dish-desc">Potato with Fenugreek Leaves</div><span class="dish-tag">Dry Sabzi</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Dal Fry</div><div class="dish-desc">Tempered Yellow Lentils</div><span class="dish-tag">Dal</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Bhindi Masala</div><div class="dish-desc">Spiced Okra</div><span class="dish-tag">Dry Sabzi</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Tomato Saar</div><div class="dish-desc">Thin Tomato Soup</div><span class="dish-tag">Rassa</span></div></div>
   </div>
   <div class="week-notice">Menu changes every week. Subscribe to get notified of upcoming dishes before Sunday.</div>
 </div>
@@ -355,7 +402,7 @@
 <!-- THIS WEEK -->
 <div class="week-panel visible" id="panel-now" role="tabpanel">
   <div class="week-header">
-    <div class="week-badge badge-now">🍱</div>
+    <div class="week-badge">🍱</div>
     <div class="week-header-text">
       <div class="label">This Week</div>
       <div class="dates">Oct 7 – Oct 12, 2026</div>
@@ -363,18 +410,18 @@
     <span class="week-status status-now">Now Serving</span>
   </div>
   <div class="dish-grid">
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Saoji Masala Vangi</div><div class="dish-name-marathi">Nagpur-style Spicy Brinjal Curry</div><span class="dish-tag">Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Brahmin Style Bharli Vangi</div><div class="dish-name-marathi">Stuffed Brinjal — Konkanastha Style</div><span class="dish-tag">Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Batata Rassa</div><div class="dish-name-marathi">Thin Potato Curry</div><span class="dish-tag">Rassa</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Batata Sukhi</div><div class="dish-name-marathi">Dry Spiced Potato</div><span class="dish-tag">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kobi Matar</div><div class="dish-name-marathi">Cabbage & Green Peas</div><span class="dish-tag">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Flower Batata Matar</div><div class="dish-name-marathi">Cauliflower, Potato & Peas</div><span class="dish-tag">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Veg Kurma</div><div class="dish-name-marathi">Mixed Vegetables in Coconut-Cashew Gravy</div><span class="dish-tag">Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Veg Kolhapuri</div><div class="dish-name-marathi">Fiery Kolhapur-style Vegetable Curry</div><span class="dish-tag">Spicy · Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kolhapuri Akkha Masur</div><div class="dish-name-marathi">Whole Red Lentil — Kolhapuri Masala</div><span class="dish-tag">Spicy · Dal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Matki chi Usal</div><div class="dish-name-marathi">Sprouted Moth Bean Curry</div><span class="dish-tag">Usal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Moogachi Usal</div><div class="dish-name-marathi">Sprouted Green Moong Curry</div><span class="dish-tag">Usal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Val Usal</div><div class="dish-name-marathi">Field Bean Curry — Coastal Style</div><span class="dish-tag">Usal</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Saoji Masala Vangi</div><div class="dish-desc">Nagpur-style Spicy Brinjal Curry</div><span class="dish-tag spicy">Spicy · Gravy</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Brahmin Style Bharli Vangi</div><div class="dish-desc">Stuffed Brinjal — Konkanastha Style</div><span class="dish-tag">Gravy</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Batata Rassa</div><div class="dish-desc">Thin Potato Curry</div><span class="dish-tag">Rassa</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Batata Sukhi</div><div class="dish-desc">Dry Spiced Potato</div><span class="dish-tag">Dry Sabzi</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kobi Matar</div><div class="dish-desc">Cabbage &amp; Green Peas</div><span class="dish-tag">Dry Sabzi</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Flower Batata Matar</div><div class="dish-desc">Cauliflower, Potato &amp; Peas</div><span class="dish-tag">Dry Sabzi</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Veg Kurma</div><div class="dish-desc">Mixed Vegetables in Coconut-Cashew Gravy</div><span class="dish-tag">Gravy</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Veg Kolhapuri</div><div class="dish-desc">Fiery Kolhapur-style Vegetable Curry</div><span class="dish-tag spicy">Spicy · Gravy</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kolhapuri Akkha Masur</div><div class="dish-desc">Whole Red Lentil — Kolhapuri Masala</div><span class="dish-tag spicy">Spicy · Dal</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Matki chi Usal</div><div class="dish-desc">Sprouted Moth Bean Curry</div><span class="dish-tag">Usal</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Moogachi Usal</div><div class="dish-desc">Sprouted Green Moong Curry</div><span class="dish-tag">Usal</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Val Usal</div><div class="dish-desc">Field Bean Curry — Coastal Style</div><span class="dish-tag">Usal</span></div></div>
   </div>
   <div class="tiffin-info">
     <div class="tiffin-fact"><div class="fact-label">Tiffin Days</div><div class="fact-value">Mon – Sat</div></div>
@@ -387,7 +434,7 @@
 <!-- NEXT WEEK -->
 <div class="week-panel" id="panel-next" role="tabpanel">
   <div class="week-header">
-    <div class="week-badge badge-next">🔔</div>
+    <div class="week-badge">🔔</div>
     <div class="week-header-text">
       <div class="label">Next Week</div>
       <div class="dates">Oct 14 – Oct 19, 2026</div>
@@ -395,10 +442,10 @@
     <span class="week-status status-next">Coming Soon</span>
   </div>
   <div class="dish-grid">
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Puran Poli</div><div class="dish-name-marathi">Sweet Chana Dal Flatbread</div><span class="dish-tag">Festival Special</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Katachi Amti</div><div class="dish-name-marathi">Spiced Water from Chana Dal</div><span class="dish-tag">Rassa</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Masale Bhaat</div><div class="dish-name-marathi">Spiced Rice with Seasonal Vegetables</div><span class="dish-tag">Rice</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kothimbir Vadi</div><div class="dish-name-marathi">Crispy Coriander & Chickpea Snack</div><span class="dish-tag">Snack</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Puran Poli</div><div class="dish-desc">Sweet Chana Dal Flatbread</div><span class="dish-tag">Festival Special</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Katachi Amti</div><div class="dish-desc">Spiced Water from Chana Dal</div><span class="dish-tag">Rassa</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Masale Bhaat</div><div class="dish-desc">Spiced Rice with Seasonal Vegetables</div><span class="dish-tag">Rice</span></div></div>
+    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kothimbir Vadi</div><div class="dish-desc">Crispy Coriander &amp; Chickpea Snack</div><span class="dish-tag">Snack</span></div></div>
   </div>
   <div class="week-notice">Next week's full menu will be announced by Sunday. Check back or ask Chaitrali for early access.</div>
 </div>
@@ -415,7 +462,7 @@
   <div class="order-cta">
     <h3>Ready to order this week's tiffin?</h3>
     <p>Sunday 9 PM cutoff · Shrewsbury, MA · Mon–Sat delivery</p>
-    <span class="cta-contact">WhatsApp or call to order</span>
+    <span class="cta-btn">WhatsApp or call to order</span>
   </div>
 </div>
 
