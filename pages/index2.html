@@ -138,9 +138,8 @@ nav {
    HERO  — mobile-first, full-bleed
 ══════════════════════════════════════ */
 .hero {
-  min-height:100svh;
   padding-top:130px; /* nav 60 + marquee ~70 */
-  padding-bottom:56px;
+  padding-bottom:36px;
   display:flex; flex-direction:column; align-items:center;
   text-align:center; position:relative; overflow:hidden;
   background:
@@ -151,15 +150,15 @@ nav {
 /* Ambient glow behind logo */
 .hero-glow {
   position:absolute; top:110px; left:50%; transform:translateX(-50%);
-  width:340px; height:340px; border-radius:50%;
-  background:radial-gradient(circle, rgba(107,130,13,.12) 0%, transparent 70%);
+  width:240px; height:240px; border-radius:50%;
+  background:radial-gradient(circle, rgba(107,130,13,.1) 0%, transparent 70%);
   pointer-events:none; z-index:0;
 }
 
 /* Logo */
 .hero-logo-wrap {
-  position:relative; z-index:2; margin-bottom:24px;
-  width:min(200px,52vw); aspect-ratio:1;
+  position:relative; z-index:2; margin-bottom:16px;
+  width:min(160px,42vw); aspect-ratio:1;
 }
 .hero-logo-ring {
   width:100%; height:100%; border-radius:50%;
@@ -182,11 +181,11 @@ nav {
 .hero-eyebrow {
   font-size:.68rem; font-weight:600; letter-spacing:.22em;
   text-transform:uppercase; color:var(--gold); opacity:.9;
-  margin-bottom:10px;
+  margin-bottom:6px;
 }
 .hero-h1 {
   font-family:'Playfair Display',serif; line-height:1.0;
-  margin-bottom:12px;
+  margin-bottom:8px;
 }
 .hero-h1 .line1 {
   font-style:italic; font-weight:700;
@@ -200,7 +199,7 @@ nav {
   color:var(--navy); display:block; letter-spacing:.05em;
 }
 .hero-rule {
-  width:48px; height:2px; margin:14px auto;
+  width:40px; height:2px; margin:10px auto;
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
   border-radius:2px;
 }
@@ -210,7 +209,7 @@ nav {
 }
 .hero-badges {
   display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
-  margin:14px 0 28px;
+  margin:10px 0 18px;
 }
 .hero-badge {
   padding:4px 12px; border-radius:100px;
@@ -222,7 +221,7 @@ nav {
 /* CTA buttons */
 .hero-btns {
   display:flex; flex-direction:column; align-items:stretch; gap:12px;
-  max-width:320px; margin:0 auto 28px;
+  max-width:320px; margin:0 auto 20px;
 }
 .btn-order {
   display:flex; align-items:center; justify-content:center; gap:8px;
@@ -248,21 +247,16 @@ nav {
 /* Trust row */
 .hero-trust {
   display:flex; justify-content:center; gap:0; flex-wrap:wrap;
-  border-top:1px solid var(--border); padding-top:20px;
+  border-top:1px solid var(--border); padding-top:14px;
   margin-top:4px; position:relative; z-index:2;
 }
-.t-item { padding:6px 20px; text-align:center; border-right:1px solid var(--border); }
+.t-item { padding:4px 16px; text-align:center; border-right:1px solid var(--border); }
 .t-item:last-child { border-right:none; }
-.t-val { font-size:18px; font-weight:800; color:var(--navy); line-height:1.1; }
+.t-val { font-size:16px; font-weight:800; color:var(--navy); line-height:1.1; }
 .t-val.star { color:var(--gold); }
 .t-lbl { font-size:.62rem; color:var(--fg-xs); letter-spacing:.04em; text-transform:uppercase; margin-top:2px; }
 
-/* Decorative bottom fade */
-.hero::after {
-  content:''; position:absolute; bottom:0; left:0; right:0; height:80px;
-  background:linear-gradient(to bottom, transparent, #fff);
-  z-index:1; pointer-events:none;
-}
+
 
 /* ══════════════════════════════════════
    TAG STRIP
