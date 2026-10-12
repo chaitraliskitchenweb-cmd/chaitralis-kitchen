@@ -90,12 +90,13 @@ nav {
   position:fixed; top:0; left:0; right:0; z-index:200;
   height:60px; display:flex; align-items:center;
   justify-content:space-between; padding:0 20px;
-  background:rgba(20,30,50,.92); backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(107,130,13,.25);
+  background:rgba(255,255,255,.97); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(107,130,13,.12);
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
 }
 .nav-brand { display:flex; align-items:center; gap:9px; }
 .nav-logo-img { width:36px; height:36px; border-radius:50%; object-fit:contain; background:rgba(107,130,13,.2); }
-.nav-brand-text { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:#fff; }
+.nav-brand-text { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--navy); }
 .nav-brand-text em { color:var(--gold); font-style:italic; }
 .nav-pill {
   padding:8px 18px; border-radius:100px;
@@ -111,8 +112,9 @@ nav {
 ══════════════════════════════════════ */
 .marquee-wrap {
   position:fixed; top:60px; left:0; right:0; z-index:199;
-  overflow:hidden; background:#0e1a0a;
-  border-bottom:1px solid rgba(107,130,13,.3);
+  overflow:hidden; background:#fff;
+  border-bottom:1px solid rgba(107,130,13,.15);
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
   padding:8px 0;
 }
 .marquee-track {
@@ -129,7 +131,7 @@ nav {
 }
 .d-item:hover .d-circle { border-color:var(--olive-xl); transform:scale(1.1); }
 .d-circle img { width:100%; height:100%; object-fit:cover; }
-.d-name { font-size:.62rem; font-weight:600; color:rgba(255,255,255,.75); text-align:center; white-space:nowrap; }
+.d-name { font-size:.62rem; font-weight:600; color:var(--fg-s); text-align:center; white-space:nowrap; }
 @keyframes scroll-dishes { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
 /* ══════════════════════════════════════
@@ -138,22 +140,19 @@ nav {
 .hero {
   min-height:100svh;
   padding-top:130px; /* nav 60 + marquee ~70 */
-  padding-bottom:48px;
+  padding-bottom:56px;
   display:flex; flex-direction:column; align-items:center;
   text-align:center; position:relative; overflow:hidden;
-
-  /* rich dark-green-to-navy gradient */
   background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(107,130,13,.35) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 80% at 20% 100%, rgba(212,162,76,.12) 0%, transparent 60%),
-    linear-gradient(170deg, #0a1405 0%, #0f1c08 40%, #0c1530 100%);
+    radial-gradient(ellipse 90% 55% at 50% 0%, rgba(107,130,13,.08) 0%, transparent 65%),
+    linear-gradient(175deg, #f8f9f4 0%, #ffffff 50%, #f5f6ee 100%);
 }
 
 /* Ambient glow behind logo */
 .hero-glow {
   position:absolute; top:110px; left:50%; transform:translateX(-50%);
   width:340px; height:340px; border-radius:50%;
-  background:radial-gradient(circle, rgba(107,130,13,.3) 0%, transparent 70%);
+  background:radial-gradient(circle, rgba(107,130,13,.12) 0%, transparent 70%);
   pointer-events:none; z-index:0;
 }
 
@@ -164,13 +163,13 @@ nav {
 }
 .hero-logo-ring {
   width:100%; height:100%; border-radius:50%;
-  border:2px solid rgba(212,162,76,.4);
+  border:2px solid rgba(107,130,13,.3);
   padding:8px;
   box-shadow:
-    0 0 0 8px rgba(107,130,13,.12),
-    0 20px 60px rgba(0,0,0,.5),
-    inset 0 0 30px rgba(107,130,13,.08);
-  background:rgba(0,0,0,.25);
+    0 0 0 8px rgba(107,130,13,.07),
+    0 12px 40px rgba(0,0,0,.12),
+    inset 0 0 20px rgba(107,130,13,.04);
+  background:rgba(255,255,255,.8);
   display:flex; align-items:center; justify-content:center;
 }
 .hero-logo-ring img {
@@ -198,7 +197,7 @@ nav {
 .hero-h1 .line2 {
   font-style:normal; font-weight:700;
   font-size:clamp(1.9rem,8.5vw,3.5rem);
-  color:#fff; display:block; letter-spacing:.05em;
+  color:var(--navy); display:block; letter-spacing:.05em;
 }
 .hero-rule {
   width:48px; height:2px; margin:14px auto;
@@ -207,7 +206,7 @@ nav {
 }
 .hero-sub {
   font-size:clamp(.82rem,3.2vw,1.02rem);
-  color:rgba(255,255,255,.7); line-height:1.7; margin-bottom:4px;
+  color:var(--fg-s); line-height:1.7; margin-bottom:4px;
 }
 .hero-badges {
   display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
@@ -215,8 +214,8 @@ nav {
 }
 .hero-badge {
   padding:4px 12px; border-radius:100px;
-  background:rgba(107,130,13,.2); border:1px solid rgba(107,130,13,.4);
-  color:var(--olive-xl); font-size:.68rem; font-weight:600;
+  background:var(--olive-bg); border:1px solid rgba(107,130,13,.25);
+  color:var(--olive); font-size:.68rem; font-weight:600;
   letter-spacing:.07em; text-transform:uppercase;
 }
 
@@ -238,30 +237,30 @@ nav {
 .btn-festival {
   display:flex; align-items:center; justify-content:center; gap:8px;
   padding:14px 28px; border-radius:100px;
-  background:rgba(255,255,255,.07); color:rgba(255,255,255,.9);
-  border:1.5px solid rgba(212,162,76,.45);
+  background:#fff; color:var(--navy);
+  border:1.5px solid rgba(107,130,13,.35);
   font-size:14px; font-weight:600; font-family:'Poppins',sans-serif;
-  transition:background .2s, border-color .2s;
-  cursor:pointer;
+  transition:background .2s, border-color .2s, box-shadow .2s;
+  cursor:pointer; box-shadow:0 2px 12px rgba(0,0,0,.07);
 }
-.btn-festival:hover { background:rgba(212,162,76,.12); border-color:var(--gold); color:#fff; }
+.btn-festival:hover { background:var(--olive-bg); border-color:var(--olive); color:var(--olive); }
 
 /* Trust row */
 .hero-trust {
   display:flex; justify-content:center; gap:0; flex-wrap:wrap;
-  border-top:1px solid rgba(255,255,255,.1); padding-top:20px;
+  border-top:1px solid var(--border); padding-top:20px;
   margin-top:4px; position:relative; z-index:2;
 }
-.t-item { padding:6px 20px; text-align:center; border-right:1px solid rgba(255,255,255,.1); }
+.t-item { padding:6px 20px; text-align:center; border-right:1px solid var(--border); }
 .t-item:last-child { border-right:none; }
-.t-val { font-size:18px; font-weight:800; color:#fff; line-height:1.1; }
+.t-val { font-size:18px; font-weight:800; color:var(--navy); line-height:1.1; }
 .t-val.star { color:var(--gold); }
-.t-lbl { font-size:.62rem; color:rgba(255,255,255,.5); letter-spacing:.04em; text-transform:uppercase; margin-top:2px; }
+.t-lbl { font-size:.62rem; color:var(--fg-xs); letter-spacing:.04em; text-transform:uppercase; margin-top:2px; }
 
 /* Decorative bottom fade */
 .hero::after {
   content:''; position:absolute; bottom:0; left:0; right:0; height:80px;
-  background:linear-gradient(to bottom, transparent, var(--bg));
+  background:linear-gradient(to bottom, transparent, #fff);
   z-index:1; pointer-events:none;
 }
 
@@ -336,14 +335,31 @@ nav {
 .c-amber .card-blob { background:var(--amber); }
 .c-purple.card-blob { background:var(--purple); }
 
+
+/* tiffin photo */
+.tiffin-photo-wrap {
+  border-radius:20px; overflow:hidden;
+  box-shadow:0 12px 48px rgba(0,0,0,.14);
+  aspect-ratio:4/3; position:relative;
+}
+.tiffin-photo-wrap img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .5s ease;
+}
+.tiffin-photo-wrap:hover img { transform:scale(1.03); }
+.tiffin-photo-caption {
+  margin-top:10px; text-align:center;
+  font-size:11px; color:var(--fg-xs); font-style:italic;
+}
 /* ══════════════════════════════════════
    TIFFIN PREVIEW
 ══════════════════════════════════════ */
 .tiffin-sec { background:var(--bg-card); }
 .tiffin-grid {
-  display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:36px; align-items:start;
 }
-@media (max-width:720px) { .tiffin-grid { grid-template-columns:1fr; gap:32px; } }
+@media (max-width:900px) { .tiffin-grid { grid-template-columns:1fr 1fr; gap:28px; } }
+@media (max-width:600px) { .tiffin-grid { grid-template-columns:1fr; gap:28px; } }
 .wk-chip {
   display:inline-flex; align-items:center; gap:6px;
   background:var(--olive-bg); color:var(--olive);
@@ -674,6 +690,12 @@ footer {
           <a href="weekly-menu.html" class="btn-main" style="font-size:12.5px;padding:10px 20px;">Full Menu →</a>
           <a href="order.html" style="display:flex;align-items:center;padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);font-size:12.5px;font-weight:600;color:var(--fg);transition:.2s;">Order Now</a>
         </div>
+      </div>
+      <div>
+        <div class="tiffin-photo-wrap">
+          <img src="../images/tiffin-bowls.jpg" alt="Home-cooked Maharashtrian tiffin — dal, sabzi, rice, roti and salad in stainless steel bowls" loading="lazy">
+        </div>
+        <p class="tiffin-photo-caption">Fresh, home-cooked every Sunday 🍛</p>
       </div>
       <div>
         <div class="dish-list">
