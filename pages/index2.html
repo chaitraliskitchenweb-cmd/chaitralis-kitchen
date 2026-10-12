@@ -135,126 +135,165 @@ nav {
 @keyframes scroll-dishes { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
 /* ══════════════════════════════════════
-   HERO  — mobile-first, full-bleed
+   HERO  — split layout: olive left | white right
 ══════════════════════════════════════ */
 .hero {
-  padding-top:130px; /* nav 60 + marquee ~70 */
-  padding-bottom:36px;
-  display:flex; flex-direction:column; align-items:center;
-  text-align:center; position:relative; overflow:hidden;
-  background:
-    radial-gradient(ellipse 90% 55% at 50% 0%, rgba(107,130,13,.08) 0%, transparent 65%),
-    linear-gradient(175deg, #f8f9f4 0%, #ffffff 50%, #f5f6ee 100%);
+  display:grid;
+  grid-template-columns:45% 55%;
+  min-height:calc(100svh - 130px);
+  margin-top:130px; /* nav 60 + marquee ~70 */
+  background:#fff;
+  overflow:hidden;
 }
 
-/* Ambient glow behind logo */
-.hero-glow {
-  position:absolute; top:110px; left:50%; transform:translateX(-50%);
-  width:240px; height:240px; border-radius:50%;
-  background:radial-gradient(circle, rgba(107,130,13,.1) 0%, transparent 70%);
-  pointer-events:none; z-index:0;
+/* LEFT panel — olive green */
+.hero-left {
+  background:var(--olive);
+  display:flex; align-items:center; justify-content:center;
+  padding:48px 32px;
+  position:relative;
+  /* curved right edge */
+  clip-path: ellipse(100% 100% at 0% 50%);
+}
+.hero-left::after {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 30% 40%, rgba(255,255,255,.08) 0%, transparent 70%);
+  pointer-events:none;
 }
 
-/* Logo */
+/* Logo circle */
 .hero-logo-wrap {
-  position:relative; z-index:2; margin-bottom:16px;
-  width:min(160px,42vw); aspect-ratio:1;
+  position:relative; z-index:2;
+  width:min(260px, 38vw); aspect-ratio:1;
 }
 .hero-logo-ring {
   width:100%; height:100%; border-radius:50%;
-  border:2px solid rgba(107,130,13,.3);
-  padding:8px;
+  border:3px solid rgba(255,255,255,.35);
+  padding:12px;
   box-shadow:
-    0 0 0 8px rgba(107,130,13,.07),
-    0 12px 40px rgba(0,0,0,.12),
-    inset 0 0 20px rgba(107,130,13,.04);
-  background:rgba(255,255,255,.8);
+    0 0 0 10px rgba(255,255,255,.1),
+    0 0 0 20px rgba(255,255,255,.05),
+    0 24px 60px rgba(0,0,0,.25);
+  background:rgba(255,255,255,.08);
   display:flex; align-items:center; justify-content:center;
 }
 .hero-logo-ring img {
   width:100%; height:100%; object-fit:contain; border-radius:50%;
-  filter:drop-shadow(0 4px 16px rgba(0,0,0,.4));
 }
 
-/* Text block */
-.hero-text { position:relative; z-index:2; padding:0 24px; }
-.hero-eyebrow {
-  font-size:.68rem; font-weight:600; letter-spacing:.22em;
-  text-transform:uppercase; color:var(--gold); opacity:.9;
-  margin-bottom:6px;
+/* RIGHT panel — white */
+.hero-right {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:48px 48px 48px 56px;
+  background:#fff;
 }
+
+/* Eyebrow */
+.hero-eyebrow {
+  display:flex; align-items:center; gap:10px;
+  font-size:.7rem; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--olive);
+  margin-bottom:12px;
+}
+.hero-eyebrow::after {
+  content:''; flex:1; max-width:60px; height:2px;
+  background:var(--olive); border-radius:2px;
+}
+
+/* Heading */
 .hero-h1 {
-  font-family:'Playfair Display',serif; line-height:1.0;
-  margin-bottom:8px;
+  font-family:'Playfair Display',serif;
+  line-height:1.05; margin-bottom:10px;
 }
 .hero-h1 .line1 {
   font-style:italic; font-weight:700;
-  font-size:clamp(3rem,14vw,5.5rem);
-  color:var(--gold); display:block;
-  text-shadow:0 2px 20px rgba(212,162,76,.4);
+  font-size:clamp(2.8rem,5vw,4.5rem);
+  color:var(--olive); display:block;
 }
 .hero-h1 .line2 {
   font-style:normal; font-weight:700;
-  font-size:clamp(1.9rem,8.5vw,3.5rem);
-  color:var(--navy); display:block; letter-spacing:.05em;
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  color:var(--navy); display:block;
 }
+
 .hero-rule {
-  width:40px; height:2px; margin:10px auto;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  border-radius:2px;
+  width:44px; height:3px; margin:0 0 14px;
+  background:var(--gold); border-radius:2px;
 }
 .hero-sub {
-  font-size:clamp(.82rem,3.2vw,1.02rem);
-  color:var(--fg-s); line-height:1.7; margin-bottom:4px;
+  font-size:.95rem; color:var(--fg-s);
+  line-height:1.6; margin-bottom:16px;
 }
+
+/* Badges */
 .hero-badges {
-  display:flex; flex-wrap:wrap; justify-content:center; gap:6px;
-  margin:10px 0 18px;
+  display:flex; flex-wrap:wrap; gap:8px;
+  margin-bottom:24px;
 }
 .hero-badge {
-  padding:4px 12px; border-radius:100px;
-  background:var(--olive-bg); border:1px solid rgba(107,130,13,.25);
-  color:var(--olive); font-size:.68rem; font-weight:600;
-  letter-spacing:.07em; text-transform:uppercase;
+  padding:5px 14px; border-radius:100px;
+  background:var(--olive-bg); border:1px solid rgba(107,130,13,.2);
+  color:var(--olive); font-size:.72rem; font-weight:600;
+  letter-spacing:.04em;
 }
 
 /* CTA buttons */
 .hero-btns {
-  display:flex; flex-direction:column; align-items:stretch; gap:12px;
-  max-width:320px; margin:0 auto 20px;
+  display:flex; flex-wrap:wrap; gap:12px;
+  margin-bottom:28px;
 }
 .btn-order {
-  display:flex; align-items:center; justify-content:center; gap:8px;
-  padding:15px 28px; border-radius:100px;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 26px; border-radius:100px;
   background:var(--olive); color:#fff;
-  font-size:14px; font-weight:700; font-family:'Poppins',sans-serif;
-  box-shadow:0 4px 20px rgba(107,130,13,.5);
+  font-size:13.5px; font-weight:700; font-family:'Poppins',sans-serif;
+  box-shadow:0 4px 18px rgba(107,130,13,.4);
   transition:background .2s, transform .15s, box-shadow .2s;
-  border:none; cursor:pointer;
+  border:none; cursor:pointer; white-space:nowrap;
 }
-.btn-order:hover { background:var(--olive-l); transform:translateY(-2px); box-shadow:0 8px 28px rgba(107,130,13,.6); }
+.btn-order:hover { background:var(--olive-l); transform:translateY(-2px); box-shadow:0 8px 24px rgba(107,130,13,.5); }
 .btn-festival {
-  display:flex; align-items:center; justify-content:center; gap:8px;
-  padding:14px 28px; border-radius:100px;
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 26px; border-radius:100px;
   background:#fff; color:var(--navy);
-  border:1.5px solid rgba(107,130,13,.35);
-  font-size:14px; font-weight:600; font-family:'Poppins',sans-serif;
-  transition:background .2s, border-color .2s, box-shadow .2s;
-  cursor:pointer; box-shadow:0 2px 12px rgba(0,0,0,.07);
+  border:1.5px solid rgba(107,130,13,.3);
+  font-size:13.5px; font-weight:600; font-family:'Poppins',sans-serif;
+  transition:background .2s, border-color .2s;
+  cursor:pointer; white-space:nowrap;
 }
 .btn-festival:hover { background:var(--olive-bg); border-color:var(--olive); color:var(--olive); }
 
 /* Trust row */
 .hero-trust {
-  display:flex; justify-content:center; gap:0; flex-wrap:wrap;
-  border-top:1px solid var(--border); padding-top:14px;
-  margin-top:4px; position:relative; z-index:2;
+  display:flex; gap:0; flex-wrap:wrap;
+  border-top:1px solid var(--border); padding-top:16px;
 }
-.t-item { padding:4px 16px; text-align:center; border-right:1px solid var(--border); }
-.t-item:last-child { border-right:none; }
-.t-val { font-size:16px; font-weight:800; color:var(--navy); line-height:1.1; }
+.t-item { padding:4px 20px 4px 0; text-align:left; margin-right:20px; border-right:1px solid var(--border); }
+.t-item:last-child { border-right:none; margin-right:0; }
+.t-val { font-size:17px; font-weight:800; color:var(--navy); line-height:1.1; }
 .t-val.star { color:var(--gold); }
-.t-lbl { font-size:.62rem; color:var(--fg-xs); letter-spacing:.04em; text-transform:uppercase; margin-top:2px; }
+.t-lbl { font-size:.6rem; color:var(--fg-xs); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+
+/* Mobile: stack */
+@media (max-width:700px) {
+  .hero {
+    grid-template-columns:1fr;
+    min-height:unset; margin-top:130px;
+  }
+  .hero-left {
+    clip-path:none;
+    border-radius:0 0 50% 50% / 0 0 40px 40px;
+    padding:40px 24px;
+  }
+  .hero-logo-wrap { width:min(200px,55vw); }
+  .hero-right { padding:36px 24px; }
+  .hero-h1 .line1 { font-size:clamp(2.4rem,10vw,3.5rem); }
+  .hero-h1 .line2 { font-size:clamp(1.7rem,7vw,2.5rem); }
+  .hero-btns { flex-direction:column; }
+  .btn-order, .btn-festival { text-align:center; justify-content:center; }
+  .t-item { padding:4px 12px 4px 0; margin-right:12px; }
+}
 
 
 
@@ -513,17 +552,9 @@ footer {
 /* ══════════════════════════════════════
    DESKTOP TWEAKS
 ══════════════════════════════════════ */
-@media (min-width:640px) {
-  .hero { padding-top:150px; }
-  .hero-logo-wrap { width:min(220px,30vw); }
-  .hero-h1 .line1 { font-size:clamp(3rem,8vw,5.5rem); }
-  .hero-btns { flex-direction:row; max-width:none; }
-  .hero-btns .btn-order, .hero-btns .btn-festival { flex:1; }
-  .hero-trust { flex-wrap:nowrap; }
-}
 @media (min-width:960px) {
-  .hero { padding-top:160px; }
-  .hero-logo-wrap { width:240px; }
+  .hero-logo-wrap { width:min(300px,28vw); }
+  .hero-right { padding:60px 60px 60px 64px; }
 }
 </style>
 </head>
@@ -567,16 +598,19 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-glow"></div>
 
-  <div class="hero-logo-wrap">
-    <div class="hero-logo-ring">
-      <img src="../logo.png" alt="Chaitrali's Kitchen" onerror="this.style.display='none'">
+  <!-- LEFT: olive panel with logo -->
+  <div class="hero-left">
+    <div class="hero-logo-wrap">
+      <div class="hero-logo-ring">
+        <img src="../logo.png" alt="Chaitrali's Kitchen" onerror="this.style.display='none'">
+      </div>
     </div>
   </div>
 
-  <div class="hero-text">
-    <p class="hero-eyebrow">✦ Welcome to ✦</p>
+  <!-- RIGHT: text panel -->
+  <div class="hero-right">
+    <p class="hero-eyebrow">Welcome to</p>
     <h1 class="hero-h1">
       <span class="line1">Chaitrali's</span>
       <span class="line2">Kitchen</span>
@@ -592,26 +626,26 @@ footer {
       <a class="btn-order" href="order.html">🛒 Order This Week's Tiffin</a>
       <a class="btn-festival" href="event-menu.html">🎉 Festival Menus</a>
     </div>
+    <div class="hero-trust">
+      <div class="t-item">
+        <div class="t-val star">5★</div>
+        <div class="t-lbl">Rating</div>
+      </div>
+      <div class="t-item">
+        <div class="t-val">100%</div>
+        <div class="t-lbl">Pure Veg</div>
+      </div>
+      <div class="t-item">
+        <div class="t-val">Weekly</div>
+        <div class="t-lbl">Fresh Tiffin</div>
+      </div>
+      <div class="t-item">
+        <div class="t-val">Custom</div>
+        <div class="t-lbl">Events</div>
+      </div>
+    </div>
   </div>
 
-  <div class="hero-trust">
-    <div class="t-item">
-      <div class="t-val star">5★</div>
-      <div class="t-lbl">Rating</div>
-    </div>
-    <div class="t-item">
-      <div class="t-val">100%</div>
-      <div class="t-lbl">Pure Veg</div>
-    </div>
-    <div class="t-item">
-      <div class="t-val">Weekly</div>
-      <div class="t-lbl">Fresh Tiffin</div>
-    </div>
-    <div class="t-item">
-      <div class="t-val">Custom</div>
-      <div class="t-lbl">Events</div>
-    </div>
-  </div>
 </section>
 
 <!-- TAG STRIP -->
