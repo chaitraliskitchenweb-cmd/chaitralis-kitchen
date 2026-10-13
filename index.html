@@ -157,30 +157,10 @@
   <span class="nav-badge">✦ Pure Veg</span>
 </nav>
 
-<!-- ANIMATED DISH MARQUEE -->
+<!-- ANIMATED DISH MARQUEE — items built dynamically from data/menu.json -->
 <div class="marquee-strip">
-  <div class="marquee-track">
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/maharashtrian-thali.jpg" alt="Maharashtrian Thali"></div><span class="dish-name">Maharashtrian Thali</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/kanda-poha.jpg" alt="Poha"></div><span class="dish-name">Kanda Poha</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/vada-pav.jpg" alt="Vada Pav"></div><span class="dish-name">Vada Pav</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/dal-tadka.jpg" alt="Dal Tadka"></div><span class="dish-name">Dal Tadka</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/pav-bhaji.jpg" alt="Bhaji"></div><span class="dish-name">Pav Bhaji</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/chapati.jpg" alt="Chapati"></div><span class="dish-name">Chapati</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/masala-rice.jpg" alt="Masala Rice"></div><span class="dish-name">Masala Rice</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/green-chutney.jpg" alt="Chutney"></div><span class="dish-name">Green Chutney</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/masale-bhaat.jpg" alt="Khichdi"></div><span class="dish-name">Masale Bhaat</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/puran-poli.jpg" alt="Puran Poli"></div><span class="dish-name">Puran Poli</span></div>
-    <!-- duplicate for seamless loop -->
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/maharashtrian-thali.jpg" alt="Maharashtrian Thali"></div><span class="dish-name">Maharashtrian Thali</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/kanda-poha.jpg" alt="Poha"></div><span class="dish-name">Kanda Poha</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/vada-pav.jpg" alt="Vada Pav"></div><span class="dish-name">Vada Pav</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/dal-tadka.jpg" alt="Dal Tadka"></div><span class="dish-name">Dal Tadka</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/pav-bhaji.jpg" alt="Bhaji"></div><span class="dish-name">Pav Bhaji</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/chapati.jpg" alt="Chapati"></div><span class="dish-name">Chapati</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/masala-rice.jpg" alt="Masala Rice"></div><span class="dish-name">Masala Rice</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/green-chutney.jpg" alt="Chutney"></div><span class="dish-name">Green Chutney</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/masale-bhaat.jpg" alt="Khichdi"></div><span class="dish-name">Masale Bhaat</span></div>
-    <div class="dish-item"><div class="dish-circle"><img src="images/carousel/puran-poli.jpg" alt="Puran Poli"></div><span class="dish-name">Puran Poli</span></div>
+  <div class="marquee-track" id="marquee-track">
+    <!-- populated by initMarquee() below -->
   </div>
 </div>
 
@@ -246,6 +226,45 @@
   <p>From Shrewsbury &nbsp;·&nbsp; Now Serving</p>
   <p>© 2025 Chaitrali's Kitchen. All rights reserved.</p>
 </footer>
+
+<script>
+// Build the marquee strip from data/menu.json carousel array.
+// Items are duplicated to create a seamless infinite scroll loop.
+async function initMarquee() {
+  const track = document.getElementById('marquee-track');
+  if (!track) return;
+
+  let items = [];
+  try {
+    const res = await fetch('data/menu.json');
+    const data = await res.json();
+    if (Array.isArray(data.carousel) && data.carousel.length > 0) {
+      items = data.carousel;
+    }
+  } catch (e) {
+    // If fetch fails (e.g. local file:// preview), leave track empty — strip stays blank
+    console.warn('Carousel: could not load menu.json', e);
+    return;
+  }
+
+  // Build one set of dish-item elements
+  function makeDishHTML(item) {
+    const src = 'images/carousel/' + item.file;
+    const name = item.name || item.file.replace(/\.[^.]+$/, '');
+    return `<div class="dish-item"><div class="dish-circle"><img src="${src}" alt="${name}"></div><span class="dish-name">${name}</span></div>`;
+  }
+
+  // Render items twice for seamless loop
+  const html = items.map(makeDishHTML).join('') + items.map(makeDishHTML).join('');
+  track.innerHTML = html;
+
+  // Adjust animation duration proportionally to item count (30s base for 6 items)
+  const duration = Math.max(20, items.length * 5);
+  track.style.animationDuration = duration + 's';
+}
+
+initMarquee();
+</script>
 
 </body>
 </html>

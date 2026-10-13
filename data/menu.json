@@ -12,6 +12,14 @@
     "payment_venmo": "@Chaitralis-Kitchen",
     "allergy_note": "Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible with any dish. Please tell us about all allergies when ordering."
   },
+  "carousel": [
+    { "file": "Poha.jpg",        "name": "Kanda Poha" },
+    { "file": "Puran Poli.jpg",  "name": "Puran Poli" },
+    { "file": "Samosa.jpg",      "name": "Samosa" },
+    { "file": "Vada Pav.jpg",    "name": "Vada Pav" },
+    { "file": "masala-rice.jpg", "name": "Masala Rice" },
+    { "file": "pav-bhaji.jpg",   "name": "Pav Bhaji" }
+  ],
   "tiffin": {
     "last_week": {
       "dates": "Oct 1 – Oct 6, 2026",

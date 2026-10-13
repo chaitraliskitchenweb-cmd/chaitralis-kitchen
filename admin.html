@@ -118,6 +118,17 @@ textarea { resize:vertical; min-height:60px; }
 .settings-field input:focus, .settings-field textarea:focus { border-color:var(--olive); }
 .settings-field.full { grid-column:1/-1; }
 
+/* ── CAROUSEL ── */
+.carousel-intro { font-size:.85rem; color:var(--muted); line-height:1.6; background:#f0ede8; border-radius:10px; padding:14px 16px; margin-bottom:16px; }
+.carousel-intro strong { color:var(--navy); }
+.cr-item { display:grid; grid-template-columns:1fr 1fr 32px; gap:8px; align-items:center; background:var(--tag-bg); border-radius:8px; padding:10px 12px; }
+.cr-item input { border:1.5px solid var(--border); border-radius:6px; padding:6px 10px; font-family:inherit; font-size:.85rem; outline:none; width:100%; }
+.cr-item input:focus { border-color:var(--olive); }
+.cr-item .rm-btn { background:none; border:none; color:var(--red); font-size:1.1rem; cursor:pointer; padding:4px; border-radius:4px; }
+.cr-item .rm-btn:hover { background:#fdecea; }
+.cr-header { display:grid; grid-template-columns:1fr 1fr 32px; gap:8px; font-size:.75rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; padding:0 12px; margin-bottom:4px; }
+.cr-list { display:flex; flex-direction:column; gap:8px; }
+
 /* ── TOAST ── */
 .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px); background:var(--navy); color:#fff; padding:10px 22px; border-radius:24px; font-size:.88rem; font-weight:600; opacity:0; transition:all .3s; pointer-events:none; z-index:999; }
 .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
@@ -157,6 +168,7 @@ textarea { resize:vertical; min-height:60px; }
   <div class="main-tabs">
     <div class="main-tab active" onclick="switchMain('tiffin',this)">📅 Weekly Tiffin</div>
     <div class="main-tab" onclick="switchMain('events',this)">🎉 Events &amp; Seasonal</div>
+    <div class="main-tab" onclick="switchMain('carousel',this)">🖼️ Carousel Images</div>
     <div class="main-tab" onclick="switchMain('settings',this)">⚙️ Settings</div>
   </div>
 
@@ -208,6 +220,22 @@ textarea { resize:vertical; min-height:60px; }
     <div id="ev-diwali" class="ev-panel" style="display:none"></div>
     <div id="ev-holi" class="ev-panel" style="display:none"></div>
     <div id="ev-custom" class="ev-panel" style="display:none"></div>
+  </div>
+
+  <!-- ══ CAROUSEL TAB ══ -->
+  <div id="tab-carousel" class="tab-content">
+    <div class="carousel-intro">
+      <strong>How this works:</strong> Each row below is one dish circle shown in the scrolling strip on the homepage.
+      <br>• <strong>Filename</strong> — exact filename of the image inside the <code>images/carousel/</code> folder (e.g. <code>Poha.jpg</code>).
+      <br>• <strong>Dish Name</strong> — label shown under the circle.
+      <br>After editing, click <em>Download menu.json</em> and push the file to GitHub. To add a new image, also upload the photo to <code>images/carousel/</code> in GitHub.
+    </div>
+    <div class="card">
+      <div class="card-title">Carousel Items <span style="font-size:.8rem;font-weight:400;color:var(--muted)">(drag to reorder — or use Remove &amp; Add)</span></div>
+      <div class="cr-header"><span>Image Filename</span><span>Dish Name</span><span></span></div>
+      <div class="cr-list" id="carousel-list"></div>
+      <button class="add-dish-btn" onclick="addCarouselItem()">+ Add Image</button>
+    </div>
   </div>
 
   <!-- ══ SETTINGS TAB ══ -->
@@ -463,6 +491,29 @@ function collectEventPanel(ek){
   };
 }
 
+// ── CAROUSEL ──
+function makeCarouselItem(c){
+  const el = document.createElement('div');
+  el.className = 'cr-item';
+  el.innerHTML = `
+    <input type="text" class="cr-file" placeholder="e.g. Poha.jpg" value="${escA(c?.file||'')}">
+    <input type="text" class="cr-name" placeholder="Dish name label" value="${escA(c?.name||'')}">
+    <button class="rm-btn" onclick="this.closest('.cr-item').remove()" title="Remove">✕</button>`;
+  return el;
+}
+function addCarouselItem(){ document.getElementById('carousel-list').appendChild(makeCarouselItem(null)); }
+function loadCarousel(items){
+  const list = document.getElementById('carousel-list');
+  list.innerHTML = '';
+  (items||[]).forEach(c=>list.appendChild(makeCarouselItem(c)));
+}
+function collectCarousel(){
+  return [...document.querySelectorAll('#carousel-list .cr-item')].map(el=>({
+    file: el.querySelector('.cr-file').value.trim(),
+    name: el.querySelector('.cr-name').value.trim()
+  })).filter(c=>c.file);
+}
+
 // ── SETTINGS ──
 const SETTING_KEYS=['business_name','tagline','phone','phone_whatsapp','email','location','tiffin_days','order_cutoff','payment_zelle','payment_venmo','allergy_note'];
 function loadSettings(s){ SETTING_KEYS.forEach(k=>{ const el=document.getElementById('s-'+k); if(el) el.value=s[k]||''; }); }
@@ -472,6 +523,7 @@ function collectSettings(){ const s={}; SETTING_KEYS.forEach(k=>{ const el=docum
 function collectMenu(){
   return {
     settings: collectSettings(),
+    carousel: collectCarousel(),
     tiffin: {
       last_week: collectTiffinWeek('last_week'),
       this_week: collectTiffinWeek('this_week'),
@@ -486,6 +538,7 @@ function renderMenu(m){
   menu = m;
   ['last_week','this_week','next_week'].forEach(wk=>loadTiffinWeek(wk, m.tiffin[wk]||{}));
   Object.keys(EVENTS_CONFIG).forEach(ek=>buildEventPanel(ek, m.events[ek]||{title:'',subtitle:'',order_by:'',active:false,sections:[]}));
+  loadCarousel(m.carousel||[]);
   loadSettings(m.settings||{});
 }
 
@@ -512,6 +565,14 @@ function defaultMenu(){
       location:'Shrewsbury, MA', tiffin_days:'Mon – Sat', order_cutoff:'Sunday 9 PM',
       payment_zelle:'chaitraliskitchen@gmail.com', payment_venmo:'@Chaitralis-Kitchen',
       allergy_note:'Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard.' },
+    carousel:[
+      {file:'Poha.jpg',name:'Kanda Poha'},
+      {file:'Puran Poli.jpg',name:'Puran Poli'},
+      {file:'Samosa.jpg',name:'Samosa'},
+      {file:'Vada Pav.jpg',name:'Vada Pav'},
+      {file:'masala-rice.jpg',name:'Masala Rice'},
+      {file:'pav-bhaji.jpg',name:'Pav Bhaji'}
+    ],
     tiffin:{ last_week:{dates:'',dishes:[]}, this_week:{dates:'',dishes:[]}, next_week:{dates:'',dishes:[]} },
     events:{ ganpati:{title:'Ganpati',subtitle:'Special Festival Menu',order_by:'',active:false,sections:[]},
       diwali:{title:'Diwali',subtitle:'Festival of Lights Menu',order_by:'',active:false,sections:[]},
