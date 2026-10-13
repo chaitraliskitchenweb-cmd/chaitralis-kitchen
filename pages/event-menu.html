@@ -101,13 +101,82 @@
     .sweets-grid { grid-template-columns: 1fr 1fr; }
     .menu-footer { grid-template-columns: 1fr; }
   }
+
+  /* ── Shared Site Nav ── */
+  .ck-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 0 5%;
+    height: 58px;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(107,130,13,0.18);
+    font-family: 'Poppins', sans-serif;
+  }
+  .ck-brand {
+    display: flex; align-items: center; gap: 9px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .ck-brand img {
+    width: 34px; height: 34px; border-radius: 50%; object-fit: contain;
+    background: #f2f5e6;
+  }
+  .ck-brand span {
+    font-family: 'Playfair Display', serif; font-size: 1rem;
+    font-weight: 700; color: #1A2B4A;
+  }
+  .ck-brand em { color: #6b820d; font-style: italic; }
+  .ck-links {
+    display: flex; list-style: none; gap: 24px;
+    margin: 0 auto; padding: 0;
+  }
+  .ck-links a {
+    text-decoration: none; font-size: 13px; font-weight: 500;
+    color: #1A2B4A; letter-spacing: .01em; transition: color .15s;
+  }
+  .ck-links a:hover { color: #6b820d; }
+  .ck-links a.active { color: #6b820d; font-weight: 600; }
+  .ck-order {
+    flex-shrink: 0; text-decoration: none;
+    background: #6b820d; color: #fff;
+    padding: 7px 18px; border-radius: 24px;
+    font-size: 12.5px; font-weight: 600; transition: opacity .15s;
+  }
+  .ck-order:hover { opacity: .87; }
+  .ck-burger {
+    display: none; background: none; border: none;
+    font-size: 22px; cursor: pointer; color: #1A2B4A;
+    padding: 4px;
+  }
+  @media (max-width: 600px) {
+    .ck-links { display: none; position: absolute; top: 58px; left: 0; right: 0;
+      flex-direction: column; background: #fff; border-bottom: 1px solid rgba(107,130,13,0.18);
+      padding: 12px 5% 16px; gap: 12px; z-index: 201; }
+    .ck-nav.open .ck-links { display: flex; }
+    .ck-burger { display: block; }
+  }
+  /* push page content below fixed nav */
+  body { padding-top: 58px; }
+
 </style>
 </head>
 <body>
-
-<nav class="event-nav" id="event-nav">
-  <div class="loading" style="color:rgba(255,255,255,.7);padding:6px 0;">Loading…</div>
+<nav class="ck-nav" id="ck-nav">
+  <a class="ck-brand" href="../index.html">
+    <img src="../logo.png" alt="logo" onerror="this.style.display='none'">
+    <span>Chaitrali's <em>Kitchen</em></span>
+  </a>
+  <ul class="ck-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="weekly-menu.html">Tiffin Menu</a></li>
+    <li><a href="event-menu.html">Events</a></li>
+    <li><a href="order.html">Order</a></li>
+  </ul>
+  <a class="ck-order" href="order.html">Order Now</a>
+  <button class="ck-burger" onclick="document.getElementById('ck-nav').classList.toggle('open')" aria-label="Menu">☰</button>
 </nav>
+
+
+<div id="event-nav" class="event-nav"></div>
 
 <div id="events-root">
   <div class="loading">Loading menus…</div>
