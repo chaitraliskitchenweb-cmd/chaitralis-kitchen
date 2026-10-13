@@ -16,7 +16,6 @@
     --purple:     #6b45a0;
     --purple-bg:  #ede8f6;
     --navy:       #1A2B4A;
-
     --bg:         #f4f4f0;
     --bg-card:    #ffffff;
     --fg:         #1c1c1a;
@@ -27,143 +26,70 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --olive:      #96b714;
-      --olive-bg:   #1e2a08;
-      --amber:      #e09a22;
-      --amber-bg:   #2a1e04;
-      --teal:       #2abcae;
-      --teal-bg:    #082820;
-      --purple:     #a07dd4;
-      --purple-bg:  #1e1030;
-      --navy:       #2a3f6a;
-      --bg:         #18181a;
-      --bg-card:    #232323;
-      --fg:         #f0f0ec;
-      --fg-soft:    #a0a098;
-      --fg-xsoft:   #666660;
-      --border:     #303030;
-      color-scheme: dark;
+      --olive: #96b714; --olive-bg: #1e2a08; --amber: #e09a22; --amber-bg: #2a1e04;
+      --teal: #2abcae; --teal-bg: #082820; --purple: #a07dd4; --purple-bg: #1e1030;
+      --navy: #2a3f6a; --bg: #18181a; --bg-card: #232323; --fg: #f0f0ec;
+      --fg-soft: #a0a098; --fg-xsoft: #666660; --border: #303030; color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
-    --olive:      #96b714;
-    --olive-bg:   #1e2a08;
-    --amber:      #e09a22;
-    --amber-bg:   #2a1e04;
-    --teal:       #2abcae;
-    --teal-bg:    #082820;
-    --purple:     #a07dd4;
-    --purple-bg:  #1e1030;
-    --navy:       #2a3f6a;
-    --bg:         #18181a;
-    --bg-card:    #232323;
-    --fg:         #f0f0ec;
-    --fg-soft:    #a0a098;
-    --fg-xsoft:   #666660;
-    --border:     #303030;
-    color-scheme: dark;
+    --olive: #96b714; --olive-bg: #1e2a08; --amber: #e09a22; --amber-bg: #2a1e04;
+    --teal: #2abcae; --teal-bg: #082820; --purple: #a07dd4; --purple-bg: #1e1030;
+    --navy: #2a3f6a; --bg: #18181a; --bg-card: #232323; --fg: #f0f0ec;
+    --fg-soft: #a0a098; --fg-xsoft: #666660; --border: #303030; color-scheme: dark;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    background: var(--bg);
-    color: var(--fg);
+    background: var(--bg); color: var(--fg);
     font-family: 'Poppins', system-ui, sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    padding-inline: 20px;
-    padding-block: 36px 60px;
-    max-width: 960px;
-    margin-inline: auto;
+    font-size: 14px; line-height: 1.6;
+    padding-inline: 20px; padding-block: 36px 60px;
+    max-width: 960px; margin-inline: auto;
   }
-
-  /* ── HEADER ── */
   .page-header { text-align: center; margin-bottom: 36px; }
-  .eyebrow {
-    font-size: 10.5px; font-weight: 600; letter-spacing: .15em;
-    text-transform: uppercase; color: var(--olive); margin-bottom: 6px;
-  }
-  h1 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.9rem, 5vw, 2.7rem);
-    font-weight: 700; color: var(--fg); line-height: 1.15;
-  }
+  .eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--olive); margin-bottom: 6px; }
+  h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.9rem, 5vw, 2.7rem); font-weight: 700; color: var(--fg); line-height: 1.15; }
   h1 em { font-style: italic; color: var(--olive); }
   .subtitle { margin-top: 7px; font-size: 12px; color: var(--fg-soft); }
   .divider { margin: 14px auto 0; width: 36px; height: 2px; background: var(--olive); opacity: .4; border-radius: 2px; }
 
-  /* ── TABS ── */
-  .week-tabs {
-    display: flex; gap: 8px; justify-content: center;
-    flex-wrap: wrap; margin-bottom: 28px;
-  }
+  .week-tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
   .week-tab {
-    padding: 7px 22px; border-radius: 100px;
-    font-size: 13px; font-weight: 500; cursor: pointer;
-    border: 1.5px solid var(--border);
-    background: var(--bg-card); color: var(--fg-soft);
+    padding: 7px 22px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer;
+    border: 1.5px solid var(--border); background: var(--bg-card); color: var(--fg-soft);
     transition: all .18s; font-family: 'Poppins', sans-serif;
   }
   .week-tab:hover { border-color: var(--olive); color: var(--olive); }
   .week-tab.active { background: var(--olive); color: #fff; border-color: var(--olive); font-weight: 600; box-shadow: 0 3px 12px rgba(107,130,13,.28); }
   .week-tab.next.active { background: var(--amber); border-color: var(--amber); box-shadow: 0 3px 12px rgba(196,125,10,.25); }
 
-  /* ── PANELS ── */
   .week-panel { display: none; }
   .week-panel.visible { display: block; }
 
-  /* ── WEEK HEADER BAR ── */
   .week-header {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 20px; padding: 14px 18px;
-    background: var(--bg-card); border-radius: 12px;
-    border: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    padding: 14px 18px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border);
   }
-  .week-badge {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: var(--bg); display: flex;
-    align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0;
-  }
+  .week-badge { width: 38px; height: 38px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
   .wh-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-xsoft); margin-bottom: 1px; }
   .wh-dates { font-size: 14px; font-weight: 600; color: var(--fg); }
-  .week-status {
-    margin-left: auto; padding: 3px 11px; border-radius: 100px;
-    font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-  }
-  .s-past  { background: var(--bg); color: var(--fg-soft); border: 1px solid var(--border); }
-  .s-now   { background: var(--olive); color: #fff; }
-  .s-next  { background: var(--amber-bg); color: var(--amber); border: 1px solid #f0d090; }
+  .week-status { margin-left: auto; padding: 3px 11px; border-radius: 100px; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .s-past { background: var(--bg); color: var(--fg-soft); border: 1px solid var(--border); }
+  .s-now  { background: var(--olive); color: #fff; }
+  .s-next { background: var(--amber-bg); color: var(--amber); border: 1px solid #f0d090; }
 
-  /* ── DISH GRID ── */
-  .dish-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 10px;
-  }
+  .dish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
   .dish-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 15px;
-    display: flex; align-items: flex-start; gap: 10px;
-    transition: box-shadow .15s;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 15px; display: flex; align-items: flex-start; gap: 10px; transition: box-shadow .15s;
   }
   .dish-card:hover { box-shadow: 0 3px 14px rgba(0,0,0,.07); }
-  .dish-dot {
-    flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--olive); margin-top: 7px; opacity: .6;
-  }
+  .dish-dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--olive); margin-top: 7px; opacity: .6; }
   .dish-info { min-width: 0; }
   .dish-name { font-weight: 600; font-size: 13px; color: var(--fg); line-height: 1.3; }
   .dish-desc { font-size: 11px; color: var(--fg-soft); margin-top: 2px; line-height: 1.4; }
-
-  /* ── COLOURED TAGS by dish type ── */
-  .dish-tag {
-    display: inline-block; margin-top: 6px;
-    padding: 2px 8px; border-radius: 100px;
-    font-size: 10px; font-weight: 500;
-  }
+  .dish-tag { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 100px; font-size: 10px; font-weight: 500; }
   .tag-gravy   { background: var(--olive-bg);  color: var(--olive); }
   .tag-rassa   { background: var(--teal-bg);   color: var(--teal); }
   .tag-dry     { background: var(--olive-bg);  color: var(--olive); }
@@ -174,61 +100,30 @@
   .tag-special { background: var(--purple-bg); color: var(--purple); }
   .tag-snack   { background: var(--bg); color: var(--fg-soft); border: 1px solid var(--border); }
 
-  /* ── TIFFIN INFO ── */
-  .tiffin-info {
-    margin-top: 20px; padding: 15px 18px;
-    background: var(--bg-card); border-radius: 12px;
-    border: 1px solid var(--border);
-    display: flex; gap: 0; flex-wrap: wrap;
-  }
-  .tiffin-fact {
-    flex: 1; min-width: 110px;
-    padding-inline: 16px;
-    border-right: 1px solid var(--border);
-  }
+  .tiffin-info { margin-top: 20px; padding: 15px 18px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); display: flex; gap: 0; flex-wrap: wrap; }
+  .tiffin-fact { flex: 1; min-width: 110px; padding-inline: 16px; border-right: 1px solid var(--border); }
   .tiffin-fact:first-child { padding-left: 0; }
   .tiffin-fact:last-child  { border-right: none; }
   .fact-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-xsoft); margin-bottom: 3px; }
   .fact-value { font-size: 13.5px; font-weight: 600; color: var(--fg); }
 
-  /* ── NOTICE ── */
-  .week-notice {
-    margin-top: 20px; padding: 11px 15px;
-    border-radius: 8px; font-size: 12px; line-height: 1.5;
-    background: var(--bg-card); color: var(--fg-soft);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--olive);
-  }
+  .week-notice { margin-top: 20px; padding: 11px 15px; border-radius: 8px; font-size: 12px; line-height: 1.5; background: var(--bg-card); color: var(--fg-soft); border: 1px solid var(--border); border-left: 3px solid var(--olive); }
 
-  /* ── HOW IT WORKS ── */
   .how-section { margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--border); }
-  .how-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem; font-weight: 700;
-    text-align: center; margin-bottom: 22px; color: var(--fg);
-  }
+  .how-section h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; text-align: center; margin-bottom: 22px; color: var(--fg); }
   .how-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
-  .how-step {
-    background: var(--bg-card); border: 1px solid var(--border);
-    border-radius: 10px; padding: 18px 14px; text-align: center;
-  }
+  .how-step { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 14px; text-align: center; }
   .how-icon { font-size: 22px; margin-bottom: 8px; }
   .how-step h3 { font-size: 12.5px; font-weight: 600; margin-bottom: 5px; color: var(--fg); }
   .how-step p  { font-size: 11px; color: var(--fg-soft); line-height: 1.5; }
 
-  /* ── CTA ── */
-  .order-cta {
-    margin-top: 28px; text-align: center;
-    padding: 28px 24px; background: var(--navy);
-    border-radius: 14px; color: #fff;
-  }
+  .order-cta { margin-top: 28px; text-align: center; padding: 28px 24px; background: var(--navy); border-radius: 14px; color: #fff; }
   .order-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; margin-bottom: 6px; }
   .order-cta p  { font-size: 12px; opacity: .7; margin-bottom: 16px; }
-  .cta-btn {
-    display: inline-block; padding: 9px 26px;
-    background: var(--olive); color: #fff; border-radius: 100px;
-    font-weight: 600; font-size: 12.5px; text-decoration: none;
-  }
+  .cta-btn { display: inline-block; padding: 9px 26px; background: var(--olive); color: #fff; border-radius: 100px; font-weight: 600; font-size: 12.5px; text-decoration: none; }
+
+  .loading { text-align: center; padding: 60px 20px; color: var(--fg-soft); font-size: 14px; }
+  .error-msg { text-align: center; padding: 40px 20px; color: #c0392b; font-size: 13px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); }
 
   @media (max-width: 500px) {
     .week-header { flex-wrap: wrap; }
@@ -243,80 +138,17 @@
 <body>
 
 <div class="page-header">
-  <p class="eyebrow">Chaitrali's Kitchen · Shrewsbury</p>
+  <p class="eyebrow" id="site-eyebrow">Chaitrali's Kitchen · Shrewsbury</p>
   <h1>Weekly <em>Tiffin</em> Menu</h1>
   <p class="subtitle">Pure Veg · Authentic Maharashtrian Home Cooking · Delivered Fresh</p>
   <div class="divider"></div>
 </div>
 
-<div class="week-tabs" role="tablist">
-  <button class="week-tab past"       role="tab" data-panel="past" aria-selected="false">← Last Week</button>
-  <button class="week-tab now active" role="tab" data-panel="now"  aria-selected="true">This Week</button>
-  <button class="week-tab next"       role="tab" data-panel="next" aria-selected="false">Next Week →</button>
+<div id="tiffin-root">
+  <div class="loading">Loading menu…</div>
 </div>
 
-<!-- PAST -->
-<div class="week-panel" id="panel-past" role="tabpanel">
-  <div class="week-header">
-    <div class="week-badge">📅</div>
-    <div><div class="wh-label">Last Week</div><div class="wh-dates">Oct 1 – Oct 6, 2026</div></div>
-    <span class="week-status s-past">Ended</span>
-  </div>
-  <div class="dish-grid">
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Aloo Methi</div><div class="dish-desc">Potato with Fenugreek Leaves</div><span class="dish-tag tag-dry">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Dal Fry</div><div class="dish-desc">Tempered Yellow Lentils</div><span class="dish-tag tag-dal">Dal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Bhindi Masala</div><div class="dish-desc">Spiced Okra</div><span class="dish-tag tag-dry">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Tomato Saar</div><div class="dish-desc">Thin Tomato Soup</div><span class="dish-tag tag-rassa">Rassa</span></div></div>
-  </div>
-  <div class="week-notice">Menu changes every week. Subscribe to get notified of upcoming dishes before Sunday.</div>
-</div>
-
-<!-- THIS WEEK -->
-<div class="week-panel visible" id="panel-now" role="tabpanel">
-  <div class="week-header">
-    <div class="week-badge">🍱</div>
-    <div><div class="wh-label">This Week</div><div class="wh-dates">Oct 7 – Oct 12, 2026</div></div>
-    <span class="week-status s-now">Now Serving</span>
-  </div>
-  <div class="dish-grid">
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Saoji Masala Vangi</div><div class="dish-desc">Nagpur-style Spicy Brinjal Curry</div><span class="dish-tag tag-spicy">Spicy · Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Brahmin Style Bharli Vangi</div><div class="dish-desc">Stuffed Brinjal — Konkanastha Style</div><span class="dish-tag tag-gravy">Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Batata Rassa</div><div class="dish-desc">Thin Potato Curry</div><span class="dish-tag tag-rassa">Rassa</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Batata Sukhi</div><div class="dish-desc">Dry Spiced Potato</div><span class="dish-tag tag-dry">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kobi Matar</div><div class="dish-desc">Cabbage &amp; Green Peas</div><span class="dish-tag tag-dry">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Flower Batata Matar</div><div class="dish-desc">Cauliflower, Potato &amp; Peas</div><span class="dish-tag tag-dry">Dry Sabzi</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Veg Kurma</div><div class="dish-desc">Mixed Vegetables in Coconut-Cashew Gravy</div><span class="dish-tag tag-gravy">Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Veg Kolhapuri</div><div class="dish-desc">Fiery Kolhapur-style Vegetable Curry</div><span class="dish-tag tag-spicy">Spicy · Gravy</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kolhapuri Akkha Masur</div><div class="dish-desc">Whole Red Lentil — Kolhapuri Masala</div><span class="dish-tag tag-spicy">Spicy · Dal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Matki chi Usal</div><div class="dish-desc">Sprouted Moth Bean Curry</div><span class="dish-tag tag-usal">Usal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Moogachi Usal</div><div class="dish-desc">Sprouted Green Moong Curry</div><span class="dish-tag tag-usal">Usal</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Val Usal</div><div class="dish-desc">Field Bean Curry — Coastal Style</div><span class="dish-tag tag-usal">Usal</span></div></div>
-  </div>
-  <div class="tiffin-info">
-    <div class="tiffin-fact"><div class="fact-label">Tiffin Days</div><div class="fact-value">Mon – Sat</div></div>
-    <div class="tiffin-fact"><div class="fact-label">Order Cutoff</div><div class="fact-value">Sunday 9 PM</div></div>
-    <div class="tiffin-fact"><div class="fact-label">Delivery</div><div class="fact-value">Shrewsbury, MA</div></div>
-    <div class="tiffin-fact"><div class="fact-label">Diet</div><div class="fact-value">100% Pure Veg</div></div>
-  </div>
-</div>
-
-<!-- NEXT WEEK -->
-<div class="week-panel" id="panel-next" role="tabpanel">
-  <div class="week-header">
-    <div class="week-badge">🔔</div>
-    <div><div class="wh-label">Next Week</div><div class="wh-dates">Oct 14 – Oct 19, 2026</div></div>
-    <span class="week-status s-next">Coming Soon</span>
-  </div>
-  <div class="dish-grid">
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Puran Poli</div><div class="dish-desc">Sweet Chana Dal Flatbread</div><span class="dish-tag tag-special">Festival Special</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Katachi Amti</div><div class="dish-desc">Spiced Water from Chana Dal</div><span class="dish-tag tag-rassa">Rassa</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Masale Bhaat</div><div class="dish-desc">Spiced Rice with Seasonal Vegetables</div><span class="dish-tag tag-rice">Rice</span></div></div>
-    <div class="dish-card"><div class="dish-dot"></div><div class="dish-info"><div class="dish-name">Kothimbir Vadi</div><div class="dish-desc">Crispy Coriander &amp; Chickpea Snack</div><span class="dish-tag tag-snack">Snack</span></div></div>
-  </div>
-  <div class="week-notice">Next week's full menu will be announced by Sunday. Check back or ask Chaitrali for early access.</div>
-</div>
-
-<!-- HOW IT WORKS -->
+<!-- HOW IT WORKS (static) -->
 <div class="how-section">
   <h2>How Tiffin Works</h2>
   <div class="how-steps">
@@ -325,26 +157,104 @@
     <div class="how-step"><div class="how-icon">🏠</div><h3>Fresh Delivery</h3><p>Home-cooked tiffin delivered to your door Monday through Saturday.</p></div>
     <div class="how-step"><div class="how-icon">♻️</div><h3>Return the Box</h3><p>Return your tiffin box at next delivery. We reuse — no waste, no plastic.</p></div>
   </div>
-  <div class="order-cta">
+  <div class="order-cta" id="order-cta">
     <h3>Ready to order this week's tiffin?</h3>
-    <p>Sunday 9 PM cutoff · Shrewsbury, MA · Mon–Sat delivery</p>
-    <span class="cta-btn">WhatsApp or call to order</span>
+    <p id="cta-sub">Sunday 9 PM cutoff · Shrewsbury, MA · Mon–Sat delivery</p>
+    <a class="cta-btn" id="cta-link" href="#">WhatsApp or call to order</a>
   </div>
 </div>
 
 <script>
-  const tabs = document.querySelectorAll('.week-tab');
-  const panels = { past: document.getElementById('panel-past'), now: document.getElementById('panel-now'), next: document.getElementById('panel-next') };
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const key = tab.dataset.panel;
-      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      Object.values(panels).forEach(p => p.classList.remove('visible'));
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected','true');
-      panels[key].classList.add('visible');
+(function() {
+  // Try relative path from pages/ folder; also supports root-level fallback
+  const DATA_PATH = '../data/menu.json';
+
+  function buildDishCard(dish) {
+    return `<div class="dish-card">
+      <div class="dish-dot"></div>
+      <div class="dish-info">
+        <div class="dish-name">${escHtml(dish.name)}</div>
+        ${dish.desc ? `<div class="dish-desc">${escHtml(dish.desc)}</div>` : ''}
+        ${dish.tag_label ? `<span class="dish-tag tag-${escHtml(dish.tag)}">${escHtml(dish.tag_label)}</span>` : ''}
+      </div>
+    </div>`;
+  }
+
+  function buildPanel(key, data, s, statusClass, badge, statusLabel, notice) {
+    const dishes = (data.dishes || []).map(buildDishCard).join('');
+    const tiffin = key === 'this_week' ? `
+      <div class="tiffin-info">
+        <div class="tiffin-fact"><div class="fact-label">Tiffin Days</div><div class="fact-value">${escHtml(s.tiffin_days || 'Mon – Sat')}</div></div>
+        <div class="tiffin-fact"><div class="fact-label">Order Cutoff</div><div class="fact-value">${escHtml(s.order_cutoff || 'Sunday 9 PM')}</div></div>
+        <div class="tiffin-fact"><div class="fact-label">Delivery</div><div class="fact-value">${escHtml(s.location || 'Shrewsbury, MA')}</div></div>
+        <div class="tiffin-fact"><div class="fact-label">Diet</div><div class="fact-value">100% Pure Veg</div></div>
+      </div>` : '';
+    const noticeHtml = notice ? `<div class="week-notice">${escHtml(notice)}</div>` : '';
+    return `<div class="week-panel${key === 'this_week' ? ' visible' : ''}" id="panel-${key}">
+      <div class="week-header">
+        <div class="week-badge">${badge}</div>
+        <div><div class="wh-label">${key === 'last_week' ? 'Last Week' : key === 'this_week' ? 'This Week' : 'Next Week'}</div>
+        <div class="wh-dates">${escHtml(data.dates || '')}</div></div>
+        <span class="week-status ${statusClass}">${escHtml(statusLabel)}</span>
+      </div>
+      <div class="dish-grid">${dishes}</div>
+      ${tiffin}${noticeHtml}
+    </div>`;
+  }
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function render(menu) {
+    const s = menu.settings || {};
+    const t = menu.tiffin || {};
+
+    // Update CTA
+    if (s.phone_whatsapp) {
+      document.getElementById('cta-link').href = `https://wa.me/${s.phone_whatsapp}`;
+    }
+    const cutoff = s.order_cutoff || 'Sunday 9 PM';
+    const loc    = s.location    || 'Shrewsbury, MA';
+    const days   = s.tiffin_days || 'Mon–Sat';
+    document.getElementById('cta-sub').textContent = `${cutoff} cutoff · ${loc} · ${days} delivery`;
+    document.getElementById('site-eyebrow').textContent = `${s.business_name || "Chaitrali's Kitchen"} · ${loc}`;
+
+    const tabs = `
+      <div class="week-tabs" role="tablist">
+        <button class="week-tab past" role="tab" data-panel="last_week" aria-selected="false">← Last Week</button>
+        <button class="week-tab now active" role="tab" data-panel="this_week" aria-selected="true">This Week</button>
+        <button class="week-tab next" role="tab" data-panel="next_week" aria-selected="false">Next Week →</button>
+      </div>`;
+
+    const lastW  = buildPanel('last_week',  t.last_week  || {}, s, 's-past', '📅', 'Ended',       'Menu changes every week. Subscribe to get notified of upcoming dishes before Sunday.');
+    const thisW  = buildPanel('this_week',  t.this_week  || {}, s, 's-now',  '🍱', 'Now Serving', '');
+    const nextW  = buildPanel('next_week',  t.next_week  || {}, s, 's-next', '🔔', 'Coming Soon', "Next week's full menu will be announced by Sunday. Check back or ask Chaitrali for early access.");
+
+    document.getElementById('tiffin-root').innerHTML = tabs + lastW + thisW + nextW;
+
+    // Tab switching
+    const tabEls  = document.querySelectorAll('.week-tab');
+    const panelMap = { last_week: 'panel-last_week', this_week: 'panel-this_week', next_week: 'panel-next_week' };
+    tabEls.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const key = tab.dataset.panel;
+        tabEls.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        document.querySelectorAll('.week-panel').forEach(p => p.classList.remove('visible'));
+        tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+        document.getElementById('panel-' + key).classList.add('visible');
+      });
     });
-  });
+  }
+
+  fetch(DATA_PATH)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch(err => {
+      document.getElementById('tiffin-root').innerHTML =
+        `<div class="error-msg">⚠️ Unable to load menu data (${err.message}). Please try again later.</div>`;
+    });
+})();
 </script>
 </body>
 </html>

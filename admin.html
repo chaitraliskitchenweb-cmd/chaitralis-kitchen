@@ -1,910 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chaitrali's Kitchen — Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
-    :root {
-      --olive: #6b820d;
-      --olive-l: #8fa812;
-      --olive-d: #556608;
-      --olive-bg: #eef2d8;
-      --gold: #D4A24C;
-      --gold-d: #b8882f;
-      --navy: #1A2B4A;
-      --navy2: #243856;
-      --bg: #f5f5f0;
-      --bg-card: #ffffff;
-      --fg: #1c1c1a;
-      --fg-s: #6b6b63;
-      --fg-xs: #9a9a90;
-      --border: #e0e0d8;
-      --border-focus: #6b820d;
-      --red: #C0392B;
-      --success: #27AE60;
-      --shadow: 0 2px 16px rgba(0,0,0,.07);
-      --r: 16px;
-      --r-sm: 10px;
-    }
-    body {
-      font-family:'Poppins',sans-serif;
-      background:var(--bg);
-      color:var(--fg);
-      min-height:100vh;
-      font-size:14px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaitrali's Kitchen – Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --olive: #6b820d; --olive-d: #556809; --navy: #1A2B4A; --gold: #D4A24C;
+  --bg: #f7f5f0; --card: #ffffff; --border: #e2ddd4; --text: #2c2c2c;
+  --muted: #6b6560; --red: #c0392b; --tag-bg: #eef2e0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
 
-    /* ── LOGIN ── */
-    #login-screen {
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(145deg, var(--navy) 0%, var(--navy2) 60%, var(--olive-d) 100%);
-    }
-    .login-box {
-      background:var(--bg-card);
-      border-radius:24px;
-      padding:52px 44px;
-      width:100%;
-      max-width:400px;
-      text-align:center;
-      box-shadow:0 32px 80px rgba(0,0,0,0.25);
-      border:1px solid rgba(255,255,255,0.08);
-    }
-    .login-box img {
-      height:90px;
-      width:auto;
-      margin:0 auto 22px;
-      display:block;
-    }
-    .login-logo-fallback {
-      width:90px; height:90px; border-radius:50%;
-      background:var(--olive-bg);
-      display:flex; align-items:center; justify-content:center;
-      margin:0 auto 22px; font-size:36px;
-    }
-    .login-box h1 {
-      font-family:'Playfair Display',serif;
-      font-size:24px;
-      font-weight:700;
-      color:var(--navy);
-      margin-bottom:6px;
-    }
-    .login-box p {
-      font-size:13px;
-      color:var(--fg-s);
-      margin-bottom:32px;
-      line-height:1.6;
-    }
-    .login-divider {
-      width:40px; height:3px;
-      background:var(--gold);
-      border-radius:2px;
-      margin:0 auto 28px;
-    }
-    .login-box button {
-      width:100%;
-      padding:14px;
-      background:var(--olive);
-      color:#fff;
-      border:none;
-      border-radius:100px;
-      font-size:15px;
-      font-weight:600;
-      cursor:pointer;
-      font-family:'Poppins',sans-serif;
-      transition:background .2s, transform .1s;
-      letter-spacing:.02em;
-    }
-    .login-box button:hover { background:var(--olive-l); }
-    .login-box button:active { transform:scale(.98); }
+/* ── LOGIN ── */
+#login-screen { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+.login-box { background:var(--card); border-radius:16px; padding:40px 36px; width:360px; box-shadow:0 4px 24px rgba(0,0,0,.12); text-align:center; }
+.login-box h1 { color:var(--navy); font-size:1.4rem; margin-bottom:4px; }
+.login-box p { color:var(--muted); font-size:.85rem; margin-bottom:24px; }
+.login-box input { width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.95rem; margin-bottom:12px; outline:none; }
+.login-box input:focus { border-color:var(--olive); }
+.login-box button { width:100%; padding:11px; background:var(--olive); color:#fff; border:none; border-radius:8px; font-family:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
+.login-box button:hover { background:var(--olive-d); }
+#login-err { color:var(--red); font-size:.8rem; margin-top:8px; min-height:18px; }
 
-    /* ── ADMIN LAYOUT ── */
-    #admin-screen { display:none; }
+/* ── TOPBAR ── */
+#app { display:none; }
+.topbar { background:var(--navy); color:#fff; padding:0 20px; display:flex; align-items:center; gap:12px; height:56px; position:sticky; top:0; z-index:100; }
+.topbar .brand { font-weight:700; font-size:1rem; flex:1; }
+.topbar .brand span { color:var(--gold); }
+.btn { padding:8px 16px; border-radius:8px; border:none; font-family:inherit; font-size:.85rem; font-weight:600; cursor:pointer; }
+.btn-olive { background:var(--olive); color:#fff; }
+.btn-olive:hover { background:var(--olive-d); }
+.btn-gold { background:var(--gold); color:var(--navy); }
+.btn-gold:hover { background:#c4912a; }
+.btn-ghost { background:transparent; color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.3); }
+.btn-ghost:hover { color:#fff; border-color:#fff; }
 
-    .admin-nav {
-      background:var(--navy);
-      padding:0 32px;
-      height:64px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      position:sticky;
-      top:0;
-      z-index:100;
-      box-shadow:0 2px 12px rgba(0,0,0,.18);
-    }
-    .admin-nav .brand {
-      color:#fff;
-      font-size:15px;
-      font-weight:600;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .admin-nav .brand img { height:44px; }
-    .admin-nav .brand-text { display:flex; flex-direction:column; gap:1px; }
-    .admin-nav .brand-title { font-weight:600; font-size:15px; line-height:1.2; }
-    .admin-nav .brand-sub { font-size:11px; color:rgba(255,255,255,0.5); font-weight:400; letter-spacing:.05em; }
-    .admin-nav .nav-actions { display:flex; align-items:center; gap:20px; }
-    .admin-nav .view-site {
-      color:rgba(255,255,255,0.75);
-      font-size:13px;
-      text-decoration:none;
-      font-family:'Poppins',sans-serif;
-      font-weight:500;
-      transition:color .2s;
-      display:flex; align-items:center; gap:5px;
-    }
-    .admin-nav .view-site:hover { color:#fff; }
+/* ── MAIN TABS ── */
+.main-tabs { display:flex; gap:0; border-bottom:2px solid var(--border); background:var(--card); padding:0 20px; }
+.main-tab { padding:14px 20px; font-weight:600; font-size:.9rem; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; }
+.main-tab.active { color:var(--olive); border-bottom-color:var(--olive); }
 
-    .admin-body {
-      max-width:980px;
-      margin:0 auto;
-      padding:36px 24px 100px;
-    }
+.tab-content { display:none; padding:24px 20px; max-width:980px; margin:0 auto; }
+.tab-content.active { display:block; }
 
-    /* ── HOW-TO ── */
-    .how-to {
-      background:var(--olive-bg);
-      border:1px solid rgba(107,130,13,0.2);
-      border-radius:var(--r);
-      padding:20px 24px;
-      margin-bottom:32px;
-    }
-    .how-to h3 {
-      font-size:13px;
-      font-weight:700;
-      color:var(--olive-d);
-      margin-bottom:10px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-    .how-to ol { padding-left:18px; }
-    .how-to ol li {
-      font-size:13px;
-      color:var(--fg-s);
-      line-height:1.7;
-    }
-    .how-to ol li strong { color:var(--olive-d); font-weight:600; }
+/* ── WEEK TABS ── */
+.week-tabs { display:flex; gap:8px; margin-bottom:20px; }
+.week-tab { padding:8px 18px; border-radius:20px; font-size:.85rem; font-weight:600; background:var(--border); color:var(--muted); cursor:pointer; border:none; font-family:inherit; }
+.week-tab.active { background:var(--olive); color:#fff; }
 
-    /* ── TABS ── */
-    .tabs {
-      display:flex;
-      gap:0;
-      border-bottom:2px solid var(--border);
-      margin-bottom:32px;
-      overflow-x:auto;
-    }
-    .tabs::-webkit-scrollbar { height:0; }
-    .tab-btn {
-      padding:12px 22px;
-      border:none;
-      background:none;
-      cursor:pointer;
-      font-size:13.5px;
-      font-weight:500;
-      color:var(--fg-s);
-      font-family:'Poppins',sans-serif;
-      white-space:nowrap;
-      border-bottom:2.5px solid transparent;
-      margin-bottom:-2px;
-      transition:.2s;
-    }
-    .tab-btn.active {
-      color:var(--olive);
-      border-bottom-color:var(--olive);
-      font-weight:600;
-    }
-    .tab-btn:hover { color:var(--olive); }
+/* ── CARDS ── */
+.card { background:var(--card); border-radius:12px; border:1px solid var(--border); padding:20px; margin-bottom:16px; }
+.card-title { font-size:.95rem; font-weight:700; color:var(--navy); margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; }
+.field-row { display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap; }
+.field-row label { font-size:.8rem; font-weight:600; color:var(--muted); min-width:90px; }
+.field-row input, .field-row select, .field-row textarea { flex:1; padding:8px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9rem; outline:none; min-width:160px; }
+.field-row input:focus, .field-row select:focus, .field-row textarea:focus { border-color:var(--olive); }
+textarea { resize:vertical; min-height:60px; }
 
-    .tab-panel { display:none; }
-    .tab-panel.active { display:block; }
+/* ── DISH LIST ── */
+.dish-list { display:flex; flex-direction:column; gap:8px; }
+.dish-item { display:grid; grid-template-columns:1fr 1fr 140px 32px; gap:8px; align-items:center; background:var(--tag-bg); border-radius:8px; padding:10px 12px; }
+.dish-item input, .dish-item select { border:1.5px solid var(--border); border-radius:6px; padding:6px 10px; font-family:inherit; font-size:.85rem; outline:none; width:100%; }
+.dish-item input:focus, .dish-item select:focus { border-color:var(--olive); }
+.dish-item .rm-btn { background:none; border:none; color:var(--red); font-size:1.1rem; cursor:pointer; padding:4px; border-radius:4px; }
+.dish-item .rm-btn:hover { background:#fdecea; }
+.add-dish-btn { margin-top:10px; padding:8px 16px; border:2px dashed var(--olive); background:none; color:var(--olive); border-radius:8px; font-family:inherit; font-size:.85rem; font-weight:600; cursor:pointer; width:100%; }
+.add-dish-btn:hover { background:var(--tag-bg); }
+.dish-header { display:grid; grid-template-columns:1fr 1fr 140px 32px; gap:8px; font-size:.75rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; padding:0 12px; margin-bottom:2px; }
 
-    /* ── CARDS ── */
-    .card {
-      background:var(--bg-card);
-      border-radius:var(--r);
-      padding:28px 28px 24px;
-      border:1px solid var(--border);
-      margin-bottom:20px;
-      box-shadow:var(--shadow);
-    }
-    .card-title {
-      font-size:15px;
-      font-weight:700;
-      color:var(--navy);
-      margin-bottom:22px;
-      display:flex;
-      align-items:center;
-      gap:9px;
-      padding-bottom:14px;
-      border-bottom:1px solid var(--border);
-    }
-    .card-title .icon {
-      width:32px; height:32px;
-      background:var(--olive-bg);
-      border-radius:8px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:16px; flex-shrink:0;
-    }
+/* ── EVENT SECTION ── */
+.event-meta-card { background:var(--card); border-radius:12px; border:1px solid var(--border); padding:16px 20px; margin-bottom:14px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+.event-meta-card label { font-size:.8rem; font-weight:600; color:var(--muted); }
+.event-meta-card input { padding:7px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9rem; outline:none; }
+.event-meta-card input:focus { border-color:var(--olive); }
+.active-toggle { display:flex; align-items:center; gap:8px; }
+.active-toggle input[type=checkbox] { width:18px; height:18px; accent-color:var(--olive); cursor:pointer; }
 
-    /* ── FORM ELEMENTS ── */
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-    .form-row.three { grid-template-columns:1fr 1fr 1fr; }
-    .form-row.one { grid-template-columns:1fr; }
-    .fg { display:flex; flex-direction:column; gap:5px; }
-    .fg label {
-      font-size:10.5px;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-      color:var(--fg-xs);
-      font-weight:700;
-    }
-    .fg input, .fg select, .fg textarea {
-      padding:10px 13px;
-      border:1.5px solid var(--border);
-      border-radius:var(--r-sm);
-      font-size:13.5px;
-      font-family:'Poppins',sans-serif;
-      color:var(--fg);
-      outline:none;
-      transition:border-color .2s, box-shadow .2s;
-      background:var(--bg-card);
-    }
-    .fg input:focus, .fg select:focus, .fg textarea:focus {
-      border-color:var(--olive);
-      box-shadow:0 0 0 3px rgba(107,130,13,.1);
-    }
-    .fg textarea { resize:vertical; min-height:70px; }
+.section-block { background:var(--card); border:1px solid var(--border); border-radius:12px; margin-bottom:12px; overflow:hidden; }
+.section-head { display:flex; align-items:center; gap:10px; padding:12px 16px; background:#f0ede8; cursor:pointer; user-select:none; }
+.section-head .chevron { font-size:.9rem; transition:transform .2s; }
+.section-head.open .chevron { transform:rotate(180deg); }
+.section-head input.sec-name { flex:1; border:none; background:transparent; font-family:inherit; font-size:.9rem; font-weight:600; outline:none; color:var(--navy); }
+.section-head select.sec-style { padding:4px 8px; border:1.5px solid var(--border); border-radius:6px; font-family:inherit; font-size:.8rem; background:var(--card); outline:none; }
+.section-head .rm-sec { background:none; border:none; color:var(--red); font-size:1rem; cursor:pointer; padding:4px 6px; border-radius:4px; }
+.section-head .rm-sec:hover { background:#fdecea; }
+.section-body { display:none; padding:14px 16px; border-top:1px solid var(--border); }
+.section-body.open { display:block; }
 
-    /* ── DAY ROWS ── */
-    .day-row {
-      background:var(--bg);
-      border-radius:var(--r-sm);
-      padding:18px 20px;
-      margin-bottom:14px;
-      border:1px solid var(--border);
-    }
-    .day-label {
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:var(--olive);
-      margin-bottom:14px;
-      display:flex;
-      align-items:center;
-      gap:6px;
-    }
-    .day-label::before {
-      content:'';
-      display:inline-block;
-      width:3px; height:12px;
-      background:var(--olive);
-      border-radius:2px;
-    }
-    .day-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-    .day-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+/* Event dish rows */
+.ev-dish-item { background:var(--tag-bg); border-radius:8px; padding:10px 12px; margin-bottom:8px; }
+.ev-dish-top { display:grid; grid-template-columns:52px 1fr 1fr 32px; gap:8px; align-items:center; margin-bottom:6px; }
+.ev-dish-top input { border:1.5px solid var(--border); border-radius:6px; padding:6px 10px; font-family:inherit; font-size:.85rem; outline:none; width:100%; }
+.ev-dish-top input:focus { border-color:var(--olive); }
+.ev-dish-prices { display:flex; flex-direction:column; gap:4px; margin-left:60px; }
+.price-row { display:grid; grid-template-columns:1fr 1fr 28px; gap:6px; align-items:center; }
+.price-row input { border:1.5px solid var(--border); border-radius:6px; padding:5px 10px; font-family:inherit; font-size:.82rem; outline:none; width:100%; }
+.price-row input:focus { border-color:var(--gold); }
+.price-row .rm-price { background:none; border:none; color:#aaa; font-size:.9rem; cursor:pointer; }
+.price-row .rm-price:hover { color:var(--red); }
+.add-price-btn { background:none; border:1px dashed var(--gold); color:var(--gold); border-radius:6px; padding:4px 10px; font-family:inherit; font-size:.78rem; font-weight:600; cursor:pointer; margin-top:4px; }
+.add-price-btn:hover { background:#fdf8ee; }
+.add-ev-dish-btn { margin-top:10px; padding:7px 14px; border:2px dashed var(--olive); background:none; color:var(--olive); border-radius:8px; font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer; width:100%; }
+.add-ev-dish-btn:hover { background:var(--tag-bg); }
 
-    /* ── DISH LIST ── */
-    .dish-list { display:flex; flex-direction:column; gap:14px; }
-    .dish-item {
-      background:var(--bg-card);
-      border-radius:var(--r-sm);
-      padding:18px 20px;
-      border:1px solid var(--border);
-      position:relative;
-      box-shadow:var(--shadow);
-    }
-    .dish-item .remove-btn {
-      position:absolute;
-      top:14px; right:16px;
-      background:none;
-      border:none;
-      color:var(--fg-xs);
-      cursor:pointer;
-      font-size:16px;
-      line-height:1;
-      transition:color .2s;
-      width:28px; height:28px;
-      border-radius:6px;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .dish-item .remove-btn:hover { color:var(--red); background:rgba(192,57,43,.08); }
-    .dish-row { display:grid; grid-template-columns:2fr 1fr 1fr; gap:10px; margin-bottom:10px; }
-    .dish-row-2 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.add-section-btn { display:block; width:100%; padding:10px; border:2px dashed var(--gold); background:none; color:var(--gold); border-radius:10px; font-family:inherit; font-size:.88rem; font-weight:600; cursor:pointer; margin-top:4px; }
+.add-section-btn:hover { background:#fdf8ee; }
 
-    /* ── BUTTONS ── */
-    .btn-add {
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      background:transparent;
-      border:1.5px dashed var(--olive);
-      color:var(--olive);
-      padding:9px 20px;
-      border-radius:var(--r-sm);
-      font-size:13px;
-      font-weight:600;
-      cursor:pointer;
-      font-family:'Poppins',sans-serif;
-      transition:.2s;
-      margin-top:8px;
-    }
-    .btn-add:hover { background:var(--olive-bg); }
+/* ── SETTINGS ── */
+.settings-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.settings-field { display:flex; flex-direction:column; gap:5px; }
+.settings-field label { font-size:.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+.settings-field input, .settings-field textarea { padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9rem; outline:none; }
+.settings-field input:focus, .settings-field textarea:focus { border-color:var(--olive); }
+.settings-field.full { grid-column:1/-1; }
 
-    .btn-save {
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:var(--olive);
-      color:#fff;
-      padding:12px 28px;
-      border-radius:100px;
-      font-size:13.5px;
-      font-weight:600;
-      border:none;
-      cursor:pointer;
-      font-family:'Poppins',sans-serif;
-      transition:background .2s, transform .1s;
-      letter-spacing:.02em;
-    }
-    .btn-save:hover { background:var(--olive-l); }
-    .btn-save:active { transform:scale(.97); }
+/* ── TOAST ── */
+.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px); background:var(--navy); color:#fff; padding:10px 22px; border-radius:24px; font-size:.88rem; font-weight:600; opacity:0; transition:all .3s; pointer-events:none; z-index:999; }
+.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
-    .btn-download {
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:var(--gold);
-      color:#fff;
-      padding:12px 28px;
-      border-radius:100px;
-      font-size:13.5px;
-      font-weight:600;
-      border:none;
-      cursor:pointer;
-      font-family:'Poppins',sans-serif;
-      transition:background .2s, transform .1s;
-      letter-spacing:.02em;
-    }
-    .btn-download:hover { background:var(--gold-d); }
-    .btn-download:active { transform:scale(.97); }
-
-    /* ── SAVE BAR ── */
-    .save-bar {
-      position:fixed;
-      bottom:0; left:0; right:0;
-      z-index:200;
-      background:var(--bg-card);
-      border-top:1px solid var(--border);
-      padding:16px 32px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      box-shadow:0 -4px 24px rgba(0,0,0,0.08);
-    }
-    .save-bar-info { display:flex; flex-direction:column; gap:2px; }
-    .save-bar-info strong { font-size:13.5px; font-weight:600; color:var(--fg); }
-    .save-bar-info span { font-size:12px; color:var(--fg-s); }
-    .save-bar .btns { display:flex; gap:12px; flex-shrink:0; }
-
-    .toast {
-      position:fixed;
-      bottom:90px; right:24px;
-      z-index:300;
-      background:var(--success);
-      color:#fff;
-      padding:12px 20px;
-      border-radius:var(--r-sm);
-      font-size:13.5px;
-      font-weight:500;
-      font-family:'Poppins',sans-serif;
-      box-shadow:0 4px 20px rgba(0,0,0,.18);
-      transform:translateY(20px);
-      opacity:0;
-      transition:.3s;
-      pointer-events:none;
-    }
-    .toast.show { transform:translateY(0); opacity:1; }
-
-    /* ── REVIEW ITEMS ── */
-    .review-item {
-      background:var(--bg-card);
-      border-radius:var(--r-sm);
-      padding:18px 20px;
-      border:1px solid var(--border);
-      margin-bottom:14px;
-      position:relative;
-      box-shadow:var(--shadow);
-    }
-    .review-item .remove-btn {
-      position:absolute;
-      top:14px; right:16px;
-      background:none;
-      border:none;
-      color:var(--fg-xs);
-      cursor:pointer;
-      font-size:16px;
-      line-height:1;
-      width:28px; height:28px;
-      border-radius:6px;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .review-item .remove-btn:hover { color:var(--red); background:rgba(192,57,43,.08); }
-
-    /* ── SECTION HEADER ── */
-    .section-header {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:20px;
-    }
-    .section-header h2 {
-      font-family:'Playfair Display',serif;
-      font-size:20px;
-      color:var(--navy);
-    }
-
-    @media(max-width:640px) {
-      .form-row, .form-row.three { grid-template-columns:1fr; }
-      .day-grid { grid-template-columns:1fr 1fr; }
-      .day-grid-2 { grid-template-columns:1fr 1fr; }
-      .dish-row { grid-template-columns:1fr 1fr; }
-      .dish-row-2 { grid-template-columns:1fr 1fr; }
-      .admin-body { padding:20px 16px 110px; }
-      .save-bar { padding:12px 16px; flex-wrap:wrap; gap:12px; }
-      .save-bar-info { flex:1; min-width:100%; }
-      .save-bar .btns { width:100%; }
-      .save-bar .btns button { flex:1; justify-content:center; }
-      .admin-nav { padding:0 16px; }
-      .admin-nav .brand-sub { display:none; }
-      .card { padding:20px 18px; }
-    }
-  </style>
+@media(max-width:640px){
+  .dish-item { grid-template-columns:1fr 1fr; }
+  .dish-item select { grid-column:1; } .dish-item .rm-btn { grid-column:2; justify-self:end; }
+  .dish-header { display:none; }
+  .settings-grid { grid-template-columns:1fr; }
+  .ev-dish-top { grid-template-columns:44px 1fr 32px; }
+  .ev-dish-top input:nth-child(3) { grid-column:1/-1; }
+}
+</style>
 </head>
 <body>
 
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <img src="logo.png" alt="Chaitrali's Kitchen" onerror="this.onerror=null;this.style.display='none';document.getElementById('login-logo-fallback').style.display='flex'">
-    <div class="login-logo-fallback" id="login-logo-fallback" style="display:none">🍱</div>
-    <h1>Menu Editor</h1>
-    <div class="login-divider"></div>
-    <p>Update your tiffin menu, catering dishes, reviews, and business settings. Download <strong>menu.json</strong> to publish to the website.</p>
-    <button onclick="openEditor()">Open Menu Editor</button>
+    <h1>🌿 Chaitrali's Kitchen</h1>
+    <p>Menu Admin · Sign in to continue</p>
+    <input type="password" id="pwd-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Sign In</button>
+    <div id="login-err"></div>
   </div>
 </div>
 
-<!-- ADMIN -->
-<div id="admin-screen">
-  <nav class="admin-nav">
-    <div class="brand">
-      <img src="logo.png" alt="" onerror="this.style.display='none'">
-      <div class="brand-text">
-        <span class="brand-title">Chaitrali's Kitchen</span>
-        <span class="brand-sub">MENU EDITOR</span>
-      </div>
-    </div>
-    <div class="nav-actions">
-      <a class="view-site" href="pages/index2.html" style="text-decoration:none">↗ View Website</a>
-    </div>
-  </nav>
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="brand">🌿 <span>Chaitrali's</span> Kitchen Admin</div>
+    <button class="btn btn-olive" onclick="saveDraft()">💾 Save Draft</button>
+    <button class="btn btn-gold" onclick="downloadJson()">⬇ Download menu.json</button>
+    <button class="btn btn-ghost" onclick="signOut()">Sign Out</button>
+  </div>
 
-  <div class="admin-body">
+  <div class="main-tabs">
+    <div class="main-tab active" onclick="switchMain('tiffin',this)">📅 Weekly Tiffin</div>
+    <div class="main-tab" onclick="switchMain('events',this)">🎉 Events &amp; Seasonal</div>
+    <div class="main-tab" onclick="switchMain('settings',this)">⚙️ Settings</div>
+  </div>
 
-    <div class="how-to">
-      <h3>📋 How to publish your updates</h3>
-      <ol>
-        <li>Make your changes below. Click <strong>Save Changes</strong> to keep a draft in this browser.</li>
-        <li>Click <strong>Download menu.json</strong> to save the updated menu file to your device.</li>
-        <li>Open your website repository on <strong>GitHub</strong> and go to the <strong>data</strong> folder.</li>
-        <li>Choose <strong>Add file → Upload files</strong>, select the downloaded <strong>menu.json</strong>, and replace the existing file.</li>
-        <li>Click <strong>Commit changes</strong>. Your website will update within a few minutes.</li>
-      </ol>
+  <!-- ══ TIFFIN TAB ══ -->
+  <div id="tab-tiffin" class="tab-content active">
+    <div class="week-tabs">
+      <button class="week-tab active" onclick="switchWeek('last_week',this)">⬅ Last Week</button>
+      <button class="week-tab" onclick="switchWeek('this_week',this)">This Week ✨</button>
+      <button class="week-tab" onclick="switchWeek('next_week',this)">Next Week ➡</button>
     </div>
-
-    <!-- TABS -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('tiffin',this)">🍱 Weekly Tiffin</button>
-      <button class="tab-btn" onclick="switchTab('catering',this)">🍽️ Catering Menu</button>
-      <button class="tab-btn" onclick="switchTab('seasonal',this)">🌸 Seasonal</button>
-      <button class="tab-btn" onclick="switchTab('reviews',this)">⭐ Reviews</button>
-      <button class="tab-btn" onclick="switchTab('settings',this)">⚙️ Settings</button>
-    </div>
-
-    <!-- TIFFIN TAB -->
-    <div class="tab-panel active" id="tab-tiffin">
+    <div id="week-last_week" class="week-panel">
       <div class="card">
-        <div class="card-title">
-          <div class="icon">📅</div>
-          Week of
-        </div>
-        <div class="form-row one">
-          <div class="fg">
-            <label>Week of (e.g. Aug 3 – Aug 7, 2026)</label>
-            <input type="text" id="week_of" placeholder="Aug 3 – Aug 7, 2026">
-          </div>
-        </div>
+        <div class="card-title">Last Week</div>
+        <div class="field-row"><label>Dates</label><input type="text" id="lw-dates" placeholder="e.g. Oct 1 – Oct 6, 2026"></div>
+        <div class="dish-header"><span>Dish Name</span><span>Description</span><span>Category</span><span></span></div>
+        <div class="dish-list" id="dishes-last_week"></div>
+        <button class="add-dish-btn" onclick="addDish('last_week')">+ Add Dish</button>
       </div>
-
-      <div id="days-container"></div>
     </div>
-
-    <!-- CATERING TAB -->
-    <div class="tab-panel" id="tab-catering">
-      <div class="section-header">
-        <h2>Catering Menu</h2>
-      </div>
-      <div id="catering-list" class="dish-list"></div>
-      <button class="btn-add" onclick="addDish()">+ Add Dish</button>
-    </div>
-
-    <!-- SEASONAL TAB -->
-    <div class="tab-panel" id="tab-seasonal">
-      <div class="section-header">
-        <h2>Seasonal Items</h2>
-      </div>
-      <div id="seasonal-list" class="dish-list"></div>
-      <button class="btn-add" onclick="addSeasonal()">+ Add Seasonal Item</button>
-    </div>
-
-    <!-- REVIEWS TAB -->
-    <div class="tab-panel" id="tab-reviews">
-      <div class="section-header">
-        <h2>Customer Reviews</h2>
-      </div>
-      <div id="reviews-list"></div>
-      <button class="btn-add" onclick="addReview()">+ Add Review</button>
-    </div>
-
-    <!-- SETTINGS TAB -->
-    <div class="tab-panel" id="tab-settings">
+    <div id="week-this_week" class="week-panel" style="display:none">
       <div class="card">
-        <div class="card-title"><div class="icon">📞</div> Contact & Ordering</div>
-        <div class="form-row">
-          <div class="fg"><label>WhatsApp Number (with country code)</label><input type="text" id="s_phone_whatsapp" placeholder="16175550000"></div>
-          <div class="fg"><label>Email Address</label><input type="email" id="s_email" placeholder="chaitraliskitchen@gmail.com"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title"><div class="icon">💰</div> Tiffin Pricing</div>
-        <div class="form-row three">
-          <div class="fg"><label>Weekly Price ($)</label><input type="number" id="s_tiffin_price_week" placeholder="70"></div>
-          <div class="fg"><label>Single Meal Price ($)</label><input type="number" id="s_tiffin_price_single" placeholder="16"></div>
-          <div class="fg"><label>Days</label><input type="text" id="s_tiffin_days" placeholder="Monday to Friday"></div>
-        </div>
-        <div class="form-row one">
-          <div class="fg"><label>Order Cutoff Note</label><input type="text" id="s_order_cutoff" placeholder="Order by 8 PM the previous day"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title"><div class="icon">🛵</div> Delivery</div>
-        <div class="form-row">
-          <div class="fg"><label>Delivery Zones (comma separated)</label><input type="text" id="s_delivery_zones" placeholder="Quincy, Milton, Braintree, Randolph"></div>
-          <div class="fg"><label>Pickup City</label><input type="text" id="s_pickup_city" placeholder="Quincy, MA"></div>
-        </div>
-        <div class="form-row one">
-          <div class="fg"><label>Delivery Note</label><input type="text" id="s_delivery_note"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title"><div class="icon">💳</div> Payment</div>
-        <div class="form-row">
-          <div class="fg"><label>Zelle (email or phone)</label><input type="text" id="s_payment_zelle"></div>
-          <div class="fg"><label>Venmo Handle</label><input type="text" id="s_payment_venmo" placeholder="@Chaitralis-Kitchen"></div>
-        </div>
-        <div class="form-row one">
-          <div class="fg"><label>Payment Note</label><input type="text" id="s_payment_note"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title"><div class="icon">⚠️</div> Other</div>
-        <div class="form-row one">
-          <div class="fg"><label>Allergy / Kitchen Note</label><textarea id="s_allergy_note"></textarea></div>
-        </div>
-        <div class="form-row one">
-          <div class="fg"><label>Catering Min Notice</label><input type="text" id="s_catering_min_notice" placeholder="72 hours advance notice for catering orders"></div>
-        </div>
+        <div class="card-title">This Week</div>
+        <div class="field-row"><label>Dates</label><input type="text" id="tw-dates" placeholder="e.g. Oct 7 – Oct 12, 2026"></div>
+        <div class="dish-header"><span>Dish Name</span><span>Description</span><span>Category</span><span></span></div>
+        <div class="dish-list" id="dishes-this_week"></div>
+        <button class="add-dish-btn" onclick="addDish('this_week')">+ Add Dish</button>
       </div>
     </div>
-
-  </div><!-- admin-body -->
-
-  <!-- SAVE BAR -->
-  <div class="save-bar">
-    <div class="save-bar-info">
-      <strong>Ready to publish?</strong>
-      <span>Save a draft, then download menu.json to publish.</span>
-    </div>
-    <div class="btns">
-      <button class="btn-save" onclick="saveAll()">💾 Save Changes</button>
-      <button class="btn-download" onclick="downloadJson()">⬇️ Download menu.json</button>
+    <div id="week-next_week" class="week-panel" style="display:none">
+      <div class="card">
+        <div class="card-title">Next Week</div>
+        <div class="field-row"><label>Dates</label><input type="text" id="nw-dates" placeholder="e.g. Oct 14 – Oct 19, 2026"></div>
+        <div class="dish-header"><span>Dish Name</span><span>Description</span><span>Category</span><span></span></div>
+        <div class="dish-list" id="dishes-next_week"></div>
+        <button class="add-dish-btn" onclick="addDish('next_week')">+ Add Dish</button>
+      </div>
     </div>
   </div>
 
-  <div class="toast" id="toast">✅ Draft saved in this browser. Download menu.json to publish.</div>
-</div><!-- admin-screen -->
+  <!-- ══ EVENTS TAB ══ -->
+  <div id="tab-events" class="tab-content">
+    <div class="week-tabs">
+      <button class="week-tab active" onclick="switchEvent('ganpati',this)">🐘 Ganpati</button>
+      <button class="week-tab" onclick="switchEvent('diwali',this)">🪔 Diwali</button>
+      <button class="week-tab" onclick="switchEvent('holi',this)">🌸 Holi</button>
+      <button class="week-tab" onclick="switchEvent('custom',this)">🎉 Custom</button>
+    </div>
+    <div id="ev-ganpati" class="ev-panel"></div>
+    <div id="ev-diwali" class="ev-panel" style="display:none"></div>
+    <div id="ev-holi" class="ev-panel" style="display:none"></div>
+    <div id="ev-custom" class="ev-panel" style="display:none"></div>
+  </div>
+
+  <!-- ══ SETTINGS TAB ══ -->
+  <div id="tab-settings" class="tab-content">
+    <div class="card">
+      <div class="card-title">Business Settings</div>
+      <div class="settings-grid">
+        <div class="settings-field"><label>Business Name</label><input type="text" id="s-business_name"></div>
+        <div class="settings-field"><label>Tagline</label><input type="text" id="s-tagline"></div>
+        <div class="settings-field"><label>Phone</label><input type="text" id="s-phone"></div>
+        <div class="settings-field"><label>WhatsApp Number</label><input type="text" id="s-phone_whatsapp" placeholder="16173205229"></div>
+        <div class="settings-field"><label>Email</label><input type="text" id="s-email"></div>
+        <div class="settings-field"><label>Location</label><input type="text" id="s-location"></div>
+        <div class="settings-field"><label>Tiffin Days</label><input type="text" id="s-tiffin_days" placeholder="Mon – Sat"></div>
+        <div class="settings-field"><label>Order Cutoff</label><input type="text" id="s-order_cutoff" placeholder="Sunday 9 PM"></div>
+        <div class="settings-field"><label>Zelle (payment)</label><input type="text" id="s-payment_zelle"></div>
+        <div class="settings-field"><label>Venmo (payment)</label><input type="text" id="s-payment_venmo"></div>
+        <div class="settings-field full"><label>Allergy Note</label><textarea id="s-allergy_note" rows="3"></textarea></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-/* ── OPEN EDITOR ── */
-function openEditor() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('admin-screen').style.display = 'block';
-  loadData();
-}
+// ── CONFIG ──
+const PASSWORD = 'chaitrali2024';
+const STORAGE_KEY = 'ck_admin_draft_v3';
 
-/* ── TABS ── */
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  btn.classList.add('active');
-}
+const TAG_OPTIONS = [
+  {val:'gravy',label:'Gravy'},{val:'rassa',label:'Rassa'},{val:'dry',label:'Dry Sabzi'},
+  {val:'dal',label:'Dal'},{val:'usal',label:'Usal'},{val:'spicy',label:'Spicy · Gravy'},
+  {val:'rice',label:'Rice'},{val:'special',label:'Festival Special'},{val:'snack',label:'Snack'}
+];
+const TAG_LABELS = Object.fromEntries(TAG_OPTIONS.map(t=>[t.val,t.label]));
 
-/* ── DEFAULT DATA ── */
-const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-let DATA = {
-  settings: {
-    business_name:"Chaitrali's Kitchen",
-    tagline:"Pure Veg · Homemade · Marathi Chavichi Athavan",
-    phone_whatsapp:"1XXXXXXXXXX",
-    email:"chaitraliskitchen@gmail.com",
-    tiffin_price_week:"70",
-    tiffin_price_single:"16",
-    tiffin_days:"Monday to Friday",
-    order_cutoff:"Order by 8 PM the previous day",
-    delivery_zones:"Quincy, Milton, Braintree, Randolph",
-    delivery_note:"Free delivery within zones for weekly plans. Pickup available for all orders.",
-    pickup_city:"Quincy, MA",
-    payment_zelle:"chaitraliskitchen@gmail.com",
-    payment_venmo:"@Chaitralis-Kitchen",
-    payment_note:"Cash accepted at pickup. Payment due at order confirmation for catering.",
-    allergy_note:"Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard.",
-    catering_min_notice:"72 hours advance notice for catering orders"
-  },
-  tiffin: {
-    week_of:"",
-    days: DAYS.map(d => ({ day:d, bhaji:'', amti:'', rice:'', poli:'Poli (Chapati) x3', side:'', sweet:'', notes:'' }))
-  },
-  catering: [],
-  seasonal: [],
-  reviews: []
+const EVENTS_CONFIG = {
+  ganpati: {emoji:'🐘', title:'Ganpati'},
+  diwali:  {emoji:'🪔', title:'Diwali'},
+  holi:    {emoji:'🌸', title:'Holi'},
+  custom:  {emoji:'🎉', title:'Custom Event'}
 };
 
-/* ── LOAD FROM FILE OR LOCALSTORAGE ── */
-async function loadData() {
-  let saved = null;
-  try { saved = JSON.parse(localStorage.getItem('ck_admin_data') || 'null'); } catch(e) {}
-  try {
-    const res = await fetch('data/menu.json?v=' + Date.now());
-    if (!res.ok) throw new Error('Menu file could not be loaded');
-    DATA = await res.json();
-    if (saved && confirm('A saved draft is available in this browser. Choose OK to continue editing that draft, or Cancel to load the published menu.')) DATA = saved;
-    else localStorage.removeItem('ck_admin_data');
-  } catch(e) {
-    if (saved) DATA = saved;
+let menu = null;
+
+// ── AUTH ──
+function doLogin(){
+  const v = document.getElementById('pwd-input').value;
+  const err = document.getElementById('login-err');
+  if(v === PASSWORD){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    loadMenu();
+  } else {
+    err.textContent = 'Incorrect password. Try again.';
+    setTimeout(()=>err.textContent='',3000);
   }
-  renderAll();
+}
+function signOut(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('pwd-input').value='';
 }
 
-function renderAll() {
-  renderTiffin();
-  renderCatering();
-  renderSeasonal();
-  renderReviews();
-  renderSettings();
+// ── TAB SWITCHING ──
+function switchMain(id, el){
+  document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+function switchWeek(wk, el){
+  document.querySelectorAll('#tab-tiffin .week-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.week-panel').forEach(p=>p.style.display='none');
+  el.classList.add('active');
+  document.getElementById('week-'+wk).style.display='block';
+}
+function switchEvent(ek, el){
+  document.querySelectorAll('#tab-events .week-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.ev-panel').forEach(p=>p.style.display='none');
+  el.classList.add('active');
+  document.getElementById('ev-'+ek).style.display='block';
 }
 
-/* ── TIFFIN ── */
-function renderTiffin() {
-  document.getElementById('week_of').value = DATA.tiffin.week_of || '';
-  const container = document.getElementById('days-container');
-  container.innerHTML = '';
-  (DATA.tiffin.days || []).forEach((day, i) => {
-    container.innerHTML += `
-    <div class="card">
-      <div class="day-label">${day.day}</div>
-      <div class="day-grid">
-        <div class="fg"><label>Bhaji (Vegetable)</label><input type="text" data-day="${i}" data-field="bhaji" value="${day.bhaji||''}"></div>
-        <div class="fg"><label>Dal / Amti</label><input type="text" data-day="${i}" data-field="amti" value="${day.amti||''}"></div>
-        <div class="fg"><label>Rice</label><input type="text" data-day="${i}" data-field="rice" value="${day.rice||''}"></div>
-      </div>
-      <div class="day-grid-2">
-        <div class="fg"><label>Side / Koshimbir</label><input type="text" data-day="${i}" data-field="side" value="${day.side||''}"></div>
-        <div class="fg"><label>Sweet (leave blank if none)</label><input type="text" data-day="${i}" data-field="sweet" value="${day.sweet||''}"></div>
-      </div>
+// ── TIFFIN ──
+function makeDishItem(d){
+  const opts = TAG_OPTIONS.map(o=>`<option value="${o.val}"${d&&d.tag===o.val?' selected':''}>${o.label}</option>`).join('');
+  const el = document.createElement('div');
+  el.className='dish-item';
+  el.innerHTML=`
+    <input type="text" class="d-name" placeholder="Dish name" value="${escA(d?.name||'')}">
+    <input type="text" class="d-desc" placeholder="Description (Marathi/English)" value="${escA(d?.desc||'')}">
+    <select class="d-tag">${opts}</select>
+    <button class="rm-btn" onclick="removeDish(this)" title="Remove">✕</button>`;
+  return el;
+}
+function addDish(wk){ document.getElementById('dishes-'+wk).appendChild(makeDishItem(null)); }
+function removeDish(btn){ btn.closest('.dish-item').remove(); }
+
+function loadTiffinWeek(wk, data){
+  const prefixMap = {last_week:'lw',this_week:'tw',next_week:'nw'};
+  const pre = prefixMap[wk];
+  document.getElementById(pre+'-dates').value = data.dates||'';
+  const list = document.getElementById('dishes-'+wk);
+  list.innerHTML='';
+  (data.dishes||[]).forEach(d=>list.appendChild(makeDishItem(d)));
+}
+
+function collectTiffinWeek(wk){
+  const prefixMap = {last_week:'lw',this_week:'tw',next_week:'nw'};
+  const pre = prefixMap[wk];
+  const dates = document.getElementById(pre+'-dates').value;
+  const dishes = [...document.querySelectorAll('#dishes-'+wk+' .dish-item')].map(el=>({
+    name: el.querySelector('.d-name').value.trim(),
+    desc: el.querySelector('.d-desc').value.trim(),
+    tag:  el.querySelector('.d-tag').value,
+    tag_label: TAG_LABELS[el.querySelector('.d-tag').value]||''
+  }));
+  return {dates, dishes};
+}
+
+// ── EVENTS ──
+function buildEventPanel(ek, ev){
+  const cfg = EVENTS_CONFIG[ek];
+  const panel = document.getElementById('ev-'+ek);
+  panel.innerHTML='';
+
+  // Meta card
+  const meta = document.createElement('div');
+  meta.className='event-meta-card';
+  meta.innerHTML=`
+    <div style="font-weight:700;font-size:1rem;color:var(--navy)">${cfg.emoji} ${ev.title||cfg.title}</div>
+    <div style="flex:1"></div>
+    <label>Order By:</label>
+    <input type="text" class="ev-order_by" placeholder="e.g. 10 September" value="${escA(ev.order_by||'')}">
+    <div class="active-toggle">
+      <input type="checkbox" class="ev-active" id="active-${ek}" ${ev.active?'checked':''}>
+      <label for="active-${ek}" style="cursor:pointer;font-weight:600;color:var(--olive)">Active / Visible</label>
     </div>`;
-  });
+  panel.appendChild(meta);
+
+  // Sections
+  const sectionsWrap = document.createElement('div');
+  sectionsWrap.className='ev-sections';
+  panel.appendChild(sectionsWrap);
+  (ev.sections||[]).forEach((sec,si)=>sectionsWrap.appendChild(makeSection(ek,si,sec)));
+
+  const addBtn = document.createElement('button');
+  addBtn.className='add-section-btn';
+  addBtn.textContent='+ Add Menu Section';
+  addBtn.onclick=()=>{ sectionsWrap.appendChild(makeSection(ek,sectionsWrap.children.length,null)); addBtn.remove(); sectionsWrap.closest('.ev-panel').querySelector('.add-section-btn')||panel.appendChild(addBtn); };
+  // re-add after sections
+  panel.appendChild(addBtn);
 }
 
-/* ── CATERING ── */
-function renderCatering() {
-  const list = document.getElementById('catering-list');
-  list.innerHTML = '';
-  (DATA.catering || []).forEach((d, i) => {
-    list.innerHTML += dishHTML(i, d);
-  });
-}
-function dishHTML(i, d) {
-  const cats = ['Starters','Mains','Rice','Sweets','Drinks','Other'];
-  return `<div class="dish-item" id="dish-${i}">
-    <button class="remove-btn" onclick="removeDish(${i})" title="Remove dish">✕</button>
-    <div class="dish-row">
-      <div class="fg"><label>Dish Name</label><input type="text" data-di="${i}" data-f="name" value="${d.name||''}"></div>
-      <div class="fg"><label>Category</label>
-        <select data-di="${i}" data-f="category">
-          ${cats.map(c=>`<option value="${c}"${d.category===c?' selected':''}>${c}</option>`).join('')}
-        </select>
-      </div>
-      <div class="fg"><label>Price ($)</label><input type="number" data-di="${i}" data-f="price" value="${d.price||''}"></div>
-    </div>
-    <div class="dish-row-2">
-      <div class="fg"><label>Unit (e.g. per tray)</label><input type="text" data-di="${i}" data-f="unit" value="${d.unit||''}"></div>
-      <div class="fg"><label>Contains (allergens)</label><input type="text" data-di="${i}" data-f="contains" value="${d.contains||''}"></div>
-      <div class="fg"><label>Spicy?</label>
-        <select data-di="${i}" data-f="spicy">
-          <option value="false"${!d.spicy?' selected':''}>No</option>
-          <option value="true"${d.spicy?' selected':''}>Yes 🌶</option>
-        </select>
-      </div>
-    </div>
-    <div class="fg" style="margin-top:10px;"><label>Description</label><input type="text" data-di="${i}" data-f="description" value="${d.description||''}"></div>
-  </div>`;
-}
-function addDish() {
-  DATA.catering.push({name:'',category:'Starters',price:0,unit:'per tray',description:'',spicy:false,contains:''});
-  renderCatering();
-  document.getElementById('catering-list').lastElementChild.scrollIntoView({behavior:'smooth'});
-}
-function removeDish(i) {
-  if(confirm('Remove this dish?')) { DATA.catering.splice(i,1); renderCatering(); }
+function makeSection(ek, si, sec){
+  const block = document.createElement('div');
+  block.className='section-block';
+  const styleOpts = ['green','maroon','gold'].map(s=>`<option value="${s}"${sec&&sec.style===s?' selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('');
+  const head = document.createElement('div');
+  head.className='section-head open';
+  head.innerHTML=`
+    <span class="chevron">▲</span>
+    <input class="sec-name" type="text" placeholder="Section name" value="${escA(sec?.name||'')}">
+    <select class="sec-style">${styleOpts}</select>
+    <button class="rm-sec" onclick="removeSection(this)" title="Remove section">✕</button>`;
+  head.querySelector('.sec-name').addEventListener('click',e=>e.stopPropagation());
+  head.querySelector('.sec-style').addEventListener('click',e=>e.stopPropagation());
+  head.querySelector('.rm-sec').addEventListener('click',e=>e.stopPropagation());
+  head.addEventListener('click',()=>toggleSection(head));
+  block.appendChild(head);
+
+  const body = document.createElement('div');
+  body.className='section-body open';
+  const dishList = document.createElement('div');
+  dishList.className='ev-dish-list';
+  (sec?.dishes||[]).forEach(d=>dishList.appendChild(makeEvDish(d)));
+  body.appendChild(dishList);
+  const addDishBtn = document.createElement('button');
+  addDishBtn.className='add-ev-dish-btn';
+  addDishBtn.textContent='+ Add Dish';
+  addDishBtn.onclick=()=>dishList.appendChild(makeEvDish(null));
+  body.appendChild(addDishBtn);
+  block.appendChild(body);
+  return block;
 }
 
-/* ── SEASONAL ── */
-function renderSeasonal() {
-  const list = document.getElementById('seasonal-list');
-  list.innerHTML = '';
-  (DATA.seasonal || []).forEach((s, i) => {
-    list.innerHTML += `<div class="dish-item" id="sea-${i}">
-      <button class="remove-btn" onclick="removeSeasonal(${i})" title="Remove item">✕</button>
-      <div class="dish-row">
-        <div class="fg"><label>Item Name</label><input type="text" data-si="${i}" data-f="name" value="${s.name||''}"></div>
-        <div class="fg"><label>Occasion</label><input type="text" data-si="${i}" data-f="occasion" value="${s.occasion||''}"></div>
-        <div class="fg"><label>Price ($)</label><input type="number" data-si="${i}" data-f="price" value="${s.price||''}"></div>
-      </div>
-      <div class="dish-row-2">
-        <div class="fg"><label>Unit</label><input type="text" data-si="${i}" data-f="unit" value="${s.unit||''}"></div>
-        <div class="fg"><label>Order By Date</label><input type="text" data-si="${i}" data-f="order_by" value="${s.order_by||''}"></div>
-        <div class="fg"><label>Description</label><input type="text" data-si="${i}" data-f="description" value="${s.description||''}"></div>
-      </div>
-    </div>`;
-  });
-}
-function addSeasonal() {
-  DATA.seasonal.push({occasion:'',name:'',price:0,unit:'per box',description:'',order_by:''});
-  renderSeasonal();
-}
-function removeSeasonal(i) {
-  if(confirm('Remove this item?')) { DATA.seasonal.splice(i,1); renderSeasonal(); }
+function makeEvDish(d){
+  const item = document.createElement('div');
+  item.className='ev-dish-item';
+  const top = document.createElement('div');
+  top.className='ev-dish-top';
+  top.innerHTML=`
+    <input type="text" class="d-icon" placeholder="🍛" value="${escA(d?.icon||'')}">
+    <input type="text" class="d-name" placeholder="Dish name" value="${escA(d?.name||'')}">
+    <input type="text" class="d-desc" placeholder="Description / note" value="${escA(d?.desc||'')}">
+    <button class="rm-btn" onclick="removeEvDish(this)" title="Remove">✕</button>`;
+  item.appendChild(top);
+
+  const pricesDiv = document.createElement('div');
+  pricesDiv.className='ev-dish-prices';
+  (d?.prices||[]).forEach(p=>pricesDiv.appendChild(makePriceRow(p)));
+  const addP = document.createElement('button');
+  addP.className='add-price-btn';
+  addP.textContent='+ Add Price';
+  addP.onclick=()=>pricesDiv.insertBefore(makePriceRow(null),addP);
+  pricesDiv.appendChild(addP);
+  item.appendChild(pricesDiv);
+  return item;
 }
 
-/* ── REVIEWS ── */
-function renderReviews() {
-  const list = document.getElementById('reviews-list');
-  list.innerHTML = '';
-  (DATA.reviews || []).forEach((r, i) => {
-    list.innerHTML += `<div class="review-item" id="rev-${i}">
-      <button class="remove-btn" onclick="removeReview(${i})" title="Remove review">✕</button>
-      <div class="form-row">
-        <div class="fg"><label>Name</label><input type="text" data-ri="${i}" data-f="name" value="${r.name||''}"></div>
-        <div class="fg"><label>Location</label><input type="text" data-ri="${i}" data-f="location" value="${r.location||''}"></div>
-      </div>
-      <div class="form-row">
-        <div class="fg"><label>Rating (1–5)</label>
-          <select data-ri="${i}" data-f="rating">
-            ${[5,4,3,2,1].map(n=>`<option value="${n}"${r.rating===n?' selected':''}>${n} ★</option>`).join('')}
-          </select>
-        </div>
-        <div class="fg"><label>Date (e.g. Jan 2026)</label><input type="text" data-ri="${i}" data-f="date" value="${r.date||''}"></div>
-      </div>
-      <div class="fg"><label>Review Text</label><textarea data-ri="${i}" data-f="text">${r.text||''}</textarea></div>
-    </div>`;
-  });
-}
-function addReview() {
-  DATA.reviews.push({name:'',location:'',rating:5,text:'',date:''});
-  renderReviews();
-}
-function removeReview(i) {
-  if(confirm('Remove this review?')) { DATA.reviews.splice(i,1); renderReviews(); }
+function makePriceRow(p){
+  const row = document.createElement('div');
+  row.className='price-row';
+  row.innerHTML=`
+    <input type="text" class="p-label" placeholder='Label (e.g. "Half")' value="${escA(p?.label||'')}">
+    <input type="text" class="p-amount" placeholder='Amount (e.g. "$80")' value="${escA(p?.amount||'')}">
+    <button class="rm-price" onclick="this.closest('.price-row').remove()" title="Remove">✕</button>`;
+  return row;
 }
 
-/* ── SETTINGS ── */
-function renderSettings() {
-  const S = DATA.settings || {};
-  Object.keys(S).forEach(k => {
-    const el = document.getElementById('s_' + k);
-    if (el) el.value = S[k] || '';
-  });
+function removeSection(btn){ btn.closest('.section-block').remove(); }
+function removeEvDish(btn){ btn.closest('.ev-dish-item').remove(); }
+function toggleSection(head){
+  head.classList.toggle('open');
+  head.nextElementSibling.classList.toggle('open');
 }
 
-/* ── COLLECT ALL DATA ── */
-function collectAll() {
-  // Tiffin
-  DATA.tiffin.week_of = document.getElementById('week_of').value.trim();
-  document.querySelectorAll('[data-day]').forEach(el => {
-    const i = +el.dataset.day, f = el.dataset.field;
-    if (DATA.tiffin.days[i]) DATA.tiffin.days[i][f] = el.value.trim();
-  });
-
-  // Catering
-  document.querySelectorAll('[data-di]').forEach(el => {
-    const i = +el.dataset.di, f = el.dataset.f;
-    if (DATA.catering[i]) {
-      let v = el.value.trim();
-      if (f === 'price') v = parseFloat(v) || 0;
-      if (f === 'spicy') v = v === 'true';
-      DATA.catering[i][f] = v;
-    }
-  });
-
-  // Seasonal
-  document.querySelectorAll('[data-si]').forEach(el => {
-    const i = +el.dataset.si, f = el.dataset.f;
-    if (DATA.seasonal[i]) {
-      let v = el.value.trim();
-      if (f === 'price') v = parseFloat(v) || 0;
-      DATA.seasonal[i][f] = v;
-    }
-  });
-
-  // Reviews
-  document.querySelectorAll('[data-ri]').forEach(el => {
-    const i = +el.dataset.ri, f = el.dataset.f;
-    if (DATA.reviews[i]) {
-      let v = el.tagName === 'TEXTAREA' ? el.value.trim() : el.value.trim();
-      if (f === 'rating') v = parseInt(v) || 5;
-      DATA.reviews[i][f] = v;
-    }
-  });
-
-  // Settings
-  const S = DATA.settings || {};
-  ['phone_whatsapp','email','tiffin_price_week','tiffin_price_single','tiffin_days',
-   'order_cutoff','delivery_zones','delivery_note','pickup_city',
-   'payment_zelle','payment_venmo','payment_note','allergy_note','catering_min_notice'
-  ].forEach(k => {
-    const el = document.getElementById('s_' + k);
-    if (el) S[k] = el.value.trim();
-  });
-  DATA.settings = S;
+function collectEventPanel(ek){
+  const panel = document.getElementById('ev-'+ek);
+  const orderBy = panel.querySelector('.ev-order_by')?.value.trim()||'';
+  const active = panel.querySelector('.ev-active')?.checked||false;
+  const sections = [...panel.querySelectorAll('.section-block')].map(blk=>({
+    name: blk.querySelector('.sec-name').value.trim(),
+    style: blk.querySelector('.sec-style').value,
+    dishes: [...blk.querySelectorAll('.ev-dish-item')].map(el=>({
+      icon: el.querySelector('.d-icon').value.trim(),
+      name: el.querySelector('.d-name').value.trim(),
+      desc: el.querySelector('.d-desc').value.trim(),
+      prices: [...el.querySelectorAll('.price-row')].map(r=>({
+        label: r.querySelector('.p-label').value.trim(),
+        amount: r.querySelector('.p-amount').value.trim()
+      })).filter(p=>p.amount)
+    })).filter(d=>d.name)
+  }));
+  return {
+    title: EVENTS_CONFIG[ek].title,
+    subtitle: menu.events[ek]?.subtitle||'',
+    order_by: orderBy,
+    active,
+    sections
+  };
 }
 
-function saveAll() {
-  collectAll();
-  localStorage.setItem('ck_admin_data', JSON.stringify(DATA));
-  const t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+// ── SETTINGS ──
+const SETTING_KEYS=['business_name','tagline','phone','phone_whatsapp','email','location','tiffin_days','order_cutoff','payment_zelle','payment_venmo','allergy_note'];
+function loadSettings(s){ SETTING_KEYS.forEach(k=>{ const el=document.getElementById('s-'+k); if(el) el.value=s[k]||''; }); }
+function collectSettings(){ const s={}; SETTING_KEYS.forEach(k=>{ const el=document.getElementById('s-'+k); if(el) s[k]=el.value.trim(); }); return s; }
+
+// ── COLLECT ALL ──
+function collectMenu(){
+  return {
+    settings: collectSettings(),
+    tiffin: {
+      last_week: collectTiffinWeek('last_week'),
+      this_week: collectTiffinWeek('this_week'),
+      next_week: collectTiffinWeek('next_week')
+    },
+    events: Object.fromEntries(Object.keys(EVENTS_CONFIG).map(ek=>[ek, collectEventPanel(ek)]))
+  };
 }
 
-function downloadJson() {
-  collectAll();
-  const json = JSON.stringify(DATA, null, 2);
-  const blob = new Blob([json], {type:'application/json'});
+// ── LOAD / SAVE ──
+function renderMenu(m){
+  menu = m;
+  ['last_week','this_week','next_week'].forEach(wk=>loadTiffinWeek(wk, m.tiffin[wk]||{}));
+  Object.keys(EVENTS_CONFIG).forEach(ek=>buildEventPanel(ek, m.events[ek]||{title:'',subtitle:'',order_by:'',active:false,sections:[]}));
+  loadSettings(m.settings||{});
+}
+
+async function loadMenu(){
+  // 1. Try localStorage draft
+  try {
+    const draft = localStorage.getItem(STORAGE_KEY);
+    if(draft){ renderMenu(JSON.parse(draft)); showToast('Loaded saved draft'); return; }
+  } catch(e){}
+  // 2. Try fetching menu.json from repo
+  try {
+    const r = await fetch('../data/menu.json');
+    if(r.ok){ renderMenu(await r.json()); showToast('Loaded menu.json'); return; }
+  } catch(e){}
+  // 3. Empty defaults
+  renderMenu(defaultMenu());
+  showToast('Starting with empty menu');
+}
+
+function defaultMenu(){
+  return {
+    settings:{ business_name:"Chaitrali's Kitchen", tagline:'Pure Veg · Homemade · Marathi Chavichi Athavan',
+      phone:'617-320-5229', phone_whatsapp:'16173205229', email:'chaitraliskitchen@gmail.com',
+      location:'Shrewsbury, MA', tiffin_days:'Mon – Sat', order_cutoff:'Sunday 9 PM',
+      payment_zelle:'chaitraliskitchen@gmail.com', payment_venmo:'@Chaitralis-Kitchen',
+      allergy_note:'Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard.' },
+    tiffin:{ last_week:{dates:'',dishes:[]}, this_week:{dates:'',dishes:[]}, next_week:{dates:'',dishes:[]} },
+    events:{ ganpati:{title:'Ganpati',subtitle:'Special Festival Menu',order_by:'',active:false,sections:[]},
+      diwali:{title:'Diwali',subtitle:'Festival of Lights Menu',order_by:'',active:false,sections:[]},
+      holi:{title:'Holi',subtitle:'Festival of Colors Menu',order_by:'',active:false,sections:[]},
+      custom:{title:'Custom Event',subtitle:'Birthday · Anniversary · Puja · Gathering',order_by:'',active:true,sections:[]} }
+  };
+}
+
+function saveDraft(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(collectMenu())); showToast('Draft saved!'); }
+  catch(e){ showToast('Could not save draft'); }
+}
+
+function downloadJson(){
+  const data = collectMenu();
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'menu.json';
-  a.click();
+  a.href=url; a.download='menu.json'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('menu.json downloaded! Replace the file in your GitHub repo and push.');
 }
+
+// ── TOAST ──
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ── UTILS ──
+function escA(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 </script>
 </body>
 </html>

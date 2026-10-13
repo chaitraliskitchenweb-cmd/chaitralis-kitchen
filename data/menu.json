@@ -2,296 +2,156 @@
   "settings": {
     "business_name": "Chaitrali's Kitchen",
     "tagline": "Pure Veg · Homemade · Marathi Chavichi Athavan",
-    "phone_whatsapp": "1XXXXXXXXXX",
+    "phone": "617-320-5229",
+    "phone_whatsapp": "16173205229",
     "email": "chaitraliskitchen@gmail.com",
-    "tiffin_price_week": "70",
-    "tiffin_price_single": "16",
-    "tiffin_days": "Monday to Friday",
-    "order_cutoff": "Order by 8 PM the previous day",
-    "delivery_zones": "Quincy, Milton, Braintree, Randolph",
-    "delivery_note": "Free delivery within zones for weekly plans. Pickup available for all orders.",
-    "pickup_city": "Quincy, MA",
+    "location": "Shrewsbury, MA",
+    "tiffin_days": "Mon – Sat",
+    "order_cutoff": "Sunday 9 PM",
     "payment_zelle": "chaitraliskitchen@gmail.com",
     "payment_venmo": "@Chaitralis-Kitchen",
-    "payment_note": "Cash accepted at pickup. Payment due at order confirmation for catering.",
-    "allergy_note": "Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible with any dish. Please tell us about all allergies when ordering — we will honestly advise what is safe.",
-    "catering_min_notice": "72 hours advance notice for catering orders"
+    "allergy_note": "Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible with any dish. Please tell us about all allergies when ordering."
   },
   "tiffin": {
-    "week_of": "Aug 3 – Aug 7, 2026",
-    "days": [
-      {
-        "day": "Monday",
-        "bhaji": "Batata Bhaji",
-        "amti": "Varan (Toor Dal)",
-        "rice": "Steamed Rice",
-        "poli": "Poli (Chapati) x3",
-        "side": "Kakdi Koshimbir",
-        "sweet": "Shira",
-        "notes": ""
-      },
-      {
-        "day": "Tuesday",
-        "bhaji": "Matki Usal",
-        "amti": "Katachi Amti",
-        "rice": "Steamed Rice",
-        "poli": "Poli (Chapati) x3",
-        "side": "Beetroot Koshimbir",
-        "sweet": "—",
-        "notes": "Medium spicy"
-      },
-      {
-        "day": "Wednesday",
-        "bhaji": "Bharli Vangi",
-        "amti": "Varan (Moong Dal)",
-        "rice": "Masale Bhaat",
-        "poli": "Poli (Chapati) x3",
-        "side": "Papad + Pickle",
-        "sweet": "Gulab Jamun",
-        "notes": ""
-      },
-      {
-        "day": "Thursday",
-        "bhaji": "Flower-Batata Rassa",
-        "amti": "Tomato Saar",
-        "rice": "Jeera Rice",
-        "poli": "Poli (Chapati) x3",
-        "side": "Kobi Koshimbir",
-        "sweet": "—",
-        "notes": ""
-      },
-      {
-        "day": "Friday",
-        "bhaji": "Paneer Bhurji",
-        "amti": "Dal Fry",
-        "rice": "Veg Pulao",
-        "poli": "Poli (Chapati) x3",
-        "side": "Boondi Raita",
-        "sweet": "Kheer",
-        "notes": "Friday special"
-      }
-    ]
+    "last_week": {
+      "dates": "Oct 1 – Oct 6, 2026",
+      "dishes": [
+        { "name": "Aloo Methi", "desc": "Potato with Fenugreek Leaves", "tag": "dry", "tag_label": "Dry Sabzi" },
+        { "name": "Dal Fry", "desc": "Tempered Yellow Lentils", "tag": "dal", "tag_label": "Dal" },
+        { "name": "Bhindi Masala", "desc": "Spiced Okra", "tag": "dry", "tag_label": "Dry Sabzi" },
+        { "name": "Tomato Saar", "desc": "Thin Tomato Soup", "tag": "rassa", "tag_label": "Rassa" }
+      ]
+    },
+    "this_week": {
+      "dates": "Oct 7 – Oct 12, 2026",
+      "dishes": [
+        { "name": "Saoji Masala Vangi", "desc": "Nagpur-style Spicy Brinjal Curry", "tag": "spicy", "tag_label": "Spicy · Gravy" },
+        { "name": "Brahmin Style Bharli Vangi", "desc": "Stuffed Brinjal — Konkanastha Style", "tag": "gravy", "tag_label": "Gravy" },
+        { "name": "Batata Rassa", "desc": "Thin Potato Curry", "tag": "rassa", "tag_label": "Rassa" },
+        { "name": "Batata Sukhi", "desc": "Dry Spiced Potato", "tag": "dry", "tag_label": "Dry Sabzi" },
+        { "name": "Kobi Matar", "desc": "Cabbage & Green Peas", "tag": "dry", "tag_label": "Dry Sabzi" },
+        { "name": "Flower Batata Matar", "desc": "Cauliflower, Potato & Peas", "tag": "dry", "tag_label": "Dry Sabzi" },
+        { "name": "Veg Kurma", "desc": "Mixed Vegetables in Coconut-Cashew Gravy", "tag": "gravy", "tag_label": "Gravy" },
+        { "name": "Veg Kolhapuri", "desc": "Fiery Kolhapur-style Vegetable Curry", "tag": "spicy", "tag_label": "Spicy · Gravy" },
+        { "name": "Kolhapuri Akkha Masur", "desc": "Whole Red Lentil — Kolhapuri Masala", "tag": "spicy", "tag_label": "Spicy · Dal" },
+        { "name": "Matki chi Usal", "desc": "Sprouted Moth Bean Curry", "tag": "usal", "tag_label": "Usal" },
+        { "name": "Moogachi Usal", "desc": "Sprouted Green Moong Curry", "tag": "usal", "tag_label": "Usal" },
+        { "name": "Val Usal", "desc": "Field Bean Curry — Coastal Style", "tag": "usal", "tag_label": "Usal" }
+      ]
+    },
+    "next_week": {
+      "dates": "Oct 14 – Oct 19, 2026",
+      "dishes": [
+        { "name": "Puran Poli", "desc": "Sweet Chana Dal Flatbread", "tag": "special", "tag_label": "Festival Special" },
+        { "name": "Katachi Amti", "desc": "Spiced Water from Chana Dal", "tag": "rassa", "tag_label": "Rassa" },
+        { "name": "Masale Bhaat", "desc": "Spiced Rice with Seasonal Vegetables", "tag": "rice", "tag_label": "Rice" },
+        { "name": "Kothimbir Vadi", "desc": "Crispy Coriander & Chickpea Snack", "tag": "snack", "tag_label": "Snack" }
+      ]
+    }
   },
-  "catering": [
-    {
-      "name": "Kothimbir Vadi (24 pcs)",
-      "category": "Starters",
-      "price": 28,
-      "unit": "per tray",
-      "description": "Crispy coriander-gram flour fritters, a Maharashtrian classic.",
-      "spicy": false,
-      "contains": "Gluten"
+  "events": {
+    "ganpati": {
+      "title": "Ganpati",
+      "subtitle": "Special Festival Menu",
+      "order_by": "10 September",
+      "active": true,
+      "sections": [
+        {
+          "name": "Appetizer",
+          "style": "green",
+          "dishes": [
+            { "icon": "🟤", "name": "Mini Batata Vada", "desc": "", "prices": [{ "label": "50 pcs", "amount": "$100" }] },
+            { "icon": "⚪", "name": "Mini Sabudana Vada", "desc": "", "prices": [{ "label": "50 pcs", "amount": "$100" }] },
+            { "icon": "🟨", "name": "Kothimbir Vadi", "desc": "", "prices": [{ "label": "50 pcs", "amount": "$80" }, { "label": "100 pcs", "amount": "$160" }] },
+            { "icon": "🥛", "name": "Dahivada", "desc": "", "prices": [{ "label": "25 pcs", "amount": "$57" }, { "label": "50 pcs", "amount": "$115" }] },
+            { "icon": "🟠", "name": "Farali Misal", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
+            { "icon": "🍚", "name": "Sabudana Khichadi", "desc": "", "prices": [{ "label": "Half", "amount": "$75" }, { "label": "Full", "amount": "$150" }] }
+          ]
+        },
+        {
+          "name": "Main Entry",
+          "style": "maroon",
+          "dishes": [
+            { "icon": "🍛", "name": "Veg Kurma", "desc": "", "prices": [{ "label": "Half", "amount": "$75" }, { "label": "Full", "amount": "$150" }] },
+            { "icon": "🍆", "name": "Bharli Vangi", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
+            { "icon": "🥔", "name": "Alu Fadfad", "desc": "(Patal Bhaji)", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
+            { "icon": "🥔", "name": "Batata Sukhi", "desc": "", "prices": [{ "label": "Half", "amount": "$60" }, { "label": "Full", "amount": "$120" }] },
+            { "icon": "🫘", "name": "Matki Usal", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$140" }] },
+            { "icon": "🫘", "name": "Chavli Usal", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$140" }] },
+            { "icon": "🫘", "name": "Moong Usal", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$140" }] }
+          ]
+        },
+        {
+          "name": "Dal",
+          "style": "green",
+          "dishes": [
+            { "icon": "🟡", "name": "Varan", "desc": "", "prices": [{ "label": "Half", "amount": "$50" }, { "label": "Full", "amount": "$100" }] },
+            { "icon": "🟠", "name": "Shevgyachi Amti", "desc": "", "prices": [{ "label": "Half", "amount": "$60" }, { "label": "Full", "amount": "$120" }] },
+            { "icon": "🍅", "name": "Tomato Saar", "desc": "", "prices": [{ "label": "Half", "amount": "$50" }, { "label": "Full", "amount": "$100" }] },
+            { "icon": "🥛", "name": "Soal Kadhi", "desc": "", "prices": [{ "label": "Half", "amount": "$50" }, { "label": "Full", "amount": "$100" }] },
+            { "icon": "🥛", "name": "Maharastriyan Kadhi", "desc": "", "prices": [{ "label": "Half", "amount": "$55" }, { "label": "Full", "amount": "$110" }] }
+          ]
+        },
+        {
+          "name": "Bread",
+          "style": "gold",
+          "dishes": [
+            { "icon": "🫓", "name": "Puri", "desc": "", "prices": [{ "label": "", "amount": "$2 each" }] }
+          ]
+        },
+        {
+          "name": "Rice",
+          "style": "green",
+          "dishes": [
+            { "icon": "🍚", "name": "Masale Bhat", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
+            { "icon": "🍚", "name": "Veg Pulao", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
+            { "icon": "🥥", "name": "Narali Bhat", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] }
+          ]
+        },
+        {
+          "name": "Sweet",
+          "style": "maroon",
+          "dishes": [
+            { "icon": "🫓", "name": "Puranpoli", "desc": "", "prices": [{ "label": "10 pcs", "amount": "$50" }, { "label": "25 pcs", "amount": "$125" }, { "label": "50 pcs", "amount": "$240" }] },
+            { "icon": "🍮", "name": "Kesar Shrikhand", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$150" }] },
+            { "icon": "🥕", "name": "Gajar Halwa", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$145" }] },
+            { "icon": "🌾", "name": "Mango Sheera", "desc": "", "prices": [{ "label": "Half", "amount": "$75" }, { "label": "Full", "amount": "$150" }] },
+            { "icon": "🍬", "name": "Jalebi", "desc": "", "prices": [{ "label": "", "amount": "$15 / lb" }] },
+            { "icon": "🟤", "name": "Boondi Ladoo", "desc": "", "prices": [{ "label": "", "amount": "$15 / lb" }] },
+            { "icon": "🟡", "name": "Motichur Ladoo", "desc": "", "prices": [{ "label": "", "amount": "$15 / lb" }] }
+          ]
+        },
+        {
+          "name": "✨ Ganesh Festival Sweets",
+          "style": "gold",
+          "dishes": [
+            { "icon": "🍡", "name": "Panchamrut Modak", "desc": "", "prices": [{ "label": "(11)", "amount": "$22" }] },
+            { "icon": "🍡", "name": "Churma Modak", "desc": "", "prices": [{ "label": "(11)", "amount": "$22" }] },
+            { "icon": "🍡", "name": "Gulkand Mawa Modak", "desc": "", "prices": [{ "label": "(11)", "amount": "$22" }] }
+          ]
+        }
+      ]
     },
-    {
-      "name": "Alu Vadi (24 pcs)",
-      "category": "Starters",
-      "price": 30,
-      "unit": "per tray",
-      "description": "Colocasia leaf rolls with sweet-spicy gram flour filling.",
-      "spicy": false,
-      "contains": "Gluten, Sesame"
+    "diwali": {
+      "title": "Diwali",
+      "subtitle": "Festival of Lights Menu",
+      "order_by": "",
+      "active": false,
+      "sections": []
     },
-    {
-      "name": "Batata Vada (24 pcs)",
-      "category": "Starters",
-      "price": 26,
-      "unit": "per tray",
-      "description": "Golden potato fritters with dry garlic chutney.",
-      "spicy": true,
-      "contains": "Gluten"
+    "holi": {
+      "title": "Holi",
+      "subtitle": "Festival of Colors Menu",
+      "order_by": "",
+      "active": false,
+      "sections": []
     },
-    {
-      "name": "Sabudana Vada (24 pcs)",
-      "category": "Starters",
-      "price": 30,
-      "unit": "per tray",
-      "description": "Crispy sago-peanut patties, upvas friendly.",
-      "spicy": false,
-      "contains": "Peanuts"
-    },
-    {
-      "name": "Thalipeeth (12 pcs)",
-      "category": "Starters",
-      "price": 24,
-      "unit": "per dozen",
-      "description": "Multigrain spiced flatbread served with loni (white butter).",
-      "spicy": true,
-      "contains": "Gluten, Dairy"
-    },
-    {
-      "name": "Misal Pav",
-      "category": "Mains",
-      "price": 8,
-      "unit": "per person",
-      "description": "Fiery sprouted matki curry with farsan, onion, lemon & pav.",
-      "spicy": true,
-      "contains": "Gluten, Peanuts"
-    },
-    {
-      "name": "Pav Bhaji",
-      "category": "Mains",
-      "price": 7,
-      "unit": "per person",
-      "description": "Buttery mashed vegetable bhaji with soft pav.",
-      "spicy": true,
-      "contains": "Gluten, Dairy"
-    },
-    {
-      "name": "Paneer Makhani",
-      "category": "Mains",
-      "price": 55,
-      "unit": "per tray",
-      "description": "Paneer in a rich tomato-cashew gravy (half tray serves ~10).",
-      "spicy": false,
-      "contains": "Dairy, Nuts"
-    },
-    {
-      "name": "Bharli Vangi",
-      "category": "Mains",
-      "price": 50,
-      "unit": "per tray",
-      "description": "Baby eggplants stuffed with goda masala-peanut filling.",
-      "spicy": true,
-      "contains": "Peanuts"
-    },
-    {
-      "name": "Zunka with Bhakri",
-      "category": "Mains",
-      "price": 6,
-      "unit": "per person",
-      "description": "Rustic gram-flour zunka with jowar bhakri.",
-      "spicy": true,
-      "contains": ""
-    },
-    {
-      "name": "Masale Bhaat",
-      "category": "Rice",
-      "price": 45,
-      "unit": "per tray",
-      "description": "Fragrant spiced rice with vegetables and goda masala.",
-      "spicy": true,
-      "contains": "Nuts"
-    },
-    {
-      "name": "Veg Pulao",
-      "category": "Rice",
-      "price": 40,
-      "unit": "per tray",
-      "description": "Mild basmati pulao with seasonal vegetables.",
-      "spicy": false,
-      "contains": ""
-    },
-    {
-      "name": "Varan Bhaat with Toop",
-      "category": "Rice",
-      "price": 35,
-      "unit": "per tray",
-      "description": "Comforting dal-rice with homemade ghee.",
-      "spicy": false,
-      "contains": "Dairy"
-    },
-    {
-      "name": "Puran Poli (6 pcs)",
-      "category": "Sweets",
-      "price": 24,
-      "unit": "per half dozen",
-      "description": "Soft poli stuffed with jaggery-chana dal puran, served with toop.",
-      "spicy": false,
-      "contains": "Gluten, Dairy"
-    },
-    {
-      "name": "Shrikhand (32 oz)",
-      "category": "Sweets",
-      "price": 18,
-      "unit": "per container",
-      "description": "Thick saffron-cardamom strained yogurt.",
-      "spicy": false,
-      "contains": "Dairy, Nuts"
-    },
-    {
-      "name": "Basundi (32 oz)",
-      "category": "Sweets",
-      "price": 20,
-      "unit": "per container",
-      "description": "Slow-thickened sweetened milk with nutmeg & nuts.",
-      "spicy": false,
-      "contains": "Dairy, Nuts"
-    },
-    {
-      "name": "Kharvas (12 pcs)",
-      "category": "Sweets",
-      "price": 22,
-      "unit": "per tray",
-      "description": "Traditional steamed milk pudding with jaggery & cardamom.",
-      "spicy": false,
-      "contains": "Dairy"
-    },
-    {
-      "name": "Sol Kadhi (1 gal)",
-      "category": "Drinks",
-      "price": 25,
-      "unit": "per gallon",
-      "description": "Cooling kokum-coconut milk digestive drink.",
-      "spicy": false,
-      "contains": ""
-    },
-    {
-      "name": "Masala Chai (1 gal)",
-      "category": "Drinks",
-      "price": 20,
-      "unit": "per gallon",
-      "description": "Ginger-cardamom chai brewed with whole milk.",
-      "spicy": false,
-      "contains": "Dairy"
+    "custom": {
+      "title": "Custom Event",
+      "subtitle": "Birthday · Anniversary · Puja · Gathering",
+      "order_by": "",
+      "active": true,
+      "sections": []
     }
-  ],
-  "seasonal": [
-    {
-      "occasion": "Ganesh Chaturthi",
-      "name": "Ukdiche Modak (11 pcs)",
-      "price": 25,
-      "unit": "per box",
-      "description": "Steamed rice-flour modak with coconut-jaggery saran. Bappa's favorite.",
-      "order_by": "Sep 10, 2026"
-    },
-    {
-      "occasion": "Ganesh Chaturthi",
-      "name": "Talniche Modak (11 pcs)",
-      "price": 22,
-      "unit": "per box",
-      "description": "Golden fried modak with coconut-jaggery filling.",
-      "order_by": "Sep 10, 2026"
-    },
-    {
-      "occasion": "Ganesh Chaturthi",
-      "name": "Panchkhadya Prasad (8 oz)",
-      "price": 10,
-      "unit": "per box",
-      "description": "Traditional prasad of coconut, khadisakhar, dry dates, poppy seeds & almonds.",
-      "order_by": "Sep 10, 2026"
-    }
-  ],
-  "reviews": [
-    {
-      "name": "Priya S.",
-      "location": "Quincy, MA",
-      "rating": 5,
-      "text": "The weekly tiffin tastes exactly like aaji's cooking. The masale bhaat and puran poli bring tears to my eyes.",
-      "date": "Jan 2026"
-    },
-    {
-      "name": "Sneha K.",
-      "location": "Milton, MA",
-      "rating": 5,
-      "text": "Ordered catering for my daughter's birthday — the misal pav and kothimbir vadi disappeared in minutes!",
-      "date": "Mar 2026"
-    },
-    {
-      "name": "Ananya R.",
-      "location": "Braintree, MA",
-      "rating": 5,
-      "text": "Her ukdiche modak for Ganesh Chaturthi are pure magic. Just like home in Pune.",
-      "date": "Sep 2025"
-    }
-  ]
+  }
 }
