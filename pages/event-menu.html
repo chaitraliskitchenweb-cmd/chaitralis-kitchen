@@ -190,7 +190,7 @@
     <li><a href="event-menu.html">Events</a></li>
     <li><a href="order.html">Order</a></li>
   </ul>
-  <div class="ck-countdown" id="ck-countdown"><span class="cd-dot">🕐</span><span class="cd-label">Order closes</span><span class="cd-time" id="cd-time">…</span></div>
+  <div class="ck-countdown" id="ck-countdown"><span class="cd-dot">🕐</span><span class="cd-label">Tiffin order ·</span><span class="cd-time" id="cd-time">…</span></div>
   <a class="ck-order" href="order.html">Order Now</a>
   <button class="ck-burger" onclick="document.getElementById('ck-nav').classList.toggle('open')" aria-label="Menu">☰</button>
 </nav>
@@ -487,7 +487,7 @@
     const now = new Date();
     const cutoff = nextCutoff();
     const diff = cutoff - now;
-    if (diff <= 0) { el.textContent = 'Closing soon!'; return; }
+    if (diff <= 0) { el.textContent = 'Opens next Sun!'; badge.classList.remove('cd-urgent'); return; }
     const days  = Math.floor(diff / 86400000);
     const hours = Math.floor((diff % 86400000) / 3600000);
     const mins  = Math.floor((diff % 3600000)  / 60000);

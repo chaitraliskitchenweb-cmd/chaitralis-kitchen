@@ -189,6 +189,25 @@
   /* push page content below fixed nav */
   body { padding-top: 58px; }
 
+
+  /* ── Order Countdown Badge ── */
+  .ck-countdown {
+    display: flex; align-items: center; gap: 6px;
+    background: #fff8e6; border: 1.5px solid #D4A24C;
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 11.5px; font-weight: 600; color: #8a5a00;
+    white-space: nowrap; flex-shrink: 0;
+    transition: background .3s;
+  }
+  .ck-countdown .cd-dot { font-size: 13px; }
+  .ck-countdown .cd-label { opacity: .75; font-weight: 500; }
+  .ck-countdown .cd-time { color: #6b820d; font-variant-numeric: tabular-nums; }
+  .ck-countdown.cd-urgent { background: #fff0f0; border-color: #e05a5a; color: #a00; }
+  .ck-countdown.cd-urgent .cd-time { color: #c0392b; }
+  @media (max-width: 480px) {
+    .ck-countdown .cd-label { display: none; }
+  }
+
 </style>
 </head>
 <body>
@@ -203,6 +222,7 @@
     <li><a href="event-menu.html">Events</a></li>
     <li><a href="order.html">Order</a></li>
   </ul>
+  <div class="ck-countdown" id="ck-countdown"><span class="cd-dot">🕐</span><span class="cd-label">Order closes</span><span class="cd-time" id="cd-time">…</span></div>
   <a class="ck-order" href="order.html">Order Now</a>
   <button class="ck-burger" onclick="document.getElementById('ck-nav').classList.toggle('open')" aria-label="Menu">☰</button>
 </nav>
@@ -327,5 +347,62 @@
     });
 })();
 </script>
+
+<script>
+(function(){
+  function nextCutoff() {
+    // Sunday 9 PM Eastern — compute next occurrence
+    const now = new Date();
+    // Work in the visitor's local time but cutoff is "Sunday 9 PM ET"
+    // We'll compute UTC offset for Eastern: EST = UTC-5, EDT = UTC-4
+    // Simple approach: find next Sunday then set to 21:00 ET
+    const ET_OFFSET_HOURS = (() => {
+      // Detect whether ET is currently EDT or EST using Intl
+      try {
+        const fmt = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', hour:'numeric', hour12:false});
+        const localH = parseInt(fmt.format(now));
+        const utcH = now.getUTCHours();
+        const diff = utcH - localH;
+        return diff < 0 ? diff + 24 : diff;  // offset hours ET is behind UTC
+      } catch(e) { return 4; }  // fallback to EDT
+    })();
+    // Find next Sunday 9 PM ET as a UTC Date
+    const d = new Date(now);
+    const dayOfWeek = d.getUTCDay(); // 0=Sun
+    const daysUntilSun = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+    d.setUTCDate(d.getUTCDate() + daysUntilSun);
+    d.setUTCHours(21 + ET_OFFSET_HOURS, 0, 0, 0);
+    // If that's already past, add 7 days
+    if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
+    return d;
+  }
+
+  function fmt2(n) { return String(n).padStart(2,'0'); }
+
+  function tick() {
+    const el = document.getElementById('cd-time');
+    const badge = document.getElementById('ck-countdown');
+    if (!el || !badge) return;
+    const now = new Date();
+    const cutoff = nextCutoff();
+    const diff = cutoff - now;
+    if (diff <= 0) { el.textContent = 'Closing soon!'; return; }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+    const urgent = diff < 3600000 * 6; // last 6 hours = red
+    badge.classList.toggle('cd-urgent', urgent);
+    if (days > 0) {
+      el.textContent = days + 'd ' + fmt2(hours) + 'h ' + fmt2(mins) + 'm';
+    } else {
+      el.textContent = fmt2(hours) + 'h ' + fmt2(mins) + 'm ' + fmt2(secs) + 's';
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+
 </body>
 </html>
