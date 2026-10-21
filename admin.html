@@ -96,16 +96,22 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
 
 /* Event sections */
 .ev-section { margin-bottom: 18px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.add-row-btn { background: none; border: 1px dashed var(--olive); color: var(--olive); border-radius: 6px;
+  padding: 7px 15px; font-size: .8rem; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif; }
+.add-row-btn:hover { background: #f0f5e0; }
+.del-btn { background: none; border: none; color: #c9c9c9; font-size: 1rem; line-height: 1; cursor: pointer;
+  padding: 6px 4px; border-radius: 5px; font-family: 'Poppins', sans-serif; }
+.del-btn:hover { color: #b03a2e; background: #fdecea; }
 .ev-section-head { background: #f5f5f0; padding: 10px 16px; font-size: .85rem; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
 .ev-dishes { padding: 12px 16px; }
-.ev-dish-row { display: grid; grid-template-columns: 1fr 1fr 120px 120px; gap: 8px; margin-bottom: 8px; }
+.ev-dish-row { display: grid; grid-template-columns: 1fr 1fr 120px 120px 28px; gap: 8px; margin-bottom: 8px; align-items: start; }
 .ev-dish-row:last-child { margin-bottom: 0; }
 .ev-dish-row input { border: 1px solid var(--border); border-radius: 6px; padding: 7px 9px; font-size: .82rem; font-family: 'Poppins', sans-serif; width: 100%; }
 .ev-dish-row input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px rgba(107,130,13,.1); }
 .price-pair { display: flex; flex-direction: column; gap: 4px; }
 .price-pair input { font-size: .78rem; }
 .price-pair .plabel { font-size: .65rem; color: var(--muted); font-weight: 600; text-transform: uppercase; padding-left: 2px; }
-.col-h-row { display: grid; grid-template-columns: 1fr 1fr 120px 120px; gap: 8px; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+.col-h-row { display: grid; grid-template-columns: 1fr 1fr 120px 120px 28px; gap: 8px; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
 
 /* Status bar */
 .status-bar { position: fixed; bottom: 20px; right: 20px; background: var(--navy); color: white; padding: 10px 18px; border-radius: 8px; font-size: .85rem; font-weight: 500; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 200; }
@@ -121,6 +127,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
   .dish-row { grid-template-columns: auto 1fr; }
   .dish-row .tag-cell { grid-column: 2; }
   .ev-dish-row { grid-template-columns: 1fr 1fr; }
+  .col-h-row { display: none; }
 }
 </style>
 </head>
@@ -233,6 +240,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
   <div class="tab-pane" id="tab-events">
     <div class="section-h"><h2>🎉 Event & Festival Menus</h2></div>
     <div id="events-container"></div>
+    <button class="add-row-btn" onclick="addEvent()" style="margin-top:14px">＋ Add a new event</button>
   </div>
 
   <!-- CAROUSEL TAB -->
@@ -251,12 +259,13 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
 
 <script>
 const CATEGORIES = ['Gravy','Rassa','Dry Sabzi','Dal','Usal','Spicy Gravy','Rice','Festival Special','Snack','Chutney'];
-const EVENTS_META = {
-  ganpati: { emoji: '🐘', label: 'Ganpati', activeRow: 4, orderByCol: 4, dataStart: 6, dataEnd: 58 },
-  diwali:  { emoji: '🪔', label: 'Diwali',  activeRow: 61, orderByCol: 4, dataStart: 63, dataEnd: 71 },
-  holi:    { emoji: '🌸', label: 'Holi',    activeRow: 73, orderByCol: 4, dataStart: 75, dataEnd: 83 },
-  custom:  { emoji: '🎉', label: 'Custom Event', activeRow: 85, orderByCol: 4, dataStart: 87, dataEnd: 100 },
-};
+// Events are parsed out of the sheet at load time and held here, so sections,
+// dishes and whole events can be added or removed freely. On save the
+// "🎉 Event Menus" sheet is rebuilt from this model.
+let eventsModel = [];
+let eventsSheetTitle = '🎉  Event & Seasonal Menus';
+let eventsSheetIntro = '';
+const openEvents = new Set();
 const TIFFIN_META = {
   last: { dateLabelRow: 4, dataStart: 6,  dataEnd: 17 },
   this: { dateLabelRow: 20, dataStart: 22, dataEnd: 33 },
@@ -487,75 +496,195 @@ function populateTiffin() {
   }
 }
 
-function populateEvents() {
+function slugifyKey(text) {
+  const out = [];
+  for (const ch of String(text).toLowerCase()) {
+    if (/[a-z0-9]/.test(ch)) out.push(ch);
+    else if (out.length && out[out.length-1] !== '_') out.push('_');
+  }
+  return out.join('').replace(/^_+|_+$/g, '');
+}
+
+function splitEmoji(text) {
+  const t = String(text).trim();
+  let i = 0;
+  while (i < t.length && !/[a-zA-Z0-9&'()]/.test(t[i])) i++;
+  return [t.slice(0, i).trim(), t.slice(i).trim()];
+}
+
+// Find each event the same way excel-to-json.py does: a name in column A with
+// "Active on website?" directly underneath it.
+function isEventHeader(ws, r) {
+  if (!cellVal(ws, r, 1)) return false;
+  for (const c of [2,4,5,6,7,8]) if (cellVal(ws, r, c)) return false;
+  return cellVal(ws, r+1, 1).toLowerCase().startsWith('active on website');
+}
+
+function sheetMaxRow(ws) {
+  const ref = ws['!ref'];
+  if (!ref) return 0;
+  return XLSX.utils.decode_range(ref).e.r + 1;
+}
+
+function parseEventsFromSheet() {
   const ws = getSheet('🎉 Event Menus');
-  const container = document.getElementById('events-container');
-  container.innerHTML = '';
+  eventsSheetTitle = cellVal(ws, 1, 1) || eventsSheetTitle;
+  eventsSheetIntro = cellVal(ws, 2, 1) || '';
 
-  for (const [key, meta] of Object.entries(EVENTS_META)) {
-    const active = cellVal(ws, meta.activeRow, 2).toUpperCase() === 'Y';
-    const orderBy = cellVal(ws, meta.activeRow, 4);
+  const maxRow = sheetMaxRow(ws);
+  const heads = [];
+  for (let r = 1; r <= maxRow; r++) if (isEventHeader(ws, r)) heads.push(r);
 
-    // Gather sections and dishes
-    const sections = [];
-    let currentSec = null;
-    for (let r = meta.dataStart; r <= meta.dataEnd; r++) {
+  eventsModel = heads.map((head, idx) => {
+    const [emoji, rest] = splitEmoji(cellVal(ws, head, 1));
+    let title = rest, subtitle = '';
+    if (rest.includes('—')) {
+      const bits = rest.split('—');
+      title = bits[0].trim();
+      subtitle = bits.slice(1).join('—').trim();
+    }
+
+    const activeRow = head + 1;
+    const ev = {
+      emoji: emoji || '🎊',
+      title,
+      subtitle,
+      active: cellVal(ws, activeRow, 2).toUpperCase() === 'Y',
+      orderBy: cellVal(ws, activeRow, 4),
+      sections: []
+    };
+
+    const bodyStart = activeRow + 2;
+    const bodyEnd   = (idx + 1 < heads.length) ? heads[idx+1] - 1 : maxRow;
+    let cur = null;
+    for (let r = bodyStart; r <= bodyEnd; r++) {
       const colA = cellVal(ws, r, 1);
       if (!colA) continue;
       if (colA.includes('▸')) {
-        const secName = colA.replace('▸', '').trim();
-        currentSec = { name: secName, row: r, dishes: [] };
-        sections.push(currentSec);
+        cur = { name: colA.replace('▸','').trim(), dishes: [] };
+        if (cur.name) ev.sections.push(cur);
         continue;
       }
-      const dishName = cellVal(ws, r, 3);
-      if (!dishName) continue;
-      if (currentSec) {
-        currentSec.dishes.push({
-          row: r, name: dishName,
-          desc: cellVal(ws, r, 4),
-          pl1: cellVal(ws, r, 5), p1: cellVal(ws, r, 6),
-          pl2: cellVal(ws, r, 7), p2: cellVal(ws, r, 8),
-        });
-      }
+      const name = cellVal(ws, r, 3);
+      if (!name) continue;
+      const dish = {
+        name,
+        desc: cellVal(ws, r, 4),
+        pl1:  cellVal(ws, r, 5), p1: cellVal(ws, r, 6),
+        pl2:  cellVal(ws, r, 7), p2: cellVal(ws, r, 8)
+      };
+      let target = ev.sections.find(x => x.name === colA);
+      if (!target) target = cur || ev.sections[ev.sections.length-1];
+      if (target) target.dishes.push(dish);
     }
+    return ev;
+  });
+}
 
-    // Build event card
+function populateEvents() {
+  parseEventsFromSheet();
+  renderEvents();
+}
+
+// Read every input back into the model before re-rendering or saving, so
+// nothing typed is lost when a row is added or removed.
+function syncEventsFromDom() {
+  eventsModel.forEach((ev, ei) => {
+    const card = document.getElementById('ev-card-' + ei);
+    if (!card) return;
+    const val = sel => { const el = card.querySelector(sel); return el ? el.value.trim() : ''; };
+    ev.emoji    = val('.ev-emoji') || ev.emoji;
+    ev.title    = val('.ev-title-input');
+    ev.subtitle = val('.ev-subtitle-input');
+    ev.orderBy  = val('.ev-orderby');
+    const chk = card.querySelector('.ev-active');
+    if (chk) ev.active = chk.checked;
+
+    card.querySelectorAll('.ev-section').forEach(secEl => {
+      const si = parseInt(secEl.dataset.si, 10);
+      const sec = ev.sections[si];
+      if (!sec) return;
+      const nameEl = secEl.querySelector('.ev-sec-name');
+      if (nameEl) sec.name = nameEl.value.trim();
+      secEl.querySelectorAll('.ev-dish-row').forEach(rowEl => {
+        const di = parseInt(rowEl.dataset.di, 10);
+        const d = sec.dishes[di];
+        if (!d) return;
+        const g = c => { const el = rowEl.querySelector(c); return el ? el.value.trim() : ''; };
+        d.name = g('.ev-name'); d.desc = g('.ev-desc');
+        d.pl1  = g('.ev-pl1');  d.p1   = g('.ev-p1');
+        d.pl2  = g('.ev-pl2');  d.p2   = g('.ev-p2');
+      });
+    });
+  });
+}
+
+function renderEvents() {
+  const container = document.getElementById('events-container');
+  container.innerHTML = '';
+  if (!eventsModel.length) {
+    container.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No events yet. Use the button below to add one.</p>';
+    return;
+  }
+  eventsModel.forEach((ev, ei) => {
+    const open = openEvents.has(ei);
     const card = document.createElement('div');
     card.className = 'event-card';
+    card.id = 'ev-card-' + ei;
     card.innerHTML = `
-      <div class="event-head" onclick="toggleEvent('${key}')">
-        <span style="font-size:1.4rem">${meta.emoji}</span>
-        <span class="event-title">${meta.label}</span>
-        <span style="font-size:.8rem;color:var(--muted)">${active ? '🟢 Active' : '⚪ Hidden'}</span>
-        <span class="toggle-icon" id="toggle-icon-${key}">▾</span>
+      <div class="event-head" onclick="toggleEvent(${ei})">
+        <span style="font-size:1.4rem">${esc(ev.emoji)}</span>
+        <span class="event-title">${esc(ev.title || 'Untitled event')}</span>
+        <span style="font-size:.8rem;color:var(--muted)">${ev.active ? '🟢 Active' : '⚪ Hidden'}</span>
+        <span class="toggle-icon" id="toggle-icon-${ei}">${open ? '▴' : '▾'}</span>
       </div>
-      <div class="event-body" id="event-body-${key}">
+      <div class="event-body${open ? ' open' : ''}" id="event-body-${ei}">
+        <div class="event-meta" style="grid-template-columns:70px 1fr 1fr">
+          <div class="field"><label>Icon</label>
+            <input class="ev-emoji" value="${esc(ev.emoji)}" maxlength="4" style="text-align:center;font-size:1.1rem" oninput="markDirty()"></div>
+          <div class="field"><label>Event Name</label>
+            <input class="ev-title-input" value="${esc(ev.title)}" placeholder="e.g. Diwali" oninput="markDirty()"></div>
+          <div class="field"><label>Subtitle</label>
+            <input class="ev-subtitle-input" value="${esc(ev.subtitle)}" placeholder="e.g. Festival of Lights Menu" oninput="markDirty()"></div>
+        </div>
         <div class="event-meta">
           <div class="field"><label>Order-By Date</label>
-            <input id="ev-${key}-orderby" value="${esc(orderBy)}" placeholder="e.g. 10 September" oninput="markDirty()">
-          </div>
+            <input class="ev-orderby" value="${esc(ev.orderBy)}" placeholder="e.g. 10 September" oninput="markDirty()"></div>
           <div style="display:flex;flex-direction:column;gap:4px">
             <label style="font-size:.78rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.03em">Show on Website</label>
             <div class="active-toggle">
-              <input type="checkbox" id="ev-${key}-active" ${active?'checked':''} onchange="markDirty()">
-              <label for="ev-${key}-active">Active / Visible</label>
+              <input type="checkbox" class="ev-active" id="ev-active-${ei}" ${ev.active?'checked':''} onchange="markDirty()">
+              <label for="ev-active-${ei}">Active / Visible</label>
             </div>
           </div>
         </div>
-        <div id="ev-${key}-sections">
-          ${sections.length === 0 ? '<p style="color:var(--muted);font-size:.88rem">No dishes added yet. Fill in the Excel file directly to add sections and dishes.</p>' : ''}
-          ${sections.map(sec => renderSection(key, sec)).join('')}
+        <div>
+          ${ev.sections.length === 0
+            ? '<p style="color:var(--muted);font-size:.88rem;margin-bottom:10px">No sections yet — add one to start building this menu.</p>'
+            : ev.sections.map((sec, si) => renderSection(ei, si, sec)).join('')}
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <button class="add-row-btn" onclick="addSection(${ei})">＋ Add section</button>
+          <button class="add-row-btn" onclick="removeEvent(${ei})"
+                  style="border-color:#e2b4ae;color:#b03a2e">✕ Delete this event</button>
         </div>
       </div>`;
     container.appendChild(card);
-  }
+  });
 }
 
-function renderSection(eventKey, sec) {
+function renderSection(ei, si, sec) {
   return `
-    <div class="ev-section">
-      <div class="ev-section-head">▸ ${esc(sec.name)}</div>
+    <div class="ev-section" data-si="${si}">
+      <div class="ev-section-head" style="display:flex;align-items:center;gap:8px">
+        <span>▸</span>
+        <input class="ev-sec-name" value="${esc(sec.name)}" placeholder="Section name, e.g. Appetizer"
+               oninput="markDirty()"
+               style="flex:1;border:1px solid transparent;background:transparent;font:inherit;color:inherit;padding:3px 6px;border-radius:5px"
+               onfocus="this.style.borderColor='var(--border)';this.style.background='#fff'"
+               onblur="this.style.borderColor='transparent';this.style.background='transparent'">
+        <button class="del-btn" title="Delete section" onclick="removeSection(${ei},${si})">✕</button>
+      </div>
       <div class="ev-dishes">
         <div class="col-h-row">
           <span style="font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase">Dish Name</span>
@@ -563,8 +692,8 @@ function renderSection(eventKey, sec) {
           <span style="font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase">Price 1</span>
           <span style="font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase">Price 2</span>
         </div>
-        ${sec.dishes.map(d => `
-          <div class="ev-dish-row" data-row="${d.row}">
+        ${sec.dishes.map((d, di) => `
+          <div class="ev-dish-row" data-di="${di}">
             <input class="ev-name" value="${esc(d.name)}" placeholder="Dish name" oninput="markDirty()">
             <input class="ev-desc" value="${esc(d.desc)}" placeholder="Description / note" oninput="markDirty()">
             <div class="price-pair">
@@ -579,9 +708,77 @@ function renderSection(eventKey, sec) {
               <span class="plabel">Amount</span>
               <input class="ev-p2"  value="${esc(d.p2)}"  placeholder="$160" oninput="markDirty()">
             </div>
+            <button class="del-btn" title="Remove dish" onclick="removeDish(${ei},${si},${di})">✕</button>
           </div>`).join('')}
+        <button class="add-row-btn" onclick="addDish(${ei},${si})">＋ Add dish</button>
       </div>
     </div>`;
+}
+
+// ─── STRUCTURAL EDITS ─────────────────────────────────────────
+function addDish(ei, si) {
+  const sec = eventsModel[ei] && eventsModel[ei].sections[si];
+  if (!sec) return;
+  syncEventsFromDom();
+  eventsModel[ei].sections[si].dishes.push({ name:'', desc:'', pl1:'', p1:'', pl2:'', p2:'' });
+  openEvents.add(ei); renderEvents(); markDirty();
+}
+
+function removeDish(ei, si, di) {
+  const sec = eventsModel[ei] && eventsModel[ei].sections[si];
+  if (!sec || !sec.dishes[di]) return;
+  syncEventsFromDom();
+  eventsModel[ei].sections[si].dishes.splice(di, 1);
+  openEvents.add(ei); renderEvents(); markDirty();
+}
+
+function addSection(ei) {
+  if (!eventsModel[ei]) return;
+  syncEventsFromDom();
+  eventsModel[ei].sections.push({ name:'New section', dishes:[{ name:'', desc:'', pl1:'', p1:'', pl2:'', p2:'' }] });
+  openEvents.add(ei); renderEvents(); markDirty();
+}
+
+function removeSection(ei, si) {
+  const sec = eventsModel[ei] && eventsModel[ei].sections[si];
+  if (!sec) return;
+  const named = sec.name || 'this section';
+  const count = sec.dishes.filter(d => d.name).length;
+  if (count && !confirm(`Delete "${named}" and its ${count} dish${count>1?'es':''}?`)) return;
+  syncEventsFromDom();
+  eventsModel[ei].sections.splice(si, 1);
+  openEvents.add(ei); renderEvents(); markDirty();
+}
+
+function addEvent() {
+  syncEventsFromDom();
+  eventsModel.push({
+    emoji: '🎊', title: 'New Event', subtitle: '',
+    active: false, orderBy: '',
+    sections: [{ name:'Main Entry', dishes:[{ name:'', desc:'', pl1:'', p1:'', pl2:'', p2:'' }] }]
+  });
+  const ei = eventsModel.length - 1;
+  openEvents.add(ei);
+  renderEvents(); markDirty();
+  switchToEvent(ei);
+}
+
+function removeEvent(ei) {
+  const ev = eventsModel[ei];
+  if (!ev) return;
+  if (!confirm(`Delete the event "${ev.title || 'Untitled'}" and everything in it?`)) return;
+  syncEventsFromDom();
+  eventsModel.splice(ei, 1);
+  openEvents.clear();
+  renderEvents(); markDirty();
+}
+
+function switchToEvent(ei) {
+  const card = document.getElementById('ev-card-' + ei);
+  if (!card) return;
+  card.scrollIntoView({ behavior:'smooth', block:'center' });
+  const t = card.querySelector('.ev-title-input');
+  if (t) { t.focus(); t.select(); }
 }
 
 function populateCarousel() {
@@ -638,25 +835,47 @@ function collectTiffin() {
 }
 
 function collectEvents() {
-  const ws = getSheet('🎉 Event Menus');
-  for (const [key, meta] of Object.entries(EVENTS_META)) {
-    const activeEl  = document.getElementById(`ev-${key}-active`);
-    const orderByEl = document.getElementById(`ev-${key}-orderby`);
-    if (activeEl)  setCell(ws, meta.activeRow, 2, activeEl.checked ? 'Y' : 'N');
-    if (orderByEl) setCell(ws, meta.activeRow, 4, orderByEl.value);
-    // Dish rows
-    const container = document.getElementById(`ev-${key}-sections`);
-    container.querySelectorAll('.ev-dish-row').forEach(row => {
-      const r = parseInt(row.dataset.row);
-      if (!r) return;
-      setCell(ws, r, 3, row.querySelector('.ev-name')?.value || '');
-      setCell(ws, r, 4, row.querySelector('.ev-desc')?.value || '');
-      setCell(ws, r, 5, row.querySelector('.ev-pl1')?.value || '');
-      setCell(ws, r, 6, row.querySelector('.ev-p1')?.value  || '');
-      setCell(ws, r, 7, row.querySelector('.ev-pl2')?.value || '');
-      setCell(ws, r, 8, row.querySelector('.ev-p2')?.value  || '');
-    });
+  syncEventsFromDom();
+
+  // Row numbers shift whenever something is added or removed, so the whole
+  // sheet is written fresh from the model rather than patched cell by cell.
+  const aoa = [];
+  aoa.push([eventsSheetTitle]);
+  if (eventsSheetIntro) aoa.push([eventsSheetIntro]);
+  aoa.push([]);
+
+  for (const ev of eventsModel) {
+    const title = (ev.title || '').trim();
+    if (!title) continue;                        // an unnamed event is skipped
+    const emoji = (ev.emoji || '').trim();
+    const sub   = (ev.subtitle || '').trim();
+    let header = emoji ? emoji + ' ' + title : title;
+    if (sub) header += ' — ' + sub;
+
+    aoa.push([header]);
+    aoa.push(['Active on website? (Y/N)', ev.active ? 'Y' : 'N', 'Order-By Date', ev.orderBy || '']);
+    aoa.push(['Section / Dish', '#', 'Name', 'Description / Note',
+              'Price Label 1', 'Price 1', 'Price Label 2', 'Price 2']);
+
+    for (const sec of ev.sections) {
+      const secName = (sec.name || '').trim();
+      if (!secName) continue;
+      aoa.push(['▸ ' + secName]);
+      let n = 0;
+      for (const d of sec.dishes) {
+        const name = (d.name || '').trim();
+        if (!name) continue;                     // blank rows are not written
+        n++;
+        aoa.push([secName, n, name, d.desc || '',
+                  d.pl1 || '', d.p1 || '', d.pl2 || '', d.p2 || '']);
+      }
+    }
+    aoa.push([]);
   }
+
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  wb.Sheets['🎉 Event Menus'] = ws;
+  if (!wb.SheetNames.includes('🎉 Event Menus')) wb.SheetNames.push('🎉 Event Menus');
 }
 
 function collectCarousel() {
@@ -695,11 +914,12 @@ function switchTab(name) {
   event.target.classList.add('active');
 }
 
-function toggleEvent(key) {
-  const body = document.getElementById(`event-body-${key}`);
-  const icon = document.getElementById(`toggle-icon-${key}`);
+function toggleEvent(ei) {
+  const body = document.getElementById(`event-body-${ei}`);
+  const icon = document.getElementById(`toggle-icon-${ei}`);
   const open = body.classList.toggle('open');
   icon.textContent = open ? '▴' : '▾';
+  if (open) openEvents.add(ei); else openEvents.delete(ei);
 }
 
 function markDirty() {

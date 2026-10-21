@@ -361,16 +361,17 @@
 
   function buildEventPage(key, ev, s, isFirst) {
     const emojis = { ganpati:'🐘', diwali:'🪔', holi:'🌸', custom:'🎉' };
-    const emoji = emojis[key] || '🎊';
+    const emoji = (ev && ev.emoji) || emojis[key] || '🎊';
     const heroImgs = {
       ganpati: '../images/events/ganpati/Hero-Ganapati.jpeg',
       diwali:  '../images/events/diwali/Hero-Diwali.jpeg',
       holi:    '../images/events/holi/Hero-Holi.jpg',
-      custom:  '../images/events/custom/Hero-Custom.jpeg'
+      custom:  '../images/events/custom/Hero-Custom.jpeg',
+      custom_event: '../images/events/custom/Hero-Custom.jpeg'
     };
     const heroImg = heroImgs[key] || '';
 
-    if (key === 'custom') {
+    if (key === 'custom' || key === 'custom_event') {
       return `<div class="event-page${isFirst?' visible':''}" id="page-${key}">
         <div class="fest-header" style="background:linear-gradient(180deg,#f3f4f6 0%,#e8eecc 100%);">
           <div class="garland" style="background:repeating-linear-gradient(90deg,#6b820d 0,#6b820d 18px,#b8860b 18px,#b8860b 26px,#6b820d 26px,#6b820d 36px,#8b1a1a 36px,#8b1a1a 44px);"></div>
@@ -479,7 +480,7 @@
     // Build nav
     const navHtml = evKeys.map((k, i) => {
       const ev = events[k];
-      const emoji = emojis[k] || '🎊';
+      const emoji = (ev && ev.emoji) || emojis[k] || '🎊';
       return `<button class="event-btn${i===0?' active':''}" data-event="${k}">${emoji} ${esc(ev.title)}</button>`;
     }).join('');
     document.getElementById('event-nav').innerHTML = navHtml;

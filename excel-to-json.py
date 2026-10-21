@@ -124,83 +124,117 @@ tiffin = {
     "next_week": read_tiffin_week(ws_tiffin, 36, 38, 49),
 }
 
-# ── 4. Event Menus ────────────────────────────────────────────────────────────
+# ── 4. Event Menus ─────────────────────────────────────────────
 # Sheet: 🎉 Event Menus
-# Ganpati: header row 3, active B4, order-by D4, col headers row 5, data rows 6–57
-# Diwali:  header row 60, active B61, data rows 63–71
-# Holi:    header row 72, active B73, data rows 75–83
-# Custom:  header row 84, active B85, data rows 87–100
+#
+# Events are found by scanning, not by fixed row numbers, so any number of
+# events, sections and dishes can be added from the admin page.
+#
+# An event starts at a row whose column A holds the event name and whose next
+# row's column A begins with "Active on website?":
+#
+#     A                           B      C                 D
+#   | 🪔 Diwali              |      | <subtitle>      |
+#   | Active on website? (Y/N)  | Y/N  | Order-By Date   | <date>
+#   | Section / Dish            | #    | Name            | ...
+#   |   ▸ Appetizer             |                          <- section
+#   | Appetizer                 | 1    | Mini Batata Vada| ...  <- dish
 ws_ev = wb["🎉 Event Menus"]
 
-EVENT_BLOCKS = {
-    "ganpati": {"title": "Ganpati",      "subtitle": "Special Festival Menu",                      "active_row": 4,  "data_start": 6,  "data_end": 58},
-    "diwali":  {"title": "Diwali",       "subtitle": "Festival of Lights Menu",                   "active_row": 61, "data_start": 63, "data_end": 71},
-    "holi":    {"title": "Holi",         "subtitle": "Festival of Colors Menu",                   "active_row": 73, "data_start": 75, "data_end": 83},
-    "custom":  {"title": "Custom Event", "subtitle": "Birthday · Anniversary · Puja · Gathering", "active_row": 85, "data_start": 87, "data_end": 100},
-}
+def slugify(text):
+    """'Custom Event' -> 'custom_event'; used as the key in menu.json."""
+    out = []
+    for ch in text.lower():
+        if ch.isalnum():
+            out.append(ch)
+        elif out and out[-1] != "_":
+            out.append("_")
+    return "".join(out).strip("_")
+
+def split_emoji(text):
+    """'🪔 Diwali' -> ('🪔', 'Diwali'). Leading non-letter characters are the icon."""
+    i = 0
+    while i < len(text) and not (text[i].isalnum() or text[i] in "&'()"):
+        i += 1
+    return text[:i].strip(), text[i:].strip()
+
+def is_event_header(row):
+    """A name in column A, nothing beside it, and 'Active on website?' underneath."""
+    if not v(ws_ev, row, 1):
+        return False
+    if any(v(ws_ev, row, c) for c in (2, 4, 5, 6, 7, 8)):
+        return False
+    return v(ws_ev, row + 1, 1).lower().startswith("active on website")
+
+# Find where each event begins.
+header_rows = [r for r in range(1, ws_ev.max_row + 1) if is_event_header(r)]
 
 events = {}
-for key, block in EVENT_BLOCKS.items():
-    active_val = v(ws_ev, block["active_row"], 2)
-    active     = active_val.upper() == "Y"
-    order_by   = v(ws_ev, block["active_row"], 4)
+for idx, head in enumerate(header_rows):
+    raw_title = v(ws_ev, head, 1)
+    emoji, rest = split_emoji(raw_title)
 
-    sections   = {}
-    sec_order  = []
+    # The header cell is merged across the row, so the subtitle rides along in
+    # the same text after an em dash:  "🪔 Diwali — Festival of Lights Menu"
+    if "—" in rest:
+        title, subtitle = [part.strip() for part in rest.split("—", 1)]
+    else:
+        title, subtitle = rest.strip(), ""
 
-    for r in range(block["data_start"], block["data_end"] + 1):
-        col_a = ws_ev.cell(row=r, column=1).value
-        if col_a is None:
+    key = slugify(title)
+    if not key:
+        continue
+
+    active_row = head + 1
+    active     = v(ws_ev, active_row, 2).upper() == "Y"
+    order_by   = v(ws_ev, active_row, 4)
+
+    # Body runs until the next event header (or the end of the sheet).
+    body_start = active_row + 2            # skip the column-header row
+    body_end   = (header_rows[idx + 1] - 1) if idx + 1 < len(header_rows) else ws_ev.max_row
+
+    sections  = {}
+    sec_order = []
+    for r in range(body_start, body_end + 1):
+        col_a = v(ws_ev, r, 1)
+        if not col_a:
             continue
-        col_a_str = str(col_a).strip()
 
-        # Section header: "  ▸ SectionName"
-        if "▸" in col_a_str:
-            sec_name = col_a_str.replace("▸", "").strip()
-            if sec_name not in sections:
+        if "▸" in col_a:
+            sec_name = col_a.replace("▸", "").strip()
+            if sec_name and sec_name not in sections:
                 sections[sec_name] = []
                 sec_order.append(sec_name)
             continue
 
-        # Dish row: col A = section name it belongs to
-        dish_num  = ws_ev.cell(row=r, column=2).value
         dish_name = v(ws_ev, r, 3)
         if not dish_name:
             continue
 
-        dish_desc = v(ws_ev, r, 4)
-        p_lbl1    = v(ws_ev, r, 5)
-        p_amt1    = v(ws_ev, r, 6)
-        p_lbl2    = v(ws_ev, r, 7)
-        p_amt2    = v(ws_ev, r, 8)
-
         prices = []
-        if p_amt1:
-            prices.append({"label": p_lbl1, "amount": p_amt1})
-        if p_amt2:
-            prices.append({"label": p_lbl2, "amount": p_amt2})
+        if v(ws_ev, r, 6):
+            prices.append({"label": v(ws_ev, r, 5), "amount": v(ws_ev, r, 6)})
+        if v(ws_ev, r, 8):
+            prices.append({"label": v(ws_ev, r, 7), "amount": v(ws_ev, r, 8)})
         if not prices:
             prices = [{"label": "", "amount": ""}]
 
-        dish = {"icon": "", "name": dish_name, "desc": dish_desc, "prices": prices}
+        dish = {"icon": "", "name": dish_name, "desc": v(ws_ev, r, 4), "prices": prices}
 
-        # Add to the section this dish belongs to (col A name matches sec_order)
-        if col_a_str in sections:
-            sections[col_a_str].append(dish)
+        if col_a in sections:
+            sections[col_a].append(dish)
         elif sec_order:
             sections[sec_order[-1]].append(dish)
 
-    section_list = [
-        {"name": sname, "style": "green", "dishes": sections[sname]}
-        for sname in sec_order
-    ]
-
     events[key] = {
-        "title":    block["title"],
-        "subtitle": block["subtitle"],
+        "title":    title,
+        "subtitle": subtitle,
+        "emoji":    emoji,
         "order_by": order_by,
         "active":   active,
-        "sections": section_list,
+        "sections": [
+            {"name": name, "style": "green", "dishes": sections[name]} for name in sec_order
+        ],
     }
 
 # ── 5. Assemble & Write ───────────────────────────────────────────────────────

@@ -122,6 +122,7 @@
     "ganpati": {
       "title": "Ganpati",
       "subtitle": "Special Festival Menu",
+      "emoji": "🐘",
       "order_by": "10 September",
       "active": true,
       "sections": [
@@ -504,6 +505,7 @@
     "diwali": {
       "title": "Diwali",
       "subtitle": "Festival of Lights Menu",
+      "emoji": "🪔",
       "order_by": "",
       "active": false,
       "sections": []
@@ -511,13 +513,15 @@
     "holi": {
       "title": "Holi",
       "subtitle": "Festival of Colors Menu",
+      "emoji": "🌸",
       "order_by": "",
       "active": false,
       "sections": []
     },
-    "custom": {
+    "custom_event": {
       "title": "Custom Event",
       "subtitle": "Birthday · Anniversary · Puja · Gathering",
+      "emoji": "🎉",
       "order_by": "",
       "active": true,
       "sections": []
