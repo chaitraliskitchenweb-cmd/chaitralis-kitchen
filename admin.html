@@ -3,608 +3,436 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chaitrali's Kitchen – Admin</title>
+<title>Admin — Chaitrali's Kitchen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap">
 <style>
-:root {
-  --olive: #6b820d; --olive-d: #556809; --navy: #1A2B4A; --gold: #D4A24C;
-  --bg: #f7f5f0; --card: #ffffff; --border: #e2ddd4; --text: #2c2c2c;
-  --muted: #6b6560; --red: #c0392b; --tag-bg: #eef2e0;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
-
-/* ── LOGIN ── */
-#login-screen { display:flex; align-items:center; justify-content:center; min-height:100vh; }
-.login-box { background:var(--card); border-radius:16px; padding:40px 36px; width:360px; box-shadow:0 4px 24px rgba(0,0,0,.12); text-align:center; }
-.login-box h1 { color:var(--navy); font-size:1.4rem; margin-bottom:4px; }
-.login-box p { color:var(--muted); font-size:.85rem; margin-bottom:24px; }
-.login-box input { width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.95rem; margin-bottom:12px; outline:none; }
-.login-box input:focus { border-color:var(--olive); }
-.login-box button { width:100%; padding:11px; background:var(--olive); color:#fff; border:none; border-radius:8px; font-family:inherit; font-size:1rem; font-weight:600; cursor:pointer; }
-.login-box button:hover { background:var(--olive-d); }
-#login-err { color:var(--red); font-size:.8rem; margin-top:8px; min-height:18px; }
-
-/* ── TOPBAR ── */
-#app { display:none; }
-.topbar { background:var(--navy); color:#fff; padding:0 20px; display:flex; align-items:center; gap:12px; height:56px; position:sticky; top:0; z-index:100; }
-.topbar .brand { font-weight:700; font-size:1rem; flex:1; }
-.topbar .brand span { color:var(--gold); }
-.btn { padding:8px 16px; border-radius:8px; border:none; font-family:inherit; font-size:.85rem; font-weight:600; cursor:pointer; }
-.btn-olive { background:var(--olive); color:#fff; }
-.btn-olive:hover { background:var(--olive-d); }
-.btn-gold { background:var(--gold); color:var(--navy); }
-.btn-gold:hover { background:#c4912a; }
-.btn-ghost { background:transparent; color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.3); }
-.btn-ghost:hover { color:#fff; border-color:#fff; }
-
-/* ── MAIN TABS ── */
-.main-tabs { display:flex; gap:0; border-bottom:2px solid var(--border); background:var(--card); padding:0 20px; }
-.main-tab { padding:14px 20px; font-weight:600; font-size:.9rem; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-2px; }
-.main-tab.active { color:var(--olive); border-bottom-color:var(--olive); }
-
-.tab-content { display:none; padding:24px 20px; max-width:980px; margin:0 auto; }
-.tab-content.active { display:block; }
-
-/* ── WEEK TABS ── */
-.week-tabs { display:flex; gap:8px; margin-bottom:20px; }
-.week-tab { padding:8px 18px; border-radius:20px; font-size:.85rem; font-weight:600; background:var(--border); color:var(--muted); cursor:pointer; border:none; font-family:inherit; }
-.week-tab.active { background:var(--olive); color:#fff; }
-
-/* ── CARDS ── */
-.card { background:var(--card); border-radius:12px; border:1px solid var(--border); padding:20px; margin-bottom:16px; }
-.card-title { font-size:.95rem; font-weight:700; color:var(--navy); margin-bottom:14px; display:flex; justify-content:space-between; align-items:center; }
-.field-row { display:flex; gap:10px; align-items:center; margin-bottom:12px; flex-wrap:wrap; }
-.field-row label { font-size:.8rem; font-weight:600; color:var(--muted); min-width:90px; }
-.field-row input, .field-row select, .field-row textarea { flex:1; padding:8px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9rem; outline:none; min-width:160px; }
-.field-row input:focus, .field-row select:focus, .field-row textarea:focus { border-color:var(--olive); }
-textarea { resize:vertical; min-height:60px; }
-
-/* ── DISH LIST ── */
-.dish-list { display:flex; flex-direction:column; gap:8px; }
-.dish-item { display:grid; grid-template-columns:1fr 1fr 140px 32px; gap:8px; align-items:center; background:var(--tag-bg); border-radius:8px; padding:10px 12px; }
-.dish-item input, .dish-item select { border:1.5px solid var(--border); border-radius:6px; padding:6px 10px; font-family:inherit; font-size:.85rem; outline:none; width:100%; }
-.dish-item input:focus, .dish-item select:focus { border-color:var(--olive); }
-.dish-item .rm-btn { background:none; border:none; color:var(--red); font-size:1.1rem; cursor:pointer; padding:4px; border-radius:4px; }
-.dish-item .rm-btn:hover { background:#fdecea; }
-.add-dish-btn { margin-top:10px; padding:8px 16px; border:2px dashed var(--olive); background:none; color:var(--olive); border-radius:8px; font-family:inherit; font-size:.85rem; font-weight:600; cursor:pointer; width:100%; }
-.add-dish-btn:hover { background:var(--tag-bg); }
-.dish-header { display:grid; grid-template-columns:1fr 1fr 140px 32px; gap:8px; font-size:.75rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; padding:0 12px; margin-bottom:2px; }
-
-/* ── EVENT SECTION ── */
-.event-meta-card { background:var(--card); border-radius:12px; border:1px solid var(--border); padding:16px 20px; margin-bottom:14px; display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
-.event-meta-card label { font-size:.8rem; font-weight:600; color:var(--muted); }
-.event-meta-card input { padding:7px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9rem; outline:none; }
-.event-meta-card input:focus { border-color:var(--olive); }
-.active-toggle { display:flex; align-items:center; gap:8px; }
-.active-toggle input[type=checkbox] { width:18px; height:18px; accent-color:var(--olive); cursor:pointer; }
-
-.section-block { background:var(--card); border:1px solid var(--border); border-radius:12px; margin-bottom:12px; overflow:hidden; }
-.section-head { display:flex; align-items:center; gap:10px; padding:12px 16px; background:#f0ede8; cursor:pointer; user-select:none; }
-.section-head .chevron { font-size:.9rem; transition:transform .2s; }
-.section-head.open .chevron { transform:rotate(180deg); }
-.section-head input.sec-name { flex:1; border:none; background:transparent; font-family:inherit; font-size:.9rem; font-weight:600; outline:none; color:var(--navy); }
-.section-head select.sec-style { padding:4px 8px; border:1.5px solid var(--border); border-radius:6px; font-family:inherit; font-size:.8rem; background:var(--card); outline:none; }
-.section-head .rm-sec { background:none; border:none; color:var(--red); font-size:1rem; cursor:pointer; padding:4px 6px; border-radius:4px; }
-.section-head .rm-sec:hover { background:#fdecea; }
-.section-body { display:none; padding:14px 16px; border-top:1px solid var(--border); }
-.section-body.open { display:block; }
-
-/* Event dish rows */
-.ev-dish-item { background:var(--tag-bg); border-radius:8px; padding:10px 12px; margin-bottom:8px; }
-.ev-dish-top { display:grid; grid-template-columns:52px 1fr 1fr 32px; gap:8px; align-items:center; margin-bottom:6px; }
-.ev-dish-top input { border:1.5px solid var(--border); border-radius:6px; padding:6px 10px; font-family:inherit; font-size:.85rem; outline:none; width:100%; }
-.ev-dish-top input:focus { border-color:var(--olive); }
-.ev-dish-prices { display:flex; flex-direction:column; gap:4px; margin-left:60px; }
-.price-row { display:grid; grid-template-columns:1fr 1fr 28px; gap:6px; align-items:center; }
-.price-row input { border:1.5px solid var(--border); border-radius:6px; padding:5px 10px; font-family:inherit; font-size:.82rem; outline:none; width:100%; }
-.price-row input:focus { border-color:var(--gold); }
-.price-row .rm-price { background:none; border:none; color:#aaa; font-size:.9rem; cursor:pointer; }
-.price-row .rm-price:hover { color:var(--red); }
-.add-price-btn { background:none; border:1px dashed var(--gold); color:var(--gold); border-radius:6px; padding:4px 10px; font-family:inherit; font-size:.78rem; font-weight:600; cursor:pointer; margin-top:4px; }
-.add-price-btn:hover { background:#fdf8ee; }
-.add-ev-dish-btn { margin-top:10px; padding:7px 14px; border:2px dashed var(--olive); background:none; color:var(--olive); border-radius:8px; font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer; width:100%; }
-.add-ev-dish-btn:hover { background:var(--tag-bg); }
-
-.add-section-btn { display:block; width:100%; padding:10px; border:2px dashed var(--gold); background:none; color:var(--gold); border-radius:10px; font-family:inherit; font-size:.88rem; font-weight:600; cursor:pointer; margin-top:4px; }
-.add-section-btn:hover { background:#fdf8ee; }
-
-/* ── SETTINGS ── */
-.settings-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.settings-field { display:flex; flex-direction:column; gap:5px; }
-.settings-field label { font-size:.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
-.settings-field input, .settings-field textarea { padding:9px 12px; border:1.5px solid var(--border); border-radius:8px; font-family:inherit; font-size:.9rem; outline:none; }
-.settings-field input:focus, .settings-field textarea:focus { border-color:var(--olive); }
-.settings-field.full { grid-column:1/-1; }
-
-/* ── CAROUSEL ── */
-.carousel-intro { font-size:.85rem; color:var(--muted); line-height:1.6; background:#f0ede8; border-radius:10px; padding:14px 16px; margin-bottom:16px; }
-.carousel-intro strong { color:var(--navy); }
-.cr-item { display:grid; grid-template-columns:1fr 1fr 32px; gap:8px; align-items:center; background:var(--tag-bg); border-radius:8px; padding:10px 12px; }
-.cr-item input { border:1.5px solid var(--border); border-radius:6px; padding:6px 10px; font-family:inherit; font-size:.85rem; outline:none; width:100%; }
-.cr-item input:focus { border-color:var(--olive); }
-.cr-item .rm-btn { background:none; border:none; color:var(--red); font-size:1.1rem; cursor:pointer; padding:4px; border-radius:4px; }
-.cr-item .rm-btn:hover { background:#fdecea; }
-.cr-header { display:grid; grid-template-columns:1fr 1fr 32px; gap:8px; font-size:.75rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; padding:0 12px; margin-bottom:4px; }
-.cr-list { display:flex; flex-direction:column; gap:8px; }
-
-/* ── TOAST ── */
-.toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px); background:var(--navy); color:#fff; padding:10px 22px; border-radius:24px; font-size:.88rem; font-weight:600; opacity:0; transition:all .3s; pointer-events:none; z-index:999; }
-.toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
-
-@media(max-width:640px){
-  .dish-item { grid-template-columns:1fr 1fr; }
-  .dish-item select { grid-column:1; } .dish-item .rm-btn { grid-column:2; justify-self:end; }
-  .dish-header { display:none; }
-  .settings-grid { grid-template-columns:1fr; }
-  .ev-dish-top { grid-template-columns:44px 1fr 32px; }
-  .ev-dish-top input:nth-child(3) { grid-column:1/-1; }
-}
+:root{--olive:#6b820d;--olive-dk:#556810;--navy:#1A2B4A;--gold:#D4A24C;
+  --bg:#f5f5f0;--fg:#1a1a1a;--muted:#666;--card:#fff;--border:#ddd;
+  --danger:#c0392b;--success:#2e7d32;--chip-bg:#f0f4e8;--chip-border:#c5d07a}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111;--fg:#e8e8e0;--muted:#aaa;--card:#1c1c1e;--border:#333;
+  --chip-bg:#1e2a0a;--chip-border:#4a6008;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111;--fg:#e8e8e0;--muted:#aaa;--card:#1c1c1e;
+  --border:#333;--chip-bg:#1e2a0a;--chip-border:#4a6008;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;padding-bottom:72px}
+.ck-nav{background:var(--navy);color:#fff;display:flex;align-items:center;
+  justify-content:space-between;padding:0 1.2rem;height:56px;position:sticky;top:0;z-index:100}
+.ck-nav .brand{font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;color:#fff;font-style:italic}
+.ck-nav .badge{background:var(--gold);color:#1a1a1a;font-size:.68rem;font-weight:600;
+  padding:.15rem .5rem;border-radius:20px;letter-spacing:.05em}
+.btn{display:inline-flex;align-items:center;gap:.35rem;font-family:'Poppins',sans-serif;
+  font-size:.82rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;
+  padding:.42rem .9rem;transition:.15s}
+.btn-primary{background:var(--olive);color:#fff}
+.btn-primary:hover{background:var(--olive-dk)}
+.btn-outline{background:transparent;color:var(--fg);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--olive);color:var(--olive)}
+.btn-sm{font-size:.75rem;padding:.3rem .65rem}
+.btn-ghost{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:.82rem;padding:.2rem .4rem}
+.btn-ghost:hover{color:var(--danger)}
+.page{max-width:960px;margin:0 auto;padding:1.5rem 1rem}
+.page-title{font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;color:var(--navy);margin-bottom:.25rem}
+.page-sub{color:var(--muted);font-size:.83rem;margin-bottom:1.6rem}
+.tabs{display:flex;gap:.3rem;border-bottom:2px solid var(--border);margin-bottom:1.6rem;overflow-x:auto}
+.tab{font-size:.84rem;font-weight:600;padding:.55rem 1rem;border:none;background:none;
+  color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;
+  white-space:nowrap;font-family:'Poppins',sans-serif;transition:.15s}
+.tab.active{color:var(--olive);border-bottom-color:var(--olive)}
+.section{margin-bottom:1.6rem}
+.section-head{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--olive);margin-bottom:.75rem;padding-bottom:.3rem;border-bottom:1px solid var(--chip-border)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:.8rem}
+.field{margin-bottom:.7rem}
+.field label{display:block;font-size:.73rem;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:.28rem}
+.field input,.field textarea,.field select{width:100%;font-family:'Poppins',sans-serif;font-size:.88rem;
+  color:var(--fg);background:var(--bg);border:1.5px solid var(--border);border-radius:8px;
+  padding:.45rem .7rem;transition:.15s;outline:none}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--olive)}
+.field textarea{resize:vertical;min-height:64px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.75rem}
+@media(max-width:600px){.row2,.row3{grid-template-columns:1fr}}
+.dish-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-bottom:.6rem}
+.dish-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.dish-name-label{font-weight:600;font-size:.88rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dish-fields{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media(max-width:500px){.dish-fields{grid-template-columns:1fr}}
+.tag-select{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.4rem}
+.tag-opt{font-size:.72rem;font-weight:600;padding:.18rem .5rem;border-radius:20px;
+  border:1.5px solid var(--border);cursor:pointer;background:var(--card);color:var(--muted);transition:.12s}
+.tag-opt.sel{background:var(--chip-bg);border-color:var(--chip-border);color:var(--olive-dk)}
+.price-row{display:flex;gap:.45rem;align-items:center;margin-bottom:.4rem}
+.price-row input{flex:1;font-family:'Poppins',sans-serif;font-size:.83rem;color:var(--fg);
+  background:var(--bg);border:1.5px solid var(--border);border-radius:7px;padding:.38rem .6rem;outline:none}
+.price-row input:focus{border-color:var(--olive)}
+.price-lbl{font-size:.7rem;color:var(--muted);white-space:nowrap}
+.ev-sec-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;margin-bottom:.8rem}
+.ev-sec-head{display:flex;align-items:center;justify-content:space-between;
+  padding:.65rem 1rem;background:var(--chip-bg);border-radius:12px 12px 0 0;border-bottom:1px solid var(--chip-border)}
+.ev-sec-body{padding:.8rem 1rem}
+.add-btn{display:flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:600;
+  color:var(--olive);background:var(--chip-bg);border:1.5px dashed var(--chip-border);
+  border-radius:8px;padding:.4rem .9rem;cursor:pointer;transition:.15s;width:100%;justify-content:center}
+.add-btn:hover{background:#deeaa0}
+.toggle-row{display:flex;align-items:center;gap:.55rem}
+.toggle{position:relative;width:38px;height:22px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.slider{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--border);
+  border-radius:22px;cursor:pointer;transition:.2s}
+.slider:before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;
+  background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.slider{background:var(--olive)}
+.toggle input:checked+.slider:before{transform:translateX(16px)}
+.status-bar{position:fixed;bottom:0;left:0;right:0;padding:.65rem 1.2rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  background:var(--card);border-top:1px solid var(--border);z-index:200}
+.status-msg{font-size:.8rem;color:var(--muted)}
+.status-msg.ok{color:var(--success)}
+.status-msg.err{color:var(--danger)}
+.toast{position:fixed;bottom:68px;right:1.2rem;background:var(--navy);color:#fff;
+  border-radius:10px;padding:.55rem 1rem;font-size:.82rem;font-weight:500;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);z-index:300;transform:translateY(16px);
+  opacity:0;transition:.22s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.inline-input{width:100%;font-family:'Poppins',sans-serif;font-size:.85rem;color:var(--fg);
+  background:var(--bg);border:1.5px solid var(--border);border-radius:7px;
+  padding:.38rem .6rem;outline:none;transition:.15s}
+.inline-input:focus{border-color:var(--olive)}
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
-<div id="login-screen">
-  <div class="login-box">
-    <h1>🌿 Chaitrali's Kitchen</h1>
-    <p>Menu Admin · Sign in to continue</p>
-    <input type="password" id="pwd-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-    <button onclick="doLogin()">Sign In</button>
-    <div id="login-err"></div>
+<nav class="ck-nav">
+  <div style="display:flex;align-items:center;gap:.7rem">
+    <span class="brand">Chaitrali's Kitchen</span>
+    <span class="badge">Admin</span>
   </div>
+  <div style="display:flex;gap:.5rem">
+    <button class="btn btn-outline btn-sm" onclick="loadFromFile()">📂 Load JSON</button>
+    <button class="btn btn-primary btn-sm" onclick="downloadJSON()">⬇ Save menu.json</button>
+  </div>
+</nav>
+
+<div class="page">
+  <div class="page-title">Menu Manager</div>
+  <p class="page-sub">Edit tiffin weeks, event dishes &amp; settings · when done click <strong>Save menu.json</strong>, then replace <code>data/menu.json</code> in your repo and push.</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('tiffin',this)">🍱 Weekly Tiffin</button>
+    <button class="tab" onclick="switchTab('events',this)">🎉 Events</button>
+    <button class="tab" onclick="switchTab('settings',this)">⚙️ Settings</button>
+  </div>
+
+  <div id="tab-tiffin"></div>
+  <div id="tab-events" style="display:none"></div>
+  <div id="tab-settings" style="display:none"></div>
 </div>
 
-<!-- APP -->
-<div id="app">
-  <div class="topbar">
-    <div class="brand">🌿 <span>Chaitrali's</span> Kitchen Admin</div>
-    <button class="btn btn-olive" onclick="saveDraft()">💾 Save Draft</button>
-    <button class="btn btn-gold" onclick="downloadJson()">⬇ Download menu.json</button>
-    <button class="btn btn-ghost" onclick="signOut()">Sign Out</button>
-  </div>
-
-  <div class="main-tabs">
-    <div class="main-tab active" onclick="switchMain('tiffin',this)">📅 Weekly Tiffin</div>
-    <div class="main-tab" onclick="switchMain('events',this)">🎉 Events &amp; Seasonal</div>
-    <div class="main-tab" onclick="switchMain('carousel',this)">🖼️ Carousel Images</div>
-    <div class="main-tab" onclick="switchMain('settings',this)">⚙️ Settings</div>
-  </div>
-
-  <!-- ══ TIFFIN TAB ══ -->
-  <div id="tab-tiffin" class="tab-content active">
-    <div class="week-tabs">
-      <button class="week-tab active" onclick="switchWeek('last_week',this)">⬅ Last Week</button>
-      <button class="week-tab" onclick="switchWeek('this_week',this)">This Week ✨</button>
-      <button class="week-tab" onclick="switchWeek('next_week',this)">Next Week ➡</button>
-    </div>
-    <div id="week-last_week" class="week-panel">
-      <div class="card">
-        <div class="card-title">Last Week</div>
-        <div class="field-row"><label>Dates</label><input type="text" id="lw-dates" placeholder="e.g. Oct 1 – Oct 6, 2026"></div>
-        <div class="dish-header"><span>Dish Name</span><span>Description</span><span>Category</span><span></span></div>
-        <div class="dish-list" id="dishes-last_week"></div>
-        <button class="add-dish-btn" onclick="addDish('last_week')">+ Add Dish</button>
-      </div>
-    </div>
-    <div id="week-this_week" class="week-panel" style="display:none">
-      <div class="card">
-        <div class="card-title">This Week</div>
-        <div class="field-row"><label>Dates</label><input type="text" id="tw-dates" placeholder="e.g. Oct 7 – Oct 12, 2026"></div>
-        <div class="dish-header"><span>Dish Name</span><span>Description</span><span>Category</span><span></span></div>
-        <div class="dish-list" id="dishes-this_week"></div>
-        <button class="add-dish-btn" onclick="addDish('this_week')">+ Add Dish</button>
-      </div>
-    </div>
-    <div id="week-next_week" class="week-panel" style="display:none">
-      <div class="card">
-        <div class="card-title">Next Week</div>
-        <div class="field-row"><label>Dates</label><input type="text" id="nw-dates" placeholder="e.g. Oct 14 – Oct 19, 2026"></div>
-        <div class="dish-header"><span>Dish Name</span><span>Description</span><span>Category</span><span></span></div>
-        <div class="dish-list" id="dishes-next_week"></div>
-        <button class="add-dish-btn" onclick="addDish('next_week')">+ Add Dish</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ EVENTS TAB ══ -->
-  <div id="tab-events" class="tab-content">
-    <div class="week-tabs">
-      <button class="week-tab active" onclick="switchEvent('ganpati',this)">🐘 Ganpati</button>
-      <button class="week-tab" onclick="switchEvent('diwali',this)">🪔 Diwali</button>
-      <button class="week-tab" onclick="switchEvent('holi',this)">🌸 Holi</button>
-      <button class="week-tab" onclick="switchEvent('custom',this)">🎉 Custom</button>
-    </div>
-    <div id="ev-ganpati" class="ev-panel"></div>
-    <div id="ev-diwali" class="ev-panel" style="display:none"></div>
-    <div id="ev-holi" class="ev-panel" style="display:none"></div>
-    <div id="ev-custom" class="ev-panel" style="display:none"></div>
-  </div>
-
-  <!-- ══ CAROUSEL TAB ══ -->
-  <div id="tab-carousel" class="tab-content">
-    <div class="carousel-intro">
-      <strong>How this works:</strong> Each row below is one dish circle shown in the scrolling strip on the homepage.
-      <br>• <strong>Filename</strong> — exact filename of the image inside the <code>images/carousel/</code> folder (e.g. <code>Poha.jpg</code>).
-      <br>• <strong>Dish Name</strong> — label shown under the circle.
-      <br>After editing, click <em>Download menu.json</em> and push the file to GitHub. To add a new image, also upload the photo to <code>images/carousel/</code> in GitHub.
-    </div>
-    <div class="card">
-      <div class="card-title">Carousel Items <span style="font-size:.8rem;font-weight:400;color:var(--muted)">(drag to reorder — or use Remove &amp; Add)</span></div>
-      <div class="cr-header"><span>Image Filename</span><span>Dish Name</span><span></span></div>
-      <div class="cr-list" id="carousel-list"></div>
-      <button class="add-dish-btn" onclick="addCarouselItem()">+ Add Image</button>
-    </div>
-  </div>
-
-  <!-- ══ SETTINGS TAB ══ -->
-  <div id="tab-settings" class="tab-content">
-    <div class="card">
-      <div class="card-title">Business Settings</div>
-      <div class="settings-grid">
-        <div class="settings-field"><label>Business Name</label><input type="text" id="s-business_name"></div>
-        <div class="settings-field"><label>Tagline</label><input type="text" id="s-tagline"></div>
-        <div class="settings-field"><label>Phone</label><input type="text" id="s-phone"></div>
-        <div class="settings-field"><label>WhatsApp Number</label><input type="text" id="s-phone_whatsapp" placeholder="16173205229"></div>
-        <div class="settings-field"><label>Email</label><input type="text" id="s-email"></div>
-        <div class="settings-field"><label>Location</label><input type="text" id="s-location"></div>
-        <div class="settings-field"><label>Tiffin Days</label><input type="text" id="s-tiffin_days" placeholder="Mon – Sat"></div>
-        <div class="settings-field"><label>Order Cutoff</label><input type="text" id="s-order_cutoff" placeholder="Sunday 9 PM"></div>
-        <div class="settings-field"><label>Zelle (payment)</label><input type="text" id="s-payment_zelle"></div>
-        <div class="settings-field"><label>Venmo (payment)</label><input type="text" id="s-payment_venmo"></div>
-        <div class="settings-field full"><label>Allergy Note</label><textarea id="s-allergy_note" rows="3"></textarea></div>
-      </div>
-    </div>
+<div class="status-bar">
+  <span class="status-msg" id="status-msg">Ready · click Load JSON to open your menu.json</span>
+  <div style="display:flex;gap:.5rem">
+    <button class="btn btn-outline btn-sm" onclick="loadFromFile()">📂 Load JSON</button>
+    <button class="btn btn-primary btn-sm" onclick="downloadJSON()">⬇ Save menu.json</button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
+<input type="file" id="file-input" accept=".json" style="display:none" onchange="onFileChosen(event)">
 
 <script>
-// ── CONFIG ──
-const PASSWORD = 'chaitrali2024';
-const STORAGE_KEY = 'ck_admin_draft_v3';
+var data=null;
+var TAGS=[{k:'spicy',l:'Spicy · Gravy'},{k:'rassa',l:'Rassa'},{k:'usal',l:'Usal'},
+  {k:'dry',l:'Dry Sabzi'},{k:'dal',l:'Dal'},{k:'rice',l:'Rice'},
+  {k:'snack',l:'Snack'},{k:'special',l:'Festival Special'},{k:'chutney',l:'Chutney'}];
+var WEEK_ORDER=['this_week','next_week','last_week'];
+var WEEK_LABELS={last_week:'Last Week',this_week:'This Week ✦',next_week:'Next Week'};
+var EVENT_KEYS=['ganpati','diwali','holi','custom'];
+var SECTION_STYLES=['green','maroon','gold','blue'];
 
-const TAG_OPTIONS = [
-  {val:'gravy',label:'Gravy'},{val:'rassa',label:'Rassa'},{val:'dry',label:'Dry Sabzi'},
-  {val:'dal',label:'Dal'},{val:'usal',label:'Usal'},{val:'spicy',label:'Spicy · Gravy'},
-  {val:'rice',label:'Rice'},{val:'special',label:'Festival Special'},{val:'snack',label:'Snack'}
-];
-const TAG_LABELS = Object.fromEntries(TAG_OPTIONS.map(t=>[t.val,t.label]));
-
-const EVENTS_CONFIG = {
-  ganpati: {emoji:'🐘', title:'Ganpati'},
-  diwali:  {emoji:'🪔', title:'Diwali'},
-  holi:    {emoji:'🌸', title:'Holi'},
-  custom:  {emoji:'🎉', title:'Custom Event'}
-};
-
-let menu = null;
-
-// ── AUTH ──
-function doLogin(){
-  const v = document.getElementById('pwd-input').value;
-  const err = document.getElementById('login-err');
-  if(v === PASSWORD){
-    document.getElementById('login-screen').style.display='none';
-    document.getElementById('app').style.display='block';
-    loadMenu();
-  } else {
-    err.textContent = 'Incorrect password. Try again.';
-    setTimeout(()=>err.textContent='',3000);
+// Auto-load
+(async function boot(){
+  for(var p of['data/menu.json','../data/menu.json']){
+    try{var r=await fetch(p);if(r.ok){data=await r.json();render();setStatus('Auto-loaded · '+p,'ok');return;}}catch(e){}
   }
-}
-function signOut(){
-  document.getElementById('app').style.display='none';
-  document.getElementById('login-screen').style.display='flex';
-  document.getElementById('pwd-input').value='';
-}
+  setStatus('Click Load JSON to open your data/menu.json','');
+})();
 
-// ── TAB SWITCHING ──
-function switchMain(id, el){
-  document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('tab-'+id).classList.add('active');
-}
-function switchWeek(wk, el){
-  document.querySelectorAll('#tab-tiffin .week-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.week-panel').forEach(p=>p.style.display='none');
-  el.classList.add('active');
-  document.getElementById('week-'+wk).style.display='block';
-}
-function switchEvent(ek, el){
-  document.querySelectorAll('#tab-events .week-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.ev-panel').forEach(p=>p.style.display='none');
-  el.classList.add('active');
-  document.getElementById('ev-'+ek).style.display='block';
+// TAB SWITCH
+function switchTab(name,btn){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  btn.classList.add('active');
+  ['tiffin','events','settings'].forEach(function(t){
+    document.getElementById('tab-'+t).style.display=t===name?'':'none';
+  });
 }
 
-// ── TIFFIN ──
-function makeDishItem(d){
-  const opts = TAG_OPTIONS.map(o=>`<option value="${o.val}"${d&&d.tag===o.val?' selected':''}>${o.label}</option>`).join('');
-  const el = document.createElement('div');
-  el.className='dish-item';
-  el.innerHTML=`
-    <input type="text" class="d-name" placeholder="Dish name" value="${escA(d?.name||'')}">
-    <input type="text" class="d-desc" placeholder="Description (Marathi/English)" value="${escA(d?.desc||'')}">
-    <select class="d-tag">${opts}</select>
-    <button class="rm-btn" onclick="removeDish(this)" title="Remove">✕</button>`;
-  return el;
-}
-function addDish(wk){ document.getElementById('dishes-'+wk).appendChild(makeDishItem(null)); }
-function removeDish(btn){ btn.closest('.dish-item').remove(); }
+function render(){if(!data)return;renderTiffin();renderEvents();renderSettings();}
 
-function loadTiffinWeek(wk, data){
-  const prefixMap = {last_week:'lw',this_week:'tw',next_week:'nw'};
-  const pre = prefixMap[wk];
-  document.getElementById(pre+'-dates').value = data.dates||'';
-  const list = document.getElementById('dishes-'+wk);
-  list.innerHTML='';
-  (data.dishes||[]).forEach(d=>list.appendChild(makeDishItem(d)));
+// ── TIFFIN ──────────────────────────────────────────────────────────
+function renderTiffin(){
+  var el=document.getElementById('tab-tiffin');el.innerHTML='';
+  WEEK_ORDER.forEach(function(wk){
+    var week=data.tiffin&&data.tiffin[wk]?data.tiffin[wk]:{dates:'',dishes:[]};
+    el.appendChild(buildWeekBlock(wk,week));
+  });
 }
 
-function collectTiffinWeek(wk){
-  const prefixMap = {last_week:'lw',this_week:'tw',next_week:'nw'};
-  const pre = prefixMap[wk];
-  const dates = document.getElementById(pre+'-dates').value;
-  const dishes = [...document.querySelectorAll('#dishes-'+wk+' .dish-item')].map(el=>({
-    name: el.querySelector('.d-name').value.trim(),
-    desc: el.querySelector('.d-desc').value.trim(),
-    tag:  el.querySelector('.d-tag').value,
-    tag_label: TAG_LABELS[el.querySelector('.d-tag').value]||''
-  }));
-  return {dates, dishes};
+function buildWeekBlock(wk,week){
+  var wrap=document.createElement('div');wrap.className='section';
+  var hd=document.createElement('div');hd.className='section-head';hd.textContent=WEEK_LABELS[wk]||wk;
+  wrap.appendChild(hd);
+  var card=document.createElement('div');card.className='card';
+  var datesDiv=document.createElement('div');datesDiv.className='field';
+  datesDiv.innerHTML='<label>Date Range</label><input type="text" placeholder="e.g. Oct 7 – Oct 12, 2026" class="inline-input" value="'+esc(week.dates||'')+'">';
+  datesDiv.querySelector('input').addEventListener('input',function(){setPath('tiffin.'+wk+'.dates',this.value);});
+  card.appendChild(datesDiv);
+  var dhd=document.createElement('div');dhd.className='section-head';dhd.style.marginTop='.3rem';dhd.textContent='Dishes';
+  card.appendChild(dhd);
+  var dbox=document.createElement('div');dbox.id='dishes-'+wk;
+  (week.dishes||[]).forEach(function(d,i){dbox.appendChild(buildDishRow(wk,i,d));});
+  card.appendChild(dbox);
+  var ab=document.createElement('button');ab.className='add-btn';ab.textContent='+ Add Dish';
+  ab.onclick=function(){
+    if(!data.tiffin)data.tiffin={};
+    if(!data.tiffin[wk])data.tiffin[wk]={dates:'',dishes:[]};
+    var i=data.tiffin[wk].dishes.length;
+    data.tiffin[wk].dishes.push({name:'',desc:'',tag:'dry',tag_label:'Dry Sabzi'});
+    dbox.insertBefore(buildDishRow(wk,i,data.tiffin[wk].dishes[i]),ab);
+    markDirty();
+  };
+  card.appendChild(ab);
+  wrap.appendChild(card);
+  return wrap;
 }
 
-// ── EVENTS ──
-function buildEventPanel(ek, ev){
-  const cfg = EVENTS_CONFIG[ek];
-  const panel = document.getElementById('ev-'+ek);
-  panel.innerHTML='';
-
-  // Meta card
-  const meta = document.createElement('div');
-  meta.className='event-meta-card';
-  meta.innerHTML=`
-    <div style="font-weight:700;font-size:1rem;color:var(--navy)">${cfg.emoji} ${ev.title||cfg.title}</div>
-    <div style="flex:1"></div>
-    <label>Order By:</label>
-    <input type="text" class="ev-order_by" placeholder="e.g. 10 September" value="${escA(ev.order_by||'')}">
-    <div class="active-toggle">
-      <input type="checkbox" class="ev-active" id="active-${ek}" ${ev.active?'checked':''}>
-      <label for="active-${ek}" style="cursor:pointer;font-weight:600;color:var(--olive)">Active / Visible</label>
-    </div>`;
-  panel.appendChild(meta);
-
-  // Sections
-  const sectionsWrap = document.createElement('div');
-  sectionsWrap.className='ev-sections';
-  panel.appendChild(sectionsWrap);
-  (ev.sections||[]).forEach((sec,si)=>sectionsWrap.appendChild(makeSection(ek,si,sec)));
-
-  const addBtn = document.createElement('button');
-  addBtn.className='add-section-btn';
-  addBtn.textContent='+ Add Menu Section';
-  addBtn.onclick=()=>{ sectionsWrap.appendChild(makeSection(ek,sectionsWrap.children.length,null)); addBtn.remove(); sectionsWrap.closest('.ev-panel').querySelector('.add-section-btn')||panel.appendChild(addBtn); };
-  // re-add after sections
-  panel.appendChild(addBtn);
+function buildDishRow(wk,idx,dish){
+  var div=document.createElement('div');div.className='dish-card';
+  var head=document.createElement('div');head.className='dish-head';
+  var nm=document.createElement('span');nm.className='dish-name-label';nm.textContent=dish.name||'New dish';
+  var rm=document.createElement('button');rm.className='btn btn-ghost btn-sm';rm.textContent='✕';
+  rm.onclick=function(){data.tiffin[wk].dishes.splice(idx,1);renderTiffin();markDirty();};
+  head.appendChild(nm);head.appendChild(rm);
+  div.appendChild(head);
+  var df=document.createElement('div');df.className='dish-fields';
+  df.appendChild(field('Dish Name',dish.name||'',function(v){dish.name=v;nm.textContent=v||'New dish';markDirty();}));
+  df.appendChild(field('Description',dish.desc||'',function(v){dish.desc=v;markDirty();}));
+  div.appendChild(df);
+  var tf=document.createElement('div');tf.className='field';
+  var tl=document.createElement('label');tl.textContent='Tag';tf.appendChild(tl);
+  var ts=document.createElement('div');ts.className='tag-select';
+  TAGS.forEach(function(t){
+    var s=document.createElement('span');s.className='tag-opt'+(dish.tag===t.k?' sel':'');
+    s.textContent=t.l;
+    s.onclick=function(){ts.querySelectorAll('.tag-opt').forEach(function(x){x.classList.remove('sel')});
+      s.classList.add('sel');dish.tag=t.k;dish.tag_label=t.l;markDirty();};
+    ts.appendChild(s);
+  });
+  tf.appendChild(ts);div.appendChild(tf);
+  return div;
 }
 
-function makeSection(ek, si, sec){
-  const block = document.createElement('div');
-  block.className='section-block';
-  const styleOpts = ['green','maroon','gold'].map(s=>`<option value="${s}"${sec&&sec.style===s?' selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('');
-  const head = document.createElement('div');
-  head.className='section-head open';
-  head.innerHTML=`
-    <span class="chevron">▲</span>
-    <input class="sec-name" type="text" placeholder="Section name" value="${escA(sec?.name||'')}">
-    <select class="sec-style">${styleOpts}</select>
-    <button class="rm-sec" onclick="removeSection(this)" title="Remove section">✕</button>`;
-  head.querySelector('.sec-name').addEventListener('click',e=>e.stopPropagation());
-  head.querySelector('.sec-style').addEventListener('click',e=>e.stopPropagation());
-  head.querySelector('.rm-sec').addEventListener('click',e=>e.stopPropagation());
-  head.addEventListener('click',()=>toggleSection(head));
-  block.appendChild(head);
-
-  const body = document.createElement('div');
-  body.className='section-body open';
-  const dishList = document.createElement('div');
-  dishList.className='ev-dish-list';
-  (sec?.dishes||[]).forEach(d=>dishList.appendChild(makeEvDish(d)));
-  body.appendChild(dishList);
-  const addDishBtn = document.createElement('button');
-  addDishBtn.className='add-ev-dish-btn';
-  addDishBtn.textContent='+ Add Dish';
-  addDishBtn.onclick=()=>dishList.appendChild(makeEvDish(null));
-  body.appendChild(addDishBtn);
-  block.appendChild(body);
-  return block;
+function field(label,val,onInput){
+  var d=document.createElement('div');d.className='field';
+  var l=document.createElement('label');l.textContent=label;
+  var i=document.createElement('input');i.type='text';i.value=val;i.className='inline-input';
+  i.addEventListener('input',function(){onInput(this.value);});
+  d.appendChild(l);d.appendChild(i);return d;
 }
 
-function makeEvDish(d){
-  const item = document.createElement('div');
-  item.className='ev-dish-item';
-  const top = document.createElement('div');
-  top.className='ev-dish-top';
-  top.innerHTML=`
-    <input type="text" class="d-icon" placeholder="🍛" value="${escA(d?.icon||'')}">
-    <input type="text" class="d-name" placeholder="Dish name" value="${escA(d?.name||'')}">
-    <input type="text" class="d-desc" placeholder="Description / note" value="${escA(d?.desc||'')}">
-    <button class="rm-btn" onclick="removeEvDish(this)" title="Remove">✕</button>`;
-  item.appendChild(top);
-
-  const pricesDiv = document.createElement('div');
-  pricesDiv.className='ev-dish-prices';
-  (d?.prices||[]).forEach(p=>pricesDiv.appendChild(makePriceRow(p)));
-  const addP = document.createElement('button');
-  addP.className='add-price-btn';
-  addP.textContent='+ Add Price';
-  addP.onclick=()=>pricesDiv.insertBefore(makePriceRow(null),addP);
-  pricesDiv.appendChild(addP);
-  item.appendChild(pricesDiv);
-  return item;
+// ── EVENTS ──────────────────────────────────────────────────────────
+function renderEvents(){
+  var el=document.getElementById('tab-events');el.innerHTML='';
+  EVENT_KEYS.forEach(function(key){
+    var ev=data.events&&data.events[key];if(!ev)return;
+    el.appendChild(buildEventCard(key,ev));
+  });
 }
 
-function makePriceRow(p){
-  const row = document.createElement('div');
-  row.className='price-row';
-  row.innerHTML=`
-    <input type="text" class="p-label" placeholder='Label (e.g. "Half")' value="${escA(p?.label||'')}">
-    <input type="text" class="p-amount" placeholder='Amount (e.g. "$80")' value="${escA(p?.amount||'')}">
-    <button class="rm-price" onclick="this.closest('.price-row').remove()" title="Remove">✕</button>`;
+function buildEventCard(key,ev){
+  var wrap=document.createElement('div');wrap.className='section';
+  var hd=document.createElement('div');hd.className='section-head';hd.textContent=ev.title||key;
+  wrap.appendChild(hd);
+  var card=document.createElement('div');card.className='card';
+
+  // top fields row
+  var r1=document.createElement('div');r1.className='row2';r1.style.marginBottom='.6rem';
+  r1.appendChild(field('Event Title',ev.title||'',function(v){ev.title=v;hd.textContent=v;markDirty();}));
+  r1.appendChild(field('Subtitle',ev.subtitle||'',function(v){ev.subtitle=v;markDirty();}));
+  card.appendChild(r1);
+
+  var r2=document.createElement('div');r2.className='row2';r2.style.marginBottom='.8rem';
+  r2.appendChild(field('Order By Date',ev.order_by||'',function(v){ev.order_by=v;markDirty();}));
+  var trow=document.createElement('div');trow.className='field';
+  var tl=document.createElement('label');tl.textContent='Show on site';
+  var tr=document.createElement('div');tr.className='toggle-row';
+  tr.innerHTML='<label class="toggle"><input type="checkbox"'+(ev.active?' checked':'')+'><span class="slider"></span></label><span style="font-size:.83rem;font-weight:600">Active</span>';
+  tr.querySelector('input').addEventListener('change',function(){ev.active=this.checked;markDirty();});
+  trow.appendChild(tl);trow.appendChild(tr);r2.appendChild(trow);
+  card.appendChild(r2);
+
+  // sections
+  var shd=document.createElement('div');shd.className='section-head';shd.textContent='Menu Sections';
+  card.appendChild(shd);
+  var sbox=document.createElement('div');sbox.id='esec-'+key;
+  if(!ev.sections)ev.sections=[];
+  ev.sections.forEach(function(sec,si){sbox.appendChild(buildEvSection(key,ev,si,sec,sbox));});
+  card.appendChild(sbox);
+  var ab=document.createElement('button');ab.className='add-btn';ab.style.marginTop='.4rem';ab.textContent='+ Add Section';
+  ab.onclick=function(){var si=ev.sections.length;ev.sections.push({name:'New Section',style:'green',dishes:[]});
+    sbox.insertBefore(buildEvSection(key,ev,si,ev.sections[si],sbox),ab);markDirty();};
+  card.appendChild(ab);
+  wrap.appendChild(card);return wrap;
+}
+
+function buildEvSection(key,ev,si,sec,sbox){
+  var wrap=document.createElement('div');wrap.className='ev-sec-card';
+  var head=document.createElement('div');head.className='ev-sec-head';
+  var ni=document.createElement('input');ni.type='text';ni.value=sec.name||'';
+  ni.placeholder='Section name (e.g. Appetizer)';
+  ni.style.cssText='background:transparent;border:none;font-weight:700;font-size:.9rem;color:var(--olive-dk);flex:1;outline:none;min-width:0;font-family:inherit';
+  ni.addEventListener('input',function(){sec.name=this.value;markDirty();});
+  var acts=document.createElement('div');acts.style.cssText='display:flex;gap:.4rem;align-items:center;flex-shrink:0';
+  var ss=document.createElement('select');ss.style.cssText='font-size:.73rem;padding:.15rem .35rem;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--fg)';
+  SECTION_STYLES.forEach(function(s){var o=document.createElement('option');o.value=s;o.textContent=s;if(sec.style===s)o.selected=true;ss.appendChild(o);});
+  ss.addEventListener('change',function(){sec.style=this.value;markDirty();});
+  var rmb=document.createElement('button');rmb.className='btn btn-ghost btn-sm';rmb.textContent='✕';
+  rmb.onclick=function(){ev.sections.splice(si,1);renderEvents();markDirty();};
+  acts.appendChild(ss);acts.appendChild(rmb);
+  head.appendChild(ni);head.appendChild(acts);wrap.appendChild(head);
+
+  var body=document.createElement('div');body.className='ev-sec-body';
+  var dbox=document.createElement('div');dbox.id='edish-'+key+'-'+si;
+  (sec.dishes||[]).forEach(function(d,di){dbox.appendChild(buildEvDish(sec,di,d,key,si,dbox));});
+  body.appendChild(dbox);
+  var ab=document.createElement('button');ab.className='add-btn';ab.style.marginTop='.4rem';ab.textContent='+ Add Dish';
+  ab.onclick=function(){var di=sec.dishes.length;
+    sec.dishes.push({icon:'',name:'',desc:'',prices:[{label:'',amount:''}]});
+    dbox.insertBefore(buildEvDish(sec,di,sec.dishes[di],key,si,dbox),ab);markDirty();};
+  body.appendChild(ab);
+  wrap.appendChild(body);return wrap;
+}
+
+function buildEvDish(sec,di,dish,key,si,dbox){
+  var wrap=document.createElement('div');wrap.className='dish-card';wrap.style.marginBottom='.5rem';
+  var head=document.createElement('div');head.className='dish-head';
+  var emjI=document.createElement('input');emjI.type='text';emjI.value=dish.icon||'';emjI.placeholder='emoji';
+  emjI.style.cssText='width:3rem;text-align:center;background:var(--card);border:1.5px solid var(--border);border-radius:7px;padding:.3rem;font-size:1rem;outline:none;flex-shrink:0;font-family:inherit';
+  emjI.addEventListener('input',function(){dish.icon=this.value;markDirty();});
+  var nmI=document.createElement('input');nmI.type='text';nmI.value=dish.name||'';nmI.placeholder='Dish name';
+  nmI.className='inline-input';nmI.style.flex='1';nmI.style.margin='0 .4rem';
+  nmI.addEventListener('input',function(){dish.name=this.value;markDirty();});
+  var rmb=document.createElement('button');rmb.className='btn btn-ghost btn-sm';rmb.textContent='✕';
+  rmb.onclick=function(){sec.dishes.splice(di,1);renderEvents();markDirty();};
+  head.appendChild(emjI);head.appendChild(nmI);head.appendChild(rmb);wrap.appendChild(head);
+
+  var descF=document.createElement('div');descF.className='field';descF.style.marginBottom='.5rem';
+  var di2=document.createElement('input');di2.type='text';di2.value=dish.desc||'';di2.placeholder='Short note (optional)';
+  di2.className='inline-input';
+  di2.addEventListener('input',function(){dish.desc=this.value;markDirty();});
+  descF.appendChild(di2);wrap.appendChild(descF);
+
+  var phd=document.createElement('div');phd.className='section-head';phd.style.cssText='font-size:.68rem;margin-bottom:.3rem';phd.textContent='Prices';
+  wrap.appendChild(phd);
+  var pbox=document.createElement('div');
+  if(!dish.prices||!dish.prices.length)dish.prices=[{label:'',amount:''}];
+  dish.prices.forEach(function(p,pi){pbox.appendChild(buildPriceRow(dish,pi,p,pbox));});
+  wrap.appendChild(pbox);
+  var pab=document.createElement('button');pab.className='add-btn';pab.style.cssText='margin-top:.3rem;font-size:.74rem';pab.textContent='+ Add Tier';
+  pab.onclick=function(){dish.prices.push({label:'',amount:''});
+    pbox.insertBefore(buildPriceRow(dish,dish.prices.length-1,dish.prices[dish.prices.length-1],pbox),pab);markDirty();};
+  wrap.appendChild(pab);
+  return wrap;
+}
+
+function buildPriceRow(dish,pi,p,pbox){
+  var row=document.createElement('div');row.className='price-row';
+  var l1=document.createElement('span');l1.className='price-lbl';l1.textContent='Label';
+  var i1=document.createElement('input');i1.type='text';i1.value=p.label||'';i1.placeholder='Half / 50 pcs';
+  i1.addEventListener('input',function(){p.label=this.value;markDirty();});
+  var l2=document.createElement('span');l2.className='price-lbl';l2.textContent='Price';
+  var i2=document.createElement('input');i2.type='text';i2.value=p.amount||'';i2.placeholder='$75';
+  i2.addEventListener('input',function(){p.amount=this.value;markDirty();});
+  var rm=document.createElement('button');rm.className='btn btn-ghost btn-sm';rm.textContent='✕';
+  rm.onclick=function(){dish.prices.splice(pi,1);if(!dish.prices.length)dish.prices.push({label:'',amount:''});
+    row.remove();markDirty();};
+  row.appendChild(l1);row.appendChild(i1);row.appendChild(l2);row.appendChild(i2);row.appendChild(rm);
   return row;
 }
 
-function removeSection(btn){ btn.closest('.section-block').remove(); }
-function removeEvDish(btn){ btn.closest('.ev-dish-item').remove(); }
-function toggleSection(head){
-  head.classList.toggle('open');
-  head.nextElementSibling.classList.toggle('open');
+// ── SETTINGS ────────────────────────────────────────────────────────
+function renderSettings(){
+  var el=document.getElementById('tab-settings');el.innerHTML='';
+  var s=data.settings||{};
+  var sections=[
+    {title:'Business Info',fields:[
+      {label:'Business Name',key:'business_name'},{label:'Tagline',key:'tagline'},
+      {label:'Location',key:'location'},{label:'Tiffin Days',key:'tiffin_days'},
+      {label:'Order Cutoff',key:'order_cutoff'}]},
+    {title:'Contact',fields:[
+      {label:'Phone (display)',key:'phone'},{label:'WhatsApp Number',key:'phone_whatsapp'},
+      {label:'Email',key:'email'}]},
+    {title:'Payment',fields:[
+      {label:'Zelle',key:'payment_zelle'},{label:'Venmo',key:'payment_venmo'}]}
+  ];
+  sections.forEach(function(sec){
+    var wrap=document.createElement('div');wrap.className='section';
+    var hd=document.createElement('div');hd.className='section-head';hd.textContent=sec.title;
+    var card=document.createElement('div');card.className='card';
+    var grid=document.createElement('div');grid.className='row2';
+    sec.fields.forEach(function(f){
+      var d=document.createElement('div');d.className='field';
+      var l=document.createElement('label');l.textContent=f.label;
+      var i=document.createElement('input');i.type='text';i.value=s[f.key]||'';i.className='inline-input';
+      (function(key){i.addEventListener('input',function(){if(!data.settings)data.settings={};data.settings[key]=this.value;markDirty();});})(f.key);
+      d.appendChild(l);d.appendChild(i);grid.appendChild(d);
+    });
+    card.appendChild(grid);wrap.appendChild(hd);wrap.appendChild(card);el.appendChild(wrap);
+  });
+  // allergy note full-width
+  var aw=document.createElement('div');aw.className='section';
+  var ahd=document.createElement('div');ahd.className='section-head';ahd.textContent='Allergy Notice';
+  var ac=document.createElement('div');ac.className='card';
+  var afield=document.createElement('div');afield.className='field';
+  var ata=document.createElement('textarea');ata.textContent=s.allergy_note||'';
+  ata.addEventListener('input',function(){if(!data.settings)data.settings={};data.settings.allergy_note=this.value;markDirty();});
+  afield.appendChild(ata);ac.appendChild(afield);aw.appendChild(ahd);aw.appendChild(ac);el.appendChild(aw);
 }
 
-function collectEventPanel(ek){
-  const panel = document.getElementById('ev-'+ek);
-  const orderBy = panel.querySelector('.ev-order_by')?.value.trim()||'';
-  const active = panel.querySelector('.ev-active')?.checked||false;
-  const sections = [...panel.querySelectorAll('.section-block')].map(blk=>({
-    name: blk.querySelector('.sec-name').value.trim(),
-    style: blk.querySelector('.sec-style').value,
-    dishes: [...blk.querySelectorAll('.ev-dish-item')].map(el=>({
-      icon: el.querySelector('.d-icon').value.trim(),
-      name: el.querySelector('.d-name').value.trim(),
-      desc: el.querySelector('.d-desc').value.trim(),
-      prices: [...el.querySelectorAll('.price-row')].map(r=>({
-        label: r.querySelector('.p-label').value.trim(),
-        amount: r.querySelector('.p-amount').value.trim()
-      })).filter(p=>p.amount)
-    })).filter(d=>d.name)
-  }));
-  return {
-    title: EVENTS_CONFIG[ek].title,
-    subtitle: menu.events[ek]?.subtitle||'',
-    order_by: orderBy,
-    active,
-    sections
+// ── HELPERS ──────────────────────────────────────────────────────────
+function setPath(path,val){
+  var parts=path.split('.');var obj=data;
+  for(var i=0;i<parts.length-1;i++){if(!obj[parts[i]])obj[parts[i]]={};obj=obj[parts[i]];}
+  obj[parts[parts.length-1]]=val;markDirty();
+}
+function esc(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+var dirtyTimer=null;
+function markDirty(){clearTimeout(dirtyTimer);setStatus('Unsaved changes — click Save menu.json when ready','');}
+function setStatus(msg,type){var el=document.getElementById('status-msg');el.textContent=msg;el.className='status-msg'+(type?' '+type:'');}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2600);}
+
+function loadFromFile(){document.getElementById('file-input').click();}
+function onFileChosen(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    try{data=JSON.parse(ev.target.result);render();setStatus('Loaded · '+file.name,'ok');showToast('✓ Loaded '+file.name);}
+    catch(err){setStatus('Error: invalid JSON','err');showToast('❌ Could not parse JSON');}
   };
+  reader.readAsText(file);e.target.value='';
 }
 
-// ── CAROUSEL ──
-function makeCarouselItem(c){
-  const el = document.createElement('div');
-  el.className = 'cr-item';
-  el.innerHTML = `
-    <input type="text" class="cr-file" placeholder="e.g. Poha.jpg" value="${escA(c?.file||'')}">
-    <input type="text" class="cr-name" placeholder="Dish name label" value="${escA(c?.name||'')}">
-    <button class="rm-btn" onclick="this.closest('.cr-item').remove()" title="Remove">✕</button>`;
-  return el;
+function downloadJSON(){
+  if(!data){showToast('Load a menu.json first');return;}
+  var json=JSON.stringify(data,null,2);
+  var blob=new Blob([json],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='menu.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  setStatus('Saved · replace data/menu.json in your repo, then git push','ok');
+  showToast('✓ menu.json downloaded');
 }
-function addCarouselItem(){ document.getElementById('carousel-list').appendChild(makeCarouselItem(null)); }
-function loadCarousel(items){
-  const list = document.getElementById('carousel-list');
-  list.innerHTML = '';
-  (items||[]).forEach(c=>list.appendChild(makeCarouselItem(c)));
-}
-function collectCarousel(){
-  return [...document.querySelectorAll('#carousel-list .cr-item')].map(el=>({
-    file: el.querySelector('.cr-file').value.trim(),
-    name: el.querySelector('.cr-name').value.trim()
-  })).filter(c=>c.file);
-}
-
-// ── SETTINGS ──
-const SETTING_KEYS=['business_name','tagline','phone','phone_whatsapp','email','location','tiffin_days','order_cutoff','payment_zelle','payment_venmo','allergy_note'];
-function loadSettings(s){ SETTING_KEYS.forEach(k=>{ const el=document.getElementById('s-'+k); if(el) el.value=s[k]||''; }); }
-function collectSettings(){ const s={}; SETTING_KEYS.forEach(k=>{ const el=document.getElementById('s-'+k); if(el) s[k]=el.value.trim(); }); return s; }
-
-// ── COLLECT ALL ──
-function collectMenu(){
-  return {
-    settings: collectSettings(),
-    carousel: collectCarousel(),
-    tiffin: {
-      last_week: collectTiffinWeek('last_week'),
-      this_week: collectTiffinWeek('this_week'),
-      next_week: collectTiffinWeek('next_week')
-    },
-    events: Object.fromEntries(Object.keys(EVENTS_CONFIG).map(ek=>[ek, collectEventPanel(ek)]))
-  };
-}
-
-// ── LOAD / SAVE ──
-function renderMenu(m){
-  menu = m;
-  ['last_week','this_week','next_week'].forEach(wk=>loadTiffinWeek(wk, m.tiffin[wk]||{}));
-  Object.keys(EVENTS_CONFIG).forEach(ek=>buildEventPanel(ek, m.events[ek]||{title:'',subtitle:'',order_by:'',active:false,sections:[]}));
-  loadCarousel(m.carousel||[]);
-  loadSettings(m.settings||{});
-}
-
-async function loadMenu(){
-  // 1. Try localStorage draft
-  try {
-    const draft = localStorage.getItem(STORAGE_KEY);
-    if(draft){ renderMenu(JSON.parse(draft)); showToast('Loaded saved draft'); return; }
-  } catch(e){}
-  // 2. Try fetching menu.json from repo
-  try {
-    const r = await fetch('../data/menu.json');
-    if(r.ok){ renderMenu(await r.json()); showToast('Loaded menu.json'); return; }
-  } catch(e){}
-  // 3. Empty defaults
-  renderMenu(defaultMenu());
-  showToast('Starting with empty menu');
-}
-
-function defaultMenu(){
-  return {
-    settings:{ business_name:"Chaitrali's Kitchen", tagline:'Pure Veg · Homemade · Marathi Chavichi Athavan',
-      phone:'617-320-5229', phone_whatsapp:'16173205229', email:'chaitraliskitchen@gmail.com',
-      location:'Shrewsbury, MA', tiffin_days:'Mon – Sat', order_cutoff:'Sunday 9 PM',
-      payment_zelle:'chaitraliskitchen@gmail.com', payment_venmo:'@Chaitralis-Kitchen',
-      allergy_note:'Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard.' },
-    carousel:[
-      {file:'Poha.jpg',name:'Kanda Poha'},
-      {file:'Puran Poli.jpg',name:'Puran Poli'},
-      {file:'Samosa.jpg',name:'Samosa'},
-      {file:'Vada Pav.jpg',name:'Vada Pav'},
-      {file:'masala-rice.jpg',name:'Masala Rice'},
-      {file:'pav-bhaji.jpg',name:'Pav Bhaji'}
-    ],
-    tiffin:{ last_week:{dates:'',dishes:[]}, this_week:{dates:'',dishes:[]}, next_week:{dates:'',dishes:[]} },
-    events:{ ganpati:{title:'Ganpati',subtitle:'Special Festival Menu',order_by:'',active:false,sections:[]},
-      diwali:{title:'Diwali',subtitle:'Festival of Lights Menu',order_by:'',active:false,sections:[]},
-      holi:{title:'Holi',subtitle:'Festival of Colors Menu',order_by:'',active:false,sections:[]},
-      custom:{title:'Custom Event',subtitle:'Birthday · Anniversary · Puja · Gathering',order_by:'',active:true,sections:[]} }
-  };
-}
-
-function saveDraft(){
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(collectMenu())); showToast('Draft saved!'); }
-  catch(e){ showToast('Could not save draft'); }
-}
-
-function downloadJson(){
-  const data = collectMenu();
-  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url; a.download='menu.json'; a.click();
-  URL.revokeObjectURL(url);
-  showToast('menu.json downloaded! Replace the file in your GitHub repo and push.');
-}
-
-// ── TOAST ──
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-// ── UTILS ──
-function escA(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 </script>
 </body>
 </html>
