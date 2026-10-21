@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaitra's Kitchen — Handmade Indian Cuisine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #E8851A;
+    --turmeric: #F4C44A;
+    --cardamom: #1A1A1A;
+    --cream: #FAF7F2;
+    --warm-white: #FEFCF8;
+    --clay: #C25F2A;
+    --leaf: #3B6B3A;
+    --mist: #F0EBE3;
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B6560;
+    --text-light: #9B948E;
+    --border: rgba(26,26,26,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 60px;
+    height: 64px;
+    background: rgba(254,252,248,0.88);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(232,133,26,0.12);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--cardamom);
+  }
+  .nav-logo span { color: var(--saffron); }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 400; letter-spacing: 0.04em;
+    color: var(--text-secondary); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--saffron); }
+
+  .nav-cta {
+    background: var(--saffron);
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .nav-cta:hover { background: var(--clay) !important; transform: translateY(-1px); }
+
+  /* ── HERO ────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--warm-white);
+    padding: 100px 60px 60px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,133,26,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(244,196,74,0.05) 0%, transparent 50%);
+  }
+
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E8851A' fill-opacity='0.03'%3E%3Cpath d='M30 30 L35 20 L40 30 L35 40 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 680px; text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,133,26,0.1);
+    border: 1px solid rgba(232,133,26,0.25);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    color: var(--saffron); text-transform: uppercase;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--saffron); border-radius: 50%;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--cardamom);
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+
+  .hero-sub {
+    font-size: 18px; font-weight: 300; line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 480px; margin: 0 auto 48px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--saffron); color: white;
+    padding: 15px 36px; border-radius: 100px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(232,133,26,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--clay); transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(232,133,26,0.35);
+  }
+
+  .btn-ghost {
+    background: transparent; color: var(--cardamom);
+    padding: 15px 36px; border-radius: 100px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; display: inline-block;
+    border: 1.5px solid rgba(26,26,26,0.15);
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--saffron); color: var(--saffron);
+    transform: translateY(-2px);
+  }
+
+  /* ── TRUST BAR ───────────────────────── */
+  .trust-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 60px;
+    display: flex; align-items: center; justify-content: center; gap: 64px;
+    flex-wrap: wrap;
+    background: var(--mist);
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--text-secondary); font-weight: 400;
+  }
+  .trust-icon { font-size: 20px; }
+  .trust-item strong { color: var(--cardamom); font-weight: 500; }
+
+  /* ── SECTION BASE ────────────────────── */
+  section { padding: 120px 60px; }
+
+  .section-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--saffron);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300; line-height: 1.1; letter-spacing: -0.01em;
+    color: var(--cardamom);
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: italic; color: var(--saffron); }
+
+  .section-lead {
+    font-size: 17px; font-weight: 300; line-height: 1.7;
+    color: var(--text-secondary); max-width: 560px;
+    margin-bottom: 64px;
+  }
+
+  /* ── STORY ───────────────────────────── */
+  .story { background: var(--warm-white); }
+
+  .story-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center;
+  }
+
+  .story-visual {
+    position: relative; border-radius: 24px; overflow: hidden;
+    aspect-ratio: 4/5;
+    background: linear-gradient(145deg, var(--saffron) 0%, var(--clay) 60%, #7A2E0E 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 40px 80px rgba(232,133,26,0.2);
+  }
+
+  .story-visual-inner {
+    text-align: center; color: white; padding: 40px;
+  }
+
+  .story-visual-emoji { font-size: 80px; margin-bottom: 24px; display: block; }
+
+  .story-visual-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; font-style: italic;
+    line-height: 1.4; opacity: 0.9;
+  }
+
+  .story-decoration {
+    position: absolute; top: -20px; right: -20px;
+    width: 160px; height: 160px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+  }
+
+  .story-text .section-tag { margin-bottom: 12px; }
+
+  .story-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 300; font-style: italic;
+    color: var(--saffron); line-height: 1.5;
+    border-left: 2px solid var(--saffron);
+    padding-left: 24px; margin: 32px 0;
+  }
+
+  .story-body {
+    font-size: 16px; font-weight: 300; line-height: 1.8;
+    color: var(--text-secondary); margin-bottom: 16px;
+  }
+
+  /* ── MENU SECTION ────────────────────── */
+  .menu-section { background: var(--mist); }
+
+  .menu-inner { max-width: 1200px; margin: 0 auto; }
+
+  .menu-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 48px; flex-wrap: wrap; gap: 24px;
+  }
+
+  /* Loading / Status */
+  .sheet-status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--text-light);
+  }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4CAF50;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Category tabs */
+  .menu-tabs {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .tab-btn {
+    padding: 10px 24px; border-radius: 100px; font-size: 13px;
+    font-weight: 500; cursor: pointer; border: 1.5px solid var(--border);
+    background: transparent; color: var(--text-secondary);
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--saffron); color: white; border-color: var(--saffron);
+  }
+
+  /* Menu grid */
+  .menu-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 2px 40px rgba(26,26,26,0.06);
+  }
+
+  .menu-card {
+    background: white; padding: 32px;
+    display: flex; gap: 20px; align-items: flex-start;
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .menu-card:hover { background: #FFFBF5; }
+
+  .menu-card-emoji {
+    font-size: 36px; flex-shrink: 0;
+    width: 60px; height: 60px;
+    background: var(--mist); border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .menu-card-body { flex: 1; }
+
+  .menu-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 500;
+    color: var(--cardamom); margin-bottom: 6px;
+  }
+
+  .menu-card-desc {
+    font-size: 13px; line-height: 1.6; color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  .menu-card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .menu-card-price {
+    font-size: 18px; font-weight: 500; color: var(--saffron);
+  }
+
+  .menu-card-tags {
+    display: flex; gap: 6px;
+  }
+
+  .tag {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
+  }
+  .tag-veg { background: rgba(59,107,58,0.1); color: var(--leaf); }
+  .tag-spicy { background: rgba(194,95,42,0.1); color: var(--clay); }
+  .tag-new { background: rgba(232,133,26,0.1); color: var(--saffron); }
+
+  /* Loading skeleton */
+  .skeleton-card {
+    background: white; padding: 32px;
+    display: flex; gap: 20px;
+  }
+  .skeleton-emoji {
+    width: 60px; height: 60px; border-radius: 14px;
+    background: linear-gradient(90deg, #f0ebe3 25%, #faf7f2 50%, #f0ebe3 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  .skeleton-body { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .skeleton-line {
+    height: 14px; border-radius: 7px;
+    background: linear-gradient(90deg, #f0ebe3 25%, #faf7f2 50%, #f0ebe3 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Error state */
+  .menu-error {
+    text-align: center; padding: 60px 30px;
+    background: white; border-radius: 20px;
+  }
+  .menu-error h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300; color: var(--cardamom);
+    margin: 16px 0 8px;
+  }
+  .menu-error p { color: var(--text-secondary); font-size: 14px; }
+
+  /* ── HOW IT WORKS ────────────────────── */
+  .how-section { background: var(--warm-white); }
+  .how-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+  .how-inner .section-lead { margin-left: auto; margin-right: auto; }
+
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+    margin-top: 64px;
+  }
+
+  .step {
+    text-align: center; padding: 40px 32px;
+    border-radius: 20px; border: 1px solid var(--border);
+    background: var(--warm-white);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .step:hover {
+    border-color: rgba(232,133,26,0.3); transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(232,133,26,0.08);
+  }
+
+  .step-num {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--saffron); color: white;
+    font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .step-icon {
+    font-size: 40px; margin-bottom: 20px; display: block;
+  }
+
+  .step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 500;
+    color: var(--cardamom); margin-bottom: 12px;
+  }
+
+  .step p {
+    font-size: 14px; line-height: 1.7; color: var(--text-secondary);
+  }
+
+  /* ── TESTIMONIALS ────────────────────── */
+  .testimonials { background: var(--cardamom); padding: 120px 60px; }
+
+  .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+
+  .testimonials .section-tag { color: var(--turmeric); }
+  .testimonials h2 { color: var(--cream); }
+  .testimonials .section-lead { color: rgba(250,247,242,0.6); }
+
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+
+  .review-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 32px;
+    transition: background 0.2s;
+  }
+  .review-card:hover { background: rgba(255,255,255,0.08); }
+
+  .review-stars { color: var(--turmeric); font-size: 14px; margin-bottom: 16px; }
+
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 300; font-style: italic;
+    line-height: 1.6; color: rgba(250,247,242,0.85);
+    margin-bottom: 24px;
+  }
+
+  .review-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .review-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--saffron), var(--clay));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 500; color: white;
+  }
+  .review-name { font-size: 14px; font-weight: 500; color: var(--cream); }
+  .review-location { font-size: 12px; color: rgba(250,247,242,0.4); }
+
+  /* ── SETUP GUIDE ─────────────────────── */
+  .setup-section {
+    background: linear-gradient(135deg, rgba(232,133,26,0.05) 0%, rgba(244,196,74,0.05) 100%);
+    border-top: 1px solid rgba(232,133,26,0.12);
+    border-bottom: 1px solid rgba(232,133,26,0.12);
+  }
+
+  .setup-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+
+  .setup-code {
+    background: var(--cardamom); border-radius: 16px;
+    padding: 32px; margin: 40px 0; text-align: left;
+    box-shadow: 0 8px 40px rgba(26,26,26,0.12);
+    overflow-x: auto;
+  }
+
+  .setup-code-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
+  }
+  .code-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+  pre {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px; line-height: 1.7;
+    color: #E8E3DC;
+  }
+  .code-comment { color: #6B7280; }
+  .code-key { color: var(--turmeric); }
+  .code-val { color: #86EFAC; }
+  .code-str { color: #FCA5A5; }
+
+  /* ── CTA ─────────────────────────────── */
+  .cta-section {
+    background: var(--warm-white); text-align: center;
+    padding: 160px 60px;
+  }
+  .cta-inner { max-width: 600px; margin: 0 auto; }
+
+  .cta-section h2 {
+    font-size: clamp(40px, 5vw, 64px);
+    margin-bottom: 24px;
+  }
+
+  .cta-section .section-lead { margin: 0 auto 48px; }
+
+  /* ── FOOTER ──────────────────────────── */
+  footer {
+    background: var(--cardamom);
+    padding: 60px;
+  }
+
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand .nav-logo { font-size: 24px; margin-bottom: 16px; display: block; }
+
+  .footer-desc {
+    font-size: 14px; line-height: 1.7;
+    color: rgba(250,247,242,0.5); max-width: 260px;
+  }
+
+  .footer-col h4 {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(250,247,242,0.4);
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .footer-col a {
+    font-size: 14px; color: rgba(250,247,242,0.6);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--turmeric); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  .footer-bottom p {
+    font-size: 12px; color: rgba(250,247,242,0.3);
+  }
+
+  .footer-sheet-badge {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: rgba(250,247,242,0.4);
+  }
+  .gs-icon { font-size: 16px; }
+
+  /* ── ANIMATIONS ──────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ──────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .story-inner { grid-template-columns: 1fr; }
+    .story-visual { aspect-ratio: 16/9; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .hero { padding: 100px 24px 60px; }
+    .trust-bar { padding: 24px; gap: 24px; }
+    .menu-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── MODAL ───────────────────────────── */
+  .config-modal {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(26,26,26,0.6); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .config-modal.open { opacity: 1; pointer-events: all; }
+
+  .modal-box {
+    background: white; border-radius: 24px; padding: 48px;
+    max-width: 560px; width: 100%;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+    transform: scale(0.95); transition: transform 0.3s;
+  }
+  .config-modal.open .modal-box { transform: scale(1); }
+
+  .modal-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 400; color: var(--cardamom);
+    margin-bottom: 8px;
+  }
+  .modal-box p {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .modal-input {
+    width: 100%; padding: 14px 18px;
+    border: 1.5px solid var(--border); border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    color: var(--cardamom); background: var(--warm-white);
+    margin-bottom: 12px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .modal-input:focus { border-color: var(--saffron); }
+
+  .modal-help {
+    font-size: 12px; color: var(--text-light); margin-bottom: 24px; line-height: 1.6;
+  }
+
+  .modal-actions { display: flex; gap: 12px; }
+
+  .modal-btn {
+    flex: 1; padding: 14px; border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+    cursor: pointer; border: none; transition: all 0.2s;
+  }
+  .modal-btn-primary { background: var(--saffron); color: white; }
+  .modal-btn-primary:hover { background: var(--clay); }
+  .modal-btn-secondary {
+    background: var(--mist); color: var(--text-secondary);
+    border: 1.5px solid var(--border);
+  }
+  .modal-btn-secondary:hover { border-color: var(--saffron); color: var(--saffron); }
+
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">Chaitra's<span>.</span>Kitchen</div>
+  <ul class="nav-links">
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#order">How to Order</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#order" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Handmade with Love · Quincy, MA</div>
+    <h1>Taste of <em>India,</em><br>Made from the Heart</h1>
+    <p class="hero-sub">Authentic Indian cuisine, crafted by hand using family recipes passed down through generations. Fresh, wholesome, and made to order.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">Explore Menu</a>
+      <a href="#order" class="btn-ghost">How to Order →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ── -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">🌿</span><div><strong>100% Homemade</strong> — No preservatives</div></div>
+  <div class="trust-item"><span class="trust-icon">🫙</span><div><strong>Fresh Spices</strong> — Ground in-house daily</div></div>
+  <div class="trust-item"><span class="trust-icon">🤍</span><div><strong>Made to Order</strong> — Never pre-cooked</div></div>
+  <div class="trust-item"><span class="trust-icon">📦</span><div><strong>Local Delivery</strong> — Greater Quincy area</div></div>
+</div>
+
+<!-- ── STORY ── -->
+<section class="story" id="story">
+  <div class="story-inner">
+    <div class="story-visual">
+      <div class="story-decoration"></div>
+      <div class="story-visual-inner">
+        <span class="story-visual-emoji">🫕</span>
+        <div class="story-visual-text">"Every dish carries<br>a memory from home."</div>
+      </div>
+    </div>
+    <div class="story-text reveal">
+      <div class="section-tag">Our Story</div>
+      <h2>Cooking is <em>Chaitra's</em> love language</h2>
+      <div class="story-quote">"Food is the thread that connects us to our roots."</div>
+      <p class="story-body">Born and raised in India, Chaitra has been cooking since she was old enough to stand at the stove. Her kitchen is where old recipes meet a new home — where the scent of cardamom, turmeric, and ghee tells the story of generations.</p>
+      <p class="story-body">Every meal is prepared to order, by hand, with ingredients sourced fresh. No shortcuts. No compromises. Just real Indian food, the way it was always meant to taste.</p>
+      <a href="#menu" class="btn-primary" style="margin-top:32px; display:inline-block;">View Today's Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU ── -->
+<section class="menu-section" id="menu">
+  <div class="menu-inner">
+    <div class="menu-header">
+      <div>
+        <div class="section-tag">Menu</div>
+        <h2>Made Fresh, <em>Every Day</em></h2>
+        <p class="section-lead" style="margin-bottom:0">Our menu is updated live from Google Sheets — always current, always honest.</p>
+      </div>
+      <div>
+        <div class="sheet-status" id="sheetStatus">
+          <div class="status-dot"></div>
+          <span>Connecting to menu…</span>
+        </div>
+        <button onclick="openConfig()" style="margin-top:10px; background:none; border:1.5px solid var(--border); padding:8px 16px; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:12px; cursor:pointer; color:var(--text-secondary); display:block;">
+          ⚙️ Configure Sheet
+        </button>
+      </div>
+    </div>
+
+    <div class="menu-tabs" id="menuTabs">
+      <button class="tab-btn active" data-cat="all">All Items</button>
+    </div>
+
+    <div id="menuContainer">
+      <!-- Skeleton loading -->
+      <div class="menu-grid" id="menuGrid">
+        <div class="skeleton-card">
+          <div class="skeleton-emoji"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-line" style="width:60%"></div>
+            <div class="skeleton-line" style="width:90%"></div>
+            <div class="skeleton-line" style="width:40%"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-emoji"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-line" style="width:70%"></div>
+            <div class="skeleton-line" style="width:80%"></div>
+            <div class="skeleton-line" style="width:50%"></div>
+          </div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-emoji"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-line" style="width:55%"></div>
+            <div class="skeleton-line" style="width:85%"></div>
+            <div class="skeleton-line" style="width:45%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top:32px; font-size:13px; color:var(--text-light);">
+      Menu updates automatically from Google Sheets · Last refreshed: <span id="lastUpdated">—</span>
+    </p>
+  </div>
+</section>
+
+<!-- ── HOW TO ORDER ── -->
+<section class="how-section" id="order">
+  <div class="how-inner">
+    <div class="section-tag">How It Works</div>
+    <h2>Simple as <em>Sunday Lunch</em></h2>
+    <p class="section-lead">Order your favourite home-cooked Indian meal in three easy steps.</p>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <span class="step-icon">📋</span>
+        <h3>Browse the Menu</h3>
+        <p>Explore today's handmade offerings — updated fresh from our kitchen every morning directly in Google Sheets.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:0.1s">
+        <div class="step-num">2</div>
+        <span class="step-icon">📱</span>
+        <h3>Place Your Order</h3>
+        <p>Message Chaitra on WhatsApp or fill out the order form with your items, quantity, and preferred delivery time.</p>
+      </div>
+      <div class="step reveal" style="transition-delay:0.2s">
+        <div class="step-num">3</div>
+        <span class="step-icon">🎁</span>
+        <h3>Receive with Love</h3>
+        <p>Your freshly packed meal arrives at your door — cooked to order, sealed warm, and ready to enjoy.</p>
+      </div>
+    </div>
+    <div style="margin-top:64px; display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a href="https://wa.me/1XXXXXXXXXX" class="btn-primary">💬 Order on WhatsApp</a>
+      <a href="mailto:chaitraliskitchen@gmail.com" class="btn-ghost">📧 Send an Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ── -->
+<section class="testimonials" id="reviews">
+  <div class="testimonials-inner">
+    <div class="section-tag">Reviews</div>
+    <h2>Words from <em>Happy Hearts</em></h2>
+    <p class="section-lead">Real people, real memories, real food.</p>
+    <div class="reviews-grid" id="reviewsGrid">
+      <!-- Reviews load from sheet or fallback to defaults -->
+    </div>
+  </div>
+</section>
+
+<!-- ── SETUP GUIDE ── -->
+<section class="setup-section" id="setup">
+  <div class="setup-inner reveal">
+    <div class="section-tag">For the Owner</div>
+    <h2>Your Menu Lives in <em>Google Sheets</em></h2>
+    <p class="section-lead" style="margin:0 auto 0">Set up your Google Sheet with the columns below and this website updates automatically — no coding needed.</p>
+
+    <div class="setup-code">
+      <div class="setup-code-header">
+        <div class="code-dot" style="background:#FF5F57"></div>
+        <div class="code-dot" style="background:#FEBC2E"></div>
+        <div class="code-dot" style="background:#28C840"></div>
+        <span style="font-size:12px; color:#6B7280; margin-left:8px;">Google Sheet Column Headers (Row 1)</span>
+      </div>
+      <pre><span class="code-comment"># ── Required Columns ──────────────────────</span>
+<span class="code-key">Name</span>         <span class="code-comment">| Dish name  (e.g. "Butter Chicken")</span>
+<span class="code-key">Category</span>     <span class="code-comment">| Starters / Mains / Breads / Desserts / Drinks</span>
+<span class="code-key">Price</span>        <span class="code-comment">| Number only  (e.g. 12.99)</span>
+<span class="code-key">Description</span>  <span class="code-comment">| Short 1–2 line description</span>
+<span class="code-key">Available</span>    <span class="code-comment">| TRUE or FALSE</span>
+
+<span class="code-comment"># ── Optional Columns ──────────────────────</span>
+<span class="code-key">Emoji</span>        <span class="code-comment">| 🍛  (one emoji to represent the dish)</span>
+<span class="code-key">Veg</span>          <span class="code-comment">| TRUE or FALSE</span>
+<span class="code-key">Spicy</span>        <span class="code-comment">| TRUE or FALSE</span>
+<span class="code-key">IsNew</span>        <span class="code-comment">| TRUE or FALSE</span>
+
+<span class="code-comment"># ── Reviews Sheet (tab name: "Reviews") ───</span>
+<span class="code-key">Name</span>  <span class="code-key">Location</span>  <span class="code-key">Rating</span>  <span class="code-key">Review</span></pre>
+    </div>
+
+    <div style="background:white; border-radius:16px; padding:32px; border:1.5px solid rgba(232,133,26,0.2); text-align:left; margin-top:24px;">
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--cardamom); margin-bottom:12px;">📤 Publishing Your Sheet</h3>
+      <p style="font-size:14px; line-height:1.8; color:var(--text-secondary);">
+        1. Open your Google Sheet → <strong>File → Share → Publish to web</strong><br>
+        2. Choose <strong>Comma-separated values (.csv)</strong> for each sheet tab<br>
+        3. Click <strong>Publish</strong> and copy the URL<br>
+        4. Click <strong>Configure Sheet</strong> above and paste your URL — done! ✅
+      </p>
+    </div>
+
+    <button onclick="openConfig()" class="btn-primary" style="margin-top:32px; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:15px;">
+      ⚙️ Connect Your Google Sheet
+    </button>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <div class="section-tag">Ready?</div>
+    <h2>Let's Feed You <em>Something Beautiful</em></h2>
+    <p class="section-lead">Skip the restaurant. Get authentic, handmade Indian food delivered with care, straight from Chaitra's kitchen to your table.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/1XXXXXXXXXX" class="btn-primary">Order Today</a>
+      <a href="#menu" class="btn-ghost">See Today's Menu →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo">Chaitra's<span style="color:var(--saffron)">.</span>Kitchen</span>
+      <p class="footer-desc">Handmade Indian cuisine crafted with love, delivered to your door in the greater Quincy, MA area.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="#menu" onclick="filterCat('Starters')">Starters</a></li>
+        <li><a href="#menu" onclick="filterCat('Mains')">Mains</a></li>
+        <li><a href="#menu" onclick="filterCat('Breads')">Breads</a></li>
+        <li><a href="#menu" onclick="filterCat('Desserts')">Desserts</a></li>
+        <li><a href="#menu" onclick="filterCat('Drinks')">Drinks</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://wa.me/1XXXXXXXXXX">WhatsApp</a></li>
+        <li><a href="mailto:chaitraliskitchen@gmail.com">Email</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#order">How to Order</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#setup">Owner Setup</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Chaitra's Kitchen. Handmade with ❤️ in Quincy, MA.</p>
+    <div class="footer-sheet-badge">
+      <span class="gs-icon">📊</span>
+      Menu powered by Google Sheets
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONFIG MODAL ── -->
+<div class="config-modal" id="configModal" onclick="closeConfigOutside(event)">
+  <div class="modal-box">
+    <h3>Connect Google Sheets</h3>
+    <p>Paste the published CSV URLs for your Menu and Reviews sheets below. Your website will load content directly from Google Sheets.</p>
+
+    <label style="font-size:12px; font-weight:500; color:var(--text-secondary); display:block; margin-bottom:6px;">Menu Sheet CSV URL</label>
+    <input type="url" class="modal-input" id="menuSheetUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
+
+    <label style="font-size:12px; font-weight:500; color:var(--text-secondary); display:block; margin-bottom:6px;">Reviews Sheet CSV URL (optional)</label>
+    <input type="url" class="modal-input" id="reviewsSheetUrl" placeholder="https://docs.google.com/spreadsheets/d/.../pub?gid=...&output=csv">
+
+    <p class="modal-help">To get your URL: Google Sheets → File → Share → Publish to web → Select tab → CSV → Publish → Copy link.</p>
+
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-secondary" onclick="closeConfig()">Cancel</button>
+      <button class="modal-btn modal-btn-primary" onclick="saveConfig()">Save & Load Menu</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DEMO DATA (shown when no sheet is configured) ──────────────────────────
+const DEMO_MENU = [
+  { Name:"Samosa (2 pcs)", Category:"Starters", Price:"6.99", Description:"Crispy handmade pastry filled with spiced potatoes and peas.", Available:"TRUE", Emoji:"🥟", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Chaat Platter", Category:"Starters", Price:"8.99", Description:"Crispy puris, chutneys, yogurt, sev — the ultimate street food platter.", Available:"TRUE", Emoji:"🍽️", Veg:"TRUE", Spicy:"TRUE", IsNew:"TRUE" },
+  { Name:"Soup of the Day", Category:"Starters", Price:"5.99", Description:"Ask Chaitra what's brewing today — always a warm surprise.", Available:"TRUE", Emoji:"🍲", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Butter Chicken", Category:"Mains", Price:"15.99", Description:"Tender chicken simmered in a rich, velvety tomato-cream sauce.", Available:"TRUE", Emoji:"🍛", Veg:"FALSE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Dal Makhani", Category:"Mains", Price:"12.99", Description:"Slow-cooked black lentils, butter and cream — comfort in a bowl.", Available:"TRUE", Emoji:"🫕", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Paneer Tikka Masala", Category:"Mains", Price:"13.99", Description:"Smoky grilled paneer cubes in a vibrant masala gravy.", Available:"TRUE", Emoji:"🧀", Veg:"TRUE", Spicy:"TRUE", IsNew:"FALSE" },
+  { Name:"Lamb Biryani", Category:"Mains", Price:"18.99", Description:"Fragrant basmati rice slow-cooked with tender lamb and whole spices.", Available:"TRUE", Emoji:"🍚", Veg:"FALSE", Spicy:"TRUE", IsNew:"TRUE" },
+  { Name:"Garlic Naan", Category:"Breads", Price:"3.49", Description:"Soft, hand-pulled naan brushed with butter and fresh garlic.", Available:"TRUE", Emoji:"🫓", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Laccha Paratha", Category:"Breads", Price:"2.99", Description:"Flaky, layered whole-wheat flatbread — perfect with any curry.", Available:"TRUE", Emoji:"🫓", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Gulab Jamun (3 pcs)", Category:"Desserts", Price:"5.99", Description:"Soft milk-solid dumplings soaked in rose-cardamom syrup.", Available:"TRUE", Emoji:"🍮", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Kheer", Category:"Desserts", Price:"5.49", Description:"Creamy rice pudding with saffron, cardamom and pistachios.", Available:"TRUE", Emoji:"🍚", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Mango Lassi", Category:"Drinks", Price:"4.49", Description:"Thick, chilled yogurt drink blended with Alphonso mango pulp.", Available:"TRUE", Emoji:"🥭", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+  { Name:"Masala Chai", Category:"Drinks", Price:"3.49", Description:"Chai brewed with ginger, cardamom, cinnamon and whole milk.", Available:"TRUE", Emoji:"🍵", Veg:"TRUE", Spicy:"FALSE", IsNew:"FALSE" },
+];
+
+const DEMO_REVIEWS = [
+  { Name:"Priya S.", Location:"Quincy, MA", Rating:"5", Review:"I've tried so many Indian restaurants here but nothing compares to Chaitra's food. It tastes exactly like my mom's cooking back home. The Dal Makhani brings tears to my eyes every time." },
+  { Name:"James T.", Location:"Milton, MA", Rating:"5", Review:"My wife introduced me to Chaitra's kitchen and now I'm completely hooked. The Butter Chicken is the best I've ever tasted — rich, flavourful, and clearly made with real care." },
+  { Name:"Ananya R.", Location:"Braintree, MA", Rating:"5", Review:"Ordered the Lamb Biryani for a dinner party and my guests couldn't stop asking where I got it from. Perfectly spiced and the rice was cooked to perfection. Pure magic." },
+];
+
+// ── GOOGLE SHEETS PARSER ────────────────────────────────────────────────────
+function csvToObjects(csv) {
+  const lines = csv.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.replace(/^"|"$/g, '').trim());
+  return lines.slice(1).map(line => {
+    // Handle quoted commas
+    const values = []; let cur = ''; let inQ = false;
+    for (let ch of line) {
+      if (ch === '"') inQ = !inQ;
+      else if (ch === ',' && !inQ) { values.push(cur.trim()); cur = ''; }
+      else cur += ch;
+    }
+    values.push(cur.trim());
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (values[i] || '').replace(/^"|"$/g, '').trim());
+    return obj;
+  });
+}
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+let allItems = []; let activeCategory = 'all';
+
+function getCfg() {
+  try { return JSON.parse(localStorage.getItem('chaitraCfg') || '{}'); } catch { return {}; }
+}
+function saveCfg(cfg) { localStorage.setItem('chaitraCfg', JSON.stringify(cfg)); }
+
+// ── MENU RENDERING ──────────────────────────────────────────────────────────
+function renderMenu(items) {
+  const grid = document.getElementById('menuGrid');
+  const filtered = activeCategory === 'all'
+    ? items.filter(i => i.Available !== 'FALSE')
+    : items.filter(i => i.Category === activeCategory && i.Available !== 'FALSE');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="menu-error" style="grid-column:1/-1">
+      <span style="font-size:48px">🍽️</span>
+      <h3>Nothing here yet</h3>
+      <p>This category will be updated soon. Check back later!</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(item => {
+    const tags = [
+      item.Veg === 'TRUE' ? '<span class="tag tag-veg">🌿 Veg</span>' : '',
+      item.Spicy === 'TRUE' ? '<span class="tag tag-spicy">🌶 Spicy</span>' : '',
+      item.IsNew === 'TRUE' ? '<span class="tag tag-new">✨ New</span>' : '',
+    ].filter(Boolean).join('');
+
+    return `<div class="menu-card">
+      <div class="menu-card-emoji">${item.Emoji || '🍽️'}</div>
+      <div class="menu-card-body">
+        <div class="menu-card-name">${item.Name}</div>
+        <div class="menu-card-desc">${item.Description}</div>
+        <div class="menu-card-footer">
+          <div class="menu-card-price">$${parseFloat(item.Price || 0).toFixed(2)}</div>
+          <div class="menu-card-tags">${tags}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function buildTabs(items) {
+  const cats = ['all', ...new Set(items.map(i => i.Category).filter(Boolean))];
+  const tabs = document.getElementById('menuTabs');
+  tabs.innerHTML = cats.map(c => `
+    <button class="tab-btn ${c === activeCategory ? 'active' : ''}"
+      data-cat="${c}" onclick="filterCat('${c}')">
+      ${c === 'all' ? 'All Items' : c}
+    </button>`).join('');
+}
+
+function filterCat(cat) {
+  activeCategory = cat;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+  renderMenu(allItems);
+}
+
+// ── LOAD FROM SHEET ─────────────────────────────────────────────────────────
+async function loadMenu(url) {
+  const statusEl = document.getElementById('sheetStatus');
+  statusEl.innerHTML = '<div class="status-dot"></div><span>Loading from Google Sheets…</span>';
+
+  try {
+    // Use allorigins to bypass CORS
+    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+    const res = await fetch(proxy);
+    const data = await res.json();
+    const items = csvToObjects(data.contents);
+    allItems = items;
+    buildTabs(items);
+    renderMenu(items);
+    document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+    statusEl.innerHTML = '<div class="status-dot"></div><span>Live from Google Sheets</span>';
+  } catch (e) {
+    statusEl.innerHTML = '<div class="status-dot" style="background:#EF4444"></div><span>Could not load sheet</span>';
+    loadDemoMenu();
+    console.error('Sheet load error:', e);
+  }
+}
+
+async function loadReviews(url) {
+  try {
+    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+    const res = await fetch(proxy);
+    const data = await res.json();
+    const reviews = csvToObjects(data.contents);
+    renderReviews(reviews);
+  } catch { renderReviews(DEMO_REVIEWS); }
+}
+
+function loadDemoMenu() {
+  allItems = DEMO_MENU;
+  buildTabs(DEMO_MENU);
+  renderMenu(DEMO_MENU);
+  document.getElementById('lastUpdated').textContent = 'Demo data';
+  document.getElementById('sheetStatus').innerHTML =
+    '<div class="status-dot" style="background:var(--turmeric)"></div><span>Showing sample menu</span>';
+}
+
+function renderReviews(reviews) {
+  const grid = document.getElementById('reviewsGrid');
+  grid.innerHTML = reviews.map(r => {
+    const stars = '★'.repeat(Math.min(5, parseInt(r.Rating || 5)));
+    const initials = r.Name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    return `<div class="review-card">
+      <div class="review-stars">${stars}</div>
+      <div class="review-text">"${r.Review}"</div>
+      <div class="review-author">
+        <div class="review-avatar">${initials}</div>
+        <div>
+          <div class="review-name">${r.Name}</div>
+          <div class="review-location">${r.Location}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── CONFIG MODAL ────────────────────────────────────────────────────────────
+function openConfig() {
+  const cfg = getCfg();
+  document.getElementById('menuSheetUrl').value = cfg.menuUrl || '';
+  document.getElementById('reviewsSheetUrl').value = cfg.reviewsUrl || '';
+  document.getElementById('configModal').classList.add('open');
+}
+function closeConfig() { document.getElementById('configModal').classList.remove('open'); }
+function closeConfigOutside(e) { if (e.target.id === 'configModal') closeConfig(); }
+function saveConfig() {
+  const menuUrl = document.getElementById('menuSheetUrl').value.trim();
+  const reviewsUrl = document.getElementById('reviewsSheetUrl').value.trim();
+  saveCfg({ menuUrl, reviewsUrl });
+  closeConfig();
+  if (menuUrl) loadMenu(menuUrl);
+  if (reviewsUrl) loadReviews(reviewsUrl);
+}
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  const cfg = getCfg();
+  if (cfg.menuUrl) {
+    loadMenu(cfg.menuUrl);
+  } else {
+    setTimeout(() => {
+      loadDemoMenu();
+    }, 800); // Show skeleton briefly then demo
+  }
+  if (cfg.reviewsUrl) loadReviews(cfg.reviewsUrl);
+  else renderReviews(DEMO_REVIEWS);
+});
+</script>
+</body>
+</html>

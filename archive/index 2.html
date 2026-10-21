@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chaitrali's Kitchen — Pure Veg Marathi Tiffin & Catering</title>
+<meta name="description" content="Homemade pure vegetarian Indian food with authentic Marathi touches. Weekly tiffin service and catering for birthdays, graduations, poojas and festivals.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #E8851A;
+    --turmeric: #F4C44A;
+    --cardamom: #1A1A1A;
+    --cream: #FAF7F2;
+    --warm-white: #FEFCF8;
+    --clay: #C25F2A;
+    --leaf: #3B6B3A;
+    --mist: #F0EBE3;
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B6560;
+    --text-light: #9B948E;
+    --border: rgba(26,26,26,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--text-primary); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+    background: rgba(254,252,248,0.9);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(232,133,26,0.12);
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--cardamom); }
+  .nav-logo span { color: var(--saffron); }
+  .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: var(--text-secondary); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--saffron); }
+  .nav-cta { background: var(--saffron); color: #fff !important; padding: 8px 20px; border-radius: 100px; font-weight: 500 !important; }
+  .nav-cta:hover { background: var(--clay); }
+  @media (max-width: 860px) { .nav-links li:not(:last-child) { display: none; } nav { padding: 0 20px; } }
+
+  .hero {
+    min-height: 88vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative; padding: 120px 24px 60px;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(232,133,26,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(244,196,74,0.06) 0%, transparent 50%),
+      var(--warm-white);
+  }
+  .hero-inner { max-width: 760px; }
+  .hero .eyebrow { display: inline-block; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--leaf); border: 1px solid rgba(59,107,58,.3); padding: 6px 16px; border-radius: 100px; margin-bottom: 26px; background: rgba(59,107,58,.05); }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 7vw, 74px); font-weight: 400; line-height: 1.08; margin-bottom: 20px; }
+  .hero h1 em { color: var(--saffron); font-style: italic; }
+  .hero p { color: var(--text-secondary); font-size: 17px; line-height: 1.7; max-width: 560px; margin: 0 auto 34px; }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary, .btn-ghost {
+    display: inline-block; padding: 13px 30px; border-radius: 100px; font-size: 14px; font-weight: 500;
+    text-decoration: none; transition: all .2s; cursor: pointer; border: none; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary { background: var(--saffron); color: #fff; }
+  .btn-primary:hover { background: var(--clay); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--cardamom); border: 1px solid rgba(26,26,26,.2); }
+  .btn-ghost:hover { border-color: var(--saffron); color: var(--saffron); }
+
+  section { padding: 90px 24px; }
+  .container { max-width: 1080px; margin: 0 auto; }
+  .section-label { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--saffron); margin-bottom: 14px; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4.5vw, 46px); font-weight: 400; line-height: 1.15; margin-bottom: 18px; }
+  h2 em { color: var(--saffron); }
+  .section-intro { color: var(--text-secondary); font-size: 16px; line-height: 1.7; max-width: 620px; margin-bottom: 44px; }
+
+  /* Tiffin table */
+  .tiffin-week { background: var(--cream); border-radius: 20px; padding: 8px; overflow-x: auto; border: 1px solid var(--border); }
+  table.tiffin { width: 100%; border-collapse: collapse; min-width: 760px; }
+  table.tiffin th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-light); font-weight: 500; text-align: left; padding: 16px 14px 10px; border-bottom: 1px solid var(--border); }
+  table.tiffin td { padding: 14px; font-size: 14px; color: var(--text-primary); border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.tiffin tr:last-child td { border-bottom: none; }
+  table.tiffin td.day { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--saffron); white-space: nowrap; }
+  .week-of { display: inline-block; background: rgba(232,133,26,.1); color: var(--clay); font-size: 13px; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
+
+  .tiffin-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-top: 34px; }
+  .meta-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .meta-card h4 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--leaf); margin-bottom: 10px; }
+  .meta-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.65; }
+  .meta-card .price { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--cardamom); }
+  .meta-card .price small { font-size: 14px; color: var(--text-light); font-family: 'DM Sans', sans-serif; }
+  .zone-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .zone-pills span { background: rgba(59,107,58,.08); color: var(--leaf); font-size: 13px; padding: 5px 14px; border-radius: 100px; }
+
+  /* Catering */
+  .cat-bg { background: var(--cream); }
+  .cat-group { margin-bottom: 36px; }
+  .cat-group h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--cardamom); margin-bottom: 16px; }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .dish { background: var(--warm-white); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+  .dish-top { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+  .dish-top .name { font-weight: 500; font-size: 15px; }
+  .dish-top .price { color: var(--saffron); font-weight: 500; white-space: nowrap; font-size: 15px; }
+  .dish .unit { font-size: 12px; color: var(--text-light); margin-bottom: 8px; }
+  .dish .desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; }
+  .badges { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .badge { font-size: 11px; padding: 3px 10px; border-radius: 100px; letter-spacing: .03em; }
+  .badge.spicy { background: rgba(194,95,42,.1); color: var(--clay); }
+  .badge.allergen { background: var(--mist); color: var(--text-secondary); }
+
+  /* Seasonal */
+  .seasonal { background: linear-gradient(160deg, rgba(232,133,26,.07), rgba(244,196,74,.09)); border: 1px solid rgba(232,133,26,.2); border-radius: 24px; padding: 44px; }
+  .seasonal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 10px; }
+  .seasonal .dish { background: rgba(254,252,248,.85); }
+  .occasion-tag { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--clay); margin-bottom: 6px; }
+  .order-by { font-size: 12px; color: var(--leaf); margin-top: 8px; }
+
+  /* Order forms */
+  .order-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 860px) { .order-wrap { grid-template-columns: 1fr; } }
+  .order-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 20px; padding: 32px; }
+  .order-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 27px; margin-bottom: 6px; }
+  .order-card > p { font-size: 14px; color: var(--text-secondary); margin-bottom: 22px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-light); margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 11px 14px; border: 1px solid rgba(26,26,26,.15); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; background: var(--warm-white); color: var(--text-primary);
+  }
+  .field textarea { resize: vertical; min-height: 64px; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--saffron); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .order-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+
+  /* Reviews */
+  .review-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  .review { background: var(--cream); border-radius: 18px; padding: 26px; border: 1px solid var(--border); }
+  .stars { color: var(--turmeric); letter-spacing: 2px; margin-bottom: 12px; }
+  .review p { font-size: 14.5px; line-height: 1.7; color: var(--text-primary); font-style: italic; margin-bottom: 14px; }
+  .review .who { font-size: 13px; color: var(--text-secondary); }
+
+  /* Payment & allergy */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .pay-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
+  .pay-card h4 { font-size: 14px; margin-bottom: 8px; }
+  .pay-card .handle { font-family: 'Cormorant Garamond', serif; font-size: 21px; color: var(--saffron); word-break: break-all; }
+  .pay-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; margin-top: 8px; }
+  .allergy-box { margin-top: 30px; background: rgba(194,95,42,.06); border: 1px solid rgba(194,95,42,.25); border-radius: 16px; padding: 28px; }
+  .allergy-box h4 { color: var(--clay); font-size: 14px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+  .allergy-box p { font-size: 14px; color: var(--text-secondary); line-height: 1.75; }
+
+  footer { background: var(--cardamom); color: rgba(255,255,255,.75); padding: 60px 24px 40px; }
+  .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; }
+  footer .nav-logo { color: #fff; }
+  footer ul { list-style: none; }
+  footer li { margin-bottom: 10px; }
+  footer a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 14px; }
+  footer a:hover { color: var(--turmeric); }
+  .footer-note { max-width: 1080px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12px; color: rgba(255,255,255,.45); }
+
+  .load-error { text-align: center; padding: 40px; color: var(--text-secondary); font-size: 14px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" id="logo">Chaitrali's <span>Kitchen</span></div>
+  <ul class="nav-links">
+    <li><a href="#tiffin">Tiffin</a></li>
+    <li><a href="#catering">Catering</a></li>
+    <li><a href="#seasonal-section">Festival Specials</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#payment">Payment</a></li>
+    <li><a href="#order" class="nav-cta">Order Now</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">🌿 100% Pure Vegetarian · Homemade</div>
+    <h1>Ghara-sarkhi chav,<br><em>Marathi</em> touch</h1>
+    <p id="tagline">Weekly tiffin and festive catering made from scratch — varan-bhaat with toop, puran poli, modak and everything that tastes like aaji's kitchen.</p>
+    <div class="hero-ctas">
+      <a href="#tiffin" class="btn-primary">This Week's Tiffin</a>
+      <a href="#catering" class="btn-ghost">Catering Menu</a>
+    </div>
+  </div>
+</header>
+
+<section id="tiffin">
+  <div class="container">
+    <div class="section-label">Weekly Tiffin</div>
+    <h2>This Week's <em>Tiffin</em> Menu</h2>
+    <p class="section-intro">A fresh, balanced Marathi ghar-gutti meal every day — bhaji, amti or varan, rice, soft polya, koshimbir and sometimes a little sweet surprise. The menu changes every week.</p>
+    <div class="week-of hidden" id="week-of"></div>
+    <div class="tiffin-week">
+      <table class="tiffin">
+        <thead>
+          <tr><th>Day</th><th>Bhaji / Sabzi</th><th>Amti / Dal</th><th>Rice</th><th>Poli</th><th>Koshimbir / Side</th><th>Sweet</th></tr>
+        </thead>
+        <tbody id="tiffin-body">
+          <tr><td colspan="7" class="load-error">Loading this week's menu…</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tiffin-meta">
+      <div class="meta-card">
+        <h4>Weekly Plan</h4>
+        <div class="price">$<span id="price-week">—</span> <small>/ week</small></div>
+        <p id="tiffin-days">Monday to Friday</p>
+      </div>
+      <div class="meta-card">
+        <h4>Single Day</h4>
+        <div class="price">$<span id="price-single">—</span> <small>/ tiffin</small></div>
+        <p id="order-cutoff"></p>
+      </div>
+      <div class="meta-card">
+        <h4>Delivery Zones</h4>
+        <div class="zone-pills" id="zones"></div>
+        <p id="delivery-note" style="margin-top:10px"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catering" class="cat-bg">
+  <div class="container">
+    <div class="section-label">Catering</div>
+    <h2>Catering for Your <em>Celebrations</em></h2>
+    <p class="section-intro">Birthday parties, graduation parties, poojas, baby showers, get-togethers — pure veg Marathi food made with love, from kothimbir vadi to masale bhaat. <span id="catering-notice"></span></p>
+    <div id="catering-groups"><div class="load-error">Loading catering menu…</div></div>
+  </div>
+</section>
+
+<section id="seasonal-section">
+  <div class="container">
+    <div class="seasonal">
+      <div class="section-label">Festival Specials</div>
+      <h2 id="seasonal-title">Seasonal <em>Specials</em></h2>
+      <p class="section-intro" style="margin-bottom:18px">Handmade festival favorites, available for a limited time. Order early — quantities are limited.</p>
+      <div class="seasonal-grid" id="seasonal-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="container">
+    <div class="section-label">Place an Order</div>
+    <h2>Order in <em>Two Minutes</em></h2>
+    <p class="section-intro">Fill in the details and tap WhatsApp or Email — your order message is pre-written for you. We'll confirm availability, total and payment.</p>
+    <div class="order-wrap">
+      <div class="order-card">
+        <h3>🍱 Tiffin Order</h3>
+        <p>Fresh ghar-ka-khana, delivered or picked up.</p>
+        <div class="field">
+          <label>Plan</label>
+          <select id="t-plan">
+            <option>Weekly plan (Mon–Fri)</option>
+            <option>Single day trial</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Start date</label><input type="date" id="t-date"></div>
+          <div class="field"><label>Number of tiffins</label><input type="number" id="t-qty" min="1" value="1"></div>
+        </div>
+        <div class="field">
+          <label>Delivery or pickup</label>
+          <select id="t-mode"></select>
+        </div>
+        <div class="field"><label>Food allergies (please list all)</label><input type="text" id="t-allergy" placeholder="e.g. peanuts, dairy — or 'none'"></div>
+        <div class="order-btns">
+          <button class="btn-primary" onclick="sendOrder('tiffin','wa')">💬 Order on WhatsApp</button>
+          <button class="btn-ghost" onclick="sendOrder('tiffin','email')">📧 Order by Email</button>
+        </div>
+      </div>
+      <div class="order-card">
+        <h3>🎉 Catering Order</h3>
+        <p>Tell us about your event — we'll plan the menu with you.</p>
+        <div class="field">
+          <label>What's the event?</label>
+          <select id="c-event">
+            <option>Birthday party</option>
+            <option>Graduation party</option>
+            <option>Pooja / religious function</option>
+            <option>Baby shower / Dohale Jevan</option>
+            <option>House party / get-together</option>
+            <option>Festival celebration</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Event date</label><input type="date" id="c-date"></div>
+          <div class="field"><label>How many people?</label><input type="number" id="c-guests" min="1" placeholder="25"></div>
+        </div>
+        <div class="field">
+          <label>Pickup or delivery</label>
+          <select id="c-mode">
+            <option>Pickup</option>
+            <option>Delivery (please share address on chat)</option>
+          </select>
+        </div>
+        <div class="field"><label>Dishes you'd like / notes</label><textarea id="c-items" placeholder="e.g. Misal pav for 25, puran poli, masale bhaat…"></textarea></div>
+        <div class="field"><label>Food allergies in your group (please list all)</label><input type="text" id="c-allergy" placeholder="e.g. tree nuts — or 'none'"></div>
+        <div class="order-btns">
+          <button class="btn-primary" onclick="sendOrder('catering','wa')">💬 Enquire on WhatsApp</button>
+          <button class="btn-ghost" onclick="sendOrder('catering','email')">📧 Enquire by Email</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="cat-bg">
+  <div class="container">
+    <div class="section-label">Reviews</div>
+    <h2>Words from <em>Happy Hearts</em></h2>
+    <div class="review-grid" id="review-grid"></div>
+  </div>
+</section>
+
+<section id="payment">
+  <div class="container">
+    <div class="section-label">Payment</div>
+    <h2>Simple, <em>Honest</em> Payment</h2>
+    <p class="section-intro">No online checkout, no card fees — pay the way neighbors do.</p>
+    <div class="info-grid">
+      <div class="pay-card"><h4>Zelle</h4><div class="handle" id="pay-zelle">—</div></div>
+      <div class="pay-card"><h4>Venmo</h4><div class="handle" id="pay-venmo">—</div></div>
+      <div class="pay-card"><h4>Good to know</h4><p id="pay-note"></p></div>
+    </div>
+    <div class="allergy-box">
+      <h4>⚠️ Food Allergy Disclosure</h4>
+      <p id="allergy-note"></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="nav-logo" id="logo-footer">Chaitrali's <span>Kitchen</span></div>
+      <p style="margin-top:12px; font-size:13px; max-width:280px; line-height:1.6" id="footer-tag"></p>
+    </div>
+    <div>
+      <ul>
+        <li><a id="f-wa" href="#">WhatsApp</a></li>
+        <li><a id="f-email" href="#">Email</a></li>
+        <li><a href="#tiffin">This week's tiffin</a></li>
+        <li><a href="#catering">Catering menu</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li id="f-pickup"></li>
+        <li id="f-zones"></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-note">© <span id="year"></span> Chaitrali's Kitchen · Pure vegetarian home kitchen · Made with प्रेम</div>
+</footer>
+
+<script>
+let S = {};   // settings
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function init() {
+  let d;
+  try {
+    const res = await fetch('data/menu.json?v=' + Date.now());
+    d = await res.json();
+  } catch (e) {
+    document.getElementById('tiffin-body').innerHTML =
+      '<tr><td colspan="7" class="load-error">Menu could not load. If you opened this file directly, run a local server (python3 -m http.server) or view the live site.</td></tr>';
+    return;
+  }
+  S = d.settings || {};
+
+  // Branding & settings
+  if (S.business_name) {
+    const parts = S.business_name.split(' ');
+    document.title = S.business_name + " — Pure Veg Marathi Tiffin & Catering";
+  }
+  if (S.tagline) document.getElementById('footer-tag').textContent = S.tagline;
+  document.getElementById('price-week').textContent = S.tiffin_price_week || '—';
+  document.getElementById('price-single').textContent = S.tiffin_price_single || '—';
+  document.getElementById('tiffin-days').textContent = S.tiffin_days || '';
+  document.getElementById('order-cutoff').textContent = S.order_cutoff || '';
+  document.getElementById('delivery-note').textContent = S.delivery_note || '';
+  document.getElementById('catering-notice').textContent = S.catering_min_notice ? '(' + S.catering_min_notice + '.)' : '';
+  document.getElementById('pay-zelle').textContent = S.payment_zelle || '—';
+  document.getElementById('pay-venmo').textContent = S.payment_venmo || '—';
+  document.getElementById('pay-note').textContent = S.payment_note || '';
+  document.getElementById('allergy-note').textContent = S.allergy_note || '';
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('f-pickup').textContent = S.pickup_city ? 'Pickup: ' + S.pickup_city : '';
+  document.getElementById('f-zones').textContent = S.delivery_zones ? 'Delivery: ' + S.delivery_zones : '';
+  document.getElementById('f-wa').href = 'https://wa.me/' + (S.phone_whatsapp || '');
+  document.getElementById('f-email').href = 'mailto:' + (S.email || '');
+
+  // Zones
+  const zones = (S.delivery_zones || '').split(',').map(z => z.trim()).filter(Boolean);
+  document.getElementById('zones').innerHTML = zones.map(z => '<span>' + esc(z) + '</span>').join('');
+  const tMode = document.getElementById('t-mode');
+  tMode.innerHTML = zones.map(z => '<option>Delivery — ' + esc(z) + '</option>').join('') +
+    '<option>Pickup' + (S.pickup_city ? ' (' + esc(S.pickup_city) + ')' : '') + '</option>';
+
+  // Tiffin week
+  if (d.tiffin?.week_of) {
+    const w = document.getElementById('week-of');
+    w.textContent = 'Week of ' + d.tiffin.week_of;
+    w.classList.remove('hidden');
+  }
+  document.getElementById('tiffin-body').innerHTML = (d.tiffin?.days || []).map(r => `
+    <tr>
+      <td class="day">${esc(r.day)}</td><td>${esc(r.bhaji)}</td><td>${esc(r.amti)}</td>
+      <td>${esc(r.rice)}</td><td>${esc(r.poli)}</td><td>${esc(r.side)}</td><td>${esc(r.sweet)}</td>
+    </tr>`).join('') || '<tr><td colspan="7" class="load-error">This week\'s menu is being updated — check back soon!</td></tr>';
+
+  // Catering grouped by category
+  const order = ['Starters', 'Mains', 'Rice', 'Sweets', 'Drinks'];
+  const groups = {};
+  (d.catering || []).forEach(i => (groups[i.category] = groups[i.category] || []).push(i));
+  const cats = [...order.filter(c => groups[c]), ...Object.keys(groups).filter(c => !order.includes(c))];
+  document.getElementById('catering-groups').innerHTML = cats.map(c => `
+    <div class="cat-group">
+      <h3>${esc(c)}</h3>
+      <div class="cat-grid">${groups[c].map(dishCard).join('')}</div>
+    </div>`).join('');
+
+  // Seasonal
+  const sg = document.getElementById('seasonal-grid');
+  if ((d.seasonal || []).length) {
+    const occ = [...new Set(d.seasonal.map(i => i.occasion))];
+    if (occ.length === 1) document.getElementById('seasonal-title').innerHTML = esc(occ[0]) + ' <em>Specials</em>';
+    sg.innerHTML = d.seasonal.map(i => `
+      <div class="dish">
+        <div class="occasion-tag">${esc(i.occasion)}</div>
+        <div class="dish-top"><span class="name">${esc(i.name)}</span><span class="price">$${esc(i.price)}</span></div>
+        <div class="unit">${esc(i.unit)}</div>
+        <div class="desc">${esc(i.description)}</div>
+        ${i.order_by ? '<div class="order-by">📅 Order by ' + esc(i.order_by) + '</div>' : ''}
+      </div>`).join('');
+  } else {
+    document.getElementById('seasonal-section').classList.add('hidden');
+  }
+
+  // Reviews
+  document.getElementById('review-grid').innerHTML = (d.reviews || []).map(r => `
+    <div class="review">
+      <div class="stars">${'★'.repeat(r.rating || 5)}</div>
+      <p>“${esc(r.text)}”</p>
+      <div class="who">— ${esc(r.name)}, ${esc(r.location)} · ${esc(r.date)}</div>
+    </div>`).join('');
+}
+
+function dishCard(i) {
+  const allergens = (i.contains || '').split(',').map(a => a.trim()).filter(Boolean);
+  return `
+    <div class="dish">
+      <div class="dish-top"><span class="name">${esc(i.name)}</span><span class="price">$${esc(i.price)}</span></div>
+      <div class="unit">${esc(i.unit)}</div>
+      <div class="desc">${esc(i.description)}</div>
+      <div class="badges">
+        ${i.spicy ? '<span class="badge spicy">🌶 Spicy</span>' : ''}
+        ${allergens.map(a => '<span class="badge allergen">' + esc(a) + '</span>').join('')}
+      </div>
+    </div>`;
+}
+
+function sendOrder(kind, via) {
+  const v = id => document.getElementById(id).value.trim();
+  let msg;
+  if (kind === 'tiffin') {
+    msg = `Namaskar! I'd like to order tiffin from ${S.business_name || "Chaitrali's Kitchen"}.\n` +
+      `• Plan: ${v('t-plan')}\n• Start date: ${v('t-date') || '(flexible)'}\n` +
+      `• Number of tiffins: ${v('t-qty')}\n• Delivery/Pickup: ${v('t-mode')}\n` +
+      `• Allergies: ${v('t-allergy') || 'none mentioned'}`;
+  } else {
+    msg = `Namaskar! I'd like to enquire about catering from ${S.business_name || "Chaitrali's Kitchen"}.\n` +
+      `• Event: ${v('c-event')}\n• Date: ${v('c-date') || '(to be decided)'}\n` +
+      `• Guests: ${v('c-guests') || '?'}\n• Pickup/Delivery: ${v('c-mode')}\n` +
+      `• Dishes/notes: ${v('c-items') || '(open to suggestions)'}\n` +
+      `• Allergies in group: ${v('c-allergy') || 'none mentioned'}`;
+  }
+  if (via === 'wa') {
+    window.open('https://wa.me/' + (S.phone_whatsapp || '') + '?text=' + encodeURIComponent(msg), '_blank');
+  } else {
+    const subj = kind === 'tiffin' ? 'Tiffin order' : 'Catering enquiry — ' + v('c-event');
+    window.location.href = 'mailto:' + (S.email || '') + '?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(msg);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
