@@ -1,0 +1,48 @@
+# When the content pack spreadsheet changes — whether someone saves from the
+# admin page or commits the file by hand — regenerate data/menu.json with the
+# repository's own converter and commit it. The public pages read menu.json,
+# so this is what makes an edit show up on the site.
+name: Rebuild menu.json from content pack
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/ChaitralisKitchen_ContentPack.xlsx"
+      - "excel-to-json.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rebuild-menu
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install openpyxl
+        run: pip install --quiet openpyxl
+
+      - name: Convert spreadsheet to menu.json
+        run: python3 excel-to-json.py data/ChaitralisKitchen_ContentPack.xlsx
+
+      - name: Commit menu.json if it changed
+        run: |
+          if git diff --quiet -- data/menu.json; then
+            echo "menu.json is already up to date — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/menu.json
+          git commit -m "Rebuild menu.json from content pack"
+          git push

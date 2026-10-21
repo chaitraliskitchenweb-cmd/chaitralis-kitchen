@@ -4,554 +4,366 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chaitrali's Kitchen — Admin</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --olive:#6b820d; --olive-d:#556809; --navy:#1A2B4A; --gold:#D4A24C;
-  --bg:#f5f5f0; --card:#fff; --border:#e0ddd4; --text:#2c2c2c; --muted:#777;
-  --red:#c0392b; --green:#27ae60; --r:10px;
+  --olive: #6b820d; --olive-dark: #556809; --olive-light: #8da312;
+  --navy: #1A2B4A; --gold: #D4A24C; --bg: #f5f5f0; --white: #ffffff;
+  --card: #ffffff; --border: #e0ddd4; --text: #2c2c2c; --muted: #666;
+  --red: #c0392b; --green: #27ae60; --radius: 10px;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
 /* Top bar */
-.bar{background:var(--navy);color:#fff;padding:13px 24px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
-.bar .brand{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--gold);flex:1}
-.bar .saved-lbl{font-size:.78rem;color:#8fa8c8;transition:.3s}
-.bar .saved-lbl.dirty{color:#f0a04a}
-.btn{border:none;padding:9px 20px;border-radius:7px;font-family:'Poppins',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;transition:.15s}
-.btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{background:#c89240}
-.btn-gold:disabled{opacity:.45;cursor:not-allowed}
-.btn-sm{padding:6px 14px;font-size:.78rem}
-.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff}.btn-outline:hover{background:rgba(255,255,255,.08)}
+.topbar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,.3); }
+.topbar .brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); flex: 1; }
+.topbar .badge { font-size: .7rem; background: var(--olive); color: white; padding: 3px 10px; border-radius: 20px; font-weight: 600; letter-spacing: .05em; }
+.topbar .save-btn { background: var(--gold); color: var(--navy); border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; font-family: 'Poppins',sans-serif; cursor: pointer; font-size: .85rem; transition: .15s; }
+.topbar .save-btn:hover { background: #c89240; }
+.topbar .save-btn:disabled { opacity: .5; cursor: not-allowed; }
 
-/* Layout */
-.wrap{max-width:980px;margin:0 auto;padding:26px 20px}
+/* File load screen */
+#load-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 24px; }
+.load-card { background: var(--card); border-radius: var(--radius); padding: 48px 40px; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,.08); max-width: 480px; width: 100%; }
+.load-card h2 { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1.6rem; margin-bottom: 10px; }
+.load-card p { color: var(--muted); font-size: .9rem; margin-bottom: 28px; line-height: 1.5; }
+.load-card .icon { font-size: 3rem; margin-bottom: 16px; }
+.file-drop { border: 2px dashed var(--olive); border-radius: var(--radius); padding: 32px; cursor: pointer; transition: .2s; }
+.file-drop:hover { background: #f0f5e0; border-color: var(--olive-dark); }
+.file-drop input { display: none; }
+.file-drop .pick-label { color: var(--olive); font-weight: 600; display: block; margin-top: 8px; font-size: .9rem; }
+.load-note { background: #fff8e7; border: 1px solid #f0d97a; border-radius: 8px; padding: 14px 18px; font-size: .82rem; color: #7a5e00; line-height: 1.5; max-width: 480px; width: 100%; }
+
+/* Main app */
+#app { display: none; max-width: 960px; margin: 0 auto; padding: 24px 20px; }
 
 /* Tabs */
-.tabs{display:flex;gap:4px;background:var(--card);padding:5px;border-radius:var(--r);border:1px solid var(--border);margin-bottom:24px}
-.tab{flex:1;padding:9px 10px;border:none;background:transparent;border-radius:7px;font-family:'Poppins',sans-serif;font-size:.83rem;font-weight:500;color:var(--muted);cursor:pointer;transition:.15s;white-space:nowrap}
-.tab.on{background:var(--navy);color:#fff}
-.pane{display:none}.pane.on{display:block}
+.tabs { display: flex; gap: 4px; background: var(--card); padding: 6px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 24px; }
+.tab-btn { flex: 1; padding: 9px 12px; border: none; background: transparent; border-radius: 7px; font-family: 'Poppins', sans-serif; font-size: .85rem; font-weight: 500; color: var(--muted); cursor: pointer; transition: .15s; }
+.tab-btn.active { background: var(--navy); color: white; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
 
-/* Cards */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:18px}
-.card-h{font-size:.92rem;font-weight:600;color:var(--navy);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+/* Section heading */
+.section-h { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.section-h h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--navy); }
 
-/* Form grid */
-.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.fg.one{grid-template-columns:1fr}
-@media(max-width:580px){.fg{grid-template-columns:1fr}}
-.f{display:flex;flex-direction:column;gap:5px}
-.f label{font-size:.73rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.04em}
-.f input,.f textarea,.f select{border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-family:'Poppins',sans-serif;font-size:.87rem;color:var(--text);background:#fff;width:100%;transition:.15s}
-.f textarea{resize:vertical;min-height:72px}
-.f input:focus,.f textarea:focus,.f select:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 3px rgba(107,130,13,.12)}
+/* Card */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-bottom: 18px; }
+.card h3 { font-size: .95rem; font-weight: 600; color: var(--navy); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 
-/* Week section */
-.week-lbl{font-size:.92rem;font-weight:600;color:var(--navy);margin-bottom:12px}
-.dates-f{margin-bottom:14px}
-.dates-f label{font-size:.73rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:5px}
-.dates-f input{border:1px solid var(--border);border-radius:6px;padding:8px 11px;font-size:.87rem;font-family:'Poppins',sans-serif;max-width:340px;width:100%}
-.dates-f input:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 3px rgba(107,130,13,.12)}
+/* Grid form */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-grid.wide { grid-template-columns: 1fr; }
+@media(max-width:600px){ .form-grid { grid-template-columns: 1fr; } }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: .78rem; font-weight: 600; color: var(--navy); letter-spacing: .03em; text-transform: uppercase; }
+.field input, .field textarea, .field select { border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; font-family: 'Poppins', sans-serif; font-size: .88rem; color: var(--text); transition: .15s; background: white; width: 100%; }
+.field textarea { resize: vertical; min-height: 70px; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px rgba(107,130,13,.1); }
 
-/* Dish rows */
-.dish-cols{display:grid;grid-template-columns:28px 1fr 1fr 150px;gap:8px;padding:0 0 7px;border-bottom:1px solid #eee;margin-bottom:4px}
-.dish-cols span{font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.dish-row{display:grid;grid-template-columns:28px 1fr 1fr 150px;gap:8px;align-items:start;padding:7px 0;border-bottom:1px solid #f5f2ec}
-.dish-row:last-child{border-bottom:none}
-.d-num{font-size:.78rem;color:var(--muted);font-weight:600;padding-top:10px;text-align:center}
-.dish-row input,.dish-row select{border:1px solid var(--border);border-radius:6px;padding:8px 9px;font-size:.84rem;font-family:'Poppins',sans-serif;width:100%;background:#fff}
-.dish-row input:focus,.dish-row select:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 3px rgba(107,130,13,.1)}
-.add-dish-btn{margin-top:10px;background:none;border:1px dashed var(--olive);color:var(--olive);border-radius:6px;padding:6px 14px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif}
-.add-dish-btn:hover{background:#f0f5e0}
-.del-btn{background:none;border:none;color:#ccc;font-size:1rem;cursor:pointer;padding:4px;line-height:1}.del-btn:hover{color:var(--red)}
+/* Tiffin weeks */
+.week-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.week-header h3 { font-size: .95rem; font-weight: 600; color: var(--navy); }
+.dates-row { margin-bottom: 16px; }
+.dates-row label { font-size: .78rem; font-weight: 600; color: var(--navy); letter-spacing: .03em; text-transform: uppercase; display: block; margin-bottom: 5px; }
+.dates-row input { border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: .88rem; font-family: 'Poppins', sans-serif; width: 100%; max-width: 360px; }
+
+/* Dish row */
+.dish-row { display: grid; grid-template-columns: auto 1fr 1fr 140px; gap: 8px; align-items: start; padding: 10px 0; border-bottom: 1px solid #f0ede6; }
+.dish-row:last-child { border-bottom: none; }
+.dish-num { font-size: .8rem; color: var(--muted); font-weight: 600; padding-top: 10px; min-width: 24px; text-align: center; }
+.dish-row input { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: .85rem; font-family: 'Poppins', sans-serif; width: 100%; }
+.dish-row input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px rgba(107,130,13,.1); }
+.dish-row select { border: 1px solid var(--border); border-radius: 6px; padding: 8px 6px; font-size: .8rem; font-family: 'Poppins', sans-serif; width: 100%; background: white; }
+.dish-row select:focus { outline: none; border-color: var(--olive); }
+.col-headers { display: grid; grid-template-columns: auto 1fr 1fr 140px; gap: 8px; padding: 0 0 6px; }
+.col-h { font-size: .72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
 
 /* Events */
-.ev-card{border:1px solid var(--border);border-radius:var(--r);background:var(--card);margin-bottom:16px;overflow:hidden}
-.ev-head{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;border-bottom:1px solid transparent}
-.ev-head.open{border-bottom-color:var(--border)}
-.ev-title{font-weight:600;font-size:.92rem;color:var(--navy);flex:1}
-.ev-status{font-size:.75rem;padding:3px 10px;border-radius:12px;font-weight:600}
-.ev-status.on{background:#e6f4ea;color:#1e7e34}
-.ev-status.off{background:#f0f0f0;color:var(--muted)}
-.ev-body{padding:18px;display:none}
-.ev-body.open{display:block}
-.ev-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;align-items:end}
-.active-row{display:flex;align-items:center;gap:8px;padding-top:4px}
-.active-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--olive);cursor:pointer}
-.active-row label{font-size:.88rem;font-weight:500;cursor:pointer}
+.event-card { border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); margin-bottom: 18px; overflow: hidden; }
+.event-head { padding: 16px 20px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
+.event-head .event-title { font-weight: 600; font-size: .95rem; color: var(--navy); flex: 1; }
+.event-head .toggle-icon { font-size: 1rem; transition: .2s; }
+.event-body { padding: 20px; display: none; }
+.event-body.open { display: block; }
+.event-meta { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; margin-bottom: 20px; }
+.active-toggle { display: flex; align-items: center; gap: 8px; }
+.active-toggle input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--olive); cursor: pointer; }
+.active-toggle label { font-size: .88rem; font-weight: 500; cursor: pointer; }
 
 /* Event sections */
-.ev-sec{margin-bottom:14px;border:1px solid #eee;border-radius:8px;overflow:hidden}
-.ev-sec-head{background:#f7f6f2;padding:9px 14px;font-size:.83rem;font-weight:600;color:var(--navy)}
-.ev-dishes{padding:10px 14px}
-.ev-d-cols{display:grid;grid-template-columns:1fr 1fr 110px 110px 28px;gap:7px;padding-bottom:6px;border-bottom:1px solid #eee;margin-bottom:6px}
-.ev-d-cols span{font-size:.68rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.ev-d-row{display:grid;grid-template-columns:1fr 1fr 110px 110px 28px;gap:7px;margin-bottom:7px;align-items:start}
-.ev-d-row:last-child{margin-bottom:0}
-.ev-d-row input{border:1px solid var(--border);border-radius:6px;padding:7px 8px;font-size:.81rem;font-family:'Poppins',sans-serif;width:100%;background:#fff}
-.ev-d-row input:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 2px rgba(107,130,13,.1)}
-.pp{display:flex;flex-direction:column;gap:3px}
-.pp input{font-size:.77rem}
-.pp .pl{font-size:.62rem;color:var(--muted);font-weight:600;text-transform:uppercase;padding-left:2px}
-.add-sec-btn{margin-top:12px;background:none;border:1px dashed #aaa;color:var(--muted);border-radius:6px;padding:6px 14px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif}
-.add-sec-btn:hover{border-color:var(--olive);color:var(--olive)}
+.ev-section { margin-bottom: 18px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.ev-section-head { background: #f5f5f0; padding: 10px 16px; font-size: .85rem; font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+.ev-dishes { padding: 12px 16px; }
+.ev-dish-row { display: grid; grid-template-columns: 1fr 1fr 120px 120px; gap: 8px; margin-bottom: 8px; }
+.ev-dish-row:last-child { margin-bottom: 0; }
+.ev-dish-row input { border: 1px solid var(--border); border-radius: 6px; padding: 7px 9px; font-size: .82rem; font-family: 'Poppins', sans-serif; width: 100%; }
+.ev-dish-row input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px rgba(107,130,13,.1); }
+.price-pair { display: flex; flex-direction: column; gap: 4px; }
+.price-pair input { font-size: .78rem; }
+.price-pair .plabel { font-size: .65rem; color: var(--muted); font-weight: 600; text-transform: uppercase; padding-left: 2px; }
+.col-h-row { display: grid; grid-template-columns: 1fr 1fr 120px 120px; gap: 8px; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
 
-/* Toast */
-.toast{position:fixed;bottom:22px;right:22px;padding:11px 20px;border-radius:8px;font-size:.85rem;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:200;color:#fff}
-.toast.show{opacity:1}
-.toast.ok{background:var(--green)}.toast.err{background:var(--red)}.toast.info{background:var(--navy)}
+/* Status bar */
+.status-bar { position: fixed; bottom: 20px; right: 20px; background: var(--navy); color: white; padding: 10px 18px; border-radius: 8px; font-size: .85rem; font-weight: 500; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 200; }
+.status-bar.show { opacity: 1; }
+.status-bar.ok { background: var(--green); }
+.status-bar.err { background: var(--red); }
 
-/* Download instructions */
-.how{background:#fff8e7;border:1px solid #f0d97a;border-radius:8px;padding:14px 18px;font-size:.82rem;color:#7a5e00;line-height:1.6;margin-bottom:20px}
-.how code{background:#f5e99a;padding:1px 5px;border-radius:3px;font-size:.8rem}
+/* Tag chips for reference */
+.tag-chip { display: inline-block; font-size: .7rem; font-weight: 600; padding: 2px 8px; border-radius: 12px; background: #e8eecc; color: var(--olive-dark); }
 
-/* Admin sign-in gate */
-.gate{position:fixed;inset:0;background:var(--navy);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px}
-.gate.hide{display:none}
-.gate-card{background:var(--card);border-radius:14px;padding:34px 30px;max-width:390px;width:100%;box-shadow:0 18px 50px rgba(0,0,0,.4);text-align:center}
-.gate-card h1{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--navy);margin-bottom:4px}
-.gate-sub{font-size:.84rem;color:var(--muted);margin-bottom:24px}
-.gate-card label{display:block;text-align:left;font-size:.72rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-.gate-card input{width:100%;border:1px solid var(--border);border-radius:7px;padding:11px 12px;font-family:'Poppins',sans-serif;font-size:.9rem;margin-bottom:16px}
-.gate-card input:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 3px rgba(107,130,13,.14)}
-.gate-card .btn{width:100%;padding:11px}
-.gate-err{font-size:.8rem;color:var(--red);margin-top:12px;min-height:1em;line-height:1.5}
-.gate-err.busy{color:var(--muted)}
-.gate-help{font-size:.76rem;color:var(--muted);margin-top:20px;line-height:1.6;border-top:1px solid var(--border);padding-top:16px}
+/* Responsive dishes */
+@media(max-width:640px) {
+  .dish-row { grid-template-columns: auto 1fr; }
+  .dish-row .tag-cell { grid-column: 2; }
+  .ev-dish-row { grid-template-columns: 1fr 1fr; }
+}
 </style>
 </head>
 <body>
 
-<div class="gate" id="gate">
-  <div class="gate-card">
-    <h1>🍛 Chaitrali's Kitchen</h1>
-    <p class="gate-sub">Admin sign-in</p>
-    <label for="gate-token">Access key</label>
-    <input type="password" id="gate-token" placeholder="Paste your access key" autocomplete="current-password">
-    <button class="btn btn-gold" onclick="unlock()">Sign in</button>
-    <p class="gate-err" id="gate-err"></p>
-    <p class="gate-help">Your access key is only stored on this device — you will not need to type it again.
-    Lost it? Ask Sandy for a new one.</p>
+<!-- Top bar -->
+<div class="topbar">
+  <span class="brand">🍛 Chaitrali's Kitchen Admin</span>
+  <span class="badge" id="file-badge">Loading…</span>
+  <button class="save-btn" id="backup-btn" onclick="downloadExcel()" style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff" disabled>⬇ Backup copy</button>
+  <button class="save-btn" id="signout-btn" onclick="signOut()" style="background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff">Sign out</button>
+  <button class="save-btn" id="save-btn" onclick="saveToGitHub()" disabled>💾 Save Changes</button>
+</div>
+
+<!-- Sign-in screen -->
+<div id="load-screen">
+  <div class="load-card">
+    <div class="icon">🔐</div>
+    <h2>Sign in to edit the website</h2>
+    <p>Enter your password to load the current content. Your edits save straight back to the content pack — no files to download or upload.</p>
+    <div style="text-align:left;margin-top:18px">
+      <input type="password" id="gate-pw" placeholder="Password" autocomplete="current-password"
+             style="width:100%;border:1px solid var(--border);border-radius:7px;padding:12px 13px;font-family:inherit;font-size:.95rem;box-sizing:border-box">
+      <button class="save-btn" onclick="unlock()" style="width:100%;margin-top:12px;padding:12px">Sign in</button>
+      <p id="gate-err" style="font-size:.82rem;color:var(--red,#c0392b);margin-top:12px;min-height:1em;line-height:1.5"></p>
+    </div>
+  </div>
+  <div class="load-note">
+    💡 You stay signed in on this device for 12 hours.
   </div>
 </div>
 
-<div class="bar">
-  <span class="brand">🍛 Chaitrali's Kitchen — Admin</span>
-  <span class="saved-lbl" id="dirty-lbl">All saved</span>
-  <button class="btn btn-outline btn-sm" onclick="loadData()">↺ Reload</button>
-  <button class="btn btn-outline btn-sm" onclick="signOut()">Sign out</button>
-  <button class="btn btn-gold" id="save-btn" onclick="saveData()" disabled>💾 Save Changes</button>
-</div>
-
-<div class="wrap">
-
-  <div class="how">
-    📋 <strong>How it works:</strong> Change anything you like below, then click
-    <strong>Save Changes</strong>. That's it — the website updates itself about a minute later.
-    Nothing else to do, no files to download.
-  </div>
-
+<!-- Main app -->
+<div id="app">
+  <!-- Tabs -->
   <div class="tabs">
-    <button class="tab on" onclick="tab(this,'settings')">⚙️ Business Info</button>
-    <button class="tab" onclick="tab(this,'tiffin')">📅 Weekly Menu</button>
-    <button class="tab" onclick="tab(this,'events')">🎉 Events</button>
-    <button class="tab" onclick="tab(this,'carousel')">🖼 Carousel</button>
+    <button class="tab-btn active" onclick="switchTab('settings')">⚙️ Business Info</button>
+    <button class="tab-btn" onclick="switchTab('tiffin')">📅 Weekly Menu</button>
+    <button class="tab-btn" onclick="switchTab('events')">🎉 Events</button>
+    <button class="tab-btn" onclick="switchTab('carousel')">🖼 Carousel</button>
   </div>
 
-  <!-- SETTINGS -->
-  <div class="pane on" id="pane-settings">
+  <!-- SETTINGS TAB -->
+  <div class="tab-pane active" id="tab-settings">
+    <div class="section-h"><h2>⚙️ Business Info</h2></div>
     <div class="card">
-      <div class="card-h">📞 Contact & Identity</div>
-      <div class="fg">
-        <div class="f"><label>Business Name</label><input id="s-business_name" oninput="dirty()"></div>
-        <div class="f"><label>Tagline</label><input id="s-tagline" oninput="dirty()"></div>
-        <div class="f"><label>Phone</label><input id="s-phone" oninput="dirty()"></div>
-        <div class="f"><label>WhatsApp Number</label><input id="s-phone_whatsapp" oninput="dirty()"></div>
-        <div class="f"><label>Email</label><input id="s-email" oninput="dirty()"></div>
-        <div class="f"><label>City / Location</label><input id="s-location" oninput="dirty()"></div>
+      <h3>Contact & Identity</h3>
+      <div class="form-grid">
+        <div class="field"><label>Business Name</label><input id="s-business_name" oninput="markDirty()"></div>
+        <div class="field"><label>Tagline / Slogan</label><input id="s-tagline" oninput="markDirty()"></div>
+        <div class="field"><label>Phone Number</label><input id="s-phone" oninput="markDirty()"></div>
+        <div class="field"><label>WhatsApp Number</label><input id="s-phone_whatsapp" oninput="markDirty()"></div>
+        <div class="field"><label>Email Address</label><input id="s-email" oninput="markDirty()"></div>
+        <div class="field"><label>City / Location</label><input id="s-location" oninput="markDirty()"></div>
       </div>
     </div>
     <div class="card">
-      <div class="card-h">💳 Order & Payment</div>
-      <div class="fg">
-        <div class="f"><label>Tiffin Days</label><input id="s-tiffin_days" oninput="dirty()"></div>
-        <div class="f"><label>Order Cutoff</label><input id="s-order_cutoff" oninput="dirty()"></div>
-        <div class="f"><label>Zelle</label><input id="s-payment_zelle" oninput="dirty()"></div>
-        <div class="f"><label>Venmo</label><input id="s-payment_venmo" oninput="dirty()"></div>
+      <h3>Order & Payment</h3>
+      <div class="form-grid">
+        <div class="field"><label>Tiffin Days</label><input id="s-tiffin_days" oninput="markDirty()"></div>
+        <div class="field"><label>Order Cutoff</label><input id="s-order_cutoff" oninput="markDirty()"></div>
+        <div class="field"><label>Zelle (email/phone)</label><input id="s-payment_zelle" oninput="markDirty()"></div>
+        <div class="field"><label>Venmo Handle</label><input id="s-payment_venmo" oninput="markDirty()"></div>
       </div>
     </div>
     <div class="card">
-      <div class="card-h">⚠️ Allergy Note</div>
-      <div class="fg one">
-        <div class="f"><textarea id="s-allergy_note" rows="4" oninput="dirty()"></textarea></div>
+      <h3>Allergy / Disclaimer Note</h3>
+      <div class="form-grid wide">
+        <div class="field"><textarea id="s-allergy_note" rows="4" oninput="markDirty()"></textarea></div>
       </div>
     </div>
   </div>
 
-  <!-- TIFFIN -->
-  <div class="pane" id="pane-tiffin">
-    <div class="card" id="week-last">
-      <div class="card-h">⬅ Last Week</div>
-      <div class="dates-f"><label>Date Range</label><input id="last-dates" placeholder="e.g. Oct 1 – Oct 6, 2026" oninput="dirty()"></div>
-      <div class="dish-cols"><span>#</span><span>Dish Name</span><span>Description</span><span>Category</span></div>
-      <div id="last-dishes"></div>
-      <button class="add-dish-btn" onclick="addDish('last')">+ Add Dish</button>
-    </div>
-    <div class="card" id="week-this">
-      <div class="card-h">✨ This Week</div>
-      <div class="dates-f"><label>Date Range</label><input id="this-dates" placeholder="e.g. Oct 7 – Oct 12, 2026" oninput="dirty()"></div>
-      <div class="dish-cols"><span>#</span><span>Dish Name</span><span>Description</span><span>Category</span></div>
-      <div id="this-dishes"></div>
-      <button class="add-dish-btn" onclick="addDish('this')">+ Add Dish</button>
-    </div>
-    <div class="card" id="week-next">
-      <div class="card-h">➡ Next Week</div>
-      <div class="dates-f"><label>Date Range</label><input id="next-dates" placeholder="e.g. Oct 14 – Oct 19, 2026" oninput="dirty()"></div>
-      <div class="dish-cols"><span>#</span><span>Dish Name</span><span>Description</span><span>Category</span></div>
-      <div id="next-dishes"></div>
-      <button class="add-dish-btn" onclick="addDish('next')">+ Add Dish</button>
-    </div>
-  </div>
+  <!-- TIFFIN TAB -->
+  <div class="tab-pane" id="tab-tiffin">
+    <div class="section-h"><h2>📅 Weekly Tiffin Menu</h2></div>
 
-  <!-- EVENTS -->
-  <div class="pane" id="pane-events">
-    <div id="events-wrap"></div>
-  </div>
-
-  <!-- CAROUSEL -->
-  <div class="pane" id="pane-carousel">
+    <!-- Last Week -->
     <div class="card">
-      <div class="card-h">🖼 Carousel Images</div>
-      <p style="font-size:.84rem;color:var(--muted);margin-bottom:16px">Enter exact filenames (e.g. <code style="background:#f0ede6;padding:1px 5px;border-radius:3px">thali-spread.jpg</code>). Files go in the <code style="background:#f0ede6;padding:1px 5px;border-radius:3px">images/carousel/</code> folder.</p>
+      <div class="week-header"><h3>⬅ Last Week</h3></div>
+      <div class="dates-row"><label>Dates (e.g. Oct 1 – Oct 6, 2026)</label><input id="tiffin-last-dates" placeholder="e.g. Oct 1 – Oct 6, 2026" oninput="markDirty()"></div>
+      <div class="col-headers">
+        <div class="col-h">#</div><div class="col-h">Dish Name</div><div class="col-h">Description</div><div class="col-h">Category</div>
+      </div>
+      <div id="tiffin-last-dishes"></div>
+    </div>
+
+    <!-- This Week -->
+    <div class="card">
+      <div class="week-header"><h3>✨ This Week</h3></div>
+      <div class="dates-row"><label>Dates (e.g. Oct 7 – Oct 12, 2026)</label><input id="tiffin-this-dates" placeholder="e.g. Oct 7 – Oct 12, 2026" oninput="markDirty()"></div>
+      <div class="col-headers">
+        <div class="col-h">#</div><div class="col-h">Dish Name</div><div class="col-h">Description</div><div class="col-h">Category</div>
+      </div>
+      <div id="tiffin-this-dishes"></div>
+    </div>
+
+    <!-- Next Week -->
+    <div class="card">
+      <div class="week-header"><h3>➡ Next Week</h3></div>
+      <div class="dates-row"><label>Dates (e.g. Oct 14 – Oct 19, 2026)</label><input id="tiffin-next-dates" placeholder="e.g. Oct 14 – Oct 19, 2026" oninput="markDirty()"></div>
+      <div class="col-headers">
+        <div class="col-h">#</div><div class="col-h">Dish Name</div><div class="col-h">Description</div><div class="col-h">Category</div>
+      </div>
+      <div id="tiffin-next-dishes"></div>
+    </div>
+  </div>
+
+  <!-- EVENTS TAB -->
+  <div class="tab-pane" id="tab-events">
+    <div class="section-h"><h2>🎉 Event & Festival Menus</h2></div>
+    <div id="events-container"></div>
+  </div>
+
+  <!-- CAROUSEL TAB -->
+  <div class="tab-pane" id="tab-carousel">
+    <div class="section-h"><h2>🖼 Hero & Carousel Images</h2></div>
+    <div class="card">
+      <h3>Carousel Images (up to 8)</h3>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;">Enter the exact filename (e.g. <code>thali-spread.jpg</code>) and an optional caption. Place image files in the <code>images/carousel/</code> folder.</p>
       <div id="carousel-rows"></div>
-      <button class="add-dish-btn" onclick="addCarousel()">+ Add Image</button>
     </div>
   </div>
-
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- Status bar -->
+<div class="status-bar" id="status"></div>
 
 <script>
-const CATS = ['Gravy','Rassa','Dry Sabzi','Dal','Usal','Spicy Gravy','Rice','Festival Special','Snack','Chutney'];
-const EV_KEYS = ['ganpati','diwali','holi','custom'];
-const EV_EMOJI = {ganpati:'🐘',diwali:'🪔',holi:'🌸',custom:'🎉'};
-let data = null;
+const CATEGORIES = ['Gravy','Rassa','Dry Sabzi','Dal','Usal','Spicy Gravy','Rice','Festival Special','Snack','Chutney'];
+const EVENTS_META = {
+  ganpati: { emoji: '🐘', label: 'Ganpati', activeRow: 4, orderByCol: 4, dataStart: 6, dataEnd: 58 },
+  diwali:  { emoji: '🪔', label: 'Diwali',  activeRow: 61, orderByCol: 4, dataStart: 63, dataEnd: 71 },
+  holi:    { emoji: '🌸', label: 'Holi',    activeRow: 73, orderByCol: 4, dataStart: 75, dataEnd: 83 },
+  custom:  { emoji: '🎉', label: 'Custom Event', activeRow: 85, orderByCol: 4, dataStart: 87, dataEnd: 100 },
+};
+const TIFFIN_META = {
+  last: { dateLabelRow: 4, dataStart: 6,  dataEnd: 17 },
+  this: { dateLabelRow: 20, dataStart: 22, dataEnd: 33 },
+  next: { dateLabelRow: 36, dataStart: 38, dataEnd: 49 },
+};
 
-// ── Load ──────────────────────────────────────────────────────────────────────
-async function loadData() {
-  try {
-    const r = await fetch('data/menu.json?t=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    data = await r.json();
-    render();
-    toast('Menu loaded ✓', 'ok');
-    document.getElementById('save-btn').disabled = false;
-  } catch(e) {
-    toast('Could not load menu.json: ' + e.message, 'err');
-  }
+let wb = null, dirty = false;
+
+// ─── SIGN IN & THE CONTENT PACK ─────────────────────────────────
+// The page reads and writes ChaitralisKitchen_ContentPack.xlsx directly on
+// GitHub. The password below is a GitHub token with write access to this one
+// repository; it is kept in this browser only and never appears in the page.
+const OWNER     = 'chaitraliskitchenweb-cmd';
+const REPO      = 'chaitralis-kitchen';
+const BRANCH    = 'main';
+const XLSX_PATH = 'data/ChaitralisKitchen_ContentPack.xlsx';
+const TK_KEY    = 'ck-admin-key';
+
+let fileSha = null;
+
+function getToken()   { try { return localStorage.getItem(TK_KEY) || ''; } catch(e) { return ''; } }
+function setToken(t)  { try { localStorage.setItem(TK_KEY, t); } catch(e) {} }
+function clearToken() { try { localStorage.removeItem(TK_KEY); } catch(e) {} }
+
+function gh(token) {
+  return { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' };
+}
+function contentsUrl() {
+  return 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' +
+         XLSX_PATH.split('/').map(encodeURIComponent).join('/');
 }
 
-// ── Render all ───────────────────────────────────────────────────────────────
-function render() {
-  renderSettings();
-  renderTiffin();
-  renderEvents();
-  renderCarousel();
-  setClean();
-}
-
-function renderSettings() {
-  const s = data.settings || {};
-  ['business_name','tagline','phone','phone_whatsapp','email','location',
-   'tiffin_days','order_cutoff','payment_zelle','payment_venmo','allergy_note']
-  .forEach(k => { const el = document.getElementById('s-'+k); if(el) el.value = s[k]||''; });
-}
-
-function renderTiffin() {
-  for (const wk of ['last','this','next']) {
-    const w = (data.tiffin||{})[wk+'_week'] || {dates:'',dishes:[]};
-    document.getElementById(wk+'-dates').value = w.dates || '';
-    renderDishes(wk, w.dishes || []);
-  }
-}
-
-function renderDishes(wk, dishes) {
-  const cont = document.getElementById(wk+'-dishes');
-  cont.innerHTML = '';
-  dishes.forEach((d,i) => cont.appendChild(makeDishRow(wk, i+1, d)));
-}
-
-function makeDishRow(wk, num, d) {
-  const row = document.createElement('div');
-  row.className = 'dish-row';
-  row.dataset.wk = wk;
-  row.innerHTML = `
-    <span class="d-num">${num}</span>
-    <input class="d-name" placeholder="Dish name…" value="${esc(d.name||'')}" oninput="dirty()">
-    <input class="d-desc" placeholder="Description…" value="${esc(d.desc||'')}" oninput="dirty()">
-    <select class="d-tag" onchange="dirty()">
-      ${CATS.map(c=>`<option ${(d.tag_label||d.tag)===c?'selected':''}>${c}</option>`).join('')}
-    </select>`;
-  return row;
-}
-
-function addDish(wk) {
-  const cont = document.getElementById(wk+'-dishes');
-  const num = cont.children.length + 1;
-  cont.appendChild(makeDishRow(wk, num, {name:'',desc:'',tag_label:'Dry Sabzi'}));
-  dirty();
-  cont.lastElementChild.querySelector('.d-name').focus();
-}
-
-function renderEvents() {
-  const wrap = document.getElementById('events-wrap');
-  wrap.innerHTML = '';
-  for (const key of EV_KEYS) {
-    const ev = (data.events||{})[key] || {title:key,subtitle:'',order_by:'',active:false,sections:[]};
-    const card = document.createElement('div');
-    card.className = 'ev-card';
-    card.id = 'ev-'+key;
-    const active = ev.active;
-    card.innerHTML = `
-      <div class="ev-head" onclick="toggleEv('${key}')">
-        <span style="font-size:1.3rem">${EV_EMOJI[key]}</span>
-        <span class="ev-title">${ev.title}</span>
-        <span class="ev-status ${active?'on':'off'}">${active?'Active':'Hidden'}</span>
-        <span id="ev-arr-${key}" style="color:var(--muted);font-size:.9rem">▾</span>
-      </div>
-      <div class="ev-body" id="ev-body-${key}">
-        <div class="ev-meta">
-          <div class="f"><label>Order-By Date</label>
-            <input id="ev-${key}-orderby" value="${esc(ev.order_by||'')}" placeholder="e.g. 10 September" oninput="dirty()">
-          </div>
-          <div>
-            <label style="font-size:.73rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:8px">Visibility</label>
-            <div class="active-row">
-              <input type="checkbox" id="ev-${key}-active" ${active?'checked':''} onchange="updateEvStatus('${key}');dirty()">
-              <label for="ev-${key}-active">Show on website</label>
-            </div>
-          </div>
-        </div>
-        <div id="ev-${key}-secs"></div>
-        <button class="add-sec-btn" onclick="addSection('${key}')">+ Add Section</button>
-      </div>`;
-    wrap.appendChild(card);
-    renderSections(key, ev.sections || []);
-  }
-}
-
-function renderSections(key, sections) {
-  const cont = document.getElementById('ev-'+key+'-secs');
-  cont.innerHTML = '';
-  sections.forEach(sec => cont.appendChild(makeSection(key, sec)));
-}
-
-function makeSection(key, sec) {
-  const div = document.createElement('div');
-  div.className = 'ev-sec';
-  div.innerHTML = `
-    <div class="ev-sec-head" style="display:flex;justify-content:space-between;align-items:center">
-      <span>▸ <input class="sec-name-input" value="${esc(sec.name||'')}" placeholder="Section name" oninput="dirty()" style="border:none;background:transparent;font-weight:600;font-size:.83rem;color:var(--navy);font-family:'Poppins',sans-serif;width:200px;outline:none"></span>
-      <button class="del-btn" onclick="this.closest('.ev-sec').remove();dirty()" title="Remove section">✕</button>
-    </div>
-    <div class="ev-dishes">
-      <div class="ev-d-cols"><span>Name</span><span>Description</span><span>Price 1</span><span>Price 2</span><span></span></div>
-      <div class="sec-dishes">${(sec.dishes||[]).map(d=>makeEvDishHTML(d)).join('')}</div>
-      <button class="add-dish-btn" onclick="addEvDish(this)" style="margin-top:8px">+ Add Dish</button>
-    </div>`;
-  return div;
-}
-
-function makeEvDishHTML(d) {
-  const p1 = (d.prices||[])[0]||{};
-  const p2 = (d.prices||[])[1]||{};
-  return `<div class="ev-d-row">
-    <input class="evd-name" value="${esc(d.name||'')}" placeholder="Dish name" oninput="dirty()">
-    <input class="evd-desc" value="${esc(d.desc||'')}" placeholder="Description" oninput="dirty()">
-    <div class="pp">
-      <span class="pl">Label</span><input class="evd-pl1" value="${esc(p1.label||'')}" placeholder="Half / 50 pcs" oninput="dirty()">
-      <span class="pl">Price</span><input class="evd-p1"  value="${esc(p1.amount||'')}" placeholder="$80" oninput="dirty()">
-    </div>
-    <div class="pp">
-      <span class="pl">Label</span><input class="evd-pl2" value="${esc(p2.label||'')}" placeholder="Full / 100 pcs" oninput="dirty()">
-      <span class="pl">Price</span><input class="evd-p2"  value="${esc(p2.amount||'')}" placeholder="$160" oninput="dirty()">
-    </div>
-    <button class="del-btn" onclick="this.closest('.ev-d-row').remove();dirty()" title="Remove">✕</button>
-  </div>`;
-}
-
-function addEvDish(btn) {
-  const cont = btn.previousElementSibling;
-  const div = document.createElement('div');
-  div.innerHTML = makeEvDishHTML({});
-  cont.appendChild(div.firstElementChild);
-  dirty();
-  cont.lastElementChild.querySelector('.evd-name').focus();
-}
-
-function addSection(key) {
-  const cont = document.getElementById('ev-'+key+'-secs');
-  const div = document.createElement('div');
-  div.innerHTML = '<div></div>';
-  const sec = makeSection(key, {name:'New Section', dishes:[]});
-  cont.appendChild(sec);
-  dirty();
-  sec.querySelector('.sec-name-input').focus();
-}
-
-function updateEvStatus(key) {
-  const active = document.getElementById('ev-'+key+'-active').checked;
-  const badge = document.querySelector('#ev-'+key+' .ev-status');
-  badge.textContent = active ? 'Active' : 'Hidden';
-  badge.className = 'ev-status ' + (active?'on':'off');
-}
-
-function renderCarousel() {
-  const cont = document.getElementById('carousel-rows');
-  cont.innerHTML = '';
-  (data.carousel||[]).forEach(img => cont.appendChild(makeCarouselRow(img)));
-}
-
-function makeCarouselRow(img) {
-  const row = document.createElement('div');
-  row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 28px;gap:10px;margin-bottom:10px;align-items:end';
-  row.innerHTML = `
-    <div class="f"><label>Filename</label><input class="car-file" value="${esc(img.file||'')}" placeholder="photo.jpg" oninput="dirty()"></div>
-    <div class="f"><label>Caption (optional)</label><input class="car-name" value="${esc(img.name||'')}" placeholder="e.g. Fresh Tiffin" oninput="dirty()"></div>
-    <button class="del-btn" style="margin-bottom:2px" onclick="this.closest('div[style]').remove();dirty()">✕</button>`;
-  return row;
-}
-
-function addCarousel() {
-  document.getElementById('carousel-rows').appendChild(makeCarouselRow({}));
-  dirty();
-}
-
-// ── Collect & Save ────────────────────────────────────────────────────────────
-function collect() {
-  // Settings
-  const s = {};
-  ['business_name','tagline','phone','phone_whatsapp','email','location',
-   'tiffin_days','order_cutoff','payment_zelle','payment_venmo','allergy_note']
-  .forEach(k => s[k] = (document.getElementById('s-'+k)||{}).value || '');
-
-  // Tiffin
-  const tiffin = {};
-  for (const wk of ['last','this','next']) {
-    const dates = document.getElementById(wk+'-dates').value;
-    const dishes = [];
-    document.querySelectorAll('#'+wk+'-dishes .dish-row').forEach(row => {
-      const name = row.querySelector('.d-name').value.trim();
-      if (!name) return;
-      const tag_label = row.querySelector('.d-tag').value;
-      const TAG = {
-        'Spicy Gravy':'spicy','Rassa':'rassa','Usal':'usal','Dry Sabzi':'dry',
-        'Dal':'dal','Rice':'rice','Snack':'snack','Festival Special':'special',
-        'Chutney':'chutney','Gravy':'gravy'
-      };
-      dishes.push({name, desc: row.querySelector('.d-desc').value.trim(), tag: TAG[tag_label]||'other', tag_label});
-    });
-    tiffin[wk+'_week'] = {dates, dishes};
-  }
-
-  // Events
-  const events = {};
-  for (const key of EV_KEYS) {
-    const existing = (data.events||{})[key]||{};
-    const active  = document.getElementById('ev-'+key+'-active')?.checked ?? existing.active;
-    const orderBy = document.getElementById('ev-'+key+'-orderby')?.value || '';
-    const sections = [];
-    document.querySelectorAll('#ev-'+key+'-secs .ev-sec').forEach(sec => {
-      const name = sec.querySelector('.sec-name-input').value.trim();
-      const dishes = [];
-      sec.querySelectorAll('.ev-d-row').forEach(row => {
-        const dname = row.querySelector('.evd-name').value.trim();
-        if (!dname) return;
-        const prices = [];
-        const p1 = row.querySelector('.evd-p1').value.trim();
-        const pl1 = row.querySelector('.evd-pl1').value.trim();
-        const p2 = row.querySelector('.evd-p2').value.trim();
-        const pl2 = row.querySelector('.evd-pl2').value.trim();
-        if (p1) prices.push({label:pl1, amount:p1});
-        if (p2) prices.push({label:pl2, amount:p2});
-        dishes.push({icon:'', name:dname, desc:row.querySelector('.evd-desc').value.trim(), prices});
-      });
-      sections.push({name, style:'green', dishes});
-    });
-    events[key] = {title:existing.title||key, subtitle:existing.subtitle||'', order_by:orderBy, active, sections};
-  }
-
-  // Carousel
-  const carousel = [];
-  document.querySelectorAll('#carousel-rows > div').forEach(row => {
-    const file = row.querySelector('.car-file').value.trim();
-    if (!file) return;
-    const name = row.querySelector('.car-name').value.trim();
-    const entry = {file};
-    if (name) entry.name = name;
-    carousel.push(entry);
-  });
-
-  return {settings:s, carousel, tiffin, events};
-}
-
-// ---- GitHub save -------------------------------------------------------------
-const REPO   = 'chaitraliskitchenweb-cmd/chaitralis-kitchen';
-const BRANCH = 'main';
-const FILE   = 'data/menu.json';
-const TK_KEY = 'ck-admin-key';
-
-function getToken() { try { return localStorage.getItem(TK_KEY) || ''; } catch(e) { return ''; } }
-
-function gateErr(msg, busy) {
+function gateErr(msg) {
   const el = document.getElementById('gate-err');
-  el.textContent = msg || '';
-  el.className = 'gate-err' + (busy ? ' busy' : '');
+  if (el) el.textContent = msg || '';
+}
+
+function showGate(msg) {
+  document.getElementById('load-screen').style.display = '';
+  document.getElementById('app').style.display = 'none';
+  const pw = document.getElementById('gate-pw');
+  if (pw) { pw.value = ''; pw.focus(); }
+  gateErr(msg);
 }
 
 async function unlock() {
-  const t = document.getElementById('gate-token').value.trim();
-  if (!t) { gateErr('Please enter your access key.'); return; }
-  gateErr('Checking\u2026', true);
+  const pw = document.getElementById('gate-pw').value.trim();
+  if (!pw) { gateErr('Please enter the password.'); return; }
+  gateErr('Checking\u2026');
   try {
-    const r = await fetch('https://api.github.com/repos/' + REPO, {
-      headers: { Authorization: 'Bearer ' + t, Accept: 'application/vnd.github+json' }
-    });
-    if (r.status === 401) throw new Error('That access key is not valid.');
-    if (!r.ok) throw new Error('GitHub returned an error (' + r.status + '). Try again in a moment.');
+    const r = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO, { headers: gh(pw) });
+    if (r.status === 401) throw new Error('That password is not right.');
+    if (!r.ok) throw new Error('Could not reach the website files (' + r.status + '). Try again shortly.');
     const info = await r.json();
     if (!info.permissions || !info.permissions.push) {
-      throw new Error('That key does not have permission to save changes.');
+      throw new Error('That password cannot save changes. Ask Sandy for a new one.');
     }
-    try { localStorage.setItem(TK_KEY, t); } catch(e) {}
+    setToken(pw);
     gateErr('');
-    document.getElementById('gate').classList.add('hide');
-    loadData();
+    loadContentPack();
   } catch(e) {
     gateErr(e.message);
   }
 }
 
 function signOut() {
-  if (_dirty && !confirm('You have unsaved changes. Sign out anyway?')) return;
-  try { localStorage.removeItem(TK_KEY); } catch(e) {}
+  if (dirty && !confirm('You have unsaved changes. Sign out anyway?')) return;
+  clearToken();
   location.reload();
 }
 
-// UTF-8 safe base64 (menu.json contains Marathi text)
-function b64(str) {
-  const bytes = new TextEncoder().encode(str);
-  let bin = '';
-  for (const b of bytes) bin += String.fromCharCode(b);
-  return btoa(bin);
+// ─── LOAD ────────────────────────────────────────────────
+async function loadContentPack() {
+  const token = getToken();
+  if (!token) { showGate(); return; }
+  document.getElementById('file-badge').textContent = 'Loading\u2026';
+  try {
+    const r = await fetch(contentsUrl() + '?ref=' + BRANCH + '&t=' + Date.now(), { headers: gh(token) });
+    if (r.status === 401) { clearToken(); showGate('That password is no longer valid \u2014 please sign in again.'); return; }
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const body = await r.json();
+    const b64  = String(body.content || '').replace(/\s/g, '');
+    if (!b64) throw new Error('the file came back empty');
+
+    // No cellStyles: SheetJS's style writer turns this 23 KB workbook into
+    // a 7 MB one on save. Cell values round-trip exactly either way; only
+    // the sheet's fill colours are dropped.
+    wb = XLSX.read(b64, { type: 'base64' });
+    fileSha = body.sha;
+    populateAll();
+    document.getElementById('load-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('file-badge').textContent = 'ChaitralisKitchen_ContentPack.xlsx';
+    document.getElementById('save-btn').disabled = false;
+    document.getElementById('backup-btn').disabled = false;
+    showStatus('Loaded the current content \u2713', 'ok');
+  } catch(e) {
+    document.getElementById('file-badge').textContent = 'Could not load';
+    showStatus('Could not load the content: ' + e.message, 'err');
+  }
 }
 
-async function saveData() {
+// ─── SAVE ────────────────────────────────────────────────
+async function saveToGitHub() {
+  if (!wb) { showStatus('Nothing loaded yet', 'err'); return; }
   const token = getToken();
-  if (!token) { document.getElementById('gate').classList.remove('hide'); return; }
+  if (!token) { showGate(); return; }
 
   const btn = document.getElementById('save-btn');
   const label = btn.textContent;
@@ -559,100 +371,374 @@ async function saveData() {
   btn.textContent = 'Saving\u2026';
 
   try {
-    const out  = collect();
-    const json = JSON.stringify(out, null, 2) + '\n';
-    const api  = 'https://api.github.com/repos/' + REPO + '/contents/' + FILE;
-    const h    = { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json' };
+    collectAll();
+    const b64 = XLSX.write(wb, { bookType: 'xlsx', type: 'base64' });
+    if (!b64 || b64.length < 2000) throw new Error('the file came out empty, nothing was saved');
 
-    // Read the file that is live right now, so we save on top of it
-    const g = await fetch(api + '?ref=' + BRANCH + '&t=' + Date.now(), { headers: h });
-    if (g.status === 401) throw new Error('Your access key is no longer valid \u2014 please sign in again.');
-    if (!g.ok) throw new Error('Could not reach the website files (' + g.status + ').');
-    const cur = await g.json();
-
-    const put = await fetch(api, {
+    const stamp = new Date().toLocaleString();
+    const r = await fetch(contentsUrl(), {
       method: 'PUT',
-      headers: Object.assign({ 'Content-Type': 'application/json' }, h),
+      headers: Object.assign({ 'Content-Type': 'application/json' }, gh(token)),
       body: JSON.stringify({
-        message: 'Update menu from admin page \u2014 ' + new Date().toLocaleString(),
-        content: b64(json),
-        sha: cur.sha,
+        message: 'Update content pack from admin page \u2014 ' + stamp,
+        content: b64,
+        sha: fileSha,
         branch: BRANCH
       })
     });
-
-    if (put.status === 409) throw new Error('Someone else saved a change just now. Click Reload, then redo your edit.');
-    if (!put.ok) {
-      let m = 'HTTP ' + put.status;
-      try { const e = await put.json(); if (e.message) m = e.message; } catch(_) {}
+    if (r.status === 401) { clearToken(); showGate('That password is no longer valid \u2014 please sign in again.'); return; }
+    if (r.status === 409 || r.status === 422) {
+      throw new Error('someone else saved a change just now \u2014 reload the page, then redo your edit');
+    }
+    if (!r.ok) {
+      let m = 'HTTP ' + r.status;
+      try { const e = await r.json(); if (e.message) m = e.message; } catch(_) {}
       throw new Error(m);
     }
+    const out = await r.json();
+    if (out.content && out.content.sha) fileSha = out.content.sha;
 
-    data = out;
-    setClean();
-    toast('\u2713 Saved! The website will show your changes in about a minute.', 'ok');
+    dirty = false;
+    document.title = "Chaitrali's Kitchen \u2014 Admin";
+    showStatus('\u2713 Saved to the content pack. The website updates in a minute or two.', 'ok');
   } catch(e) {
-    toast('Could not save \u2014 ' + e.message, 'err');
+    showStatus('Could not save \u2014 ' + e.message, 'err');
   } finally {
     btn.disabled = false;
     btn.textContent = label;
   }
 }
 
-// ── UI helpers ────────────────────────────────────────────────────────────────
-function tab(btn, name) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
-  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('pane-'+name).classList.add('on');
+function getSheet(name) {
+  const ws = wb.Sheets[name];
+  if (!ws) throw new Error('Sheet not found: ' + name);
+  return ws;
 }
 
-function toggleEv(key) {
-  const body = document.getElementById('ev-body-'+key);
-  const head = body.previousElementSibling;
-  const arr  = document.getElementById('ev-arr-'+key);
-  const open = body.classList.toggle('open');
-  head.classList.toggle('open', open);
-  arr.textContent = open ? '▴' : '▾';
+function cellVal(ws, row, col) {
+  const addr = XLSX.utils.encode_cell({r: row-1, c: col-1});
+  const cell = ws[addr];
+  if (!cell) return '';
+  const v = cell.v;
+  if (v === null || v === undefined) return '';
+  return String(v).trim();
 }
 
-let _dirty = false;
-function dirty() {
-  if (!_dirty) {
-    _dirty = true;
-    document.getElementById('dirty-lbl').textContent = '● Unsaved changes';
-    document.getElementById('dirty-lbl').classList.add('dirty');
-    document.title = '● Admin';
+function setCell(ws, row, col, value) {
+  const addr = XLSX.utils.encode_cell({r: row-1, c: col-1});
+  if (!ws[addr]) ws[addr] = {};
+  ws[addr].v = value;
+  ws[addr].t = 's';
+  // Update range if needed
+  const range = XLSX.utils.decode_range(ws['!ref'] || 'A1:A1');
+  const cell = {r: row-1, c: col-1};
+  if (cell.r < range.s.r) range.s.r = cell.r;
+  if (cell.c < range.s.c) range.s.c = cell.c;
+  if (cell.r > range.e.r) range.e.r = cell.r;
+  if (cell.c > range.e.c) range.e.c = cell.c;
+  ws['!ref'] = XLSX.utils.encode_range(range);
+}
+
+// ─── POPULATE UI ─────────────────────────────────────────────────────────────
+function populateAll() {
+  populateSettings();
+  populateTiffin();
+  populateEvents();
+  populateCarousel();
+}
+
+function populateSettings() {
+  const ws = getSheet('⚙️ Business Info');
+  const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
+                   tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14 };
+  for (const [key, row] of Object.entries(fields)) {
+    const el = document.getElementById('s-' + key);
+    if (el) el.value = cellVal(ws, row, 2);
   }
 }
-function setClean() {
-  _dirty = false;
-  document.getElementById('dirty-lbl').textContent = 'All saved';
-  document.getElementById('dirty-lbl').classList.remove('dirty');
-  document.title = "Chaitrali's Kitchen — Admin";
+
+function populateTiffin() {
+  const ws = getSheet('📅 Weekly Tiffin Menu');
+  for (const week of ['last','this','next']) {
+    const meta = TIFFIN_META[week];
+    const dates = cellVal(ws, meta.dateLabelRow, 2) || cellVal(ws, meta.dateLabelRow, 1);
+    const datesEl = document.getElementById(`tiffin-${week}-dates`);
+    if (datesEl && !dates.includes('Dates') && !dates.includes('dates')) datesEl.value = dates;
+    const container = document.getElementById(`tiffin-${week}-dishes`);
+    container.innerHTML = '';
+    for (let r = meta.dataStart; r <= meta.dataEnd; r++) {
+      const idx = r - meta.dataStart + 1;
+      const name = cellVal(ws, r, 3);
+      const desc = cellVal(ws, r, 4);
+      const tag  = cellVal(ws, r, 5) || 'Dry Sabzi';
+      const row = document.createElement('div');
+      row.className = 'dish-row';
+      row.dataset.row = r;
+      row.dataset.week = week;
+      row.innerHTML = `
+        <span class="dish-num">${idx}</span>
+        <input class="dish-name" placeholder="Dish name…" value="${esc(name)}" oninput="markDirty()">
+        <input class="dish-desc" placeholder="Short description…" value="${esc(desc)}" oninput="markDirty()">
+        <select class="dish-tag tag-cell" onchange="markDirty()">
+          ${CATEGORIES.map(c => `<option value="${c}" ${c===tag?'selected':''}>${c}</option>`).join('')}
+        </select>`;
+      container.appendChild(row);
+    }
+  }
 }
 
-let _tt;
-function toast(msg, type='info') {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = 'toast show ' + type;
-  clearTimeout(_tt); _tt = setTimeout(()=>el.classList.remove('show'), 4000);
+function populateEvents() {
+  const ws = getSheet('🎉 Event Menus');
+  const container = document.getElementById('events-container');
+  container.innerHTML = '';
+
+  for (const [key, meta] of Object.entries(EVENTS_META)) {
+    const active = cellVal(ws, meta.activeRow, 2).toUpperCase() === 'Y';
+    const orderBy = cellVal(ws, meta.activeRow, 4);
+
+    // Gather sections and dishes
+    const sections = [];
+    let currentSec = null;
+    for (let r = meta.dataStart; r <= meta.dataEnd; r++) {
+      const colA = cellVal(ws, r, 1);
+      if (!colA) continue;
+      if (colA.includes('▸')) {
+        const secName = colA.replace('▸', '').trim();
+        currentSec = { name: secName, row: r, dishes: [] };
+        sections.push(currentSec);
+        continue;
+      }
+      const dishName = cellVal(ws, r, 3);
+      if (!dishName) continue;
+      if (currentSec) {
+        currentSec.dishes.push({
+          row: r, name: dishName,
+          desc: cellVal(ws, r, 4),
+          pl1: cellVal(ws, r, 5), p1: cellVal(ws, r, 6),
+          pl2: cellVal(ws, r, 7), p2: cellVal(ws, r, 8),
+        });
+      }
+    }
+
+    // Build event card
+    const card = document.createElement('div');
+    card.className = 'event-card';
+    card.innerHTML = `
+      <div class="event-head" onclick="toggleEvent('${key}')">
+        <span style="font-size:1.4rem">${meta.emoji}</span>
+        <span class="event-title">${meta.label}</span>
+        <span style="font-size:.8rem;color:var(--muted)">${active ? '🟢 Active' : '⚪ Hidden'}</span>
+        <span class="toggle-icon" id="toggle-icon-${key}">▾</span>
+      </div>
+      <div class="event-body" id="event-body-${key}">
+        <div class="event-meta">
+          <div class="field"><label>Order-By Date</label>
+            <input id="ev-${key}-orderby" value="${esc(orderBy)}" placeholder="e.g. 10 September" oninput="markDirty()">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:.78rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:.03em">Show on Website</label>
+            <div class="active-toggle">
+              <input type="checkbox" id="ev-${key}-active" ${active?'checked':''} onchange="markDirty()">
+              <label for="ev-${key}-active">Active / Visible</label>
+            </div>
+          </div>
+        </div>
+        <div id="ev-${key}-sections">
+          ${sections.length === 0 ? '<p style="color:var(--muted);font-size:.88rem">No dishes added yet. Fill in the Excel file directly to add sections and dishes.</p>' : ''}
+          ${sections.map(sec => renderSection(key, sec)).join('')}
+        </div>
+      </div>`;
+    container.appendChild(card);
+  }
 }
 
-function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-document.addEventListener('keydown', e => { if ((e.metaKey||e.ctrlKey)&&e.key==='s'){e.preventDefault();saveData();} });
-window.addEventListener('beforeunload', e => { if(_dirty){e.preventDefault();e.returnValue='';} });
-
-// Boot: if this device already has a key, go straight in
-if (getToken()) {
-  document.getElementById('gate').classList.add('hide');
-  loadData();
-} else {
-  document.getElementById('gate-token').focus();
+function renderSection(eventKey, sec) {
+  return `
+    <div class="ev-section">
+      <div class="ev-section-head">▸ ${esc(sec.name)}</div>
+      <div class="ev-dishes">
+        <div class="col-h-row">
+          <span style="font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase">Dish Name</span>
+          <span style="font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase">Description</span>
+          <span style="font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase">Price 1</span>
+          <span style="font-size:.7rem;font-weight:600;color:var(--muted);text-transform:uppercase">Price 2</span>
+        </div>
+        ${sec.dishes.map(d => `
+          <div class="ev-dish-row" data-row="${d.row}">
+            <input class="ev-name" value="${esc(d.name)}" placeholder="Dish name" oninput="markDirty()">
+            <input class="ev-desc" value="${esc(d.desc)}" placeholder="Description / note" oninput="markDirty()">
+            <div class="price-pair">
+              <span class="plabel">Label</span>
+              <input class="ev-pl1" value="${esc(d.pl1)}" placeholder="50 pcs / Half" oninput="markDirty()">
+              <span class="plabel">Amount</span>
+              <input class="ev-p1"  value="${esc(d.p1)}"  placeholder="$80" oninput="markDirty()">
+            </div>
+            <div class="price-pair">
+              <span class="plabel">Label</span>
+              <input class="ev-pl2" value="${esc(d.pl2)}" placeholder="100 pcs / Full" oninput="markDirty()">
+              <span class="plabel">Amount</span>
+              <input class="ev-p2"  value="${esc(d.p2)}"  placeholder="$160" oninput="markDirty()">
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`;
 }
-document.getElementById('gate-token').addEventListener('keydown', e => {
-  if (e.key === 'Enter') unlock();
+
+function populateCarousel() {
+  const ws = getSheet('🖼️ Hero & Carousel Images');
+  const container = document.getElementById('carousel-rows');
+  container.innerHTML = '';
+  // Data rows 5–12 (8 slots)
+  for (let r = 5; r <= 12; r++) {
+    const fname   = cellVal(ws, r, 2);
+    const caption = cellVal(ws, r, 3);
+    const row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:10px;align-items:center';
+    row.dataset.row = r;
+    row.innerHTML = `
+      <div class="field"><label>Filename</label><input class="car-fname" placeholder="photo.jpg" value="${esc(fname)}" oninput="markDirty()"></div>
+      <div class="field"><label>Caption (optional)</label><input class="car-caption" placeholder="e.g. Fresh Tiffin Every Day" value="${esc(caption)}" oninput="markDirty()"></div>
+      <div style="padding-top:22px;color:var(--muted);font-size:.8rem">#${r-4}</div>`;
+    container.appendChild(row);
+  }
+}
+
+// ─── SAVE BACK TO WORKBOOK ────────────────────────────────────────────────────
+function collectAll() {
+  collectSettings();
+  collectTiffin();
+  collectEvents();
+  collectCarousel();
+}
+
+function collectSettings() {
+  const ws = getSheet('⚙️ Business Info');
+  const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
+                   tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14 };
+  for (const [key, row] of Object.entries(fields)) {
+    const el = document.getElementById('s-' + key);
+    if (el) setCell(ws, row, 2, el.value);
+  }
+}
+
+function collectTiffin() {
+  const ws = getSheet('📅 Weekly Tiffin Menu');
+  for (const week of ['last','this','next']) {
+    const meta = TIFFIN_META[week];
+    const datesEl = document.getElementById(`tiffin-${week}-dates`);
+    if (datesEl) setCell(ws, meta.dateLabelRow, 2, datesEl.value);
+    const rows = document.querySelectorAll(`#tiffin-${week}-dishes .dish-row`);
+    rows.forEach(row => {
+      const r = parseInt(row.dataset.row);
+      setCell(ws, r, 3, row.querySelector('.dish-name').value);
+      setCell(ws, r, 4, row.querySelector('.dish-desc').value);
+      setCell(ws, r, 5, row.querySelector('.dish-tag').value);
+    });
+  }
+}
+
+function collectEvents() {
+  const ws = getSheet('🎉 Event Menus');
+  for (const [key, meta] of Object.entries(EVENTS_META)) {
+    const activeEl  = document.getElementById(`ev-${key}-active`);
+    const orderByEl = document.getElementById(`ev-${key}-orderby`);
+    if (activeEl)  setCell(ws, meta.activeRow, 2, activeEl.checked ? 'Y' : 'N');
+    if (orderByEl) setCell(ws, meta.activeRow, 4, orderByEl.value);
+    // Dish rows
+    const container = document.getElementById(`ev-${key}-sections`);
+    container.querySelectorAll('.ev-dish-row').forEach(row => {
+      const r = parseInt(row.dataset.row);
+      if (!r) return;
+      setCell(ws, r, 3, row.querySelector('.ev-name')?.value || '');
+      setCell(ws, r, 4, row.querySelector('.ev-desc')?.value || '');
+      setCell(ws, r, 5, row.querySelector('.ev-pl1')?.value || '');
+      setCell(ws, r, 6, row.querySelector('.ev-p1')?.value  || '');
+      setCell(ws, r, 7, row.querySelector('.ev-pl2')?.value || '');
+      setCell(ws, r, 8, row.querySelector('.ev-p2')?.value  || '');
+    });
+  }
+}
+
+function collectCarousel() {
+  const ws = getSheet('🖼️ Hero & Carousel Images');
+  document.querySelectorAll('#carousel-rows [data-row]').forEach(row => {
+    const r = parseInt(row.dataset.row);
+    setCell(ws, r, 2, row.querySelector('.car-fname').value);
+    setCell(ws, r, 3, row.querySelector('.car-caption').value);
+  });
+}
+
+// ─── DOWNLOAD ────────────────────────────────────────────────────────────────
+function downloadExcel() {
+  if (!wb) { showStatus('No file loaded', 'err'); return; }
+  try {
+    collectAll();
+    const data = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = 'ChaitralisKitchen_ContentPack.xlsx'; a.click();
+    URL.revokeObjectURL(url);
+    dirty = false;
+    document.title = 'Chaitrali\'s Kitchen — Admin';
+    showStatus('✓ Backup copy downloaded.', 'ok');
+  } catch(err) {
+    showStatus('Error: ' + err.message, 'err');
+  }
+}
+
+// ─── UI HELPERS ──────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleEvent(key) {
+  const body = document.getElementById(`event-body-${key}`);
+  const icon = document.getElementById(`toggle-icon-${key}`);
+  const open = body.classList.toggle('open');
+  icon.textContent = open ? '▴' : '▾';
+}
+
+function markDirty() {
+  if (!dirty) {
+    dirty = true;
+    document.title = '● Chaitrali\'s Kitchen — Admin';
+  }
+}
+
+let statusTimer;
+function showStatus(msg, type='') {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status-bar show ' + type;
+  clearTimeout(statusTimer);
+  statusTimer = setTimeout(() => el.classList.remove('show'), 3500);
+}
+
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Keyboard shortcut: Cmd/Ctrl+S → download
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 's') {
+    e.preventDefault();
+    if (wb) saveToGitHub();
+  }
+});
+
+// Warn before leaving with unsaved changes
+window.addEventListener('beforeunload', e => {
+  if (dirty) { e.preventDefault(); e.returnValue = ''; }
+});
+// ─── BOOT ───────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const pw = document.getElementById('gate-pw');
+  if (pw) pw.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+  if (getToken()) loadContentPack(); else showGate();
 });
 </script>
 </body>
