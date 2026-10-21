@@ -1,59 +1,173 @@
 {
   "settings": {
     "business_name": "Chaitrali's Kitchen",
-    "tagline": "Pure Veg · Homemade · Marathi Chavichi Athavan",
+    "tagline": "Pure Veg \u00b7 Homemade \u00b7 Marathi Chavichi Athavan",
     "phone": "617-320-5229",
     "phone_whatsapp": "16173205229",
     "email": "chaitraliskitchen@gmail.com",
     "location": "Shrewsbury, MA",
-    "tiffin_days": "Mon – Sat",
+    "tiffin_days": "Mon \u2013 Sat",
     "order_cutoff": "Sunday 9 PM",
     "payment_zelle": "chaitraliskitchen@gmail.com",
     "payment_venmo": "@Chaitralis-Kitchen",
     "allergy_note": "Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible with any dish. Please tell us about all allergies when ordering."
   },
   "carousel": [
-    { "file": "Poha.jpg",        "name": "Kanda Poha" },
-    { "file": "Puran Poli.jpg",  "name": "Puran Poli" },
-    { "file": "Samosa.jpg",      "name": "Samosa" },
-    { "file": "Vada Pav.jpg",    "name": "Vada Pav" },
-    { "file": "masala-rice.jpg", "name": "Masala Rice" },
-    { "file": "pav-bhaji.jpg",   "name": "Pav Bhaji" }
+    {
+      "file": "maharashtrian-thali-hero.jpg",
+      "name": "Maharashtrian Thali"
+    },
+    {
+      "file": "vadapav.jpg",
+      "name": "Vada Pav"
+    },
+    {
+      "file": "puranpoli-close.jpg",
+      "name": "Puran Poli"
+    },
+    {
+      "file": "saoji-masala-vangi.jpg",
+      "name": "Saoji Masala Vangi"
+    },
+    {
+      "file": "dal-tadka.jpg",
+      "name": "Dal Tadka"
+    }
   ],
   "tiffin": {
     "last_week": {
-      "dates": "Oct 1 – Oct 6, 2026",
+      "dates": "Oct 1 \u2013 Oct 6, 2026",
       "dishes": [
-        { "name": "Aloo Methi", "desc": "Potato with Fenugreek Leaves", "tag": "dry", "tag_label": "Dry Sabzi" },
-        { "name": "Dal Fry", "desc": "Tempered Yellow Lentils", "tag": "dal", "tag_label": "Dal" },
-        { "name": "Bhindi Masala", "desc": "Spiced Okra", "tag": "dry", "tag_label": "Dry Sabzi" },
-        { "name": "Tomato Saar", "desc": "Thin Tomato Soup", "tag": "rassa", "tag_label": "Rassa" }
+        {
+          "name": "Aloo Methi",
+          "desc": "Potato with Fenugreek Leaves",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
+        },
+        {
+          "name": "Dal Fry",
+          "desc": "Tempered Yellow Lentils",
+          "tag": "dal",
+          "tag_label": "Dal"
+        },
+        {
+          "name": "Bhindi Masala",
+          "desc": "Spiced Okra",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
+        },
+        {
+          "name": "Tomato Saar",
+          "desc": "Thin Tomato Soup",
+          "tag": "rassa",
+          "tag_label": "Rassa"
+        }
       ]
     },
     "this_week": {
-      "dates": "Oct 7 – Oct 12, 2026",
+      "dates": "Oct 7 \u2013 Oct 12, 2026",
       "dishes": [
-        { "name": "Saoji Masala Vangi", "desc": "Nagpur-style Spicy Brinjal Curry", "tag": "spicy", "tag_label": "Spicy · Gravy" },
-        { "name": "Brahmin Style Bharli Vangi", "desc": "Stuffed Brinjal — Konkanastha Style", "tag": "gravy", "tag_label": "Gravy" },
-        { "name": "Batata Rassa", "desc": "Thin Potato Curry", "tag": "rassa", "tag_label": "Rassa" },
-        { "name": "Batata Sukhi", "desc": "Dry Spiced Potato", "tag": "dry", "tag_label": "Dry Sabzi" },
-        { "name": "Kobi Matar", "desc": "Cabbage & Green Peas", "tag": "dry", "tag_label": "Dry Sabzi" },
-        { "name": "Flower Batata Matar", "desc": "Cauliflower, Potato & Peas", "tag": "dry", "tag_label": "Dry Sabzi" },
-        { "name": "Veg Kurma", "desc": "Mixed Vegetables in Coconut-Cashew Gravy", "tag": "gravy", "tag_label": "Gravy" },
-        { "name": "Veg Kolhapuri", "desc": "Fiery Kolhapur-style Vegetable Curry", "tag": "spicy", "tag_label": "Spicy · Gravy" },
-        { "name": "Kolhapuri Akkha Masur", "desc": "Whole Red Lentil — Kolhapuri Masala", "tag": "spicy", "tag_label": "Spicy · Dal" },
-        { "name": "Matki chi Usal", "desc": "Sprouted Moth Bean Curry", "tag": "usal", "tag_label": "Usal" },
-        { "name": "Moogachi Usal", "desc": "Sprouted Green Moong Curry", "tag": "usal", "tag_label": "Usal" },
-        { "name": "Val Usal", "desc": "Field Bean Curry — Coastal Style", "tag": "usal", "tag_label": "Usal" }
+        {
+          "name": "Saoji Masala Vangi",
+          "desc": "Nagpur-style Spicy Brinjal Curry",
+          "tag": "spicy",
+          "tag_label": "Spicy \u00b7 Gravy"
+        },
+        {
+          "name": "Brahmin Style Bharli Vangi",
+          "desc": "Stuffed Brinjal \u2014 Konkanastha Style",
+          "tag": "gravy",
+          "tag_label": "Gravy"
+        },
+        {
+          "name": "Batata Rassa",
+          "desc": "Thin Potato Curry",
+          "tag": "rassa",
+          "tag_label": "Rassa"
+        },
+        {
+          "name": "Batata Sukhi",
+          "desc": "Dry Spiced Potato",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
+        },
+        {
+          "name": "Kobi Matar",
+          "desc": "Cabbage & Green Peas",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
+        },
+        {
+          "name": "Flower Batata Matar",
+          "desc": "Cauliflower, Potato & Peas",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
+        },
+        {
+          "name": "Veg Kurma",
+          "desc": "Mixed Vegetables in Coconut-Cashew Gravy",
+          "tag": "gravy",
+          "tag_label": "Gravy"
+        },
+        {
+          "name": "Veg Kolhapuri",
+          "desc": "Fiery Kolhapur-style Vegetable Curry",
+          "tag": "spicy",
+          "tag_label": "Spicy \u00b7 Gravy"
+        },
+        {
+          "name": "Kolhapuri Akkha Masur",
+          "desc": "Whole Red Lentil \u2014 Kolhapuri Masala",
+          "tag": "spicy",
+          "tag_label": "Spicy \u00b7 Dal"
+        },
+        {
+          "name": "Matki chi Usal",
+          "desc": "Sprouted Moth Bean Curry",
+          "tag": "usal",
+          "tag_label": "Usal"
+        },
+        {
+          "name": "Moogachi Usal",
+          "desc": "Sprouted Green Moong Curry",
+          "tag": "usal",
+          "tag_label": "Usal"
+        },
+        {
+          "name": "Val Usal",
+          "desc": "Field Bean Curry \u2014 Coastal Style",
+          "tag": "usal",
+          "tag_label": "Usal"
+        }
       ]
     },
     "next_week": {
-      "dates": "Oct 14 – Oct 19, 2026",
+      "dates": "Oct 14 \u2013 Oct 19, 2026",
       "dishes": [
-        { "name": "Puran Poli", "desc": "Sweet Chana Dal Flatbread", "tag": "special", "tag_label": "Festival Special" },
-        { "name": "Katachi Amti", "desc": "Spiced Water from Chana Dal", "tag": "rassa", "tag_label": "Rassa" },
-        { "name": "Masale Bhaat", "desc": "Spiced Rice with Seasonal Vegetables", "tag": "rice", "tag_label": "Rice" },
-        { "name": "Kothimbir Vadi", "desc": "Crispy Coriander & Chickpea Snack", "tag": "snack", "tag_label": "Snack" }
+        {
+          "name": "Puran Poli",
+          "desc": "Sweet Chana Dal Flatbread",
+          "tag": "special",
+          "tag_label": "Festival Special"
+        },
+        {
+          "name": "Katachi Amti",
+          "desc": "Spiced Water from Chana Dal",
+          "tag": "rassa",
+          "tag_label": "Rassa"
+        },
+        {
+          "name": "Masale Bhaat",
+          "desc": "Spiced Rice with Seasonal Vegetables",
+          "tag": "rice",
+          "tag_label": "Rice"
+        },
+        {
+          "name": "Kothimbir Vadi",
+          "desc": "Crispy Coriander & Chickpea Snack",
+          "tag": "snack",
+          "tag_label": "Snack"
+        }
       ]
     }
   },
@@ -68,74 +182,490 @@
           "name": "Appetizer",
           "style": "green",
           "dishes": [
-            { "icon": "🟤", "name": "Mini Batata Vada", "desc": "", "prices": [{ "label": "50 pcs", "amount": "$100" }] },
-            { "icon": "⚪", "name": "Mini Sabudana Vada", "desc": "", "prices": [{ "label": "50 pcs", "amount": "$100" }] },
-            { "icon": "🟨", "name": "Kothimbir Vadi", "desc": "", "prices": [{ "label": "50 pcs", "amount": "$80" }, { "label": "100 pcs", "amount": "$160" }] },
-            { "icon": "🥛", "name": "Dahivada", "desc": "", "prices": [{ "label": "25 pcs", "amount": "$57" }, { "label": "50 pcs", "amount": "$115" }] },
-            { "icon": "🟠", "name": "Farali Misal", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
-            { "icon": "🍚", "name": "Sabudana Khichadi", "desc": "", "prices": [{ "label": "Half", "amount": "$75" }, { "label": "Full", "amount": "$150" }] }
+            {
+              "icon": "\ud83d\udfe4",
+              "name": "Mini Batata Vada",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "50 pcs",
+                  "amount": "$100"
+                }
+              ]
+            },
+            {
+              "icon": "\u26aa",
+              "name": "Mini Sabudana Vada",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "50 pcs",
+                  "amount": "$100"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83d\udfe8",
+              "name": "Kothimbir Vadi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "50 pcs",
+                  "amount": "$80"
+                },
+                {
+                  "label": "100 pcs",
+                  "amount": "$160"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\udd5b",
+              "name": "Dahivada",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "25 pcs",
+                  "amount": "$57"
+                },
+                {
+                  "label": "50 pcs",
+                  "amount": "$115"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83d\udfe0",
+              "name": "Farali Misal",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$80"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$160"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf5a",
+              "name": "Sabudana Khichadi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$75"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$150"
+                }
+              ]
+            }
           ]
         },
         {
           "name": "Main Entry",
           "style": "maroon",
           "dishes": [
-            { "icon": "🍛", "name": "Veg Kurma", "desc": "", "prices": [{ "label": "Half", "amount": "$75" }, { "label": "Full", "amount": "$150" }] },
-            { "icon": "🍆", "name": "Bharli Vangi", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
-            { "icon": "🥔", "name": "Alu Fadfad", "desc": "(Patal Bhaji)", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
-            { "icon": "🥔", "name": "Batata Sukhi", "desc": "", "prices": [{ "label": "Half", "amount": "$60" }, { "label": "Full", "amount": "$120" }] },
-            { "icon": "🫘", "name": "Matki Usal", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$140" }] },
-            { "icon": "🫘", "name": "Chavli Usal", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$140" }] },
-            { "icon": "🫘", "name": "Moong Usal", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$140" }] }
+            {
+              "icon": "\ud83c\udf5b",
+              "name": "Veg Kurma",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$75"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$150"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf46",
+              "name": "Bharli Vangi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$80"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$160"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\udd54",
+              "name": "Alu Fadfad",
+              "desc": "(Patal Bhaji)",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$80"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$160"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\udd54",
+              "name": "Batata Sukhi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$60"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$120"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\uded8",
+              "name": "Matki Usal",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$70"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$140"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\uded8",
+              "name": "Chavli Usal",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$70"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$140"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\uded8",
+              "name": "Moong Usal",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$70"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$140"
+                }
+              ]
+            }
           ]
         },
         {
           "name": "Dal",
           "style": "green",
           "dishes": [
-            { "icon": "🟡", "name": "Varan", "desc": "", "prices": [{ "label": "Half", "amount": "$50" }, { "label": "Full", "amount": "$100" }] },
-            { "icon": "🟠", "name": "Shevgyachi Amti", "desc": "", "prices": [{ "label": "Half", "amount": "$60" }, { "label": "Full", "amount": "$120" }] },
-            { "icon": "🍅", "name": "Tomato Saar", "desc": "", "prices": [{ "label": "Half", "amount": "$50" }, { "label": "Full", "amount": "$100" }] },
-            { "icon": "🥛", "name": "Soal Kadhi", "desc": "", "prices": [{ "label": "Half", "amount": "$50" }, { "label": "Full", "amount": "$100" }] },
-            { "icon": "🥛", "name": "Maharastriyan Kadhi", "desc": "", "prices": [{ "label": "Half", "amount": "$55" }, { "label": "Full", "amount": "$110" }] }
+            {
+              "icon": "\ud83d\udfe1",
+              "name": "Varan",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$50"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$100"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83d\udfe0",
+              "name": "Shevgyachi Amti",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$60"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$120"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf45",
+              "name": "Tomato Saar",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$50"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$100"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\udd5b",
+              "name": "Soal Kadhi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$50"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$100"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\udd5b",
+              "name": "Maharastriyan Kadhi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$55"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$110"
+                }
+              ]
+            }
           ]
         },
         {
           "name": "Bread",
           "style": "gold",
           "dishes": [
-            { "icon": "🫓", "name": "Puri", "desc": "", "prices": [{ "label": "", "amount": "$2 each" }] }
+            {
+              "icon": "\ud83e\uded3",
+              "name": "Puri",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "",
+                  "amount": "$2 each"
+                }
+              ]
+            }
           ]
         },
         {
           "name": "Rice",
           "style": "green",
           "dishes": [
-            { "icon": "🍚", "name": "Masale Bhat", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
-            { "icon": "🍚", "name": "Veg Pulao", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] },
-            { "icon": "🥥", "name": "Narali Bhat", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$160" }] }
+            {
+              "icon": "\ud83c\udf5a",
+              "name": "Masale Bhat",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$80"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$160"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf5a",
+              "name": "Veg Pulao",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$80"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$160"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\udd65",
+              "name": "Narali Bhat",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$80"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$160"
+                }
+              ]
+            }
           ]
         },
         {
           "name": "Sweet",
           "style": "maroon",
           "dishes": [
-            { "icon": "🫓", "name": "Puranpoli", "desc": "", "prices": [{ "label": "10 pcs", "amount": "$50" }, { "label": "25 pcs", "amount": "$125" }, { "label": "50 pcs", "amount": "$240" }] },
-            { "icon": "🍮", "name": "Kesar Shrikhand", "desc": "", "prices": [{ "label": "Half", "amount": "$80" }, { "label": "Full", "amount": "$150" }] },
-            { "icon": "🥕", "name": "Gajar Halwa", "desc": "", "prices": [{ "label": "Half", "amount": "$70" }, { "label": "Full", "amount": "$145" }] },
-            { "icon": "🌾", "name": "Mango Sheera", "desc": "", "prices": [{ "label": "Half", "amount": "$75" }, { "label": "Full", "amount": "$150" }] },
-            { "icon": "🍬", "name": "Jalebi", "desc": "", "prices": [{ "label": "", "amount": "$15 / lb" }] },
-            { "icon": "🟤", "name": "Boondi Ladoo", "desc": "", "prices": [{ "label": "", "amount": "$15 / lb" }] },
-            { "icon": "🟡", "name": "Motichur Ladoo", "desc": "", "prices": [{ "label": "", "amount": "$15 / lb" }] }
+            {
+              "icon": "\ud83e\uded3",
+              "name": "Puranpoli",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "10 pcs",
+                  "amount": "$50"
+                },
+                {
+                  "label": "25 pcs",
+                  "amount": "$125"
+                },
+                {
+                  "label": "50 pcs",
+                  "amount": "$240"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf6e",
+              "name": "Kesar Shrikhand",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$80"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$150"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83e\udd55",
+              "name": "Gajar Halwa",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$70"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$145"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf3e",
+              "name": "Mango Sheera",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "Half",
+                  "amount": "$75"
+                },
+                {
+                  "label": "Full",
+                  "amount": "$150"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf6c",
+              "name": "Jalebi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "",
+                  "amount": "$15 / lb"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83d\udfe4",
+              "name": "Boondi Ladoo",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "",
+                  "amount": "$15 / lb"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83d\udfe1",
+              "name": "Motichur Ladoo",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "",
+                  "amount": "$15 / lb"
+                }
+              ]
+            }
           ]
         },
         {
-          "name": "✨ Ganesh Festival Sweets",
+          "name": "\u2728 Ganesh Festival Sweets",
           "style": "gold",
           "dishes": [
-            { "icon": "🍡", "name": "Panchamrut Modak", "desc": "", "prices": [{ "label": "(11)", "amount": "$22" }] },
-            { "icon": "🍡", "name": "Churma Modak", "desc": "", "prices": [{ "label": "(11)", "amount": "$22" }] },
-            { "icon": "🍡", "name": "Gulkand Mawa Modak", "desc": "", "prices": [{ "label": "(11)", "amount": "$22" }] }
+            {
+              "icon": "\ud83c\udf61",
+              "name": "Panchamrut Modak",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "(11)",
+                  "amount": "$22"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf61",
+              "name": "Churma Modak",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "(11)",
+                  "amount": "$22"
+                }
+              ]
+            },
+            {
+              "icon": "\ud83c\udf61",
+              "name": "Gulkand Mawa Modak",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "(11)",
+                  "amount": "$22"
+                }
+              ]
+            }
           ]
         }
       ]
@@ -156,7 +686,7 @@
     },
     "custom": {
       "title": "Custom Event",
-      "subtitle": "Birthday · Anniversary · Puja · Gathering",
+      "subtitle": "Birthday \u00b7 Anniversary \u00b7 Puja \u00b7 Gathering",
       "order_by": "",
       "active": true,
       "sections": []
