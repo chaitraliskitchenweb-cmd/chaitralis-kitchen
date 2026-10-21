@@ -4,220 +4,648 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Chaitrali's Kitchen</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+/* ══════════════════════════════════════
+   TOKENS
+══════════════════════════════════════ */
 :root {
-  --green: #6b820d; --green-light: #849f10; --green-pale: #f2f5e6;
-  --navy: #1A2B4A; --orange: #d4870a; --white: #fff; --light: #F7F8F2;
+  --olive:      #6b820d;
+  --olive-l:    #8fa812;
+  --olive-xl:   #b8d820;
+  --olive-bg:   #eef2d8;
+  --amber:      #c47d0a;
+  --amber-bg:   #fff3d6;
+  --teal:       #0e7a6e;
+  --teal-bg:    #d6f0ed;
+  --purple:     #6b45a0;
+  --purple-bg:  #ede8f6;
+  --navy:       #1A2B4A;
+  --navy2:      #243856;
+  --gold:       #D4A24C;
+
+  --bg:         #f5f5f0;
+  --bg-card:    #ffffff;
+  --fg:         #1c1c1a;
+  --fg-s:       #6b6b63;
+  --fg-xs:      #9a9a90;
+  --border:     #e0e0d8;
+  --shadow:     0 2px 16px rgba(0,0,0,.07);
+  --shadow-lg:  0 8px 40px rgba(0,0,0,.13);
+  --r:          16px;
+  --r-sm:       10px;
   color-scheme: light;
 }
-body { font-family: 'Poppins', sans-serif; background: var(--white); color: #333; overflow-x: hidden; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --olive: #96b714; --olive-l: #b8d820; --olive-xl: #d4f040;
+    --olive-bg: #1a2604;
+    --amber: #e09a22; --amber-bg: #2a1e04;
+    --teal: #2abcae; --teal-bg: #082820;
+    --purple: #a07dd4; --purple-bg: #1e1030;
+    --navy: #1e3060; --navy2: #162448;
+    --gold: #e8b84c;
+    --bg: #111114; --bg-card: #1c1c20;
+    --fg: #f0f0ec; --fg-s: #9a9a92; --fg-xs: #666660;
+    --border: #2a2a2e;
+    --shadow: 0 2px 16px rgba(0,0,0,.4);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,.55);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --olive: #96b714; --olive-l: #b8d820; --olive-xl: #d4f040;
+  --olive-bg: #1a2604;
+  --amber: #e09a22; --amber-bg: #2a1e04;
+  --teal: #2abcae; --teal-bg: #082820;
+  --purple: #a07dd4; --purple-bg: #1e1030;
+  --navy: #1e3060; --navy2: #162448;
+  --gold: #e8b84c;
+  --bg: #111114; --bg-card: #1c1c20;
+  --fg: #f0f0ec; --fg-s: #9a9a92; --fg-xs: #666660;
+  --border: #2a2a2e;
+  --shadow: 0 2px 16px rgba(0,0,0,.4);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.55);
+  color-scheme: dark;
+}
+
+/* ══════════════════════════════════════
+   RESET
+══════════════════════════════════════ */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Poppins',sans-serif;
+  background:var(--bg); color:var(--fg);
+  font-size:14px; line-height:1.6; overflow-x:hidden;
+}
+img { max-width:100%; display:block; }
+a { text-decoration:none; color:inherit; }
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:60px; display:flex; align-items:center;
+  justify-content:space-between; padding:0 20px;
+  background:rgba(255,255,255,.97); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(107,130,13,.12);
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+.nav-brand { display:flex; align-items:center; gap:9px; }
+.nav-logo-img { width:36px; height:36px; border-radius:50%; object-fit:contain; background:rgba(107,130,13,.2); }
+.nav-brand-text { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--navy); }
+.nav-brand-text em { color:var(--gold); font-style:italic; }
+.nav-pill {
+  padding:8px 18px; border-radius:100px;
+  background:var(--olive); color:#fff;
+  font-size:12px; font-weight:700; letter-spacing:.02em;
+  box-shadow:0 2px 12px rgba(107,130,13,.4);
+  transition:background .2s;
+}
+.nav-pill:hover { background:var(--olive-l); }
+
+/* ══════════════════════════════════════
+   MARQUEE
+══════════════════════════════════════ */
+.marquee-wrap {
+  position:fixed; top:60px; left:0; right:0; z-index:199;
+  overflow:hidden; background:#fff;
+  border-bottom:1px solid rgba(107,130,13,.15);
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  padding:8px 0;
+}
+.marquee-track {
+  display:flex; width:max-content;
+  animation:scroll-dishes 28s linear infinite;
+}
+.marquee-track:hover { animation-play-state:paused; }
+.d-item { display:flex; flex-direction:column; align-items:center; gap:4px; padding:0 18px; flex-shrink:0; }
+.d-circle {
+  width:54px; height:54px; border-radius:50%; overflow:hidden;
+  border:2px solid rgba(107,130,13,.5);
+  background:rgba(107,130,13,.15);
+  transition:border-color .2s, transform .2s;
+}
+.d-item:hover .d-circle { border-color:var(--olive-xl); transform:scale(1.1); }
+.d-circle img { width:100%; height:100%; object-fit:cover; }
+.d-name { font-size:.62rem; font-weight:600; color:var(--fg-s); text-align:center; white-space:nowrap; }
+@keyframes scroll-dishes { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ══════════════════════════════════════
+   HERO  — split layout: olive left | white right
+══════════════════════════════════════ */
+.hero {
+  display:grid;
+  grid-template-columns:45% 55%;
+  min-height:calc(100svh - 130px);
+  margin-top:130px; /* nav 60 + marquee ~70 */
+  background:#fff;
+  overflow:hidden;
+}
+
+/* LEFT panel — olive green */
+.hero-left {
+  background:var(--olive);
+  display:flex; align-items:center; justify-content:center;
+  padding:48px 32px;
+  position:relative;
+  /* curved right edge */
+  clip-path: ellipse(100% 100% at 0% 50%);
+}
+.hero-left::after {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 30% 40%, rgba(255,255,255,.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+
+/* Logo circle */
+.hero-logo-wrap {
+  position:relative; z-index:2;
+  width:min(260px, 38vw); aspect-ratio:1;
+}
+.hero-logo-ring {
+  width:100%; height:100%; border-radius:50%;
+  border:3px solid rgba(255,255,255,.35);
+  padding:12px;
+  box-shadow:
+    0 0 0 10px rgba(255,255,255,.1),
+    0 0 0 20px rgba(255,255,255,.05),
+    0 24px 60px rgba(0,0,0,.25);
+  background:rgba(255,255,255,.08);
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-logo-ring img {
+  width:100%; height:100%; object-fit:contain; border-radius:50%;
+}
+
+/* RIGHT panel — white */
+.hero-right {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:48px 48px 48px 56px;
+  background:#fff;
+}
+
+/* Eyebrow */
+.hero-eyebrow {
+  display:flex; align-items:center; gap:10px;
+  font-size:.7rem; font-weight:700; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--olive);
+  margin-bottom:12px;
+}
+.hero-eyebrow::after {
+  content:''; flex:1; max-width:60px; height:2px;
+  background:var(--olive); border-radius:2px;
+}
+
+/* Heading */
+.hero-h1 {
+  font-family:'Playfair Display',serif;
+  line-height:1.05; margin-bottom:10px;
+}
+.hero-h1 .line1 {
+  font-style:italic; font-weight:700;
+  font-size:clamp(2.8rem,5vw,4.5rem);
+  color:var(--olive); display:block;
+}
+.hero-h1 .line2 {
+  font-style:normal; font-weight:700;
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  color:var(--navy); display:block;
+}
+
+.hero-rule {
+  width:44px; height:3px; margin:0 0 14px;
+  background:var(--gold); border-radius:2px;
+}
+.hero-sub {
+  font-size:.95rem; color:var(--fg-s);
+  line-height:1.6; margin-bottom:16px;
+}
+
+/* Badges */
+.hero-badges {
+  display:flex; flex-wrap:wrap; gap:8px;
+  margin-bottom:24px;
+}
+.hero-badge {
+  padding:5px 14px; border-radius:100px;
+  background:var(--olive-bg); border:1px solid rgba(107,130,13,.2);
+  color:var(--olive); font-size:.72rem; font-weight:600;
+  letter-spacing:.04em;
+}
+
+/* CTA buttons */
+.hero-btns {
+  display:flex; flex-wrap:wrap; gap:12px;
+  margin-bottom:28px;
+}
+.btn-order {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 26px; border-radius:100px;
+  background:var(--olive); color:#fff;
+  font-size:13.5px; font-weight:700; font-family:'Poppins',sans-serif;
+  box-shadow:0 4px 18px rgba(107,130,13,.4);
+  transition:background .2s, transform .15s, box-shadow .2s;
+  border:none; cursor:pointer; white-space:nowrap;
+}
+.btn-order:hover { background:var(--olive-l); transform:translateY(-2px); box-shadow:0 8px 24px rgba(107,130,13,.5); }
+.btn-festival {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 26px; border-radius:100px;
+  background:#fff; color:var(--navy);
+  border:1.5px solid rgba(107,130,13,.3);
+  font-size:13.5px; font-weight:600; font-family:'Poppins',sans-serif;
+  transition:background .2s, border-color .2s;
+  cursor:pointer; white-space:nowrap;
+}
+.btn-festival:hover { background:var(--olive-bg); border-color:var(--olive); color:var(--olive); }
+
+/* Trust row */
+.hero-trust {
+  display:flex; gap:0; flex-wrap:wrap;
+  border-top:1px solid var(--border); padding-top:16px;
+}
+.t-item { padding:4px 20px 4px 0; text-align:left; margin-right:20px; border-right:1px solid var(--border); }
+.t-item:last-child { border-right:none; margin-right:0; }
+.t-val { font-size:17px; font-weight:800; color:var(--navy); line-height:1.1; }
+.t-val.star { color:var(--gold); }
+.t-lbl { font-size:.6rem; color:var(--fg-xs); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+
+/* Mobile: stack */
+@media (max-width:700px) {
+  .hero {
+    grid-template-columns:1fr;
+    min-height:unset; margin-top:130px;
+  }
+  .hero-left {
+    clip-path:none;
+    border-radius:0 0 50% 50% / 0 0 40px 40px;
+    padding:40px 24px;
+  }
+  .hero-logo-wrap { width:min(200px,55vw); }
+  .hero-right { padding:36px 24px; }
+  .hero-h1 .line1 { font-size:clamp(2.4rem,10vw,3.5rem); }
+  .hero-h1 .line2 { font-size:clamp(1.7rem,7vw,2.5rem); }
+  .hero-btns { flex-direction:column; }
+  .btn-order, .btn-festival { text-align:center; justify-content:center; }
+  .t-item { padding:4px 12px 4px 0; margin-right:12px; }
+}
+
+
+
+/* ══════════════════════════════════════
+   TAG STRIP
+══════════════════════════════════════ */
+.tag-strip {
+  background:var(--navy);
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+}
+.tag-strip span {
+  padding:13px 22px; font-size:.7rem; font-weight:600;
+  letter-spacing:.13em; text-transform:uppercase; color:rgba(255,255,255,.8);
+  border-right:1px solid rgba(255,255,255,.1); white-space:nowrap;
+}
+.tag-strip span:last-child { border-right:none; }
+.tag-strip .accent { color:var(--olive-xl); }
+
+/* ══════════════════════════════════════
+   SHARED SECTION
+══════════════════════════════════════ */
+.section { padding-block:60px; }
+.wrap { max-width:1080px; margin-inline:auto; padding-inline:20px; }
+.sec-head { text-align:center; margin-bottom:36px; }
+.eyebrow {
+  font-size:.68rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--olive); margin-bottom:8px;
+}
+.sec-title {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,4vw,2.3rem);
+  font-weight:700; color:var(--fg); line-height:1.15;
+}
+.sec-title em { font-style:italic; color:var(--olive); }
+.divbar { width:32px; height:2.5px; background:var(--olive); border-radius:2px; margin:10px auto 0; opacity:.6; }
+
+/* ══════════════════════════════════════
+   OFFER CARDS
+══════════════════════════════════════ */
+.cards-sec { background:var(--bg); }
+.cards-grid {
+  display:grid; gap:16px;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+}
+.offer-card {
+  display:flex; flex-direction:column; align-items:flex-start;
+  background:var(--navy); border-radius:20px; padding:26px 20px 22px;
+  position:relative; overflow:hidden;
+  transition:transform .22s, box-shadow .22s;
+  border-top:3px solid transparent;
+}
+.offer-card:hover { transform:translateY(-5px); box-shadow:0 20px 48px rgba(26,43,74,.3); }
+.c-olive { border-top-color:var(--olive); }
+.c-teal  { border-top-color:var(--teal); }
+.c-amber { border-top-color:var(--amber); }
+.c-purple{ border-top-color:var(--purple); }
+.card-ico { font-size:2rem; margin-bottom:12px; }
+.offer-card h3 { color:#fff; font-size:1rem; font-weight:700; margin-bottom:7px; }
+.offer-card p  { color:rgba(255,255,255,.55); font-size:.78rem; line-height:1.65; flex:1; }
+.card-cta {
+  display:inline-flex; align-items:center; gap:4px;
+  margin-top:14px; font-size:.78rem; font-weight:600;
+  color:rgba(255,255,255,.65); transition:color .2s;
+}
+.offer-card:hover .card-cta { color:#fff; }
+.card-blob {
+  position:absolute; bottom:-28px; right:-28px; width:88px; height:88px;
+  border-radius:50%; opacity:.15;
+}
+.c-olive .card-blob { background:var(--olive); }
+.c-teal  .card-blob { background:var(--teal); }
+.c-amber .card-blob { background:var(--amber); }
+.c-purple.card-blob { background:var(--purple); }
+
+
+/* tiffin photo */
+.tiffin-photo-wrap {
+  border-radius:20px; overflow:hidden;
+  box-shadow:0 12px 48px rgba(0,0,0,.14);
+  aspect-ratio:4/3; position:relative;
+}
+.tiffin-photo-wrap img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .5s ease;
+}
+.tiffin-photo-wrap:hover img { transform:scale(1.03); }
+.tiffin-photo-caption {
+  margin-top:10px; text-align:center;
+  font-size:11px; color:var(--fg-xs); font-style:italic;
+}
+/* ══════════════════════════════════════
+   TIFFIN PREVIEW
+══════════════════════════════════════ */
+.tiffin-sec { background:var(--bg-card); }
+.tiffin-grid {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:36px; align-items:start;
+}
+@media (max-width:900px) { .tiffin-grid { grid-template-columns:1fr 1fr; gap:28px; } }
+@media (max-width:600px) { .tiffin-grid { grid-template-columns:1fr; gap:28px; } }
+.wk-chip {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--olive-bg); color:var(--olive);
+  padding:4px 13px; border-radius:100px;
+  font-size:10.5px; font-weight:700; letter-spacing:.03em; margin-bottom:14px;
+}
+.tiffin-facts {
+  display:flex; border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; margin:16px 0 22px;
+}
+.tf { flex:1; padding:11px 12px; border-right:1px solid var(--border); text-align:center; }
+.tf:last-child { border-right:none; }
+.tf-v { font-size:12.5px; font-weight:700; }
+.tf-l { font-size:9.5px; color:var(--fg-xs); }
+.dish-list { display:flex; flex-direction:column; gap:9px; }
+.dish-row {
+  display:flex; align-items:center; gap:11px;
+  background:var(--bg); border-radius:var(--r-sm);
+  padding:10px 13px; border:1px solid var(--border);
+}
+.d-em { font-size:20px; flex-shrink:0; }
+.d-inf { flex:1; min-width:0; }
+.d-inf strong { font-size:12.5px; display:block; }
+.d-inf span   { font-size:10.5px; color:var(--fg-s); }
+.dtag { font-size:9.5px; font-weight:700; padding:2px 8px; border-radius:20px; white-space:nowrap; flex-shrink:0; }
+.tg { background:var(--olive-bg); color:var(--olive); }
+.tr { background:var(--teal-bg);  color:var(--teal); }
+.td { background:var(--amber-bg); color:var(--amber); }
+.tu { background:var(--purple-bg);color:var(--purple); }
+.ts { background:var(--amber-bg); color:var(--amber); }
+.tw { background:var(--purple-bg);color:var(--purple); }
+
+/* ══════════════════════════════════════
+   EVENTS
+══════════════════════════════════════ */
+.events-sec { background:var(--bg); }
+.events-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+.ev-card { border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform .2s, box-shadow .2s; }
+.ev-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.ev-banner {
+  height:120px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:5px; position:relative;
+}
+.ev-icon { font-size:38px; line-height:1; }
+.ev-name { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.4); }
+.ev-g { background:linear-gradient(135deg,#7a1010,#c4420a); }
+.ev-d { background:linear-gradient(135deg,#3d1a6b,#7a2aaa); }
+.ev-h { background:linear-gradient(135deg,#1a3d8b,#0e7a6e); }
+.ev-c { background:linear-gradient(135deg,#1a4a10,#6b820d); }
+.ev-body { background:var(--bg-card); padding:14px 16px; }
+.ev-body strong { font-size:12.5px; display:block; margin-bottom:3px; }
+.ev-body p { font-size:11px; color:var(--fg-s); line-height:1.5; }
+.ev-link { display:inline-flex; align-items:center; gap:4px; color:var(--olive); font-size:11px; font-weight:700; margin-top:7px; }
+
+/* ══════════════════════════════════════
+   HOW IT WORKS
+══════════════════════════════════════ */
+.hiw-sec {
+  background:linear-gradient(160deg, #0a1405 0%, #0f2235 100%);
+}
+.steps-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:18px; margin-top:36px; }
+.step { text-align:center; padding:28px 16px; background:rgba(255,255,255,.05); border-radius:var(--r); border:1px solid rgba(107,130,13,.25); }
+.step-n { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:var(--olive); color:#fff; font-size:15px; font-weight:800; margin-bottom:13px; }
+.step h4 { font-size:13.5px; font-weight:700; color:#fff; margin-bottom:6px; }
+.step p  { font-size:11.5px; color:rgba(255,255,255,.55); line-height:1.65; }
+
+/* ══════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════ */
+.reviews-sec { background:var(--bg); }
+.reviews-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+.rv-card { background:var(--bg-card); border-radius:var(--r); padding:22px; box-shadow:var(--shadow); border:1px solid var(--border); display:flex; flex-direction:column; gap:11px; }
+.rv-stars { color:#f5a623; font-size:13.5px; letter-spacing:2px; }
+.rv-text { font-size:12.5px; color:var(--fg); line-height:1.75; font-style:italic; flex:1; }
+.rv-text::before { content:'\201C'; } .rv-text::after { content:'\201D'; }
+.rv-who { display:flex; align-items:center; gap:10px; }
+.rv-av { width:34px; height:34px; border-radius:50%; background:var(--olive-bg); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.rv-nm { font-size:12px; font-weight:700; }
+.rv-mt { font-size:10.5px; color:var(--fg-s); }
+
+/* ══════════════════════════════════════
+   CONTACT
+══════════════════════════════════════ */
+.contact-sec { background:var(--bg-card); }
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:start; }
+@media (max-width:680px) { .contact-grid { grid-template-columns:1fr; gap:28px; } }
+.cd-row { display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); }
+.cd-row:last-child { border-bottom:none; }
+.cd-ico { width:34px; height:34px; border-radius:var(--r-sm); background:var(--olive-bg); color:var(--olive); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.cd-lbl { font-size:10px; color:var(--fg-xs); text-transform:uppercase; letter-spacing:.06em; }
+.cd-val { font-size:13px; font-weight:600; }
+.order-panel { background:var(--navy); border-radius:20px; padding:30px 26px; }
+.order-panel h3 { font-family:'Playfair Display',serif; font-size:20px; color:#fff; margin-bottom:7px; }
+.order-panel p  { font-size:12.5px; color:rgba(255,255,255,.6); margin-bottom:22px; line-height:1.65; }
+.o-btns { display:flex; flex-direction:column; gap:10px; }
+.btn-wa {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:#25d366; color:#fff; padding:13px 22px; border-radius:100px;
+  font-size:13px; font-weight:700; font-family:'Poppins',sans-serif;
+  border:none; cursor:pointer; transition:background .2s;
+}
+.btn-wa:hover { background:#1aaa52; }
+.btn-main {
+  display:flex; align-items:center; justify-content:center; gap:7px;
+  background:var(--olive); color:#fff; padding:13px 22px; border-radius:100px;
+  font-size:13px; font-weight:700; font-family:'Poppins',sans-serif;
+  box-shadow:0 3px 14px rgba(107,130,13,.4);
+  transition:background .2s;
+}
+.btn-main:hover { background:var(--olive-l); }
+.btn-outline {
+  display:flex; align-items:center; justify-content:center; gap:7px;
+  background:rgba(255,255,255,.07); color:rgba(255,255,255,.8);
+  border:1.5px solid rgba(255,255,255,.2); padding:12px 22px; border-radius:100px;
+  font-size:13px; font-weight:600; font-family:'Poppins',sans-serif;
+  transition:background .2s, border-color .2s;
+}
+.btn-outline:hover { background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.4); color:#fff; }
+.deadline-box { margin-top:16px; background:rgba(255,255,255,.07); border-radius:var(--r-sm); padding:10px 14px; font-size:11.5px; color:rgba(255,255,255,.65); }
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer {
+  background:linear-gradient(160deg,#0a1405,#0c1530);
+  padding:44px 20px 28px;
+}
+.footer-inner {
+  max-width:1080px; margin-inline:auto;
+  display:grid; grid-template-columns:1fr auto; gap:28px; align-items:start;
+  margin-bottom:22px;
+}
+@media (max-width:560px) { .footer-inner { grid-template-columns:1fr; } }
+.foot-brand { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:7px; }
+.foot-brand em { font-style:italic; color:var(--gold); }
+.foot-tag { font-size:12px; color:rgba(255,255,255,.45); line-height:1.65; max-width:280px; }
+.foot-links { display:flex; flex-direction:column; gap:8px; }
+.foot-links a { font-size:12.5px; color:rgba(255,255,255,.55); transition:color .2s; }
+.foot-links a:hover { color:var(--olive-xl); }
+.foot-bottom {
+  max-width:1080px; margin-inline:auto;
+  border-top:1px solid rgba(255,255,255,.07); padding-top:18px;
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;
+  font-size:10.5px; color:rgba(255,255,255,.3);
+}
+
+/* ══════════════════════════════════════
+   DISH TAGS (kept from weekly-menu)
+══════════════════════════════════════ */
+.tag-gravy { background:var(--olive-bg); color:var(--olive); }
+.tag-rassa { background:var(--teal-bg);  color:var(--teal); }
+.tag-dal   { background:var(--amber-bg); color:var(--amber); }
+.tag-usal  { background:var(--purple-bg);color:var(--purple); }
+.tag-rice  { background:var(--teal-bg);  color:var(--teal); }
+.tag-sweet { background:var(--purple-bg);color:var(--purple); }
+.tag-spicy { background:var(--amber-bg); color:var(--amber); }
+
+/* ══════════════════════════════════════
+   DESKTOP TWEAKS
+══════════════════════════════════════ */
+@media (min-width:960px) {
+  .hero-logo-wrap { width:min(300px,28vw); }
+  .hero-right { padding:60px 60px 60px 64px; }
+}
+
+  /* ── Shared Site Nav ── */
+  .ck-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 0 5%;
+    height: 58px;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(107,130,13,0.18);
+    font-family: 'Poppins', sans-serif;
+  }
+  .ck-brand {
+    display: flex; align-items: center; gap: 9px;
+    text-decoration: none; flex-shrink: 0;
+  }
+  .ck-brand img {
+    width: 34px; height: 34px; border-radius: 50%; object-fit: contain;
+    background: #f2f5e6;
+  }
+  .ck-brand span {
+    font-family: 'Playfair Display', serif; font-size: 1rem;
+    font-weight: 700; color: #1A2B4A;
+  }
+  .ck-brand em { color: #6b820d; font-style: italic; }
+  .ck-links {
+    display: flex; list-style: none; gap: 24px;
+    margin: 0 auto; padding: 0;
+  }
+  .ck-links a {
+    text-decoration: none; font-size: 13px; font-weight: 500;
+    color: #1A2B4A; letter-spacing: .01em; transition: color .15s;
+  }
+  .ck-links a:hover { color: #6b820d; }
+  .ck-links a.active { color: #6b820d; font-weight: 600; }
+  .ck-order {
+    flex-shrink: 0; text-decoration: none;
+    background: #6b820d; color: #fff;
+    padding: 7px 18px; border-radius: 24px;
+    font-size: 12.5px; font-weight: 600; transition: opacity .15s;
+  }
+  .ck-order:hover { opacity: .87; }
+  .ck-burger {
+    display: none; background: none; border: none;
+    font-size: 22px; cursor: pointer; color: #1A2B4A;
+    padding: 4px;
+  }
+  @media (max-width: 600px) {
+    .ck-links { display: none; position: absolute; top: 58px; left: 0; right: 0;
+      flex-direction: column; background: #fff; border-bottom: 1px solid rgba(107,130,13,0.18);
+      padding: 12px 5% 16px; gap: 12px; z-index: 201; }
+    .ck-nav.open .ck-links { display: flex; }
+    .ck-burger { display: block; }
+  }
+  /* push page content below fixed nav */
+  body { padding-top: 58px; }
+
+
+  /* ── Order Countdown Badge ── */
+  .ck-countdown {
+    display: flex; align-items: center; gap: 6px;
+    background: #fff8e6; border: 1.5px solid #D4A24C;
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 11.5px; font-weight: 600; color: #8a5a00;
+    white-space: nowrap; flex-shrink: 0;
+    transition: background .3s;
+  }
+  .ck-countdown .cd-dot { font-size: 13px; }
+  .ck-countdown .cd-label { opacity: .75; font-weight: 500; }
+  .ck-countdown .cd-time { color: #6b820d; font-variant-numeric: tabular-nums; }
+  .ck-countdown.cd-urgent { background: #fff0f0; border-color: #e05a5a; color: #a00; }
+  .ck-countdown.cd-urgent .cd-time { color: #c0392b; }
+  @media (max-width: 480px) {
+    .ck-countdown .cd-label { display: none; }
+  }
+
 
 /* ── CONSTRUCTION BANNER ── */
-.construction-banner {
-  background: var(--navy); color: #fff;
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; overflow: hidden; white-space: nowrap;
-  padding: 7px 0; position: relative; z-index: 200;
-}
-.construction-track {
-  display: inline-block; animation: banner-scroll 28s linear infinite;
-}
-.construction-track span { padding: 0 40px; }
-.construction-track span.dot { color: #a8c214; padding: 0 8px; }
+.construction-banner { background: #1A2B4A; color: #fff; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; overflow: hidden; white-space: nowrap; padding: 7px 0; }
+.construction-track { display: inline-block; animation: banner-scroll 30s linear infinite; }
+.construction-track span { padding: 0 36px; }
+.construction-track .dot { color: #a8c214; padding: 0 6px; }
 @keyframes banner-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* ── NAV ── */
-nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(107,130,13,0.15);
-  padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 64px;
-}
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-logo img { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; background: var(--green-pale); }
-.nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--navy); }
-.nav-logo-text em { color: var(--green); font-style: italic; }
-.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
-.nav-links a { text-decoration: none; font-size: 0.85rem; font-weight: 600; color: var(--navy); transition: color 0.2s; }
-.nav-links a:hover { color: var(--green); }
-.nav-order { background: var(--green); color: #fff; padding: 9px 22px; border-radius: 24px; font-size: 0.82rem; font-weight: 700; text-decoration: none; transition: background 0.2s; }
-.nav-order:hover { background: var(--green-light); }
-.nav-burger { display: none; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--navy); }
-@media (max-width: 700px) {
-  .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: #fff; flex-direction: column; align-items: flex-start; padding: 16px 6%; gap: 16px; border-bottom: 1px solid #eee; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-  nav.open .nav-links { display: flex; }
-  .nav-burger { display: block; }
-  .nav-order { display: none; }
-}
-
-/* ── DISH MARQUEE ── */
-.marquee-strip { background: #fff; border-bottom: 2px solid rgba(107,130,13,0.15); padding: 10px 0; overflow: hidden; }
-.marquee-track { display: flex; gap: 0; width: max-content; animation: marquee-scroll 32s linear infinite; }
-.marquee-track:hover { animation-play-state: paused; }
-.dish-item { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 0 18px; flex-shrink: 0; }
-.dish-circle { width: 62px; height: 62px; border-radius: 50%; overflow: hidden; border: 2.5px solid rgba(107,130,13,0.3); background: #f5f5ee; transition: border-color 0.2s, transform 0.2s; }
-.dish-item:hover .dish-circle { border-color: var(--green); transform: scale(1.08); }
-.dish-circle img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.dish-name { font-size: 0.65rem; font-weight: 600; color: var(--navy); text-align: center; }
-@keyframes marquee-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* ── HERO ── */
-.hero { min-height: calc(100vh - 64px - 28px); display: flex; align-items: center; position: relative; overflow: hidden; padding: 60px 0; }
-.hero-blob { position: absolute; left: -60px; top: 0; bottom: 0; width: 52%; background: var(--green); border-radius: 0 60% 50% 0 / 0 50% 60% 0; z-index: 0; }
-.hero-img-wrap { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 50%; display: flex; align-items: center; justify-content: center; z-index: 1; }
-.logo-circle { width: min(340px, 80%); aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,0.15); border: 4px solid rgba(255,255,255,0.4); box-shadow: 0 20px 60px rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; padding: 12px; }
-.logo-circle img { width: 100%; height: 100%; object-fit: contain; }
-.hero-text { position: relative; z-index: 2; margin-left: 52%; padding: 0 6% 0 2%; max-width: 520px; }
-.hero-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.hero-label::after { content: ''; display: block; width: 36px; height: 2px; background: var(--green); border-radius: 2px; }
-.hero-text h1 { font-family: 'Playfair Display', serif; line-height: 1.08; margin-bottom: 10px; }
-.hero-text h1 .italic-line { font-style: italic; color: var(--green); font-size: clamp(2.6rem,5.5vw,4rem); display: block; }
-.hero-text h1 .normal-line { font-style: normal; color: var(--navy); font-size: clamp(2rem,4.2vw,3.2rem); display: block; }
-.divider { width: 48px; height: 3px; background: var(--orange); border-radius: 2px; margin: 18px 0; }
-.hero-sub { font-size: 0.97rem; color: #555; line-height: 1.75; margin-bottom: 20px; }
-.hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-.badge { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 24px; font-size: 0.78rem; font-weight: 600; }
-.badge-green { background: var(--green); color: #fff; }
-.badge-navy { background: var(--navy); color: #fff; }
-.badge-outline { border: 2px solid var(--green); color: var(--green); }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
-.btn-primary { background: var(--green); color: #fff; padding: 13px 28px; border-radius: 32px; font-size: 0.92rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.15s; }
-.btn-primary:hover { background: var(--green-light); transform: translateY(-2px); }
-.btn-secondary { border: 2px solid var(--navy); color: var(--navy); padding: 11px 26px; border-radius: 32px; font-size: 0.92rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s, color 0.2s; }
-.btn-secondary:hover { background: var(--navy); color: #fff; }
-.hero-stats { display: flex; gap: 28px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(107,130,13,0.15); }
-.stat-num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--navy); display: block; }
-.stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; }
-
-/* ── TAG STRIP ── */
-.tag-strip { background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
-.tag-strip span { padding: 14px 24px; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-right: 1px solid rgba(255,255,255,0.1); }
-.tag-strip span:last-child { border-right: none; }
-.tag-strip .accent { color: #a8c214; }
-
-/* ── OFFERINGS ── */
-.offerings { background: var(--light); padding: 72px 6%; text-align: center; }
-.section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
-.section-heading { font-family: 'Playfair Display', serif; color: var(--navy); font-size: clamp(1.6rem,3.5vw,2.2rem); margin-bottom: 48px; font-weight: 700; }
-.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 22px; max-width: 960px; margin: 0 auto; }
-.card { background: var(--navy); border-radius: 18px; padding: 30px 22px 26px; display: flex; flex-direction: column; align-items: flex-start; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; text-align: left; text-decoration: none; }
-.card:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(26,43,74,0.25); }
-.card-emoji { font-size: 2.2rem; margin-bottom: 14px; }
-.card h3 { color: #fff; font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
-.card p { color: rgba(255,255,255,0.55); font-size: 0.78rem; line-height: 1.65; }
-.card-tag { margin-top: 14px; display: inline-block; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; }
-.card-tag.live { background: rgba(168,194,20,0.2); color: #a8c214; }
-.card-accent { position: absolute; bottom: -24px; right: -24px; width: 90px; height: 90px; border-radius: 50%; background: var(--green); opacity: 0.2; }
-
-/* ── FOOTER ── */
-footer { background: var(--navy); padding: 28px 6%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.footer-logo { font-family: 'Playfair Display', serif; color: #fff; font-size: 1rem; font-weight: 700; }
-.footer-logo em { color: #a8c214; font-style: italic; }
-footer p { color: rgba(255,255,255,0.4); font-size: 0.74rem; }
-
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  .hero { padding: 40px 0 48px; flex-direction: column; min-height: auto; }
-  .hero-blob { width: 100%; height: 48%; top: 0; bottom: auto; border-radius: 0 0 50% 50% / 0 0 60% 60%; }
-  .hero-img-wrap { position: relative; left: auto; top: auto; transform: none; width: 100%; padding-top: 20px; }
-  .logo-circle { width: min(240px, 70vw); }
-  .hero-text { margin-left: 0; padding: 28px 7% 0; max-width: 100%; text-align: center; }
-  .hero-label { justify-content: center; }
-  .divider { margin: 14px auto; }
-  .hero-badges { justify-content: center; }
-  .hero-cta { justify-content: center; }
-  .hero-stats { justify-content: center; }
-  .dish-circle { width: 52px; height: 52px; }
-}
-
-/* ── HOW IT WORKS ── */
-.hiw { background: var(--navy); padding: 72px 6%; text-align: center; }
-.hiw .section-heading { color: #fff; }
-.hiw .section-heading em { color: #a8c214; font-style: italic; }
-.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; max-width: 900px; margin: 0 auto; }
-.step-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(107,130,13,0.25); border-radius: 16px; padding: 28px 18px; }
-.step-num { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--green); color: #fff; font-size: 15px; font-weight: 800; margin-bottom: 14px; }
-.step-card h4 { color: #fff; font-size: 0.92rem; font-weight: 700; margin-bottom: 7px; }
-.step-card p  { color: rgba(255,255,255,0.55); font-size: 0.76rem; line-height: 1.65; }
-
-/* ── REVIEWS ── */
-.reviews { background: var(--light); padding: 72px 6%; text-align: center; }
-.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
-.rv-card { background: #fff; border-radius: 16px; padding: 26px 22px; text-align: left; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-.rv-stars { color: var(--orange); font-size: 1rem; margin-bottom: 10px; letter-spacing: 2px; }
-.rv-text { font-size: 0.83rem; line-height: 1.75; color: #444; margin-bottom: 16px; }
-.rv-who { display: flex; align-items: center; gap: 10px; }
-.rv-av  { font-size: 1.5rem; }
-.rv-nm  { font-size: 0.82rem; font-weight: 700; color: var(--navy); }
-.rv-mt  { font-size: 0.7rem; color: #888; }
-
-/* ── CONTACT ── */
-.contact { background: #fff; padding: 72px 6%; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 960px; margin: 0 auto; align-items: start; }
-@media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; gap: 32px; } }
-.contact-details .section-label { text-align: left; }
-.contact-details .section-heading { text-align: left; font-size: 1.8rem; }
-.contact-details .divider { margin: 14px 0; }
-.contact-details p { font-size: 0.88rem; color: #555; line-height: 1.8; margin-bottom: 20px; }
-.cd-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
-.cd-ico { font-size: 1.3rem; width: 28px; flex-shrink: 0; }
-.cd-lbl { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-weight: 600; }
-.cd-val { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
-.cd-val a { color: var(--navy); text-decoration: none; }
-.cd-val a:hover { color: var(--green); }
-.order-panel { background: var(--navy); border-radius: 20px; padding: 30px 28px; }
-.order-panel h3 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
-.order-panel > p { color: rgba(255,255,255,0.6); font-size: 0.84rem; line-height: 1.7; margin-bottom: 22px; }
-.o-btns { display: flex; flex-direction: column; gap: 10px; }
-.btn-main { background: var(--green); color: #fff; padding: 13px 22px; border-radius: 28px; font-weight: 700; font-size: 0.88rem; text-decoration: none; text-align: center; transition: background 0.2s; }
-.btn-main:hover { background: var(--green-light); }
-.btn-wa { background: #25D366; color: #fff; padding: 13px 22px; border-radius: 28px; font-weight: 700; font-size: 0.88rem; text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.btn-outline-w { border: 2px solid rgba(255,255,255,0.3); color: #fff; padding: 11px 22px; border-radius: 28px; font-weight: 700; font-size: 0.88rem; text-decoration: none; text-align: center; transition: border-color 0.2s, background 0.2s; }
-.btn-outline-w:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
-.deadline-box { margin-top: 18px; background: rgba(255,255,255,0.08); border-radius: 12px; padding: 12px 16px; font-size: 0.78rem; color: rgba(255,255,255,0.7); text-align: center; }
-.deadline-box strong { color: #a8c214; }
-
-/* ── FOOTER (upgraded) ── */
-.footer-inner { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 24px; margin-bottom: 28px; }
-.foot-brand { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-.foot-brand em { color: #a8c214; font-style: italic; }
-.foot-tag { color: rgba(255,255,255,0.4); font-size: 0.76rem; line-height: 1.7; max-width: 300px; }
-.foot-links { display: flex; flex-direction: column; gap: 8px; }
-.foot-links a { color: rgba(255,255,255,0.55); font-size: 0.8rem; text-decoration: none; transition: color 0.2s; }
-.foot-links a:hover { color: #fff; }
-.foot-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-.foot-bottom span { color: rgba(255,255,255,0.35); font-size: 0.72rem; }
-
-
-/* ── HERO TRUST BAR (replaces badges + stats) ── */
-.hero-trust { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(107,130,13,0.15); font-size: 0.8rem; font-weight: 600; color: #555; }
-.hero-trust .sep { color: #ccc; }
-@media (max-width: 768px) { .hero-trust { justify-content: center; } }
-
-/* ── COUNTDOWN TIMER ── */
-.ck-countdown {
-  display: flex; align-items: center; gap: 6px;
-  background: #fff8e6; border: 1.5px solid #D4A24C;
-  border-radius: 20px; padding: 4px 12px;
-  font-size: 11.5px; font-weight: 600; color: #8a5a00;
-  white-space: nowrap; flex-shrink: 0;
-  transition: background .3s;
-}
-.ck-countdown .cd-dot { font-size: 13px; }
-.ck-countdown .cd-label { opacity: .75; font-weight: 500; }
-.ck-countdown .cd-time { color: #6b820d; font-variant-numeric: tabular-nums; }
-.ck-countdown.cd-urgent { background: #fff0f0; border-color: #e05a5a; color: #a00; }
-.ck-countdown.cd-urgent .cd-time { color: #c0392b; }
-@media (max-width: 480px) { .ck-countdown .cd-label { display: none; } }
 </style>
 </head>
 <body>
 
 <!-- CONSTRUCTION BANNER -->
 <div class="construction-banner">
-  <div class="construction-track" id="banner-track">
+  <div class="construction-track">
     <span>🚧 Site Under Construction</span><span class="dot">✦</span>
     <span>Tiffin Menu — Coming Soon</span><span class="dot">✦</span>
     <span>Event Menu — Coming Soon</span><span class="dot">✦</span>
@@ -231,178 +659,312 @@ footer p { color: rgba(255,255,255,0.4); font-size: 0.74rem; }
   </div>
 </div>
 
-<!-- NAV -->
-<nav id="main-nav">
-  <a class="nav-logo" href="#">
-    <img src="Logo/logo.png" alt="Chaitrali's Kitchen">
-    <span class="nav-logo-text">Chaitrali's <em>Kitchen</em></span>
+<nav class="ck-nav" id="ck-nav">
+  <a class="ck-brand" href="index.html">
+    <img src="Logo/logo.png" alt="logo" onerror="this.style.display='none'">
+    <span>Chaitrali's <em>Kitchen</em></span>
   </a>
-  <ul class="nav-links">
-    <li><a href="#">Home</a></li>
+  <ul class="ck-links">
+    <li><a href="index.html">Home</a></li>
     <li><a href="pages/weekly-menu.html">Tiffin Menu</a></li>
     <li><a href="pages/event-menu.html">Events</a></li>
     <li><a href="pages/order.html">Order</a></li>
   </ul>
-  <div class="ck-countdown" id="ck-countdown"><span class="cd-dot">🕐</span><span class="cd-label">Order closes ·</span><span class="cd-time" id="cd-time">…</span></div>
-  <a class="nav-order" href="pages/order.html">Order Now</a>
-  <button class="nav-burger" onclick="document.getElementById('main-nav').classList.toggle('open')" aria-label="Menu">☰</button>
+  <div class="ck-countdown" id="ck-countdown"><span class="cd-dot">🕐</span><span class="cd-label">Tiffin order ·</span><span class="cd-time" id="cd-time">…</span></div>
+  <a class="ck-order" href="pages/order.html">Order Now</a>
+  <button class="ck-burger" onclick="document.getElementById('ck-nav').classList.toggle('open')" aria-label="Menu">☰</button>
 </nav>
 
-<!-- DISH MARQUEE -->
-<div class="marquee-strip">
-  <div class="marquee-track" id="marquee-track"></div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/maharashtrian-thali-hero.jpg" alt="" onerror="this.parentElement.innerHTML='🍱'"></div><span class="d-name">Maharashtrian Thali</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/vadapav.jpg" alt="" onerror="this.parentElement.innerHTML='🥔'"></div><span class="d-name">Vada Pav</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/puranpoli-close.jpg" alt="" onerror="this.parentElement.innerHTML='🫓'"></div><span class="d-name">Puran Poli</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/saoji-masala-vangi.jpg" alt="" onerror="this.parentElement.innerHTML='🍆'"></div><span class="d-name">Saoji Masala Vangi</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/dal-tadka.jpg" alt="" onerror="this.parentElement.innerHTML='🥣'"></div><span class="d-name">Dal Tadka</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/masale-bhaat.jpg" alt="" onerror="this.parentElement.innerHTML='🍛'"></div><span class="d-name">Masale Bhaat</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/misal-pav.jpg" alt="" onerror="this.parentElement.innerHTML='🌶'"></div><span class="d-name">Misal Pav</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/kothimbir-vadi.jpg" alt="" onerror="this.parentElement.innerHTML='🟩'"></div><span class="d-name">Kothimbir Vadi</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/pav-bhaji.jpg" alt="" onerror="this.parentElement.innerHTML='🍲'"></div><span class="d-name">Pav Bhaji</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/batata-rassa.jpg" alt="" onerror="this.parentElement.innerHTML='🥔'"></div><span class="d-name">Batata Rassa</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/maharashtrian-thali-hero.jpg" alt="" onerror="this.parentElement.innerHTML='🍱'"></div><span class="d-name">Maharashtrian Thali</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/vadapav.jpg" alt="" onerror="this.parentElement.innerHTML='🥔'"></div><span class="d-name">Vada Pav</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/puranpoli-close.jpg" alt="" onerror="this.parentElement.innerHTML='🫓'"></div><span class="d-name">Puran Poli</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/saoji-masala-vangi.jpg" alt="" onerror="this.parentElement.innerHTML='🍆'"></div><span class="d-name">Saoji Masala Vangi</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/carousel/dal-tadka.jpg" alt="" onerror="this.parentElement.innerHTML='🥣'"></div><span class="d-name">Dal Tadka</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/masale-bhaat.jpg" alt="" onerror="this.parentElement.innerHTML='🍛'"></div><span class="d-name">Masale Bhaat</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/misal-pav.jpg" alt="" onerror="this.parentElement.innerHTML='🌶'"></div><span class="d-name">Misal Pav</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/kothimbir-vadi.jpg" alt="" onerror="this.parentElement.innerHTML='🟩'"></div><span class="d-name">Kothimbir Vadi</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/pav-bhaji.jpg" alt="" onerror="this.parentElement.innerHTML='🍲'"></div><span class="d-name">Pav Bhaji</span></div>
+    <div class="d-item"><div class="d-circle"><img src="images/menu-items/batata-rassa.jpg" alt="" onerror="this.parentElement.innerHTML='🥔'"></div><span class="d-name">Batata Rassa</span></div>
+  </div>
+</div>
 </div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-blob"></div>
-  <div class="hero-img-wrap">
-    <div class="logo-circle">
-      <img src="Logo/logo.png" alt="Chaitrali's Kitchen">
+
+  <!-- LEFT: olive panel with logo -->
+  <div class="hero-left">
+    <div class="hero-logo-wrap">
+      <div class="hero-logo-ring">
+        <img src="Logo/logo.png" alt="Chaitrali's Kitchen" onerror="this.style.display='none'">
+      </div>
     </div>
   </div>
-  <div class="hero-text">
-    <p class="hero-label">Welcome to</p>
-    <h1>
-      <span class="italic-line">Chaitrali's</span>
-      <span class="normal-line">Kitchen</span>
+
+  <!-- RIGHT: text panel -->
+  <div class="hero-right">
+    <p class="hero-eyebrow">Welcome to</p>
+    <h1 class="hero-h1">
+      <span class="line1">Chaitrali's</span>
+      <span class="line2">Kitchen</span>
     </h1>
-    <div class="divider"></div>
-    <p class="hero-sub">Authentic Maharashtrian home cooking — made fresh every week in Shrewsbury, MA. 100% pure veg, homemade with love.</p>
-    <div class="hero-cta">
-      <a class="btn-primary" href="pages/weekly-menu.html">🍛 Order This Week's Tiffin</a>
-      <a class="btn-secondary" href="pages/event-menu.html">🎉 Festival Menus</a>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">Authentic Maharashtrian Home Style Cuisine</p>
+    <div class="hero-badges">
+      <span class="hero-badge">🍃 100% Pure Veg</span>
+      <span class="hero-badge">🏡 Home Made</span>
+      <span class="hero-badge">📍 Shrewsbury, MA</span>
+    </div>
+    <div class="hero-btns">
+      <a class="btn-order" href="pages/order.html">🛒 Order This Week's Tiffin</a>
+      <a class="btn-festival" href="pages/event-menu.html">🎉 Festival Menus</a>
     </div>
     <div class="hero-trust">
-      <span>🌿 Pure Veg</span>
-      <span class="sep">·</span>
-      <span>🏠 Homemade</span>
-      <span class="sep">·</span>
-      <span>📍 Shrewsbury, MA</span>
-      <span class="sep">·</span>
-      <span>⭐ 5-Star Rated</span>
+      <div class="t-item">
+        <div class="t-val star">5★</div>
+        <div class="t-lbl">Rating</div>
+      </div>
+      <div class="t-item">
+        <div class="t-val">100%</div>
+        <div class="t-lbl">Pure Veg</div>
+      </div>
+      <div class="t-item">
+        <div class="t-val">Weekly</div>
+        <div class="t-lbl">Fresh Tiffin</div>
+      </div>
+      <div class="t-item">
+        <div class="t-val">Custom</div>
+        <div class="t-lbl">Events</div>
+      </div>
     </div>
   </div>
+
 </section>
 
 <!-- TAG STRIP -->
 <div class="tag-strip">
   <span>🍱 Homemade</span>
   <span class="accent">100% Pure Veg</span>
-  <span>Shrewsbury, MA</span>
-  <span class="accent">Weekly Tiffin</span>
+  <span>From Shrewsbury</span>
+  <span class="accent">Now Serving</span>
   <span>Authentic Maharashtrian</span>
 </div>
 
-<!-- OFFERINGS -->
-<section class="offerings">
-  <p class="section-label">What We Offer</p>
-  <h2 class="section-heading">Made with Love, Served Fresh</h2>
-  <div class="cards-grid">
-    <a class="card" href="pages/weekly-menu.html">
-      <div class="card-emoji">🍛</div>
-      <h3>Weekly Tiffin</h3>
-      <p>Fresh homestyle meals every week — order by Sunday 9 PM.</p>
-      <span class="card-tag live">● Live</span>
-      <div class="card-accent"></div>
-    </a>
-    <a class="card" href="pages/event-menu.html">
-      <div class="card-emoji">🎉</div>
-      <h3>Festival Menus</h3>
-      <p>Special Ganpati, Diwali & Holi menus crafted for celebrations.</p>
-      <span class="card-tag live">● Live</span>
-      <div class="card-accent"></div>
-    </a>
-    <a class="card" href="pages/order.html">
-      <div class="card-emoji">📦</div>
-      <h3>Place an Order</h3>
-      <p>Order tiffin or festival platters directly through our order page.</p>
-      <span class="card-tag live">● Live</span>
-      <div class="card-accent"></div>
-    </a>
-    <div class="card">
-      <div class="card-emoji">⭐</div>
-      <h3>Our Favourites</h3>
-      <p>Signature dishes — Misal, Saoji Vangi, Puran Poli & more.</p>
-      <span class="card-tag">🚧 Coming Soon</span>
-      <div class="card-accent"></div>
+<!-- OFFER CARDS -->
+<section class="section cards-sec" id="offer">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What We Offer</p>
+      <h2 class="sec-title">Made with Love, <em>Served Fresh</em></h2>
+      <div class="divbar"></div>
+    </div>
+    <div class="cards-grid">
+      <a href="pages/weekly-menu.html" class="offer-card c-olive">
+        <div class="card-ico">🍱</div>
+        <h3>Weekly Tiffin Menu</h3>
+        <p>See exactly what's cooking this week — Gravy, Rassa, Dal, Rice &amp; Snacks, updated every week.</p>
+        <span class="card-cta">View This Week's Menu →</span>
+        <div class="card-blob"></div>
+      </a>
+      <a href="pages/order.html" class="offer-card c-teal">
+        <div class="card-ico">🛒</div>
+        <h3>Place Your Order</h3>
+        <p>Browse dishes, build your tiffin and send via WhatsApp — no app or account needed.</p>
+        <span class="card-cta">Order Now →</span>
+        <div class="card-blob"></div>
+      </a>
+      <a href="pages/event-menu.html" class="offer-card c-amber">
+        <div class="card-ico">🪔</div>
+        <h3>Festival &amp; Event Catering</h3>
+        <p>Full Ganpati, Diwali &amp; Holi menus — appetizers, mains, sweets &amp; modak trays.</p>
+        <span class="card-cta">View Festival Menus →</span>
+        <div class="card-blob"></div>
+      </a>
+      <a href="#contact" class="offer-card c-purple">
+        <div class="card-ico">🎉</div>
+        <h3>Custom Event Orders</h3>
+        <p>Pooja, birthday, cultural event? Get in touch for a fully custom menu for your guest count.</p>
+        <span class="card-cta">Get in Touch →</span>
+        <div class="card-blob"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TIFFIN PREVIEW -->
+<section class="section tiffin-sec" id="tiffin">
+  <div class="wrap">
+    <div class="tiffin-grid">
+      <div>
+        <div class="wk-chip">🍛 This Week · Oct 13–19</div>
+        <h2 class="sec-title">Weekly <em>Tiffin</em></h2>
+        <div class="divbar" style="margin-left:0;"></div>
+        <p style="color:var(--fg-s);font-size:13px;line-height:1.75;margin:14px 0 0;">
+          Every Sunday we prepare a complete Maharashtrian tiffin — freshly cooked, packed with care. No preservatives, no shortcuts. Just like home.
+        </p>
+        <div class="tiffin-facts">
+          <div class="tf"><div class="tf-v">Sun</div><div class="tf-l">Pickup Day</div></div>
+          <div class="tf"><div class="tf-v">Fri 6PM</div><div class="tf-l">Order By</div></div>
+          <div class="tf"><div class="tf-v">Shrewsbury</div><div class="tf-l">Location</div></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="pages/weekly-menu.html" class="btn-main" style="font-size:12.5px;padding:10px 20px;">Full Menu →</a>
+          <a href="pages/order.html" style="display:flex;align-items:center;padding:10px 20px;border-radius:100px;border:1.5px solid var(--border);font-size:12.5px;font-weight:600;color:var(--fg);transition:.2s;">Order Now</a>
+        </div>
+      </div>
+      <div>
+        <div class="tiffin-photo-wrap">
+          <img src="images/tiffin-bowls.jpg" alt="Home-cooked Maharashtrian tiffin — dal, sabzi, rice, roti and salad in stainless steel bowls" loading="lazy">
+        </div>
+        <p class="tiffin-photo-caption">Fresh, home-cooked every Sunday 🍛</p>
+      </div>
+      <div>
+        <div class="dish-list">
+          <div class="dish-row"><span class="d-em">🧀</span><div class="d-inf"><strong>Shahi Paneer</strong><span>Creamy tomato-cashew gravy</span></div><span class="dtag tg">Gravy</span></div>
+          <div class="dish-row"><span class="d-em">🍲</span><div class="d-inf"><strong>Kanda Batata Rassa</strong><span>Maharashtrian thin onion-potato curry</span></div><span class="dtag tr">Rassa</span></div>
+          <div class="dish-row"><span class="d-em">🫘</span><div class="d-inf"><strong>Matki Usal</strong><span>Sprouted moth bean curry</span></div><span class="dtag tu">Usal</span></div>
+          <div class="dish-row"><span class="d-em">🥣</span><div class="d-inf"><strong>Methi Dal</strong><span>Fenugreek leaves in toor dal</span></div><span class="dtag td">Dal</span></div>
+          <div class="dish-row"><span class="d-em">🍛</span><div class="d-inf"><strong>Masale Bhat</strong><span>Maharashtrian spiced rice</span></div><span class="dtag tr">Rice</span></div>
+          <div class="dish-row"><span class="d-em">🥔</span><div class="d-inf"><strong>Batata Vada</strong><span>Fried potato dumplings</span></div><span class="dtag ts">Snack</span></div>
+          <div class="dish-row"><span class="d-em">🍮</span><div class="d-inf"><strong>Shreekhand</strong><span>Saffron strained yogurt sweet</span></div><span class="dtag tw">Sweet</span></div>
+        </div>
+        <div style="margin-top:14px;">
+          <a href="pages/weekly-menu.html" style="display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:100px;border:1.5px solid var(--border);font-size:11.5px;font-weight:600;color:var(--fg-s);transition:.2s;">See full menu + past weeks →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FESTIVAL EVENTS -->
+<section class="section events-sec" id="events">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Festival &amp; Event Menus</p>
+      <h2 class="sec-title">Celebrate with <em>Authentic Flavours</em></h2>
+      <div class="divbar"></div>
+    </div>
+    <div class="events-grid">
+      <a href="pages/event-menu.html" class="ev-card">
+        <div class="ev-banner ev-g"><div class="ev-icon">🐘</div><div class="ev-name">Ganpati Festival</div></div>
+        <div class="ev-body"><strong>Ganesh Chaturthi Special</strong><p>Batata Vada, Sabudana Khichadi, Bharli Vangi, Modak trays &amp; more.</p><span class="ev-link">View Full Menu →</span></div>
+      </a>
+      <a href="pages/event-menu.html" class="ev-card">
+        <div class="ev-banner ev-d"><div class="ev-icon">🪔</div><div class="ev-name">Diwali Special</div></div>
+        <div class="ev-body"><strong>Festival of Lights Menu</strong><p>Traditional Diwali feast with mithai, faral snacks and festive mains.</p><span class="ev-link">Preview Menu →</span></div>
+      </a>
+      <a href="pages/event-menu.html" class="ev-card">
+        <div class="ev-banner ev-h"><div class="ev-icon">🌸</div><div class="ev-name">Holi Special</div></div>
+        <div class="ev-body"><strong>Festival of Colours Menu</strong><p>Colourful spread of chaats, sweets and festive mains for Holi.</p><span class="ev-link">Preview Menu →</span></div>
+      </a>
+      <a href="pages/event-menu.html" class="ev-card">
+        <div class="ev-banner ev-c"><div class="ev-icon">🎉</div><div class="ev-name">Custom Event</div></div>
+        <div class="ev-body"><strong>Your Custom Menu</strong><p>Poojas, birthdays, cultural events — a complete Maharashtrian menu for your occasion.</p><span class="ev-link">Get a Quote →</span></div>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="hiw">
-  <p class="section-label" style="color:#a8c214;">Simple Process</p>
-  <h2 class="section-heading">How It <em>Works</em></h2>
-  <div class="divider" style="background:#a8c214;margin:18px auto 40px;"></div>
-  <div class="steps-grid">
-    <div class="step-card"><div class="step-num">1</div><h4>Browse the Menu</h4><p>Check this week's tiffin or a festival special — updated every week with seasonal dishes.</p></div>
-    <div class="step-card"><div class="step-num">2</div><h4>Place Your Order</h4><p>Add dishes on the order page and send via WhatsApp — no app, no account needed.</p></div>
-    <div class="step-card"><div class="step-num">3</div><h4>We Confirm & Cook</h4><p>Chaitrali confirms availability, cooks fresh on pickup morning and packs with care.</p></div>
-    <div class="step-card"><div class="step-num">4</div><h4>Pickup or Delivery</h4><p>Collect from Shrewsbury on Sunday, or ask about delivery — we'll quote the fee.</p></div>
+<section class="section hiw-sec" id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow" style="color:var(--olive-xl);">Simple Process</p>
+      <h2 class="sec-title" style="color:#fff;">How It <em style="color:var(--olive-xl);">Works</em></h2>
+      <div class="divbar" style="background:var(--olive-xl);"></div>
+    </div>
+    <div class="steps-row">
+      <div class="step"><div class="step-n">1</div><h4>Browse the Menu</h4><p>Check this week's tiffin or a festival special — updated every week with seasonal dishes.</p></div>
+      <div class="step"><div class="step-n">2</div><h4>Place Your Order</h4><p>Add dishes on the order page and send via WhatsApp — no app, no account needed.</p></div>
+      <div class="step"><div class="step-n">3</div><h4>We Confirm &amp; Cook</h4><p>Chaitrali confirms availability, cooks fresh on pickup morning and packs with care.</p></div>
+      <div class="step"><div class="step-n">4</div><h4>Pickup or Delivery</h4><p>Collect from Shrewsbury on Sunday, or ask about delivery — we'll quote the fee.</p></div>
+    </div>
   </div>
 </section>
 
 <!-- REVIEWS -->
-<section class="reviews" id="reviews">
-  <p class="section-label">Customer Love</p>
-  <h2 class="section-heading">What People <em>Are Saying</em></h2>
-  <div class="divider" style="margin:14px auto 40px;"></div>
-  <div class="reviews-grid">
-    <div class="rv-card">
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">The Kanda Batata Rassa tastes exactly like my aai's recipe back in Pune. I've been ordering every week since I found Chaitrali's Kitchen. Absolutely no comparison!</p>
-      <div class="rv-who"><div class="rv-av">🌸</div><div><div class="rv-nm">Priya Deshpande</div><div class="rv-mt">Westborough, MA · Regular Customer</div></div></div>
+<section class="section reviews-sec" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Customer Love</p>
+      <h2 class="sec-title">What People <em>Are Saying</em></h2>
+      <div class="divbar"></div>
     </div>
-    <div class="rv-card">
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">The Ganpati special menu was outstanding. Modaks were perfect — just the right sweetness. Batata Vada crispy and hot. Everyone at our celebration loved it!</p>
-      <div class="rv-who"><div class="rv-av">🎊</div><div><div class="rv-nm">Suresh Kulkarni</div><div class="rv-mt">Shrewsbury, MA · Ganpati Order</div></div></div>
-    </div>
-    <div class="rv-card">
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">Shreekhand was divine — thick, saffron-laced, restaurant quality but better because it's homemade. Portions are generous and packaging really neat.</p>
-      <div class="rv-who"><div class="rv-av">🍮</div><div><div class="rv-nm">Anita Joshi</div><div class="rv-mt">Northborough, MA · Tiffin Customer</div></div></div>
-    </div>
-    <div class="rv-card">
-      <div class="rv-stars">★★★★★</div>
-      <p class="rv-text">Ordered custom pooja catering — coordinated everything beautifully, delivered on time, food was spotless. Will always come back for events!</p>
-      <div class="rv-who"><div class="rv-av">🙏</div><div><div class="rv-nm">Meera Patil</div><div class="rv-mt">Marlborough, MA · Custom Event</div></div></div>
+    <div class="reviews-grid">
+      <div class="rv-card">
+        <div class="rv-stars">★★★★★</div>
+        <p class="rv-text">The Kanda Batata Rassa tastes exactly like my aai's recipe back in Pune. I've been ordering every week since I found Chaitrali's Kitchen. Absolutely no comparison!</p>
+        <div class="rv-who"><div class="rv-av">🌸</div><div><div class="rv-nm">Priya Deshpande</div><div class="rv-mt">Westborough, MA · Regular Customer</div></div></div>
+      </div>
+      <div class="rv-card">
+        <div class="rv-stars">★★★★★</div>
+        <p class="rv-text">The Ganpati special menu was outstanding. Modaks were perfect — just the right sweetness. Batata Vada crispy and hot. Everyone at our celebration loved it!</p>
+        <div class="rv-who"><div class="rv-av">🎊</div><div><div class="rv-nm">Suresh Kulkarni</div><div class="rv-mt">Shrewsbury, MA · Ganpati Order</div></div></div>
+      </div>
+      <div class="rv-card">
+        <div class="rv-stars">★★★★★</div>
+        <p class="rv-text">Shreekhand was divine — thick, saffron-laced, restaurant quality but better because it's homemade. Portions are generous and packaging really neat.</p>
+        <div class="rv-who"><div class="rv-av">🍮</div><div><div class="rv-nm">Anita Joshi</div><div class="rv-mt">Northborough, MA · Tiffin Customer</div></div></div>
+      </div>
+      <div class="rv-card">
+        <div class="rv-stars">★★★★★</div>
+        <p class="rv-text">Ordered custom pooja catering — coordinated everything beautifully, delivered on time, food was spotless. Will always come back for events!</p>
+        <div class="rv-who"><div class="rv-av">🙏</div><div><div class="rv-nm">Meera Patil</div><div class="rv-mt">Marlborough, MA · Custom Event</div></div></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="contact-grid">
-    <div class="contact-details">
-      <p class="section-label">Get in Touch</p>
-      <h2 class="section-heading">Ready to <em style="color:var(--green);font-style:italic;">Order?</em></h2>
-      <div class="divider"></div>
-      <p>Call or WhatsApp to place your tiffin order, enquire about festival catering, or get a custom event quote.</p>
-      <div class="cd-row"><div class="cd-ico">📞</div><div><div class="cd-lbl">Phone / WhatsApp</div><div class="cd-val"><a href="tel:6173205229">617-320-5229</a></div></div></div>
-      <div class="cd-row"><div class="cd-ico">📍</div><div><div class="cd-lbl">Pickup Location</div><div class="cd-val">Shrewsbury, MA</div></div></div>
-      <div class="cd-row"><div class="cd-ico">🚗</div><div><div class="cd-lbl">Delivery</div><div class="cd-val">Available · fee as quoted</div></div></div>
-      <div class="cd-row"><div class="cd-ico">🕐</div><div><div class="cd-lbl">Order Deadline</div><div class="cd-val">Friday 6 PM for Sunday</div></div></div>
-    </div>
-    <div class="order-panel">
-      <h3>Order This Week</h3>
-      <p>Browse dishes on our order page and send your selection via WhatsApp — simple, fast, no app needed.</p>
-      <div class="o-btns">
-        <a href="pages/order.html" class="btn-main">🛒 Browse &amp; Order Dishes</a>
-        <a href="https://wa.me/16173205229" target="_blank" class="btn-wa">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-          WhatsApp · 617-320-5229
-        </a>
-        <a href="pages/event-menu.html" class="btn-outline-w">🎉 Festival &amp; Event Menus</a>
+<section class="section contact-sec" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <p class="eyebrow">Get in Touch</p>
+        <h2 class="sec-title">Ready to <em>Order?</em></h2>
+        <div class="divbar" style="margin-left:0;margin-bottom:18px;"></div>
+        <p style="color:var(--fg-s);font-size:13px;line-height:1.8;margin-bottom:20px;">Call or WhatsApp to place your tiffin order, enquire about festival catering, or get a custom event quote.</p>
+        <div>
+          <div class="cd-row"><div class="cd-ico">📞</div><div><div class="cd-lbl">Phone / WhatsApp</div><div class="cd-val"><a href="tel:6173205229" style="color:var(--fg);">617-320-5229</a></div></div></div>
+          <div class="cd-row"><div class="cd-ico">📍</div><div><div class="cd-lbl">Pickup Location</div><div class="cd-val">Shrewsbury, MA</div></div></div>
+          <div class="cd-row"><div class="cd-ico">🚗</div><div><div class="cd-lbl">Delivery</div><div class="cd-val">Available · fee as quoted</div></div></div>
+          <div class="cd-row"><div class="cd-ico">🕐</div><div><div class="cd-lbl">Order Deadline</div><div class="cd-val">Friday 6 PM for Sunday</div></div></div>
+        </div>
       </div>
-      <div class="deadline-box">⏰ Order by <strong>Friday 6 PM</strong> for Sunday pickup or delivery</div>
+      <div class="order-panel">
+        <h3>Order This Week</h3>
+        <p>Browse dishes on our order page and send your selection via WhatsApp — simple, fast, no app needed.</p>
+        <div class="o-btns">
+          <a href="pages/order.html" class="btn-main">🛒 Browse &amp; Order Dishes</a>
+          <a href="https://wa.me/16173205229" target="_blank" class="btn-wa">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            WhatsApp · 617-320-5229
+          </a>
+          <a href="pages/event-menu.html" class="btn-outline">🎉 Festival &amp; Event Menus</a>
+        </div>
+        <div class="deadline-box">⏰ Order by <strong style="color:#fff;margin-inline:3px;">Friday 6 PM</strong> for Sunday pickup or delivery</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
-<footer style="background:var(--navy);padding:40px 6% 24px;">
+<footer>
   <div class="footer-inner">
     <div>
       <div class="foot-brand">Chaitrali's <em>Kitchen</em></div>
@@ -423,44 +985,44 @@ footer p { color: rgba(255,255,255,0.4); font-size: 0.74rem; }
 </footer>
 
 <script>
-// Load dish marquee from menu.json
-async function initMarquee() {
-  const track = document.getElementById('marquee-track');
-  if (!track) return;
-  try {
-    const res = await fetch('data/menu.json');
-    const data = await res.json();
-    const items = data.carousel || [];
-    if (!items.length) return;
-    const make = item => `<div class="dish-item"><div class="dish-circle"><img src="images/carousel/${item.file}" alt="${item.name}" onerror="this.parentElement.innerHTML='🍽'"></div><span class="dish-name">${item.name}</span></div>`;
-    track.innerHTML = items.map(make).join('') + items.map(make).join('');
-    track.style.animationDuration = Math.max(20, items.length * 5) + 's';
-  } catch(e) { console.warn('Marquee: could not load menu.json', e); }
-}
-initMarquee();
+const secs = document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+},{ passive:true });
+</script>
 
-// Countdown to order deadline (Sunday 9 PM ET)
-(function() {
+<script>
+(function(){
   function nextCutoff() {
+    // Sunday 9 PM Eastern — compute next occurrence
     const now = new Date();
+    // Work in the visitor's local time but cutoff is "Sunday 9 PM ET"
+    // We'll compute UTC offset for Eastern: EST = UTC-5, EDT = UTC-4
+    // Simple approach: find next Sunday then set to 21:00 ET
     const ET_OFFSET_HOURS = (() => {
+      // Detect whether ET is currently EDT or EST using Intl
       try {
         const fmt = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', hour:'numeric', hour12:false});
         const localH = parseInt(fmt.format(now));
         const utcH = now.getUTCHours();
         const diff = utcH - localH;
-        return diff < 0 ? diff + 24 : diff;
-      } catch(e) { return 4; }
+        return diff < 0 ? diff + 24 : diff;  // offset hours ET is behind UTC
+      } catch(e) { return 4; }  // fallback to EDT
     })();
+    // Find next Sunday 9 PM ET as a UTC Date
     const d = new Date(now);
-    const dayOfWeek = d.getUTCDay();
+    const dayOfWeek = d.getUTCDay(); // 0=Sun
     const daysUntilSun = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
     d.setUTCDate(d.getUTCDate() + daysUntilSun);
     d.setUTCHours(21 + ET_OFFSET_HOURS, 0, 0, 0);
+    // If that's already past, add 7 days
     if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
     return d;
   }
+
   function fmt2(n) { return String(n).padStart(2,'0'); }
+
   function tick() {
     const el = document.getElementById('cd-time');
     const badge = document.getElementById('ck-countdown');
@@ -473,14 +1035,16 @@ initMarquee();
     const hours = Math.floor((diff % 86400000) / 3600000);
     const mins  = Math.floor((diff % 3600000)  / 60000);
     const secs  = Math.floor((diff % 60000)    / 1000);
-    badge.classList.toggle('cd-urgent', diff < 3600000 * 6);
+    const urgent = diff < 3600000 * 6; // last 6 hours = red
+    badge.classList.toggle('cd-urgent', urgent);
     if (days > 0) {
       el.textContent = days + 'd ' + fmt2(hours) + 'h ' + fmt2(mins) + 'm';
     } else {
       el.textContent = fmt2(hours) + 'h ' + fmt2(mins) + 'm ' + fmt2(secs) + 's';
     }
   }
-  tick(); setInterval(tick, 1000);
+  tick();
+  setInterval(tick, 1000);
 })();
 </script>
 
