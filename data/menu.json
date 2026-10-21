@@ -1,12 +1,12 @@
 {
   "settings": {
     "business_name": "Chaitrali's Kitchen",
-    "tagline": "Pure Veg \u00b7 Homemade \u00b7 Marathi Chavichi Athavan",
+    "tagline": "Pure Veg · Homemade · Marathi Chavichi Athavan",
     "phone": "617-320-5229",
     "phone_whatsapp": "16173205229",
     "email": "chaitraliskitchen@gmail.com",
     "location": "Shrewsbury, MA",
-    "tiffin_days": "Mon \u2013 Sat",
+    "tiffin_days": "Mon – Sat",
     "order_cutoff": "Sunday 9 PM",
     "payment_zelle": "chaitraliskitchen@gmail.com",
     "payment_venmo": "@Chaitralis-Kitchen",
@@ -36,7 +36,7 @@
   ],
   "tiffin": {
     "last_week": {
-      "dates": "Oct 1 \u2013 Oct 6, 2026",
+      "dates": "Oct 1 – Oct 6, 2026",
       "dishes": [
         {
           "name": "Aloo Methi",
@@ -65,19 +65,13 @@
       ]
     },
     "this_week": {
-      "dates": "Oct 7 \u2013 Oct 12, 2026",
+      "dates": "Oct 7 – Oct 12, 2026",
       "dishes": [
         {
           "name": "Saoji Masala Vangi",
           "desc": "Nagpur-style Spicy Brinjal Curry",
           "tag": "spicy",
-          "tag_label": "Spicy \u00b7 Gravy"
-        },
-        {
-          "name": "Brahmin Style Bharli Vangi",
-          "desc": "Stuffed Brinjal \u2014 Konkanastha Style",
-          "tag": "gravy",
-          "tag_label": "Gravy"
+          "tag_label": "Spicy · Gravy"
         },
         {
           "name": "Batata Rassa",
@@ -86,63 +80,21 @@
           "tag_label": "Rassa"
         },
         {
-          "name": "Batata Sukhi",
-          "desc": "Dry Spiced Potato",
-          "tag": "dry",
-          "tag_label": "Dry Sabzi"
-        },
-        {
-          "name": "Kobi Matar",
-          "desc": "Cabbage & Green Peas",
-          "tag": "dry",
-          "tag_label": "Dry Sabzi"
-        },
-        {
-          "name": "Flower Batata Matar",
-          "desc": "Cauliflower, Potato & Peas",
-          "tag": "dry",
-          "tag_label": "Dry Sabzi"
-        },
-        {
-          "name": "Veg Kurma",
-          "desc": "Mixed Vegetables in Coconut-Cashew Gravy",
-          "tag": "gravy",
-          "tag_label": "Gravy"
-        },
-        {
-          "name": "Veg Kolhapuri",
-          "desc": "Fiery Kolhapur-style Vegetable Curry",
-          "tag": "spicy",
-          "tag_label": "Spicy \u00b7 Gravy"
-        },
-        {
-          "name": "Kolhapuri Akkha Masur",
-          "desc": "Whole Red Lentil \u2014 Kolhapuri Masala",
-          "tag": "spicy",
-          "tag_label": "Spicy \u00b7 Dal"
-        },
-        {
           "name": "Matki chi Usal",
           "desc": "Sprouted Moth Bean Curry",
           "tag": "usal",
           "tag_label": "Usal"
         },
         {
-          "name": "Moogachi Usal",
-          "desc": "Sprouted Green Moong Curry",
-          "tag": "usal",
-          "tag_label": "Usal"
-        },
-        {
-          "name": "Val Usal",
-          "desc": "Field Bean Curry \u2014 Coastal Style",
-          "tag": "usal",
-          "tag_label": "Usal"
+          "name": "Kobi Matar",
+          "desc": "Cabbage & Green Peas",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
         }
       ]
     },
     "next_week": {
-      "dates": "Oct 14 \u2013 Oct 19, 2026",
+      "dates": "Oct 14 – Oct 19, 2026",
       "dishes": [
         {
           "name": "Puran Poli",
@@ -183,7 +135,7 @@
           "style": "green",
           "dishes": [
             {
-              "icon": "\ud83d\udfe4",
+              "icon": "🟤",
               "name": "Mini Batata Vada",
               "desc": "",
               "prices": [
@@ -194,7 +146,7 @@
               ]
             },
             {
-              "icon": "\u26aa",
+              "icon": "⚪",
               "name": "Mini Sabudana Vada",
               "desc": "",
               "prices": [
@@ -205,7 +157,7 @@
               ]
             },
             {
-              "icon": "\ud83d\udfe8",
+              "icon": "🟨",
               "name": "Kothimbir Vadi",
               "desc": "",
               "prices": [
@@ -220,7 +172,7 @@
               ]
             },
             {
-              "icon": "\ud83e\udd5b",
+              "icon": "🥛",
               "name": "Dahivada",
               "desc": "",
               "prices": [
@@ -235,7 +187,7 @@
               ]
             },
             {
-              "icon": "\ud83d\udfe0",
+              "icon": "🟠",
               "name": "Farali Misal",
               "desc": "",
               "prices": [
@@ -250,7 +202,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf5a",
+              "icon": "🍚",
               "name": "Sabudana Khichadi",
               "desc": "",
               "prices": [
@@ -271,7 +223,7 @@
           "style": "maroon",
           "dishes": [
             {
-              "icon": "\ud83c\udf5b",
+              "icon": "🍛",
               "name": "Veg Kurma",
               "desc": "",
               "prices": [
@@ -286,7 +238,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf46",
+              "icon": "🍆",
               "name": "Bharli Vangi",
               "desc": "",
               "prices": [
@@ -301,7 +253,7 @@
               ]
             },
             {
-              "icon": "\ud83e\udd54",
+              "icon": "🥔",
               "name": "Alu Fadfad",
               "desc": "(Patal Bhaji)",
               "prices": [
@@ -316,7 +268,7 @@
               ]
             },
             {
-              "icon": "\ud83e\udd54",
+              "icon": "🥔",
               "name": "Batata Sukhi",
               "desc": "",
               "prices": [
@@ -331,7 +283,7 @@
               ]
             },
             {
-              "icon": "\ud83e\uded8",
+              "icon": "🫘",
               "name": "Matki Usal",
               "desc": "",
               "prices": [
@@ -346,7 +298,7 @@
               ]
             },
             {
-              "icon": "\ud83e\uded8",
+              "icon": "🫘",
               "name": "Chavli Usal",
               "desc": "",
               "prices": [
@@ -361,7 +313,7 @@
               ]
             },
             {
-              "icon": "\ud83e\uded8",
+              "icon": "🫘",
               "name": "Moong Usal",
               "desc": "",
               "prices": [
@@ -382,7 +334,7 @@
           "style": "green",
           "dishes": [
             {
-              "icon": "\ud83d\udfe1",
+              "icon": "🟡",
               "name": "Varan",
               "desc": "",
               "prices": [
@@ -397,7 +349,7 @@
               ]
             },
             {
-              "icon": "\ud83d\udfe0",
+              "icon": "🟠",
               "name": "Shevgyachi Amti",
               "desc": "",
               "prices": [
@@ -412,7 +364,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf45",
+              "icon": "🍅",
               "name": "Tomato Saar",
               "desc": "",
               "prices": [
@@ -427,7 +379,7 @@
               ]
             },
             {
-              "icon": "\ud83e\udd5b",
+              "icon": "🥛",
               "name": "Soal Kadhi",
               "desc": "",
               "prices": [
@@ -442,7 +394,7 @@
               ]
             },
             {
-              "icon": "\ud83e\udd5b",
+              "icon": "🥛",
               "name": "Maharastriyan Kadhi",
               "desc": "",
               "prices": [
@@ -463,7 +415,7 @@
           "style": "gold",
           "dishes": [
             {
-              "icon": "\ud83e\uded3",
+              "icon": "🫓",
               "name": "Puri",
               "desc": "",
               "prices": [
@@ -480,7 +432,7 @@
           "style": "green",
           "dishes": [
             {
-              "icon": "\ud83c\udf5a",
+              "icon": "🍚",
               "name": "Masale Bhat",
               "desc": "",
               "prices": [
@@ -495,7 +447,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf5a",
+              "icon": "🍚",
               "name": "Veg Pulao",
               "desc": "",
               "prices": [
@@ -510,7 +462,7 @@
               ]
             },
             {
-              "icon": "\ud83e\udd65",
+              "icon": "🥥",
               "name": "Narali Bhat",
               "desc": "",
               "prices": [
@@ -531,7 +483,7 @@
           "style": "maroon",
           "dishes": [
             {
-              "icon": "\ud83e\uded3",
+              "icon": "🫓",
               "name": "Puranpoli",
               "desc": "",
               "prices": [
@@ -550,7 +502,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf6e",
+              "icon": "🍮",
               "name": "Kesar Shrikhand",
               "desc": "",
               "prices": [
@@ -565,7 +517,7 @@
               ]
             },
             {
-              "icon": "\ud83e\udd55",
+              "icon": "🥕",
               "name": "Gajar Halwa",
               "desc": "",
               "prices": [
@@ -580,7 +532,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf3e",
+              "icon": "🌾",
               "name": "Mango Sheera",
               "desc": "",
               "prices": [
@@ -595,7 +547,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf6c",
+              "icon": "🍬",
               "name": "Jalebi",
               "desc": "",
               "prices": [
@@ -606,7 +558,7 @@
               ]
             },
             {
-              "icon": "\ud83d\udfe4",
+              "icon": "🟤",
               "name": "Boondi Ladoo",
               "desc": "",
               "prices": [
@@ -617,7 +569,7 @@
               ]
             },
             {
-              "icon": "\ud83d\udfe1",
+              "icon": "🟡",
               "name": "Motichur Ladoo",
               "desc": "",
               "prices": [
@@ -630,11 +582,11 @@
           ]
         },
         {
-          "name": "\u2728 Ganesh Festival Sweets",
+          "name": "✨ Ganesh Festival Sweets",
           "style": "gold",
           "dishes": [
             {
-              "icon": "\ud83c\udf61",
+              "icon": "🍡",
               "name": "Panchamrut Modak",
               "desc": "",
               "prices": [
@@ -645,7 +597,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf61",
+              "icon": "🍡",
               "name": "Churma Modak",
               "desc": "",
               "prices": [
@@ -656,7 +608,7 @@
               ]
             },
             {
-              "icon": "\ud83c\udf61",
+              "icon": "🍡",
               "name": "Gulkand Mawa Modak",
               "desc": "",
               "prices": [
@@ -686,7 +638,7 @@
     },
     "custom": {
       "title": "Custom Event",
-      "subtitle": "Birthday \u00b7 Anniversary \u00b7 Puja \u00b7 Gathering",
+      "subtitle": "Birthday · Anniversary · Puja · Gathering",
       "order_by": "",
       "active": true,
       "sections": []
