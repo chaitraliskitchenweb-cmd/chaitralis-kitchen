@@ -204,6 +204,21 @@
     .ck-countdown .cd-label { display: none; }
   }
 
+
+  /* ── Event Hero Images ── */
+  .hero-img-wrap {
+    display: flex; justify-content: center; margin: 20px 0 14px;
+  }
+  .hero-img {
+    width: min(180px, 42vw);
+    height: min(180px, 42vw);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid rgba(255,255,255,0.7);
+    box-shadow: 0 6px 32px rgba(0,0,0,0.18), 0 0 0 2px var(--gold);
+    display: block;
+  }
+
 </style>
 </head>
 <body>
@@ -332,6 +347,13 @@
   function buildEventPage(key, ev, s, isFirst) {
     const emojis = { ganpati:'🐘', diwali:'🪔', holi:'🌸', custom:'🎉' };
     const emoji = emojis[key] || '🎊';
+    const heroImgs = {
+      ganpati: '../images/events/ganpati/Hero-Ganapati.jpeg',
+      diwali:  '../images/events/diwali/Hero-Diwali.jpeg',
+      holi:    '../images/events/holi/Hero-Holi.jpg',
+      custom:  '../images/events/custom/Hero-Custom.jpeg'
+    };
+    const heroImg = heroImgs[key] || '';
 
     if (key === 'custom') {
       return `<div class="event-page${isFirst?' visible':''}" id="page-${key}">
@@ -339,7 +361,7 @@
           <div class="garland" style="background:repeating-linear-gradient(90deg,#6b820d 0,#6b820d 18px,#b8860b 18px,#b8860b 26px,#6b820d 26px,#6b820d 36px,#8b1a1a 36px,#8b1a1a 44px);"></div>
           <div class="garland-dots" style="background:#6b820d;"></div>
           <div class="fest-header-inner">
-            <div style="font-size:90px;margin:20px 0 10px;">🎉</div>
+            <div class="hero-img-wrap"><img class="hero-img" src="${heroImg}" alt="${esc(ev.title)}" onerror="this.parentElement.innerHTML='<span style=font-size:80px>🎉</span>'"></div>
             <p class="fest-brand">Chaitrali's Kitchen LLC · Homemade with Love</p>
             <div class="fest-title" style="font-size:2.4rem;">${esc(ev.title)}</div>
             <div class="fest-subtitle">${esc(ev.subtitle)}</div>
@@ -369,7 +391,7 @@
           <div class="garland" style="background:${th.garland};"></div>
           <div class="garland-dots" style="background:${th.dotBg};"></div>
           <div class="fest-header-inner">
-            <div style="font-size:100px;margin:20px 0 10px;filter:drop-shadow(0 0 20px ${th.titleColor});">${emoji}</div>
+            <div class="hero-img-wrap"><img class="hero-img" src="${heroImg}" alt="${esc(ev.title)}" style="border-color:${th.titleColor}" onerror="this.parentElement.innerHTML='<span style=font-size:80px>${emoji}</span>'"></div>
             <p class="fest-brand" style="color:${th.brandColor};">Chaitrali's Kitchen LLC · Homemade with Love</p>
             <div class="fest-title" style="color:${th.titleColor};">${esc(ev.title)}</div>
             <div class="fest-subtitle" style="color:${th.subColor};">${esc(ev.subtitle)}</div>
@@ -406,7 +428,7 @@
         <div class="garland"></div>
         <div class="garland-dots"></div>
         <div class="fest-header-inner">
-          <div class="deity-wrap">${key==='ganpati' ? GANESHA_SVG : `<div style="font-size:90px;margin:20px 0 10px;">${emoji}</div>`}</div>
+          <div class="hero-img-wrap"><img class="hero-img" src="${heroImg}" alt="${esc(ev.title)}" onerror="this.style.display='none'"></div>
           <p class="fest-brand">Chaitrali's Kitchen LLC · Homemade with Love</p>
           <div class="fest-title">${esc(ev.title)}</div>
           <div class="fest-subtitle">${esc(ev.subtitle)}</div>
