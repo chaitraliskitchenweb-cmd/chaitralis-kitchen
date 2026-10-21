@@ -3,885 +3,525 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Chaitrali's Kitchen — Order</title>
+<title>Order — Chaitrali's Kitchen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
 <style>
 /* ── Tokens ── */
 :root {
-  --bg:        #f7f5f2;
-  --bg-card:   #ffffff;
-  --bg-side:   #ffffff;
-  --fg:        #1a1a1a;
-  --fg-soft:   #6b6b6b;
-  --fg-xsoft:  #a0a0a0;
-  --border:    #ebebeb;
-  --accent:    #e07020;
-  --accent-lt: #fff3ea;
-  --accent2:   #2d5a1b;
-  --star:      #f5a623;
+  --olive:     #6b820d;
+  --olive-l:   #8fa812;
+  --olive-bg:  #eef2d8;
   --navy:      #1A2B4A;
-  --tag-bg:    #f0ede8;
-  --shadow:    0 2px 12px rgba(0,0,0,.07);
-  --shadow-lg: 0 4px 24px rgba(0,0,0,.10);
-  --radius:    14px;
-  --radius-sm: 8px;
+  --navy2:     #243856;
+  --gold:      #D4A24C;
+  --gold-bg:   #fff8e6;
+  --teal:      #0e7a6e;
+  --teal-bg:   #d6f0ed;
+  --amber:     #c47d0a;
+  --amber-bg:  #fff3d6;
+  --purple:    #6b45a0;
+  --purple-bg: #ede8f6;
+  --red:       #c0392b;
+  --bg:        #f5f5f0;
+  --bg-card:   #ffffff;
+  --fg:        #1c1c1a;
+  --fg-s:      #6b6b63;
+  --fg-xs:     #9a9a90;
+  --border:    #e0e0d8;
+  --shadow:    0 2px 16px rgba(0,0,0,.07);
+  --shadow-lg: 0 6px 32px rgba(0,0,0,.11);
+  --r:         14px;
+  --r-sm:      9px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg:        #121212;
-    --bg-card:   #1e1e1e;
-    --bg-side:   #1e1e1e;
-    --fg:        #f0f0f0;
-    --fg-soft:   #a0a0a0;
-    --fg-xsoft:  #666;
-    --border:    #2e2e2e;
-    --accent-lt: #2a1800;
-    --tag-bg:    #2a2a2a;
-    --shadow:    0 2px 12px rgba(0,0,0,.3);
-    --shadow-lg: 0 4px 24px rgba(0,0,0,.4);
+    --olive: #96b714; --olive-l: #b8d820; --olive-bg: #1a2604;
+    --navy: #1e3060; --navy2: #162448; --gold: #e8b84c; --gold-bg: #2a1e04;
+    --teal: #2abcae; --teal-bg: #082820;
+    --amber: #e09a22; --amber-bg: #2a1e04;
+    --purple: #a07dd4; --purple-bg: #1e1030;
+    --bg: #111114; --bg-card: #1c1c20;
+    --fg: #f0f0ec; --fg-s: #9a9a92; --fg-xs: #666660;
+    --border: #2a2a2e;
+    --shadow: 0 2px 16px rgba(0,0,0,.4);
+    --shadow-lg: 0 6px 32px rgba(0,0,0,.55);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg:        #121212;
-  --bg-card:   #1e1e1e;
-  --bg-side:   #1e1e1e;
-  --fg:        #f0f0f0;
-  --fg-soft:   #a0a0a0;
-  --fg-xsoft:  #666;
-  --border:    #2e2e2e;
-  --accent-lt: #2a1800;
-  --tag-bg:    #2a2a2a;
-  --shadow:    0 2px 12px rgba(0,0,0,.3);
-  --shadow-lg: 0 4px 24px rgba(0,0,0,.4);
+  --olive: #96b714; --olive-l: #b8d820; --olive-bg: #1a2604;
+  --navy: #1e3060; --navy2: #162448; --gold: #e8b84c; --gold-bg: #2a1e04;
+  --teal: #2abcae; --teal-bg: #082820;
+  --amber: #e09a22; --amber-bg: #2a1e04;
+  --purple: #a07dd4; --purple-bg: #1e1030;
+  --bg: #111114; --bg-card: #1c1c20;
+  --fg: #f0f0ec; --fg-s: #9a9a92; --fg-xs: #666660;
+  --border: #2a2a2e;
+  --shadow: 0 2px 16px rgba(0,0,0,.4);
+  --shadow-lg: 0 6px 32px rgba(0,0,0,.55);
   color-scheme: dark;
 }
 
 /* ── Reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--fg); font-size: 14px; }
-img { max-width: 100%; display: block; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Poppins',sans-serif;
+  background:var(--bg); color:var(--fg);
+  font-size:14px; line-height:1.6; overflow-x:hidden;
+  padding-top:60px;
+}
+img { max-width:100%; display:block; }
+a { text-decoration:none; color:inherit; }
 
-/* ── Layout Shell ── */
-.shell {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  grid-template-rows: 64px 1fr;
-  height: 100vh;
-  overflow: hidden;
+/* ── Shared Nav ── */
+.ck-nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:60px; display:flex; align-items:center;
+  justify-content:space-between; gap:16px; padding:0 5%;
+  background:rgba(255,255,255,.97); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(107,130,13,.15);
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
-@media (max-width: 900px) {
-  .shell {
-    grid-template-columns: 1fr;
-    grid-template-rows: 64px 1fr auto;
-    height: auto;
-    overflow: auto;
-  }
+@media (prefers-color-scheme:dark) {
+  .ck-nav { background:rgba(17,17,20,.97); border-color:rgba(150,183,20,.12); }
 }
-
-/* ── Top Nav ── */
-.topnav {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  gap: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+.ck-brand { display:flex; align-items:center; gap:9px; text-decoration:none; }
+.ck-brand img { width:34px; height:34px; border-radius:50%; object-fit:contain; background:var(--olive-bg); }
+.ck-brand-text { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--navy); }
+.ck-brand-text em { color:var(--gold); font-style:italic; }
+.ck-links { display:flex; list-style:none; gap:24px; margin:0 auto; padding:0; }
+.ck-links a { font-size:13px; font-weight:500; color:var(--navy); letter-spacing:.01em; transition:color .15s; }
+.ck-links a:hover,.ck-links a.active { color:var(--olive); }
+.ck-links a.active { font-weight:600; }
+.ck-right { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.ck-countdown {
+  display:flex; align-items:center; gap:6px;
+  background:var(--gold-bg); border:1.5px solid var(--gold);
+  border-radius:20px; padding:4px 12px;
+  font-size:11.5px; font-weight:600; color:#8a5a00; white-space:nowrap;
 }
-.brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  color: var(--navy);
-  white-space: nowrap;
-  margin-right: 8px;
+.ck-countdown .cd-time { color:var(--olive); font-variant-numeric:tabular-nums; }
+.ck-countdown.cd-urgent { background:#fff0f0; border-color:var(--red); color:#900; }
+.ck-countdown.cd-urgent .cd-time { color:var(--red); }
+.ck-order-btn {
+  background:var(--olive); color:#fff;
+  padding:7px 18px; border-radius:24px;
+  font-size:12.5px; font-weight:600; transition:opacity .15s;
 }
-.brand span { color: var(--accent); }
-.nav-search {
-  flex: 1;
-  max-width: 380px;
-  position: relative;
-}
-.nav-search input {
-  width: 100%;
-  padding: 9px 16px 9px 38px;
-  border: 1.5px solid var(--border);
-  border-radius: 24px;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: inherit;
-  font-size: 13px;
-  outline: none;
-  transition: border-color .2s;
-}
-.nav-search input:focus { border-color: var(--accent); }
-.nav-search .search-icon {
-  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-  color: var(--fg-xsoft); pointer-events: none;
-}
-.nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-.nav-tag {
-  font-size: 11px; font-weight: 600; letter-spacing: .04em;
-  background: var(--accent-lt); color: var(--accent);
-  padding: 4px 10px; border-radius: 20px;
-}
-.nav-avatar {
-  width: 34px; height: 34px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), #c04000);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; color: #fff;
+.ck-order-btn:hover { opacity:.85; }
+.ck-burger { display:none; background:none; border:none; font-size:22px; cursor:pointer; color:var(--navy); padding:4px; }
+@media (max-width:640px) {
+  .ck-links { display:none; position:absolute; top:60px; left:0; right:0;
+    flex-direction:column; background:var(--bg-card);
+    border-bottom:1px solid var(--border); padding:12px 5% 16px; gap:12px; z-index:201; }
+  .ck-nav.open .ck-links { display:flex; }
+  .ck-burger { display:block; }
+  .ck-countdown .cd-label { display:none; }
 }
 
-/* ── Main Column ── */
-.main {
-  overflow-y: auto;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* ── Page Header ── */
+.page-header {
+  background:var(--navy);
+  padding:48px 5% 40px;
+  text-align:center;
 }
+.page-header .eyebrow {
+  font-size:10.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:10px;
+}
+.page-header h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.7rem,5vw,2.6rem); font-weight:700;
+  color:#fff; line-height:1.2;
+}
+.page-header h1 em { color:var(--gold); font-style:italic; }
+.page-header p { margin-top:8px; font-size:13px; color:rgba(255,255,255,.65); }
 
-/* Welcome Row */
-.welcome-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.welcome-row h1 {
-  font-size: 22px;
-  font-weight: 700;
-}
-.welcome-row h1 span { color: var(--accent); }
-.welcome-row p { font-size: 12px; color: var(--fg-soft); margin-top: 2px; }
-.cta-order {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--accent); color: #fff;
-  padding: 10px 18px; border-radius: 24px;
-  font-size: 13px; font-weight: 600;
-  box-shadow: 0 4px 12px rgba(224,112,32,.35);
-  transition: background .2s, transform .15s;
-  text-decoration: none;
-}
-.cta-order:hover { background: #c85c10; transform: translateY(-1px); }
+/* ── Layout ── */
+.wrap { max-width:900px; margin:0 auto; padding:40px 5% 64px; }
 
-/* ── Hero Banner ── */
-.hero {
-  border-radius: var(--radius);
-  background: linear-gradient(120deg, var(--navy) 0%, #2d4a7a 100%);
-  padding: 28px 28px 0;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  overflow: hidden;
-  position: relative;
-  min-height: 140px;
-}
-.hero-text h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  color: #fff;
-  line-height: 1.25;
-}
-.hero-text p { color: rgba(255,255,255,.7); font-size: 12px; margin: 6px 0 16px; }
-.hero-badge {
-  display: inline-block;
-  background: var(--accent); color: #fff;
-  padding: 7px 16px; border-radius: 20px;
-  font-size: 12px; font-weight: 600;
-  margin-bottom: 28px;
-}
-.hero-food {
-  font-size: 80px; line-height: 1;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,.3));
-  padding-bottom: 8px;
-}
-
-/* ── Category Tabs ── */
+/* ── Section Heading ── */
 .section-label {
-  font-size: 15px; font-weight: 700; color: var(--fg);
-}
-.cat-tabs {
-  display: flex; gap: 8px; flex-wrap: wrap;
-}
-.cat-btn {
-  padding: 7px 16px;
-  border-radius: 20px;
-  border: 1.5px solid var(--border);
-  background: var(--bg-card);
-  color: var(--fg-soft);
-  font-size: 12px; font-weight: 500;
-  transition: all .2s;
-  white-space: nowrap;
-}
-.cat-btn:hover { border-color: var(--accent); color: var(--accent); }
-.cat-btn.active {
-  background: var(--fg); color: #fff; border-color: var(--fg);
+  font-size:10.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--fg-xs); margin-bottom:16px;
 }
 
-/* ── Menu Grid ── */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+/* ── Order Type Cards ── */
+.order-types { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-bottom:40px; }
+.otype-card {
+  background:var(--bg-card); border-radius:var(--r);
+  border:2px solid var(--border);
+  padding:22px; cursor:pointer;
+  transition:border-color .2s, box-shadow .2s, transform .15s;
 }
-.dish-card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: transform .2s, box-shadow .2s;
-  cursor: pointer;
-  position: relative;
+.otype-card:hover { border-color:var(--olive); box-shadow:var(--shadow-lg); transform:translateY(-2px); }
+.otype-card.selected { border-color:var(--olive); box-shadow:0 0 0 3px rgba(107,130,13,.15), var(--shadow-lg); }
+.otype-icon { font-size:26px; margin-bottom:10px; }
+.otype-title { font-size:15px; font-weight:700; color:var(--fg); margin-bottom:4px; }
+.otype-desc { font-size:12px; color:var(--fg-s); line-height:1.5; }
+.otype-badge {
+  display:inline-block; margin-top:10px;
+  font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+  padding:3px 9px; border-radius:10px;
 }
-.dish-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-.dish-card.selected {
-  box-shadow: 0 0 0 2.5px var(--accent), var(--shadow-lg);
-}
-.dish-thumb {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  background: var(--tag-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 52px;
-  position: relative;
-}
-.dish-fav {
-  position: absolute; top: 8px; right: 8px;
-  width: 28px; height: 28px;
-  background: rgba(255,255,255,.9);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
-  backdrop-filter: blur(4px);
-  transition: transform .15s;
-}
-.dish-fav:hover { transform: scale(1.15); }
-.dish-info { padding: 12px; }
-.dish-name { font-weight: 600; font-size: 13.5px; margin-bottom: 2px; line-height: 1.3; }
-.dish-desc { font-size: 11.5px; color: var(--fg-soft); line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.dish-footer { display: flex; align-items: center; justify-content: space-between; }
-.dish-price { font-size: 15px; font-weight: 700; color: var(--fg); }
-.dish-stars { display: flex; align-items: center; gap: 3px; }
-.star-ico { color: var(--star); font-size: 11px; }
-.star-count { font-size: 11px; color: var(--fg-xsoft); }
-.dish-add {
-  width: 26px; height: 26px;
-  background: var(--accent); color: #fff;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 300;
-  box-shadow: 0 2px 8px rgba(224,112,32,.4);
-  transition: background .2s, transform .15s;
-}
-.dish-add:hover { background: #c85c10; transform: scale(1.1); }
-.dish-tag {
-  display: inline-block;
-  font-size: 10px; font-weight: 600; letter-spacing: .03em;
-  padding: 2px 7px; border-radius: 10px;
-  margin-bottom: 6px;
-}
-.tag-veg    { background: #e6f4ea; color: #2d7a3a; }
-.tag-spicy  { background: #fff0e0; color: #c05010; }
-.tag-sweet  { background: #fce8f0; color: #a0305a; }
-.tag-festive{ background: #ede8f6; color: #6b45a0; }
+.badge-olive  { background:var(--olive-bg);  color:var(--olive); }
+.badge-gold   { background:var(--gold-bg);   color:var(--amber); }
+.badge-teal   { background:var(--teal-bg);   color:var(--teal); }
+.badge-purple { background:var(--purple-bg); color:var(--purple); }
 
-/* ── Sidebar ── */
-.sidebar {
-  background: var(--bg-side);
-  border-left: 1px solid var(--border);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+/* ── This Week's Menu Preview ── */
+.menu-preview {
+  background:var(--bg-card); border-radius:var(--r);
+  border:1px solid var(--border); padding:20px; margin-bottom:40px;
+  box-shadow:var(--shadow);
 }
-@media (max-width: 900px) {
-  .sidebar {
-    border-left: none;
-    border-top: 1px solid var(--border);
-  }
+.menu-preview-head {
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;
 }
-.sidebar-head {
-  padding: 20px 20px 0;
-  font-size: 13px; font-weight: 700; color: var(--fg);
+.menu-preview-head h3 { font-size:14px; font-weight:700; }
+.menu-preview-head a { font-size:12px; color:var(--olive); font-weight:600; }
+.dishes-row { display:flex; flex-wrap:wrap; gap:8px; }
+.dish-chip {
+  background:var(--bg); border:1px solid var(--border);
+  border-radius:var(--r-sm); padding:8px 14px;
+  font-size:12px;
 }
-.sidebar-head p { font-size: 11px; color: var(--fg-soft); font-weight: 400; margin-top: 2px; }
-
-/* Today Delivery Info */
-.delivery-info {
-  margin: 16px 20px;
-  background: var(--accent-lt);
-  border: 1px solid rgba(224,112,32,.2);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-.delivery-icon { font-size: 24px; }
-.delivery-text strong { font-size: 12px; display: block; }
-.delivery-text span { font-size: 11px; color: var(--fg-soft); }
-
-/* Order Items */
-.order-section { padding: 0 20px; }
-.order-section-label {
-  font-size: 11px; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; color: var(--fg-xsoft);
-  margin-bottom: 10px;
-}
-.order-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
-.order-item:last-child { border-bottom: none; }
-.order-thumb {
-  width: 42px; height: 42px;
-  border-radius: var(--radius-sm);
-  background: var(--tag-bg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px; flex-shrink: 0;
-  overflow: hidden;
-}
-.order-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.order-details { flex: 1; min-width: 0; }
-.order-name { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.order-note { font-size: 11px; color: var(--fg-soft); }
-.order-qty-row { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
-.qty-btn {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--fg-soft);
-  transition: border-color .15s, color .15s;
-}
-.qty-btn:hover { border-color: var(--accent); color: var(--accent); }
-.qty-num { font-size: 12px; font-weight: 600; min-width: 14px; text-align: center; }
-.order-price { font-size: 13px; font-weight: 700; flex-shrink: 0; }
-.order-remove { color: var(--fg-xsoft); font-size: 16px; padding: 2px; transition: color .15s; }
-.order-remove:hover { color: #c04000; }
-
-/* Order Summary */
-.order-summary {
-  margin: 16px 20px;
-  background: var(--bg);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-}
-.summary-row {
-  display: flex; justify-content: space-between;
-  font-size: 12px; color: var(--fg-soft);
-  margin-bottom: 8px;
-}
-.summary-row.total {
-  color: var(--fg); font-weight: 700; font-size: 14px;
-  margin-bottom: 0; padding-top: 8px;
-  border-top: 1px solid var(--border);
+.dish-chip .dc-name { font-weight:600; color:var(--fg); }
+.dish-chip .dc-desc { font-size:11px; color:var(--fg-s); margin-top:1px; }
+.dish-chip .dc-tag {
+  display:inline-block; font-size:10px; font-weight:600;
+  padding:1px 7px; border-radius:8px; margin-top:5px;
 }
 
-/* CTA Button */
-.order-cta {
-  margin: 0 20px 20px;
-  background: var(--accent);
-  color: #fff;
-  padding: 13px;
-  border-radius: var(--radius);
-  font-size: 14px; font-weight: 700;
-  text-align: center;
-  width: calc(100% - 40px);
-  box-shadow: 0 4px 14px rgba(224,112,32,.35);
-  transition: background .2s, transform .15s;
+/* ── How to Order ── */
+.how-steps { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; margin-bottom:40px; }
+.how-step { background:var(--bg-card); border-radius:var(--r-sm); padding:18px; border:1px solid var(--border); }
+.step-num { font-size:11px; font-weight:700; color:var(--olive); letter-spacing:.06em; margin-bottom:6px; }
+.step-title { font-size:13px; font-weight:700; margin-bottom:4px; }
+.step-body { font-size:11.5px; color:var(--fg-s); line-height:1.5; }
+
+/* ── Contact Cards ── */
+.contact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-bottom:40px; }
+.contact-card {
+  background:var(--bg-card); border-radius:var(--r);
+  border:1px solid var(--border); padding:20px;
+  display:flex; flex-direction:column; gap:10px;
+  box-shadow:var(--shadow);
 }
-.order-cta:hover { background: #c85c10; transform: translateY(-1px); }
-
-/* WhatsApp CTA */
-.whatsapp-cta {
-  margin: 0 20px 20px;
-  background: #25d366;
-  color: #fff;
-  padding: 11px;
-  border-radius: var(--radius);
-  font-size: 13px; font-weight: 600;
-  text-align: center;
-  width: calc(100% - 40px);
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  transition: background .2s;
-  text-decoration: none;
+.contact-card .cc-label { font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--fg-xs); }
+.contact-card .cc-value { font-size:15px; font-weight:700; color:var(--fg); }
+.contact-card .cc-note  { font-size:11.5px; color:var(--fg-s); }
+.contact-card .cc-action {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:9px 16px; border-radius:100px;
+  font-size:12.5px; font-weight:600; margin-top:4px;
+  transition:opacity .15s; text-decoration:none; cursor:pointer; border:none; font-family:inherit;
 }
-.whatsapp-cta:hover { background: #1aaa52; }
+.cc-wa   { background:#25d366; color:#fff; }
+.cc-call { background:var(--navy); color:#fff; }
+.cc-mail { background:var(--olive); color:#fff; }
+.cc-zelle { background:#6913d8; color:#fff; }
+.cc-venmo { background:#3d95ce; color:#fff; }
+.contact-card .cc-action:hover { opacity:.87; }
 
-/* Empty state */
-.empty-order {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 20px;
-  text-align: center;
-  gap: 8px;
+/* ── Info Bar ── */
+.info-bar {
+  background:var(--navy); border-radius:var(--r);
+  padding:20px 24px; display:flex; flex-wrap:wrap; gap:24px;
+  margin-bottom:40px;
 }
-.empty-order .empty-icon { font-size: 48px; opacity: .4; }
-.empty-order p { font-size: 13px; color: var(--fg-soft); }
+.info-item { display:flex; flex-direction:column; gap:2px; }
+.info-item .ii-label { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+.info-item .ii-val   { font-size:13.5px; font-weight:700; color:#fff; }
 
-/* Tiffin info tiles */
-.info-tiles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+/* ── Allergy Note ── */
+.allergy-box {
+  background:var(--gold-bg); border:1.5px solid var(--gold);
+  border-radius:var(--r-sm); padding:16px 18px;
+  font-size:12px; color:var(--fg-s); line-height:1.6;
 }
-.info-tile {
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  padding: 12px;
-  text-align: center;
-  box-shadow: var(--shadow);
+.allergy-box strong { color:var(--amber); }
+
+/* ── Footer strip ── */
+.footer-strip {
+  background:var(--navy2); color:rgba(255,255,255,.55);
+  text-align:center; font-size:11.5px; padding:18px 20px;
+  margin-top:0;
 }
-.info-tile .tile-icon { font-size: 22px; margin-bottom: 4px; }
-.info-tile .tile-val { font-size: 13px; font-weight: 700; }
-.info-tile .tile-lbl { font-size: 10px; color: var(--fg-soft); }
-
-  /* ── Shared Site Nav ── */
-  .ck-nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px; padding: 0 5%;
-    height: 58px;
-    background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(107,130,13,0.18);
-    font-family: 'Poppins', sans-serif;
-  }
-  .ck-brand {
-    display: flex; align-items: center; gap: 9px;
-    text-decoration: none; flex-shrink: 0;
-  }
-  .ck-brand img {
-    width: 34px; height: 34px; border-radius: 50%; object-fit: contain;
-    background: #f2f5e6;
-  }
-  .ck-brand span {
-    font-family: 'Playfair Display', serif; font-size: 1rem;
-    font-weight: 700; color: #1A2B4A;
-  }
-  .ck-brand em { color: #6b820d; font-style: italic; }
-  .ck-links {
-    display: flex; list-style: none; gap: 24px;
-    margin: 0 auto; padding: 0;
-  }
-  .ck-links a {
-    text-decoration: none; font-size: 13px; font-weight: 500;
-    color: #1A2B4A; letter-spacing: .01em; transition: color .15s;
-  }
-  .ck-links a:hover { color: #6b820d; }
-  .ck-links a.active { color: #6b820d; font-weight: 600; }
-  .ck-order {
-    flex-shrink: 0; text-decoration: none;
-    background: #6b820d; color: #fff;
-    padding: 7px 18px; border-radius: 24px;
-    font-size: 12.5px; font-weight: 600; transition: opacity .15s;
-  }
-  .ck-order:hover { opacity: .87; }
-  .ck-burger {
-    display: none; background: none; border: none;
-    font-size: 22px; cursor: pointer; color: #1A2B4A;
-    padding: 4px;
-  }
-  @media (max-width: 600px) {
-    .ck-links { display: none; position: absolute; top: 58px; left: 0; right: 0;
-      flex-direction: column; background: #fff; border-bottom: 1px solid rgba(107,130,13,0.18);
-      padding: 12px 5% 16px; gap: 12px; z-index: 201; }
-    .ck-nav.open .ck-links { display: flex; }
-    .ck-burger { display: block; }
-  }
-  /* push page content below fixed nav */
-  body { padding-top: 58px; }
-
-
-  /* ── Order Countdown Badge ── */
-  .ck-countdown {
-    display: flex; align-items: center; gap: 6px;
-    background: #fff8e6; border: 1.5px solid #D4A24C;
-    border-radius: 20px; padding: 4px 12px;
-    font-size: 11.5px; font-weight: 600; color: #8a5a00;
-    white-space: nowrap; flex-shrink: 0;
-    transition: background .3s;
-  }
-  .ck-countdown .cd-dot { font-size: 13px; }
-  .ck-countdown .cd-label { opacity: .75; font-weight: 500; }
-  .ck-countdown .cd-time { color: #6b820d; font-variant-numeric: tabular-nums; }
-  .ck-countdown.cd-urgent { background: #fff0f0; border-color: #e05a5a; color: #a00; }
-  .ck-countdown.cd-urgent .cd-time { color: #c0392b; }
-  @media (max-width: 480px) {
-    .ck-countdown .cd-label { display: none; }
-  }
-
 </style>
 </head>
 <body>
+
+<!-- ── Nav ── -->
 <nav class="ck-nav" id="ck-nav">
   <a class="ck-brand" href="../index.html">
     <img src="../Logo/logo.png" alt="logo" onerror="this.style.display='none'">
-    <span>Chaitrali's <em>Kitchen</em></span>
+    <span class="ck-brand-text">Chaitrali's <em>Kitchen</em></span>
   </a>
   <ul class="ck-links">
     <li><a href="../index.html">Home</a></li>
     <li><a href="weekly-menu.html">Tiffin Menu</a></li>
     <li><a href="event-menu.html">Events</a></li>
-    <li><a href="order.html">Order</a></li>
+    <li><a href="order.html" class="active">Order</a></li>
   </ul>
-  <div class="ck-countdown" id="ck-countdown"><span class="cd-dot">🕐</span><span class="cd-label">Tiffin Order Closes</span><span class="cd-time" id="cd-time">…</span></div>
-  <a class="ck-order" href="order.html">Order Now</a>
+  <div class="ck-right">
+    <div class="ck-countdown" id="ck-countdown">
+      <span>🕐</span>
+      <span class="cd-label" style="opacity:.75;font-weight:500;">Tiffin order ·</span>
+      <span class="cd-time" id="cd-time">…</span>
+    </div>
+    <a class="ck-order-btn" href="order.html">Order Now</a>
+  </div>
   <button class="ck-burger" onclick="document.getElementById('ck-nav').classList.toggle('open')" aria-label="Menu">☰</button>
 </nav>
 
+<!-- ── Page Header ── -->
+<header class="page-header">
+  <div class="eyebrow">Chaitrali's Kitchen · Shrewsbury, MA</div>
+  <h1>Place Your <em>Order</em></h1>
+  <p>Weekly Tiffin · Festival Catering · Custom Events — all via WhatsApp or phone</p>
+</header>
 
-<div class="shell">
+<div class="wrap">
 
-  <!-- ── Top Nav ── -->
-  <nav class="topnav">
-    <div class="brand">Chaitrali's <span>Kitchen</span></div>
-    <div class="nav-search">
-      <span class="search-icon">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </span>
-      <input type="text" placeholder="Search dishes…" id="searchInput" oninput="filterDishes()">
+  <!-- What would you like to order? -->
+  <div class="section-label">What would you like to order?</div>
+  <div class="order-types" id="orderTypes">
+    <div class="otype-card selected" onclick="selectType(this,'tiffin')">
+      <div class="otype-icon">🍱</div>
+      <div class="otype-title">Weekly Tiffin</div>
+      <div class="otype-desc">Mon – Sat home-cooked meal box. New menu every week. Order by Sunday 9 PM.</div>
+      <span class="otype-badge badge-olive">Order closes Sunday</span>
     </div>
-    <div class="nav-right">
-      <span class="nav-tag">🌿 All Veg</span>
-      <div class="nav-avatar">C</div>
+    <div class="otype-card" onclick="selectType(this,'festival')">
+      <div class="otype-icon">🪔</div>
+      <div class="otype-title">Festival Menu</div>
+      <div class="otype-desc">Ganpati, Diwali, Holi and custom festival catering. Full thali, modaks, sweets and more.</div>
+      <span class="otype-badge badge-gold">Advance booking required</span>
     </div>
-  </nav>
+    <div class="otype-card" onclick="selectType(this,'event')">
+      <div class="otype-icon">🎉</div>
+      <div class="otype-title">Custom Event</div>
+      <div class="otype-desc">Pooja, birthday, anniversary, office gathering. We'll build a custom menu for your guest count.</div>
+      <span class="otype-badge badge-teal">Get a quote</span>
+    </div>
+  </div>
 
-  <!-- ── Main Content ── -->
-  <main class="main">
-
-    <!-- Welcome -->
-    <div class="welcome-row">
-      <div>
-        <h1>Order <span>This Week's</span> Tiffin 🍛</h1>
-        <p>Sunday, October 12 · Shrewsbury pickup · Delivery available</p>
+  <!-- This Week's Menu preview (shown by default for tiffin) -->
+  <div id="tiffinPreview">
+    <div class="section-label">This week's dishes</div>
+    <div class="menu-preview">
+      <div class="menu-preview-head">
+        <h3 id="weekLabel">Loading…</h3>
+        <a href="weekly-menu.html">See full menu →</a>
       </div>
-      <a href="tel:6173205229" class="cta-order">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.18 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Call to Order
+      <div class="dishes-row" id="dishesRow">
+        <div style="color:var(--fg-s);font-size:12px;">Loading menu…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Order -->
+  <div class="section-label">How to order</div>
+  <div class="how-steps" id="howSteps">
+    <div class="how-step">
+      <div class="step-num">Step 1</div>
+      <div class="step-title">Check the Menu</div>
+      <div class="step-body">Browse this week's dishes on the <a href="weekly-menu.html" style="color:var(--olive);">Tiffin Menu</a> page.</div>
+    </div>
+    <div class="how-step">
+      <div class="step-num">Step 2</div>
+      <div class="step-title">WhatsApp or Call</div>
+      <div class="step-body">Message Chaitrali by Sunday 9 PM with the dishes you want and how many servings.</div>
+    </div>
+    <div class="how-step">
+      <div class="step-num">Step 3</div>
+      <div class="step-title">Confirm & Pay</div>
+      <div class="step-body">She'll confirm availability and send your total. Pay via Zelle or Venmo.</div>
+    </div>
+    <div class="how-step">
+      <div class="step-num">Step 4</div>
+      <div class="step-title">Pickup or Delivery</div>
+      <div class="step-body">Shrewsbury pickup Mon – Sat. Delivery available within area for a small fee.</div>
+    </div>
+  </div>
+
+  <!-- Info Bar -->
+  <div class="info-bar">
+    <div class="info-item">
+      <span class="ii-label">Tiffin Days</span>
+      <span class="ii-val">Mon – Sat</span>
+    </div>
+    <div class="info-item">
+      <span class="ii-label">Order Cutoff</span>
+      <span class="ii-val">Sunday 9 PM ET</span>
+    </div>
+    <div class="info-item">
+      <span class="ii-label">Pickup</span>
+      <span class="ii-val">Shrewsbury, MA</span>
+    </div>
+    <div class="info-item">
+      <span class="ii-label">Diet</span>
+      <span class="ii-val">100% Pure Veg</span>
+    </div>
+    <div class="info-item">
+      <span class="ii-label">Payment</span>
+      <span class="ii-val">Zelle · Venmo</span>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="section-label">Get in touch</div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="cc-label">WhatsApp</div>
+      <div class="cc-value">617-320-5229</div>
+      <div class="cc-note">Fastest way to order. Send your dish list and serving size.</div>
+      <a class="cc-action cc-wa" href="https://wa.me/16173205229?text=Hi%20Chaitrali!%20I%20would%20like%20to%20order%20this%20week%27s%20tiffin." target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        Message on WhatsApp
       </a>
     </div>
-
-    <!-- Hero -->
-    <div class="hero">
-      <div class="hero-text">
-        <h2>Fresh Homemade<br>Indian Tiffin</h2>
-        <p>Made with love · Pickup or delivery</p>
-        <a href="weekly-menu.html" class="hero-badge">View Full Weekly Menu →</a>
-      </div>
-      <div class="hero-food">🍱</div>
+    <div class="contact-card">
+      <div class="cc-label">Phone / Call</div>
+      <div class="cc-value">617-320-5229</div>
+      <div class="cc-note">Call to discuss your order, ask about dishes or check availability.</div>
+      <a class="cc-action cc-call" href="tel:6173205229">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.64 3.18 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Now
+      </a>
     </div>
-
-    <!-- Info Tiles -->
-    <div class="info-tiles">
-      <div class="info-tile">
-        <div class="tile-icon">📦</div>
-        <div class="tile-val">Tiffin</div>
-        <div class="tile-lbl">Complete meal box</div>
-      </div>
-      <div class="info-tile">
-        <div class="tile-icon">📍</div>
-        <div class="tile-val">Shrewsbury</div>
-        <div class="tile-lbl">Pickup location</div>
-      </div>
-      <div class="info-tile">
-        <div class="tile-icon">🚗</div>
-        <div class="tile-val">Delivery</div>
-        <div class="tile-lbl">Available with fee</div>
-      </div>
+    <div class="contact-card">
+      <div class="cc-label">Email</div>
+      <div class="cc-value">chaitraliskitchen<br>@gmail.com</div>
+      <div class="cc-note">For event quotes, large orders or catering enquiries.</div>
+      <a class="cc-action cc-mail" href="mailto:chaitraliskitchen@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Send Email
+      </a>
     </div>
-
-    <!-- Category Tabs -->
-    <div>
-      <div class="section-label" style="margin-bottom:12px;">This Week's Menu</div>
-      <div class="cat-tabs" id="catTabs">
-        <button class="cat-btn active" onclick="filterCat('all', this)">All Dishes</button>
-        <button class="cat-btn" onclick="filterCat('gravy', this)">🍲 Gravy</button>
-        <button class="cat-btn" onclick="filterCat('rassa', this)">🥣 Rassa</button>
-        <button class="cat-btn" onclick="filterCat('dal', this)">🫘 Dal</button>
-        <button class="cat-btn" onclick="filterCat('rice', this)">🍚 Rice</button>
-        <button class="cat-btn" onclick="filterCat('snack', this)">🥙 Snack</button>
-        <button class="cat-btn" onclick="filterCat('sweet', this)">🍮 Sweet</button>
+    <div class="contact-card">
+      <div class="cc-label">Payment</div>
+      <div class="cc-value">Zelle · Venmo</div>
+      <div class="cc-note">Pay after confirming your order. No payment needed to place the order request.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+        <span class="cc-action cc-zelle" style="font-size:11.5px;padding:7px 13px;">Zelle: chaitraliskitchen@gmail.com</span>
+      </div>
+      <div>
+        <span class="cc-action cc-venmo" style="font-size:11.5px;padding:7px 13px;">Venmo: @Chaitralis-Kitchen</span>
       </div>
     </div>
+  </div>
 
-    <!-- Menu Grid -->
-    <div class="menu-grid" id="menuGrid"></div>
-
-  </main>
-
-  <!-- ── Sidebar / Order Panel ── -->
-  <aside class="sidebar">
-    <div class="sidebar-head">
-      <div style="font-size:15px;">Your Order</div>
-      <p id="orderSubhead">Add dishes from the menu</p>
-    </div>
-
-    <div class="delivery-info">
-      <div class="delivery-icon">🕐</div>
-      <div class="delivery-text">
-        <strong>Order by Friday 6 PM</strong>
-        <span>for Sunday pickup or delivery</span>
-      </div>
-    </div>
-
-    <div class="order-section">
-      <div class="order-section-label">Order Items</div>
-      <div id="orderItems"></div>
-    </div>
-
-    <div id="emptyOrder" class="empty-order">
-      <div class="empty-icon">🛒</div>
-      <p>Your order is empty.<br>Pick your favourite dishes!</p>
-    </div>
-
-    <div id="orderSummaryBlock" style="display:none;">
-      <div class="order-summary">
-        <div class="summary-row"><span>Subtotal</span><span id="subtotalVal">$0.00</span></div>
-        <div class="summary-row"><span>Delivery fee</span><span>As quoted</span></div>
-        <div class="summary-row total"><span>Total</span><span id="totalVal">$0.00</span></div>
-      </div>
-      <button class="order-cta" onclick="placeOrder()">Place Order via WhatsApp</button>
-    </div>
-
-    <a href="https://wa.me/16173205229" target="_blank" class="whatsapp-cta" id="waBtn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-      WhatsApp · 617-320-5229
-    </a>
-
-    <a href="event-menu.html" style="margin: 0 20px 20px; display:flex; align-items:center; justify-content:center; gap:6px; background: var(--tag-bg); border-radius:12px; padding:10px; font-size:12px; font-weight:600; color: var(--fg-soft); text-decoration:none; transition: background .2s;">
-      🎉 View Event &amp; Festival Menus
-    </a>
-  </aside>
+  <!-- Allergy Note -->
+  <div class="allergy-box">
+    <strong>Allergen notice:</strong> Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible. Please tell us about all allergies when ordering.
+  </div>
 
 </div>
 
+<div class="footer-strip">
+  © 2026 Chaitrali's Kitchen LLC · Shrewsbury, MA · 100% Pure Veg · Homemade with love
+</div>
+
 <script>
-/* ── Menu Data ── */
-const MENU = [
-  { id:1, name:"Shahi Paneer",      cat:"gravy",  emoji:"🧀", desc:"Creamy tomato-cashew gravy with soft paneer",        price:14, rating:4.8, reviews:87,  tag:"veg",    tagLabel:"Veg" },
-  { id:2, name:"Palak Paneer",      cat:"gravy",  emoji:"🥬", desc:"Spinach gravy with cottage cheese cubes",            price:13, rating:4.7, reviews:64,  tag:"veg",    tagLabel:"Veg" },
-  { id:3, name:"Kanda Batata Rassa",cat:"rassa",  emoji:"🍲", desc:"Maharashtrian thin onion-potato curry",              price:11, rating:4.9, reviews:102, tag:"veg",    tagLabel:"Veg" },
-  { id:4, name:"Matki Usal",        cat:"rassa",  emoji:"🫘", desc:"Sprouted moth bean curry, mildly spiced",            price:11, rating:4.8, reviews:55,  tag:"spicy",  tagLabel:"Spicy" },
-  { id:5, name:"Dal Tadka",         cat:"dal",    emoji:"🥣", desc:"Yellow lentils tempered with cumin and garlic",      price:10, rating:4.6, reviews:78,  tag:"veg",    tagLabel:"Veg" },
-  { id:6, name:"Methi Dal",         cat:"dal",    emoji:"🌿", desc:"Fenugreek leaves simmered in toor dal",              price:11, rating:4.5, reviews:41,  tag:"veg",    tagLabel:"Veg" },
-  { id:7, name:"Jeera Rice",        cat:"rice",   emoji:"🍚", desc:"Fragrant basmati rice with cumin and ghee",          price:9,  rating:4.7, reviews:93,  tag:"veg",    tagLabel:"Veg" },
-  { id:8, name:"Masale Bhat",       cat:"rice",   emoji:"🍛", desc:"Maharashtrian spiced rice with vegetables",          price:12, rating:4.9, reviews:118, tag:"spicy",  tagLabel:"Spicy" },
-  { id:9, name:"Batata Vada",       cat:"snack",  emoji:"🥔", desc:"Fried potato dumplings, Maharashtrian street food",  price:8,  rating:5.0, reviews:144, tag:"veg",    tagLabel:"Veg" },
-  { id:10,name:"Kothimbir Vadi",    cat:"snack",  emoji:"🌿", desc:"Steamed then fried coriander-chickpea cakes",        price:9,  rating:4.8, reviews:76,  tag:"veg",    tagLabel:"Veg" },
-  { id:11,name:"Shreekhand",        cat:"sweet",  emoji:"🍮", desc:"Thick strained yogurt sweetened with saffron",       price:7,  rating:5.0, reviews:89,  tag:"sweet",  tagLabel:"Sweet" },
-  { id:12,name:"Puran Poli",        cat:"sweet",  emoji:"🫓", desc:"Stuffed flatbread with jaggery-chana dal filling",   price:8,  rating:4.9, reviews:67,  tag:"sweet",  tagLabel:"Sweet" },
-];
-
-let order = {}; // { id: qty }
-let activeCat = 'all';
-let searchQ = '';
-
-function stars(r) {
-  const full = Math.round(r);
-  return Array.from({length:5}, (_,i) =>
-    `<span class="star-ico">${i < full ? '★' : '☆'}</span>`
-  ).join('');
-}
-
-function renderGrid() {
-  const grid = document.getElementById('menuGrid');
-  const filtered = MENU.filter(d => {
-    const catOk = activeCat === 'all' || d.cat === activeCat;
-    const q = searchQ.toLowerCase();
-    const searchOk = !q || d.name.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q);
-    return catOk && searchOk;
+/* ── Load menu data ── */
+fetch('../data/menu.json')
+  .then(r => r.json())
+  .then(data => {
+    const tw = data.tiffin.this_week;
+    document.getElementById('weekLabel').textContent = 'This Week · ' + tw.dates;
+    const tagMap = {
+      gravy:'badge-olive', rassa:'badge-teal', dal:'badge-gold',
+      dry:'badge-olive', usal:'badge-purple', spicy:'badge-gold',
+      rice:'badge-teal', special:'badge-purple', snack:''
+    };
+    document.getElementById('dishesRow').innerHTML = tw.dishes.map(d => `
+      <div class="dish-chip">
+        <div class="dc-name">${d.name}</div>
+        <div class="dc-desc">${d.desc}</div>
+        ${d.tag_label ? `<span class="dc-tag ${tagMap[d.tag]||''}">${d.tag_label}</span>` : ''}
+      </div>
+    `).join('');
+  })
+  .catch(() => {
+    document.getElementById('weekLabel').textContent = 'This Week\'s Tiffin';
+    document.getElementById('dishesRow').innerHTML = '<p style="font-size:12px;color:var(--fg-s);">Visit the <a href="weekly-menu.html" style="color:var(--olive)">Tiffin Menu page</a> to see this week\'s dishes.</p>';
   });
-  if (!filtered.length) {
-    grid.innerHTML = '<p style="color:var(--fg-soft);padding:24px 0;">No dishes found.</p>';
-    return;
-  }
-  grid.innerHTML = filtered.map(d => `
-    <div class="dish-card${order[d.id] ? ' selected' : ''}" onclick="addToOrder(${d.id})">
-      <div class="dish-thumb">${d.emoji}
-        <button class="dish-fav" onclick="event.stopPropagation()">🤍</button>
-      </div>
-      <div class="dish-info">
-        <span class="dish-tag tag-${d.tag}">${d.tagLabel}</span>
-        <div class="dish-name">${d.name}</div>
-        <div class="dish-desc">${d.desc}</div>
-        <div class="dish-footer">
-          <div>
-            <div class="dish-price">$${d.price}</div>
-            <div class="dish-stars">${stars(d.rating)}<span class="star-count">(${d.reviews})</span></div>
-          </div>
-          <button class="dish-add" onclick="event.stopPropagation(); addToOrder(${d.id})">+</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
 
-function addToOrder(id) {
-  order[id] = (order[id] || 0) + 1;
-  renderGrid();
-  renderOrder();
-}
-function removeFromOrder(id) {
-  if (!order[id]) return;
-  order[id]--;
-  if (order[id] === 0) delete order[id];
-  renderGrid();
-  renderOrder();
-}
-function setQty(id, qty) {
-  if (qty < 1) { delete order[id]; }
-  else { order[id] = qty; }
-  renderGrid();
-  renderOrder();
-}
+/* ── Order type selection ── */
+let selectedType = 'tiffin';
+function selectType(el, type) {
+  document.querySelectorAll('.otype-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedType = type;
 
-function renderOrder() {
-  const items = Object.entries(order);
-  const empty = document.getElementById('emptyOrder');
-  const block = document.getElementById('orderSummaryBlock');
-  const container = document.getElementById('orderItems');
-  const subhead = document.getElementById('orderSubhead');
+  const tiffinPreview = document.getElementById('tiffinPreview');
+  const howSteps = document.getElementById('howSteps');
+  tiffinPreview.style.display = type === 'tiffin' ? 'block' : 'none';
 
-  if (!items.length) {
-    empty.style.display = 'flex';
-    block.style.display = 'none';
-    container.innerHTML = '';
-    subhead.textContent = 'Add dishes from the menu';
-    return;
-  }
-  empty.style.display = 'none';
-  block.style.display = 'block';
-
-  let subtotal = 0;
-  container.innerHTML = items.map(([idStr, qty]) => {
-    const d = MENU.find(x => x.id === +idStr);
-    subtotal += d.price * qty;
-    return `
-      <div class="order-item">
-        <div class="order-thumb">${d.emoji}</div>
-        <div class="order-details">
-          <div class="order-name">${d.name}</div>
-          <div class="order-qty-row">
-            <button class="qty-btn" onclick="setQty(${d.id}, ${qty-1})">−</button>
-            <span class="qty-num">${qty}</span>
-            <button class="qty-btn" onclick="setQty(${d.id}, ${qty+1})">+</button>
-            <span class="order-note" style="margin-left:2px;">× $${d.price}</span>
-          </div>
-        </div>
-        <span class="order-price">$${(d.price * qty).toFixed(2)}</span>
-        <button class="order-remove" onclick="setQty(${d.id}, 0)">×</button>
-      </div>
+  if (type === 'festival') {
+    howSteps.innerHTML = `
+      <div class="how-step"><div class="step-num">Step 1</div><div class="step-title">Browse Festival Menus</div><div class="step-body">See the <a href="event-menu.html" style="color:var(--olive);">Events page</a> for full Ganpati, Diwali, Holi and custom menus with prices.</div></div>
+      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">Contact Chaitrali</div><div class="step-body">WhatsApp or call with your event date, guest count and dishes you'd like.</div></div>
+      <div class="how-step"><div class="step-num">Step 3</div><div class="step-title">Get a Quote</div><div class="step-body">She'll confirm dishes, quantities and pricing based on your event size.</div></div>
+      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Book & Pay Deposit</div><div class="step-body">Confirm your booking with a deposit via Zelle or Venmo. Balance on delivery.</div></div>
     `;
-  }).join('');
-
-  document.getElementById('subtotalVal').textContent = '$' + subtotal.toFixed(2);
-  document.getElementById('totalVal').textContent = '$' + subtotal.toFixed(2);
-  subhead.textContent = items.length + ' item' + (items.length > 1 ? 's' : '') + ' added';
+  } else if (type === 'event') {
+    howSteps.innerHTML = `
+      <div class="how-step"><div class="step-num">Step 1</div><div class="step-title">Describe Your Event</div><div class="step-body">WhatsApp or email with the event type (pooja, birthday, gathering), date and guest count.</div></div>
+      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">Custom Menu Design</div><div class="step-body">Chaitrali will suggest a personalised Maharashtrian menu for your occasion.</div></div>
+      <div class="how-step"><div class="step-num">Step 3</div><div class="step-title">Confirm & Quote</div><div class="step-body">Review the menu and pricing, make any changes, and confirm your order.</div></div>
+      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Pickup or Delivery</div><div class="step-body">Arrange collection from Shrewsbury or delivery to your event venue.</div></div>
+    `;
+  } else {
+    howSteps.innerHTML = `
+      <div class="how-step"><div class="step-num">Step 1</div><div class="step-title">Check the Menu</div><div class="step-body">Browse this week's dishes on the <a href="weekly-menu.html" style="color:var(--olive);">Tiffin Menu</a> page.</div></div>
+      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">WhatsApp or Call</div><div class="step-body">Message Chaitrali by Sunday 9 PM with the dishes you want and how many servings.</div></div>
+      <div class="how-step"><div class="step-num">Step 3</div><div class="step-title">Confirm & Pay</div><div class="step-body">She'll confirm availability and send your total. Pay via Zelle or Venmo.</div></div>
+      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Pickup or Delivery</div><div class="step-body">Shrewsbury pickup Mon – Sat. Delivery available within area for a small fee.</div></div>
+    `;
+  }
 }
 
-function filterCat(cat, btn) {
-  activeCat = cat;
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderGrid();
-}
-
-function filterDishes() {
-  searchQ = document.getElementById('searchInput').value;
-  renderGrid();
-}
-
-function placeOrder() {
-  const items = Object.entries(order).map(([idStr, qty]) => {
-    const d = MENU.find(x => x.id === +idStr);
-    return `${qty}x ${d.name} ($${(d.price*qty).toFixed(2)})`;
-  });
-  const total = Object.entries(order).reduce((s,[idStr,qty]) => {
-    return s + MENU.find(x=>x.id===+idStr).price * qty;
-  }, 0);
-  const msg = `Hi Chaitrali! I'd like to order:\n\n${items.join('\n')}\n\nTotal: $${total.toFixed(2)}\n\nPlease confirm availability and delivery/pickup details. Thank you!`;
-  window.open('https://wa.me/16173205229?text=' + encodeURIComponent(msg), '_blank');
-}
-
-// Init
-renderGrid();
-renderOrder();
-</script>
-
-<script>
+/* ── Countdown ── */
 (function(){
-  function nextCutoff() {
-    // Sunday 9 PM Eastern — compute next occurrence
+  function nextCutoff(){
     const now = new Date();
-    // Work in the visitor's local time but cutoff is "Sunday 9 PM ET"
-    // We'll compute UTC offset for Eastern: EST = UTC-5, EDT = UTC-4
-    // Simple approach: find next Sunday then set to 21:00 ET
-    const ET_OFFSET_HOURS = (() => {
-      // Detect whether ET is currently EDT or EST using Intl
+    const ET_OFFSET = (() => {
       try {
-        const fmt = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', hour:'numeric', hour12:false});
-        const localH = parseInt(fmt.format(now));
-        const utcH = now.getUTCHours();
-        const diff = utcH - localH;
-        return diff < 0 ? diff + 24 : diff;  // offset hours ET is behind UTC
-      } catch(e) { return 4; }  // fallback to EDT
+        const fmt = new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hour12:false});
+        const lh = parseInt(fmt.format(now));
+        const diff = now.getUTCHours() - lh;
+        return diff < 0 ? diff + 24 : diff;
+      } catch(e){ return 4; }
     })();
-    // Find next Sunday 9 PM ET as a UTC Date
     const d = new Date(now);
-    const dayOfWeek = d.getUTCDay(); // 0=Sun
-    const daysUntilSun = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-    d.setUTCDate(d.getUTCDate() + daysUntilSun);
-    d.setUTCHours(21 + ET_OFFSET_HOURS, 0, 0, 0);
-    // If that's already past, add 7 days
+    const dow = d.getUTCDay();
+    d.setUTCDate(d.getUTCDate() + (dow === 0 ? 0 : 7 - dow));
+    d.setUTCHours(21 + ET_OFFSET, 0, 0, 0);
     if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
     return d;
   }
-
-  function fmt2(n) { return String(n).padStart(2,'0'); }
-
-  function tick() {
+  function p(n){ return String(n).padStart(2,'0'); }
+  function tick(){
     const el = document.getElementById('cd-time');
     const badge = document.getElementById('ck-countdown');
-    if (!el || !badge) return;
-    const now = new Date();
-    const cutoff = nextCutoff();
-    const diff = cutoff - now;
-    if (diff <= 0) { el.textContent = 'Opens next Sun!'; badge.classList.remove('cd-urgent'); return; }
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-    const urgent = diff < 3600000 * 6; // last 6 hours = red
-    badge.classList.toggle('cd-urgent', urgent);
-    if (days > 0) {
-      el.textContent = days + 'd ' + fmt2(hours) + 'h ' + fmt2(mins) + 'm';
-    } else {
-      el.textContent = fmt2(hours) + 'h ' + fmt2(mins) + 'm ' + fmt2(secs) + 's';
-    }
+    if (!el) return;
+    const diff = nextCutoff() - new Date();
+    if (diff <= 0){ el.textContent = 'Opens Sun!'; return; }
+    const days = Math.floor(diff/86400000);
+    const hrs  = Math.floor((diff%86400000)/3600000);
+    const mins = Math.floor((diff%3600000)/60000);
+    const secs = Math.floor((diff%60000)/1000);
+    badge.classList.toggle('cd-urgent', diff < 3600000*6);
+    el.textContent = days > 0 ? days+'d '+p(hrs)+'h '+p(mins)+'m' : p(hrs)+'h '+p(mins)+'m '+p(secs)+'s';
   }
-  tick();
-  setInterval(tick, 1000);
+  tick(); setInterval(tick, 1000);
 })();
 </script>
-
 </body>
 </html>

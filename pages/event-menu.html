@@ -4,28 +4,56 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Event Special Menu</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&family=Rozha+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap">
 <style>
   :root {
-    --cream:    #fdf6e8; --cream2:   #f9eecc;
-    --maroon:   #8b1a1a; --gold:     #b8860b; --gold-lt:  #d4a017;
-    --green:    #2d5a1b; --green-lt: #3a7322;
-    --orange:   #e07020;
-    --fg:       #2a1a0a; --fg-soft:  #6b4c2a;
-    --border:   #d4b896; --border2:  #c8a870;
+    --olive:    #6b820d; --olive-l:  #8fa812; --olive-bg: #eef2d8;
+    --navy:     #1A2B4A; --navy2:    #243856;
+    --gold:     #D4A24C; --gold-bg:  #fff8e6;
+    --amber:    #c47d0a; --amber-bg: #fff3d6;
+    --teal:     #0e7a6e; --teal-bg:  #d6f0ed;
+    --maroon:   #8b1a1a;  /* kept for festival accent only */
+    --bg:       #f5f5f0; --bg-card:  #ffffff;
+    --fg:       #1c1c1a; --fg-soft:  #6b6b63;
+    --border:   #e0e0d8;
+    --cream:    #fdf6e8; --cream2:   #f9eecc;  /* header gradient keep */
     color-scheme: light;
   }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --olive: #96b714; --olive-l: #b8d820; --olive-bg: #1a2604;
+      --navy: #1e3060; --navy2: #162448;
+      --gold: #e8b84c; --gold-bg: #2a1e04;
+      --amber: #e09a22; --amber-bg: #2a1e04;
+      --teal: #2abcae; --teal-bg: #082820;
+      --bg: #111114; --bg-card: #1c1c20;
+      --fg: #f0f0ec; --fg-soft: #9a9a92; --border: #2a2a2e;
+      --cream: #1c1c14; --cream2: #1a1a10;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --olive: #96b714; --olive-l: #b8d820; --olive-bg: #1a2604;
+    --navy: #1e3060; --navy2: #162448;
+    --gold: #e8b84c; --gold-bg: #2a1e04;
+    --amber: #e09a22; --amber-bg: #2a1e04;
+    --teal: #2abcae; --teal-bg: #082820;
+    --bg: #111114; --bg-card: #1c1c20;
+    --fg: #f0f0ec; --fg-soft: #9a9a92; --border: #2a2a2e;
+    --cream: #1c1c14; --cream2: #1a1a10;
+    color-scheme: dark;
+  }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--cream); color: var(--fg); font-family: 'Poppins', system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
+  body { background: var(--bg); color: var(--fg); font-family: 'Poppins', system-ui, sans-serif; font-size: 14px; line-height: 1.5; }
 
-  .event-nav { background: var(--green); padding: 10px 20px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .event-nav { background: var(--navy); padding: 10px 20px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
   .event-btn {
     padding: 6px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer;
     border: 1.5px solid rgba(255,255,255,.3); background: transparent; color: rgba(255,255,255,.75);
     font-family: 'Poppins', sans-serif; transition: all .2s;
   }
   .event-btn:hover  { background: rgba(255,255,255,.15); color: #fff; }
-  .event-btn.active { background: var(--gold-lt); color: var(--fg); border-color: var(--gold-lt); }
+  .event-btn.active { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 
   .event-page { display: none; }
   .event-page.visible { display: block; }
@@ -33,31 +61,31 @@
   /* Festive header */
   .fest-header { position: relative; text-align: center; padding: 0 20px 28px; overflow: hidden; }
   .garland { width: 100%; height: 22px; background: repeating-linear-gradient(90deg, #e8640a 0px, #e8640a 18px, #f0a020 18px, #f0a020 26px, #e8640a 26px, #e8640a 36px, #2d5a1b 36px, #2d5a1b 44px); opacity: .85; }
-  .garland-dots { background: var(--green); height: 8px; }
+  .garland-dots { background: var(--olive); height: 8px; }
   .fest-header-inner { max-width: 700px; margin: 0 auto; padding-top: 24px; }
   .deity-wrap { position: relative; display: inline-block; margin-bottom: 12px; }
   .deity-svg { width: min(200px, 45vw); filter: drop-shadow(0 4px 20px rgba(180,100,0,.25)); }
   .fest-brand { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
-  .fest-title { font-family: 'Rozha One', Georgia, serif; font-size: clamp(2.4rem, 8vw, 3.8rem); color: var(--maroon); line-height: 1.05; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
-  .fest-subtitle { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 3.5vw, 1.5rem); color: var(--green); font-weight: 600; margin-top: 2px; }
-  .order-banner { display: inline-block; margin-top: 14px; background: var(--maroon); color: #fff; padding: 7px 24px; border-radius: 100px; font-size: 13px; font-weight: 500; }
-  .order-banner strong { color: var(--gold-lt); }
+  .fest-title { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: clamp(2.4rem, 8vw, 3.8rem); color: var(--maroon); line-height: 1.05; text-shadow: 0 1px 0 rgba(255,255,255,.6); }
+  .fest-subtitle { font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 3.5vw, 1.5rem); color: var(--olive); font-weight: 600; margin-top: 2px; }
+  .order-banner { display: inline-block; margin-top: 14px; background: var(--navy); color: #fff; padding: 7px 24px; border-radius: 100px; font-size: 13px; font-weight: 500; }
+  .order-banner strong { color: var(--gold); }
   .licensed-badge { display: inline-block; margin-top: 10px; border: 2px solid var(--gold); color: var(--gold); padding: 4px 14px; border-radius: 6px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 
   /* Menu grid */
   .menu-body { max-width: 960px; margin: 0 auto; padding: 20px 16px 40px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; align-items: start; }
-  .menu-section { background: #fff; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .menu-section { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
   .menu-section.span2 { grid-column: span 2; }
   .menu-section.span3 { grid-column: span 3; }
-  .section-head { background: var(--green); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 7px 14px; text-align: center; }
-  .section-head.gold   { background: var(--gold);   color: var(--fg); }
+  .section-head { background: var(--olive); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 7px 14px; text-align: center; }
+  .section-head.gold   { background: var(--gold);   color: var(--navy); }
   .section-head.maroon { background: var(--maroon); color: #fff; }
   .section-body { padding: 10px 12px; }
   .dish-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--border); }
   .dish-row:last-child { border-bottom: none; }
   .dish-img { width: 44px; height: 44px; border-radius: 6px; flex-shrink: 0; background: var(--cream2); display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden; }
   .dish-details { flex: 1; min-width: 0; }
-  .dish-dname { font-weight: 600; font-size: 12.5px; color: var(--maroon); line-height: 1.2; }
+  .dish-dname { font-weight: 600; font-size: 12.5px; color: var(--navy); line-height: 1.2; }
   .dish-sub   { font-size: 10.5px; color: var(--fg-soft); margin-top: 1px; }
   .dish-price { text-align: right; flex-shrink: 0; min-width: 60px; }
   .dish-price .price-line { font-size: 11px; color: var(--fg-soft); line-height: 1.6; white-space: nowrap; }
@@ -65,19 +93,19 @@
 
   /* Sweets grid */
   .sweets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px; }
-  .sweet-card { text-align: center; padding: 10px 6px; border: 1px solid var(--border); border-radius: 8px; background: var(--cream); }
+  .sweet-card { text-align: center; padding: 10px 6px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
   .sweet-icon  { font-size: 28px; margin-bottom: 6px; }
-  .sweet-name  { font-weight: 600; font-size: 12px; color: var(--maroon); line-height: 1.3; }
-  .sweet-price { font-size: 12px; font-weight: 700; color: var(--green); margin-top: 4px; }
+  .sweet-name  { font-weight: 600; font-size: 12px; color: var(--navy); line-height: 1.3; }
+  .sweet-price { font-size: 12px; font-weight: 700; color: var(--olive); margin-top: 4px; }
 
   /* Footer */
   .menu-footer { max-width: 960px; margin: 0 auto; padding: 0 16px 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .footer-card { background: var(--fg); color: #fff; border-radius: 10px; padding: 14px 18px; text-align: center; }
+  .footer-card { background: var(--navy2); color: #fff; border-radius: 10px; padding: 14px 18px; text-align: center; }
   .footer-card .fc-label { font-size: 10px; opacity: .6; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
   .footer-card .fc-val   { font-size: 15px; font-weight: 700; }
-  .footer-card.contact   { background: var(--maroon); }
+  .footer-card.contact   { background: var(--olive); }
   .footer-card.contact .fc-val { font-size: 20px; letter-spacing: .04em; }
-  .pickup-strip { background: var(--green); color: #fff; max-width: 960px; margin: 0 auto; border-radius: 0 0 10px 10px; display: flex; font-size: 12.5px; font-weight: 600; overflow: hidden; }
+  .pickup-strip { background: var(--navy); color: #fff; max-width: 960px; margin: 0 auto; border-radius: 0 0 10px 10px; display: flex; font-size: 12.5px; font-weight: 600; overflow: hidden; }
   .strip-half { flex: 1; padding: 10px 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
   .strip-half + .strip-half { border-left: 1px solid rgba(255,255,255,.2); }
 
@@ -86,7 +114,7 @@
   .coming-soon p:first-child { font-size: 16px; font-weight: 600; }
   .coming-soon p { margin-top: 8px; font-size: 13px; }
   .custom-body { text-align: center; padding: 48px 20px; max-width: 560px; margin: 0 auto; }
-  .custom-body .cust-title { font-size: 16px; font-weight: 600; color: var(--maroon); }
+  .custom-body .cust-title { font-size: 16px; font-weight: 600; color: var(--navy); }
   .custom-body .cust-desc  { margin-top: 10px; font-size: 13px; color: var(--fg-soft); line-height: 1.7; }
   .contact-chip { display: inline-block; margin-top: 24px; background: var(--maroon); color: #fff; padding: 16px 24px; border-radius: 12px; }
   .contact-chip .lbl { font-size: 11px; opacity: .7; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
