@@ -190,6 +190,12 @@ footer p { color: rgba(255,255,255,0.4); font-size: 0.74rem; }
 .foot-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 .foot-bottom span { color: rgba(255,255,255,0.35); font-size: 0.72rem; }
 
+
+/* ── HERO TRUST BAR (replaces badges + stats) ── */
+.hero-trust { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(107,130,13,0.15); font-size: 0.8rem; font-weight: 600; color: #555; }
+.hero-trust .sep { color: #ccc; }
+@media (max-width: 768px) { .hero-trust { justify-content: center; } }
+
 /* ── COUNTDOWN TIMER ── */
 .ck-countdown {
   display: flex; align-items: center; gap: 6px;
@@ -262,21 +268,19 @@ footer p { color: rgba(255,255,255,0.4); font-size: 0.74rem; }
       <span class="normal-line">Kitchen</span>
     </h1>
     <div class="divider"></div>
-    <p class="hero-sub">Authentic Maharashtrian Home Style Cuisine — made fresh every week in Shrewsbury, MA.</p>
-    <div class="hero-badges">
-      <span class="badge badge-green">🌿 100% Pure Veg</span>
-      <span class="badge badge-navy">🏠 Home Made</span>
-      <span class="badge badge-outline">📍 Shrewsbury, MA</span>
-    </div>
+    <p class="hero-sub">Authentic Maharashtrian home cooking — made fresh every week in Shrewsbury, MA. 100% pure veg, homemade with love.</p>
     <div class="hero-cta">
       <a class="btn-primary" href="pages/weekly-menu.html">🍛 Order This Week's Tiffin</a>
       <a class="btn-secondary" href="pages/event-menu.html">🎉 Festival Menus</a>
     </div>
-    <div class="hero-stats">
-      <div><span class="stat-num">5★</span><span class="stat-label">Rating</span></div>
-      <div><span class="stat-num">100%</span><span class="stat-label">Pure Veg</span></div>
-      <div><span class="stat-num">Weekly</span><span class="stat-label">Fresh Tiffin</span></div>
-      <div><span class="stat-num">Custom</span><span class="stat-label">Events</span></div>
+    <div class="hero-trust">
+      <span>🌿 Pure Veg</span>
+      <span class="sep">·</span>
+      <span>🏠 Homemade</span>
+      <span class="sep">·</span>
+      <span>📍 Shrewsbury, MA</span>
+      <span class="sep">·</span>
+      <span>⭐ 5-Star Rated</span>
     </div>
   </div>
 </section>
