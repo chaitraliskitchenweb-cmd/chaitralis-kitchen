@@ -223,6 +223,46 @@
     .ck-countdown .cd-label { display: none; }
   }
 
+
+  /* ---- Dish cover flow (above the weekly menu) ------------------------- */
+  .ckcf {
+    --sleeve: min(clamp(150px, 30vw, 280px), 42vh);
+    margin: 0 0 34px;
+  }
+  .ckcf-stage {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 18px;
+    overflow: hidden;
+    touch-action: pan-y;          /* horizontal drag here, page still scrolls */
+    user-select: none; -webkit-user-select: none;
+    cursor: grab;
+  }
+  .ckcf-stage:active { cursor: grabbing; }
+  .ckcf-stage:focus-visible { outline: 2px solid var(--olive); outline-offset: 6px; border-radius: 10px; }
+  .ckcf-track {
+    position: relative; width: 100%;
+    height: var(--sleeve);
+    perspective: 1400px;
+  }
+  .ckcf-sleeve {
+    position: absolute; top: 0; left: 50%;
+    width: var(--sleeve); aspect-ratio: 1 / 1;
+    margin-left: calc(var(--sleeve) / -2);
+    transform-style: preserve-3d; will-change: transform;
+    background: #e8e8e2; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 10px 26px rgba(0,0,0,.18);
+  }
+  .ckcf-sleeve img {
+    display: block; width: 100%; height: 100%;
+    object-fit: cover; pointer-events: none; -webkit-user-drag: none;
+  }
+  .ckcf-caption {
+    min-height: 1.5em; margin: 0; text-align: center;
+    font-size: 12px; font-weight: 600; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--fg-soft);
+  }
+  .ckcf-hint { text-align: center; font-size: 11px; color: var(--fg-xsoft); margin: 6px 0 0; }
 </style>
 </head>
 <body>
@@ -249,6 +289,16 @@
   <p class="subtitle">Pure Veg · Authentic Maharashtrian Home Cooking · Delivered Fresh</p>
   <div class="divider"></div>
 </div>
+
+<!-- Dish cover flow — photos come from images/menu-items/, named after the dish -->
+<section class="ckcf" id="dish-flow" hidden>
+  <div class="ckcf-stage" id="ckcf-stage" tabindex="0" role="group"
+       aria-label="This week's dishes. Drag, or use the left and right arrow keys.">
+    <div class="ckcf-track" id="ckcf-track"></div>
+    <p class="ckcf-caption" id="ckcf-caption" aria-live="polite"></p>
+  </div>
+  <p class="ckcf-hint">Drag to browse</p>
+</section>
 
 <div id="tiffin-root">
   <div class="loading">Loading menu…</div>
@@ -313,6 +363,9 @@
   }
 
   function render(menu) {
+    // let the cover flow build from the same payload
+    document.dispatchEvent(new CustomEvent('ck:menu', { detail: menu }));
+
     const s = menu.settings || {};
     const t = menu.tiffin || {};
 
@@ -416,6 +469,144 @@
   }
   tick();
   setInterval(tick, 1000);
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Observer.min.js"></script>
+<script>
+/* Cover flow over the weekly menu.
+   Sleeves are this week's dishes first, then next and last week. Each photo is
+   images/menu-items/<dish name as a slug>.jpg — add a photo with that name and
+   the dish joins the flow on its own. Dishes without a photo are skipped. */
+(function () {
+  'use strict';
+  if (!window.gsap || !window.Observer) return;
+  gsap.registerPlugin(Observer);
+
+  var CONFIG = { spacing: 0.42, centreGap: 0.9, angle: 55, depth: 260, dragSpeed: 0.004, snapDuration: 0.8 };
+  var DEPTH_PER_SLEEVE = 30, FLICK = 0.15, EDGE_FADE = 1, MAX = 14;
+
+  var section = document.getElementById('dish-flow');
+  var stage   = document.getElementById('ckcf-stage');
+  var track   = document.getElementById('ckcf-track');
+  var caption = document.getElementById('ckcf-caption');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function slug(name) {
+    return String(name || '').toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  function candidates(menu) {
+    var t = (menu && menu.tiffin) || {}, out = [], seen = {};
+    ['this_week', 'next_week', 'last_week'].forEach(function (k) {
+      ((t[k] || {}).dishes || []).forEach(function (d) {
+        var sl = slug(d.name);
+        if (!sl || seen[sl]) return;
+        seen[sl] = 1;
+        out.push({ name: d.name, src: '../images/menu-items/' + sl + '.jpg' });
+      });
+    });
+    return out.slice(0, MAX);
+  }
+
+  // Keep only the dishes that actually have a photo, in order.
+  function keepExisting(list) {
+    return Promise.all(list.map(function (item) {
+      return new Promise(function (resolve) {
+        var img = new Image();
+        img.onload = function () { resolve(item); };
+        img.onerror = function () { resolve(null); };
+        img.src = item.src;
+      });
+    })).then(function (r) { return r.filter(Boolean); });
+  }
+
+  function start(items) {
+    if (items.length < 3) return;          // too few to read as a flow
+    section.hidden = false;
+
+    track.innerHTML = items.map(function (it) {
+      return '<div class="ckcf-sleeve" data-title="' +
+        String(it.name).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;') +
+        '"><img src="' + it.src + '" alt="' +
+        String(it.name).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;') +
+        '" draggable="false"></div>';
+    }).join('');
+
+    var sleeves = Array.prototype.slice.call(track.querySelectorAll('.ckcf-sleeve'));
+    var COUNT = sleeves.length;
+    var wrapIndex = function (v) { return ((v % COUNT) + COUNT) % COUNT; };
+    var wrapDistance = function (v) { return wrapIndex(v + COUNT / 2) - COUNT / 2; };
+
+    var position = 0, state = { value: 0 };
+
+    function layout() {
+      var width = sleeves[0].offsetWidth;
+      sleeves.forEach(function (el, i) {
+        var d = wrapDistance(i - position);
+        var side = Math.sign(d);
+        var a = Math.min(Math.abs(d), 1);
+        var x = d * width * CONFIG.spacing + side * a * width * CONFIG.centreGap;
+        var rotate = -side * a * CONFIG.angle;
+        var z = -a * CONFIG.depth - Math.abs(d) * DEPTH_PER_SLEEVE;
+        el.style.transform = 'translate3d(' + x + 'px, 0, ' + z + 'px) rotateY(' + rotate + 'deg)';
+        el.style.zIndex = String(100 - Math.round(Math.abs(d) * 10));
+        el.style.opacity = String(Math.min(1, Math.max(0, (COUNT / 2 - Math.abs(d)) / EDGE_FADE)));
+      });
+      var current = sleeves[wrapIndex(Math.round(position))];
+      if (caption.textContent !== current.dataset.title) caption.textContent = current.dataset.title;
+    }
+
+    function renderFlow() { position = state.value; layout(); }
+
+    function goTo(i) {
+      gsap.to(state, {
+        value: i, duration: reduced ? 0 : CONFIG.snapDuration,
+        ease: 'power3.out', onUpdate: renderFlow, overwrite: true
+      });
+    }
+
+    var lastDrag = 0;
+    sleeves.forEach(function (el, i) {
+      el.addEventListener('click', function () {
+        if (Math.abs(lastDrag) < 4) goTo(Math.round(state.value + wrapDistance(i - state.value)));
+      });
+    });
+
+    // Pointer and touch only: the wheel is left alone so the page still scrolls.
+    Observer.create({
+      target: stage,
+      type: 'pointer,touch',
+      dragMinimum: 3,
+      onPress: function () { lastDrag = 0; },
+      onDragStart: function () { gsap.killTweensOf(state); lastDrag = 0; },
+      onDrag: function (self) {
+        lastDrag += Math.abs(self.deltaX);
+        state.value -= self.deltaX * CONFIG.dragSpeed;
+        renderFlow();
+      },
+      onDragEnd: function (self) {
+        goTo(Math.round(state.value + (-self.velocityX * CONFIG.dragSpeed * FLICK)));
+      }
+    });
+
+    // Arrows only while the flow has focus, so they don't steal the page's keys.
+    stage.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(Math.round(state.value) + 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(Math.round(state.value) - 1); }
+    });
+
+    window.addEventListener('resize', layout);
+    renderFlow();
+  }
+
+  document.addEventListener('ck:menu', function (e) {
+    var list = candidates(e.detail);
+    if (!list.length) return;
+    keepExisting(list).then(start);
+  }, { once: true });
 })();
 </script>
 
