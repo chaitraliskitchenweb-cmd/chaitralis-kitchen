@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="Weekly tiffin meals Mon–Sat, festival catering & custom event menus. 100% pure veg, homemade from Shrewsbury, MA.">
 <meta name="twitter:image" content="https://chaitraliskitchen.com/images/carousel/maharashtrian-thali-hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════
    TOKENS
@@ -205,6 +205,29 @@ nav {
   padding:48px 48px 48px 56px;
   background:var(--bg-card);
 }
+
+/* ── Shloka: वदनि कवळ, typed line by line above the welcome line ── */
+.shloka {
+  font-family:'Tiro Devanagari Marathi','Noto Serif Devanagari',Georgia,serif;
+  font-size:clamp(.95rem,1.45vw,1.1rem);
+  line-height:1.95;
+  color:var(--olive);
+  margin-bottom:16px;
+  /* floor for the no-JS case; the script measures the tallest line and
+     reserves exactly that, so nothing jumps and no space is wasted */
+  min-height:2em;
+}
+.shloka-line { white-space:pre-wrap; }
+.shloka-caret {
+  display:inline-block; width:2px; height:1.02em;
+  background:var(--gold); margin-left:4px; vertical-align:-.14em;
+  animation:shloka-blink 1s step-end infinite;
+}
+/* solid while characters are moving, blinking only at rest */
+.shloka.is-typing .shloka-caret { animation:none; }
+@keyframes shloka-blink { 0%,50%{opacity:1} 50.01%,100%{opacity:0} }
+@media (max-width:700px) { .shloka { font-size:1rem; } }
+@media (prefers-reduced-motion:reduce) { .shloka-caret { animation:none; } }
 
 /* Eyebrow */
 .hero-eyebrow {
@@ -753,6 +776,10 @@ footer {
 
   <!-- RIGHT: text panel -->
   <div class="hero-right">
+    <div class="shloka" lang="mr"
+         aria-label="वदनि कवळ घेता नाम घ्या श्रीहरीचे। सहज हवन होते नाम घेता फुकाचे॥ जीवन करि जिवित्वा अन्न हे पूर्णब्रह्म। उदरभरण नोहे जाणिजे यज्ञकर्म॥">
+      <span class="shloka-line" aria-hidden="true"></span><span class="shloka-caret" aria-hidden="true"></span>
+    </div>
     <p class="hero-eyebrow">Welcome to</p>
     <h1 class="hero-h1">
       <span class="line1">Chaitrali's</span>
@@ -1095,6 +1122,97 @@ window.addEventListener('scroll',()=>{
   window.addEventListener('resize', sync);
   window.addEventListener('load', sync);
   if (window.ResizeObserver) new ResizeObserver(sync).observe(stack);
+})();
+</script>
+<script>
+/* Types the four lines of the bhojan mantra in turn, then starts again. */
+(function () {
+  var LINES = [
+    "वदनि कवळ घेता नाम घ्या श्रीहरीचे ।",
+    "सहज हवन होते नाम घेता फुकाचे ॥",
+    "जीवन करि जिवित्वा अन्न हे पूर्णब्रह्म ।",
+    "उदरभरण नोहे जाणिजे यज्ञकर्म ॥"
+  ];
+  var TYPE_MS = 75, DELETE_MS = 30, HOLD_MS = 2400, PAUSE_MS = 500;
+
+  var box  = document.querySelector('.shloka');
+  var line = document.querySelector('.shloka-line');
+  if (!box || !line) return;
+
+  /* Split on grapheme clusters, not UTF-16 units: a matra belongs to its
+     consonant, so slicing blindly would flash half-formed letters. */
+  function clusters(str) {
+    try {
+      if (window.Intl && Intl.Segmenter) {
+        var seg = new Intl.Segmenter('mr', { granularity: 'grapheme' });
+        return Array.from(seg.segment(str), function (s) { return s.segment; });
+      }
+    } catch (e) {}
+    return Array.from(str);
+  }
+
+  var PARTS = LINES.map(clusters);
+
+  /* Reserve the height of the tallest line at this width, so the heading
+     below holds still whether a line wraps or not. */
+  function reserve() {
+    var keep = line.textContent, max = 0;
+    box.style.minHeight = '0px';
+    LINES.forEach(function (t) {
+      line.textContent = t;
+      max = Math.max(max, box.getBoundingClientRect().height);
+    });
+    line.textContent = keep;
+    box.style.minHeight = Math.ceil(max) + 'px';
+  }
+  reserve();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(reserve).catch(function () {});
+  window.addEventListener('resize', reserve);
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    line.textContent = LINES[0];
+    return;
+  }
+
+  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  var typing = function (on) { box.classList.toggle('is-typing', on); };
+
+  function run() {
+    var i = 0;
+    function next() {
+      var parts = PARTS[i % PARTS.length];
+      i++;
+      var n = 0;
+      typing(true);
+      (function type() {
+        if (n <= parts.length) {
+          line.textContent = parts.slice(0, n).join('');
+          n++;
+          setTimeout(type, TYPE_MS);
+          return;
+        }
+        typing(false);
+        setTimeout(function () {
+          var m = parts.length;
+          typing(true);
+          (function del() {
+            if (m >= 0) {
+              line.textContent = parts.slice(0, m).join('');
+              m--;
+              setTimeout(del, DELETE_MS);
+              return;
+            }
+            typing(false);
+            setTimeout(next, PAUSE_MS);
+          })();
+        }, HOLD_MS);
+      })();
+    }
+    next();
+  }
+
+  line.textContent = '';
+  setTimeout(run, PAUSE_MS);
 })();
 </script>
 </body>
