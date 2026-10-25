@@ -92,7 +92,7 @@
   .menu-section { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; }
   .menu-section.span2 { grid-column: span 2; }
   .menu-section.span3 { grid-column: span 3; }
-  .section-head { background: var(--olive); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 7px 14px; text-align: center; }
+  .section-head { background: var(--olive-fill); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 7px 14px; text-align: center; }
   .section-head.gold   { background: var(--gold);   color: var(--navy); }
   .section-head.maroon { background: var(--maroon); color: #fff; }
   .section-body { padding: 10px 12px; }
@@ -100,7 +100,7 @@
   .dish-row:last-child { border-bottom: none; }
   .dish-img { width: 44px; height: 44px; border-radius: 6px; flex-shrink: 0; background: var(--cream2); display: flex; align-items: center; justify-content: center; font-size: 22px; overflow: hidden; }
   .dish-details { flex: 1; min-width: 0; }
-  .dish-dname { font-weight: 600; font-size: 12.5px; color: var(--navy); line-height: 1.2; }
+  .dish-dname { font-weight: 600; font-size: 12.5px; color: var(--navy-ink); line-height: 1.2; }
   .dish-sub   { font-size: 10.5px; color: var(--fg-soft); margin-top: 1px; }
   .dish-price { text-align: right; flex-shrink: 0; min-width: 60px; }
   .dish-price .price-line { font-size: 11px; color: var(--fg-soft); line-height: 1.6; white-space: nowrap; }
@@ -110,7 +110,7 @@
   .sweets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px; }
   .sweet-card { text-align: center; padding: 10px 6px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
   .sweet-icon  { font-size: 28px; margin-bottom: 6px; }
-  .sweet-name  { font-weight: 600; font-size: 12px; color: var(--navy); line-height: 1.3; }
+  .sweet-name  { font-weight: 600; font-size: 12px; color: var(--navy-ink); line-height: 1.3; }
   .sweet-price { font-size: 12px; font-weight: 700; color: var(--olive); margin-top: 4px; }
 
   /* Footer */
@@ -118,7 +118,7 @@
   .footer-card { background: var(--navy2); color: #fff; border-radius: 10px; padding: 14px 18px; text-align: center; }
   .footer-card .fc-label { font-size: 10px; opacity: .6; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
   .footer-card .fc-val   { font-size: 15px; font-weight: 700; }
-  .footer-card.contact   { background: var(--olive); }
+  .footer-card.contact   { background: var(--olive-fill); }
   .footer-card.contact .fc-val { font-size: 20px; letter-spacing: .04em; }
   .pickup-strip { background: var(--navy); color: #fff; max-width: 960px; margin: 0 auto; border-radius: 0 0 10px 10px; display: flex; font-size: 12.5px; font-weight: 600; overflow: hidden; }
   .strip-half { flex: 1; padding: 10px 16px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
@@ -129,7 +129,7 @@
   .coming-soon p:first-child { font-size: 16px; font-weight: 600; }
   .coming-soon p { margin-top: 8px; font-size: 13px; }
   .custom-body { text-align: center; padding: 48px 20px; max-width: 560px; margin: 0 auto; }
-  .custom-body .cust-title { font-size: 16px; font-weight: 600; color: var(--navy); }
+  .custom-body .cust-title { font-size: 16px; font-weight: 600; color: var(--navy-ink); }
   .custom-body .cust-desc  { margin-top: 10px; font-size: 13px; color: var(--fg-soft); line-height: 1.7; }
   .contact-chip { display: inline-block; margin-top: 24px; background: var(--maroon); color: #fff; padding: 16px 24px; border-radius: 12px; }
   .contact-chip .lbl { font-size: 11px; opacity: .7; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
@@ -234,6 +234,17 @@
     display: block;
   }
 
+
+/* Fills that carry white text, and navy used as text, need their own
+   dark-mode values: the dark --olive and --navy are tuned for accents
+   and surfaces, not for sitting under or behind text. */
+:root { --olive-fill:#6b820d; --olive-fill-h:#8fa812; --navy-ink:#1A2B4A; --wa:#168a45; --wa-h:#11733a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --olive-fill:#5f760c; --olive-fill-h:#6b820d; --navy-ink:#8fb0e8; --wa:#168a45; --wa-h:#11733a; } }
+:root[data-theme="dark"] { --olive-fill:#5f760c; --olive-fill-h:#6b820d; --navy-ink:#8fb0e8; --wa:#168a45; --wa-h:#11733a; }
+/* The festival header keeps its light painted background in both themes,
+   so its text keeps the light-theme colours (gold darkened to read on cream). */
+.fest-header { --olive:#6b820d; --gold:#9a6a10; --navy:#1A2B4A; --navy-ink:#1A2B4A; --fg-soft:#6b6b63; }
+.order-banner strong { color:#e8b84c; }
 </style>
 </head>
 <body>

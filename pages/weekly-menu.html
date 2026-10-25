@@ -76,7 +76,7 @@
     transition: all .18s; font-family: 'Poppins', sans-serif;
   }
   .week-tab:hover { border-color: var(--olive); color: var(--olive); }
-  .week-tab.active { background: var(--olive); color: #fff; border-color: var(--olive); font-weight: 600; box-shadow: 0 3px 12px rgba(107,130,13,.28); }
+  .week-tab.active { background: var(--olive-fill); color: #fff; border-color: var(--olive-fill); font-weight: 600; box-shadow: 0 3px 12px rgba(107,130,13,.28); }
   .week-tab.next.active { background: var(--amber); border-color: var(--amber); box-shadow: 0 3px 12px rgba(196,125,10,.25); }
 
   .week-panel { display: none; }
@@ -91,7 +91,7 @@
   .wh-dates { font-size: 14px; font-weight: 600; color: var(--fg); }
   .week-status { margin-left: auto; padding: 3px 11px; border-radius: 100px; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
   .s-past { background: var(--bg); color: var(--fg-soft); border: 1px solid var(--border); }
-  .s-now  { background: var(--olive); color: #fff; }
+  .s-now  { background: var(--olive-fill); color: #fff; }
   .s-next { background: var(--amber-bg); color: var(--amber); border: 1px solid #f0d090; }
 
   .dish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
@@ -135,7 +135,7 @@
   .order-cta { margin-top: 28px; text-align: center; padding: 28px 24px; background: var(--navy); border-radius: 14px; color: #fff; }
   .order-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; margin-bottom: 6px; }
   .order-cta p  { font-size: 12px; opacity: .7; margin-bottom: 16px; }
-  .cta-btn { display: inline-block; padding: 9px 26px; background: var(--olive); color: #fff; border-radius: 100px; font-weight: 600; font-size: 12.5px; text-decoration: none; }
+  .cta-btn { display: inline-block; padding: 9px 26px; background: var(--olive-fill); color: #fff; border-radius: 100px; font-weight: 600; font-size: 12.5px; text-decoration: none; }
 
   .loading { text-align: center; padding: 60px 20px; color: var(--fg-soft); font-size: 14px; }
   .error-msg { text-align: center; padding: 40px 20px; color: #c0392b; font-size: 13px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); }
@@ -263,6 +263,13 @@
     text-transform: uppercase; color: var(--fg-soft);
   }
   .ckcf-hint { text-align: center; font-size: 11px; color: var(--fg-xsoft); margin: 6px 0 0; }
+
+/* Fills that carry white text, and navy used as text, need their own
+   dark-mode values: the dark --olive and --navy are tuned for accents
+   and surfaces, not for sitting under or behind text. */
+:root { --olive-fill:#6b820d; --olive-fill-h:#8fa812; --fg-xsoft:#76766e; --navy-ink:#1A2B4A; --wa:#168a45; --wa-h:#11733a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --olive-fill:#5f760c; --olive-fill-h:#6b820d; --navy-ink:#8fb0e8; --wa:#168a45; --wa-h:#11733a; --fg-xsoft:#8a8a82; } }
+:root[data-theme="dark"] { --olive-fill:#5f760c; --olive-fill-h:#6b820d; --navy-ink:#8fb0e8; --wa:#168a45; --wa-h:#11733a; --fg-xsoft:#8a8a82; }
 </style>
 </head>
 <body>
