@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Chaitrali's Kitchen</title>
-<meta name="description" content="Authentic Maharashtrian home cooking from Shrewsbury, MA. Weekly tiffin meals Mon–Sat, festival catering, and custom event menus. 100% pure veg, homemade with love.">
+<meta name="description" content="Authentic Maharashtrian home cooking from Shrewsbury, MA. Weekly tiffin meals, festival catering, and custom event menus. 100% pure veg, homemade with love.">
 <!-- Open Graph / Link Preview -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chaitraliskitchen.com/">
 <meta property="og:site_name" content="Chaitrali's Kitchen">
 <meta property="og:title" content="Chaitrali's Kitchen — Authentic Maharashtrian Home Cooking">
-<meta property="og:description" content="Weekly tiffin meals Mon–Sat, festival catering & custom event menus. 100% pure veg, homemade from Shrewsbury, MA.">
+<meta property="og:description" content="Weekly tiffin meals, festival catering & custom event menus. 100% pure veg, homemade from Shrewsbury, MA.">
 <meta property="og:image" content="https://chaitraliskitchen.com/images/carousel/maharashtrian-thali-hero.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,7 +18,7 @@
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Chaitrali's Kitchen — Authentic Maharashtrian Home Cooking">
-<meta name="twitter:description" content="Weekly tiffin meals Mon–Sat, festival catering & custom event menus. 100% pure veg, homemade from Shrewsbury, MA.">
+<meta name="twitter:description" content="Weekly tiffin meals, festival catering & custom event menus. 100% pure veg, homemade from Shrewsbury, MA.">
 <meta name="twitter:image" content="https://chaitraliskitchen.com/images/carousel/maharashtrian-thali-hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet">
@@ -591,6 +591,9 @@ footer {
 .tag-rice  { background:var(--teal-bg);  color:var(--teal); }
 .tag-sweet { background:var(--purple-bg);color:var(--purple); }
 .tag-spicy { background:var(--amber-bg); color:var(--amber); }
+.tag-dry   { background:var(--olive-bg); color:var(--olive); }
+.tag-special { background:var(--purple-bg);color:var(--purple); }
+.tag-snack { background:var(--bg); color:var(--fg-s); border:1px solid var(--border); }
 
 /* ══════════════════════════════════════
    DESKTOP TWEAKS
@@ -873,15 +876,15 @@ footer {
   <div class="wrap">
     <div class="tiffin-grid">
       <div>
-        <div class="wk-chip">🍛 This Week · Oct 13–19</div>
+        <div class="wk-chip" id="wk-chip">🍛 This Week</div>
         <h2 class="sec-title">Weekly <em>Tiffin</em></h2>
         <div class="divbar" style="margin-left:0;"></div>
         <p style="color:var(--fg-s);font-size:13px;line-height:1.75;margin:14px 0 0;">
-          Every Sunday we prepare a complete Maharashtrian tiffin — freshly cooked, packed with care. No preservatives, no shortcuts. Just like home.
+          Every week we prepare a complete Maharashtrian tiffin — freshly cooked, packed with care. No preservatives, no shortcuts. Just like home.
         </p>
         <div class="tiffin-facts">
-          <div class="tf"><div class="tf-v">Sun</div><div class="tf-l">Pickup Day</div></div>
-          <div class="tf"><div class="tf-v">Fri 6PM</div><div class="tf-l">Order By</div></div>
+          <div class="tf"><div class="tf-v" data-setting="tiffin_days">Every Tuesday</div><div class="tf-l">Pickup / Delivery</div></div>
+          <div class="tf"><div class="tf-v" data-setting="order_cutoff">Sunday Noon</div><div class="tf-l">Order By</div></div>
           <div class="tf"><div class="tf-v">Shrewsbury</div><div class="tf-l">Location</div></div>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -893,17 +896,12 @@ footer {
         <div class="tiffin-photo-wrap">
           <img src="images/tiffin-bowls.jpg" alt="Home-cooked Maharashtrian tiffin — dal, sabzi, rice, roti and salad in stainless steel bowls" loading="lazy">
         </div>
-        <p class="tiffin-photo-caption">Fresh, home-cooked every Sunday 🍛</p>
+        <p class="tiffin-photo-caption">Fresh, home-cooked every week 🍛</p>
       </div>
       <div>
-        <div class="dish-list">
-          <div class="dish-row"><span class="d-em">🧀</span><div class="d-inf"><strong>Shahi Paneer</strong><span>Creamy tomato-cashew gravy</span></div><span class="dtag tg">Gravy</span></div>
-          <div class="dish-row"><span class="d-em">🍲</span><div class="d-inf"><strong>Kanda Batata Rassa</strong><span>Maharashtrian thin onion-potato curry</span></div><span class="dtag tr">Rassa</span></div>
-          <div class="dish-row"><span class="d-em">🫘</span><div class="d-inf"><strong>Matki Usal</strong><span>Sprouted moth bean curry</span></div><span class="dtag tu">Usal</span></div>
-          <div class="dish-row"><span class="d-em">🥣</span><div class="d-inf"><strong>Methi Dal</strong><span>Fenugreek leaves in toor dal</span></div><span class="dtag td">Dal</span></div>
-          <div class="dish-row"><span class="d-em">🍛</span><div class="d-inf"><strong>Masale Bhat</strong><span>Maharashtrian spiced rice</span></div><span class="dtag tr">Rice</span></div>
-          <div class="dish-row"><span class="d-em">🥔</span><div class="d-inf"><strong>Batata Vada</strong><span>Fried potato dumplings</span></div><span class="dtag ts">Snack</span></div>
-          <div class="dish-row"><span class="d-em">🍮</span><div class="d-inf"><strong>Shreekhand</strong><span>Saffron strained yogurt sweet</span></div><span class="dtag tw">Sweet</span></div>
+        <!-- filled from data/menu.json → tiffin.this_week -->
+        <div class="dish-list" id="wk-dishes">
+          <p style="font-size:12px;color:var(--fg-s);">Loading this week's dishes…</p>
         </div>
         <div style="margin-top:14px;">
           <a href="pages/weekly-menu.html" style="display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:100px;border:1.5px solid var(--border);font-size:11.5px;font-weight:600;color:var(--fg-s);transition:.2s;">See full menu + past weeks →</a>
@@ -954,7 +952,7 @@ footer {
       <div class="step"><div class="step-n">1</div><h4>Browse the Menu</h4><p>Check this week's tiffin or a festival special — updated every week with seasonal dishes.</p></div>
       <div class="step"><div class="step-n">2</div><h4>Place Your Order</h4><p>Add dishes on the order page and send via WhatsApp — no app, no account needed.</p></div>
       <div class="step"><div class="step-n">3</div><h4>We Confirm &amp; Cook</h4><p>Chaitrali confirms availability, cooks fresh on pickup morning and packs with care.</p></div>
-      <div class="step"><div class="step-n">4</div><h4>Pickup or Delivery</h4><p>Collect from Shrewsbury on Sunday, or ask about delivery — we'll quote the fee.</p></div>
+      <div class="step"><div class="step-n">4</div><h4>Pickup or Delivery</h4><p>Collect from Shrewsbury (<span data-setting="tiffin_days">Every Tuesday</span>), or ask about delivery — we'll quote the fee.</p></div>
     </div>
   </div>
 </section>
@@ -1005,7 +1003,7 @@ footer {
           <div class="cd-row"><div class="cd-ico">📞</div><div><div class="cd-lbl">Phone / WhatsApp</div><div class="cd-val"><a href="tel:6173205229" style="color:var(--fg);">617-320-5229</a></div></div></div>
           <div class="cd-row"><div class="cd-ico">📍</div><div><div class="cd-lbl">Pickup Location</div><div class="cd-val">Shrewsbury, MA</div></div></div>
           <div class="cd-row"><div class="cd-ico">🚗</div><div><div class="cd-lbl">Delivery</div><div class="cd-val">Available · fee as quoted</div></div></div>
-          <div class="cd-row"><div class="cd-ico">🕐</div><div><div class="cd-lbl">Order Deadline</div><div class="cd-val">Friday 6 PM for Sunday</div></div></div>
+          <div class="cd-row"><div class="cd-ico">🕐</div><div><div class="cd-lbl">Order Deadline</div><div class="cd-val" data-setting="order_cutoff">Sunday Noon</div></div></div>
         </div>
       </div>
       <div class="order-panel">
@@ -1019,7 +1017,7 @@ footer {
           </a>
           <a href="pages/event-menu.html" class="btn-outline">🎉 Festival &amp; Event Menus</a>
         </div>
-        <div class="deadline-box">⏰ Order by <strong style="color:#fff;margin-inline:3px;">Friday 6 PM</strong> for Sunday pickup or delivery</div>
+        <div class="deadline-box">⏰ Order by <strong style="color:#fff;margin-inline:3px;" data-setting="order_cutoff">Sunday Noon</strong> · <span data-setting="tiffin_days">Every Tuesday</span></div>
       </div>
     </div>
   </div>
@@ -1054,59 +1052,30 @@ window.addEventListener('scroll',()=>{
 },{ passive:true });
 </script>
 
+<script src="scripts/site.js"></script>
+
 <script>
-(function(){
-  function nextCutoff() {
-    // Sunday 9 PM Eastern — compute next occurrence
-    const now = new Date();
-    // Work in the visitor's local time but cutoff is "Sunday 9 PM ET"
-    // We'll compute UTC offset for Eastern: EST = UTC-5, EDT = UTC-4
-    // Simple approach: find next Sunday then set to 21:00 ET
-    const ET_OFFSET_HOURS = (() => {
-      // Detect whether ET is currently EDT or EST using Intl
-      try {
-        const fmt = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', hour:'numeric', hour12:false});
-        const localH = parseInt(fmt.format(now));
-        const utcH = now.getUTCHours();
-        const diff = utcH - localH;
-        return diff < 0 ? diff + 24 : diff;  // offset hours ET is behind UTC
-      } catch(e) { return 4; }  // fallback to EDT
-    })();
-    // Find next Sunday 9 PM ET as a UTC Date
-    const d = new Date(now);
-    const dayOfWeek = d.getUTCDay(); // 0=Sun
-    const daysUntilSun = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-    d.setUTCDate(d.getUTCDate() + daysUntilSun);
-    d.setUTCHours(21 + ET_OFFSET_HOURS, 0, 0, 0);
-    // If that's already past, add 7 days
-    if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
-    return d;
+/* This week's tiffin, from the same menu.json the Tiffin Menu page reads. */
+(function () {
+  var ICONS = { gravy:'🍛', spicy:'🌶️', rassa:'🍲', dry:'🥬', dal:'🥣', usal:'🫘', rice:'🍚', sweet:'🍮', snack:'🥔', special:'⭐' };
+  var list = document.getElementById('wk-dishes');
+  var chip = document.getElementById('wk-chip');
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
-  function fmt2(n) { return String(n).padStart(2,'0'); }
-
-  function tick() {
-    const el = document.getElementById('cd-time');
-    const badge = document.getElementById('ck-countdown');
-    if (!el || !badge) return;
-    const now = new Date();
-    const cutoff = nextCutoff();
-    const diff = cutoff - now;
-    if (diff <= 0) { el.textContent = 'Opens next Sun!'; badge.classList.remove('cd-urgent'); return; }
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-    const urgent = diff < 3600000 * 6; // last 6 hours = red
-    badge.classList.toggle('cd-urgent', urgent);
-    if (days > 0) {
-      el.textContent = days + 'd ' + fmt2(hours) + 'h ' + fmt2(mins) + 'm';
-    } else {
-      el.textContent = fmt2(hours) + 'h ' + fmt2(mins) + 'm ' + fmt2(secs) + 's';
-    }
-  }
-  tick();
-  setInterval(tick, 1000);
+  window.ckMenu.then(function (menu) {
+    var w = (menu.tiffin || {}).this_week || {};
+    if (w.dates) chip.textContent = '🍛 This Week · ' + w.dates;
+    var dishes = w.dishes || [];
+    if (!dishes.length) throw new Error('no dishes');
+    list.innerHTML = dishes.map(function (d) {
+      return '<div class="dish-row"><span class="d-em">' + (ICONS[d.tag] || '🍽') + '</span>' +
+        '<div class="d-inf"><strong>' + esc(d.name) + '</strong>' + (d.desc ? '<span>' + esc(d.desc) + '</span>' : '') + '</div>' +
+        (d.tag_label ? '<span class="dtag tag-' + esc(d.tag) + '">' + esc(d.tag_label) + '</span>' : '') + '</div>';
+    }).join('');
+  }).catch(function () {
+    list.innerHTML = '<p style="font-size:12px;color:var(--fg-s);">See <a href="pages/weekly-menu.html" style="color:var(--olive);">this week\'s menu</a>.</p>';
+  });
 })();
 </script>
 

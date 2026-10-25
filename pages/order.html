@@ -308,8 +308,8 @@ a { text-decoration:none; color:inherit; }
     <div class="otype-card selected" onclick="selectType(this,'tiffin')">
       <div class="otype-icon">🍱</div>
       <div class="otype-title">Weekly Tiffin</div>
-      <div class="otype-desc">Mon – Sat home-cooked meal box. New menu every week. Order by Sunday 9 PM.</div>
-      <span class="otype-badge badge-olive">Order closes Sunday</span>
+      <div class="otype-desc">Home-cooked meal box, new menu every week. <span data-setting="tiffin_days">Every Tuesday</span>. Order by <span data-setting="order_cutoff">Sunday Noon</span>.</div>
+      <span class="otype-badge badge-olive">Order closes <span data-setting="order_cutoff">Sunday Noon</span></span>
     </div>
     <div class="otype-card" onclick="selectType(this,'festival')">
       <div class="otype-icon">🪔</div>
@@ -350,7 +350,7 @@ a { text-decoration:none; color:inherit; }
     <div class="how-step">
       <div class="step-num">Step 2</div>
       <div class="step-title">WhatsApp or Call</div>
-      <div class="step-body">Message Chaitrali by Sunday 9 PM with the dishes you want and how many servings.</div>
+      <div class="step-body">Message Chaitrali by <span data-setting="order_cutoff">Sunday Noon</span> with the dishes you want and how many servings.</div>
     </div>
     <div class="how-step">
       <div class="step-num">Step 3</div>
@@ -360,7 +360,7 @@ a { text-decoration:none; color:inherit; }
     <div class="how-step">
       <div class="step-num">Step 4</div>
       <div class="step-title">Pickup or Delivery</div>
-      <div class="step-body">Shrewsbury pickup Mon – Sat. Delivery available within area for a small fee.</div>
+      <div class="step-body"><span data-setting="tiffin_days">Every Tuesday</span>. Pickup in Shrewsbury, or delivery within the area for a small fee.</div>
     </div>
   </div>
 
@@ -368,11 +368,11 @@ a { text-decoration:none; color:inherit; }
   <div class="info-bar">
     <div class="info-item">
       <span class="ii-label">Tiffin Days</span>
-      <span class="ii-val">Mon – Sat</span>
+      <span class="ii-val" data-setting="tiffin_days">Every Tuesday</span>
     </div>
     <div class="info-item">
       <span class="ii-label">Order Cutoff</span>
-      <span class="ii-val">Sunday 9 PM ET</span>
+      <span class="ii-val" data-setting="order_cutoff">Sunday Noon</span>
     </div>
     <div class="info-item">
       <span class="ii-label">Pickup</span>
@@ -495,48 +495,14 @@ function selectType(el, type) {
   } else {
     howSteps.innerHTML = `
       <div class="how-step"><div class="step-num">Step 1</div><div class="step-title">Check the Menu</div><div class="step-body">Browse this week's dishes on the <a href="weekly-menu.html" style="color:var(--olive);">Tiffin Menu</a> page.</div></div>
-      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">WhatsApp or Call</div><div class="step-body">Message Chaitrali by Sunday 9 PM with the dishes you want and how many servings.</div></div>
+      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">WhatsApp or Call</div><div class="step-body">Message Chaitrali by <span data-setting="order_cutoff">Sunday Noon</span> with the dishes you want and how many servings.</div></div>
       <div class="how-step"><div class="step-num">Step 3</div><div class="step-title">Confirm & Pay</div><div class="step-body">She'll confirm availability and send your total. Pay via Zelle or Venmo.</div></div>
-      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Pickup or Delivery</div><div class="step-body">Shrewsbury pickup Mon – Sat. Delivery available within area for a small fee.</div></div>
+      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Pickup or Delivery</div><div class="step-body"><span data-setting="tiffin_days">Every Tuesday</span>. Pickup in Shrewsbury, or delivery within the area for a small fee.</div></div>
     `;
   }
+  if (window.ckFillSettings) ckFillSettings(howSteps);
 }
-
-/* ── Countdown ── */
-(function(){
-  function nextCutoff(){
-    const now = new Date();
-    const ET_OFFSET = (() => {
-      try {
-        const fmt = new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',hour:'numeric',hour12:false});
-        const lh = parseInt(fmt.format(now));
-        const diff = now.getUTCHours() - lh;
-        return diff < 0 ? diff + 24 : diff;
-      } catch(e){ return 4; }
-    })();
-    const d = new Date(now);
-    const dow = d.getUTCDay();
-    d.setUTCDate(d.getUTCDate() + (dow === 0 ? 0 : 7 - dow));
-    d.setUTCHours(21 + ET_OFFSET, 0, 0, 0);
-    if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
-    return d;
-  }
-  function p(n){ return String(n).padStart(2,'0'); }
-  function tick(){
-    const el = document.getElementById('cd-time');
-    const badge = document.getElementById('ck-countdown');
-    if (!el) return;
-    const diff = nextCutoff() - new Date();
-    if (diff <= 0){ el.textContent = 'Opens Sun!'; return; }
-    const days = Math.floor(diff/86400000);
-    const hrs  = Math.floor((diff%86400000)/3600000);
-    const mins = Math.floor((diff%3600000)/60000);
-    const secs = Math.floor((diff%60000)/1000);
-    badge.classList.toggle('cd-urgent', diff < 3600000*6);
-    el.textContent = days > 0 ? days+'d '+p(hrs)+'h '+p(mins)+'m' : p(hrs)+'h '+p(mins)+'m '+p(secs)+'s';
-  }
-  tick(); setInterval(tick, 1000);
-})();
 </script>
+<script src="../scripts/site.js"></script>
 </body>
 </html>

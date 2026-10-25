@@ -515,61 +515,7 @@
 })();
 </script>
 
-<script>
-(function(){
-  function nextCutoff() {
-    // Sunday 9 PM Eastern — compute next occurrence
-    const now = new Date();
-    // Work in the visitor's local time but cutoff is "Sunday 9 PM ET"
-    // We'll compute UTC offset for Eastern: EST = UTC-5, EDT = UTC-4
-    // Simple approach: find next Sunday then set to 21:00 ET
-    const ET_OFFSET_HOURS = (() => {
-      // Detect whether ET is currently EDT or EST using Intl
-      try {
-        const fmt = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', hour:'numeric', hour12:false});
-        const localH = parseInt(fmt.format(now));
-        const utcH = now.getUTCHours();
-        const diff = utcH - localH;
-        return diff < 0 ? diff + 24 : diff;  // offset hours ET is behind UTC
-      } catch(e) { return 4; }  // fallback to EDT
-    })();
-    // Find next Sunday 9 PM ET as a UTC Date
-    const d = new Date(now);
-    const dayOfWeek = d.getUTCDay(); // 0=Sun
-    const daysUntilSun = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-    d.setUTCDate(d.getUTCDate() + daysUntilSun);
-    d.setUTCHours(21 + ET_OFFSET_HOURS, 0, 0, 0);
-    // If that's already past, add 7 days
-    if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
-    return d;
-  }
-
-  function fmt2(n) { return String(n).padStart(2,'0'); }
-
-  function tick() {
-    const el = document.getElementById('cd-time');
-    const badge = document.getElementById('ck-countdown');
-    if (!el || !badge) return;
-    const now = new Date();
-    const cutoff = nextCutoff();
-    const diff = cutoff - now;
-    if (diff <= 0) { el.textContent = 'Opens next Sun!'; badge.classList.remove('cd-urgent'); return; }
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-    const urgent = diff < 3600000 * 6; // last 6 hours = red
-    badge.classList.toggle('cd-urgent', urgent);
-    if (days > 0) {
-      el.textContent = days + 'd ' + fmt2(hours) + 'h ' + fmt2(mins) + 'm';
-    } else {
-      el.textContent = fmt2(hours) + 'h ' + fmt2(mins) + 'm ' + fmt2(secs) + 's';
-    }
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
-</script>
+<script src="../scripts/site.js"></script>
 
 </body>
 </html>

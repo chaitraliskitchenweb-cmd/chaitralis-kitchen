@@ -4,20 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Weekly Tiffin Menu</title>
-<meta name="description" content="This week's Maharashtrian tiffin menu — fresh home-cooked dishes Mon–Sat from Chaitrali's Kitchen, Shrewsbury MA.">
+<meta name="description" content="This week's Maharashtrian tiffin menu — fresh home-cooked dishes from Chaitrali's Kitchen, Shrewsbury MA.">
 <!-- Open Graph / Link Preview -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://chaitraliskitchen.com/pages/weekly-menu.html">
 <meta property="og:site_name" content="Chaitrali's Kitchen">
 <meta property="og:title" content="Tiffin Menu — Chaitrali's Kitchen">
-<meta property="og:description" content="This week's Maharashtrian tiffin menu — fresh home-cooked dishes Mon–Sat from Shrewsbury, MA.">
+<meta property="og:description" content="This week's Maharashtrian tiffin menu — fresh home-cooked dishes from Shrewsbury, MA.">
 <meta property="og:image" content="https://chaitraliskitchen.com/images/carousel/maharashtrian-thali-hero.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Maharashtrian home-cooked tiffin by Chaitrali's Kitchen">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tiffin Menu — Chaitrali's Kitchen">
-<meta name="twitter:description" content="This week's Maharashtrian tiffin menu — fresh home-cooked dishes Mon–Sat from Shrewsbury, MA.">
+<meta name="twitter:description" content="This week's Maharashtrian tiffin menu — fresh home-cooked dishes from Shrewsbury, MA.">
 <meta name="twitter:image" content="https://chaitraliskitchen.com/images/carousel/maharashtrian-thali-hero.jpg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap">
 <style>
@@ -308,14 +308,14 @@
 <div class="how-section">
   <h2>How Tiffin Works</h2>
   <div class="how-steps">
-    <div class="how-step"><div class="how-icon">📋</div><h3>Check the Menu</h3><p>New dishes announced every Sunday. Browse this week and next week's options.</p></div>
-    <div class="how-step"><div class="how-icon">📱</div><h3>Place Your Order</h3><p>WhatsApp or call Chaitrali before Sunday 9 PM to book your tiffin for the week.</p></div>
-    <div class="how-step"><div class="how-icon">🏠</div><h3>Fresh Delivery</h3><p>Home-cooked tiffin delivered to your door Monday through Saturday.</p></div>
+    <div class="how-step"><div class="how-icon">📋</div><h3>Check the Menu</h3><p>New dishes announced every week. Browse this week and next week's options.</p></div>
+    <div class="how-step"><div class="how-icon">📱</div><h3>Place Your Order</h3><p>WhatsApp or call Chaitrali by <span data-setting="order_cutoff">Sunday Noon</span> to book your tiffin for the week.</p></div>
+    <div class="how-step"><div class="how-icon">🏠</div><h3>Pickup or Delivery</h3><p>Fresh home-cooked tiffin: <span data-setting="tiffin_days">Every Tuesday</span>.</p></div>
     <div class="how-step"><div class="how-icon">♻️</div><h3>Return the Box</h3><p>Return your tiffin box at next delivery. We reuse — no waste, no plastic.</p></div>
   </div>
   <div class="order-cta" id="order-cta">
     <h3>Ready to order this week's tiffin?</h3>
-    <p id="cta-sub">Sunday 9 PM cutoff · Shrewsbury, MA · Mon–Sat delivery</p>
+    <p id="cta-sub">Order by <span data-setting="order_cutoff">Sunday Noon</span> · <span data-setting="tiffin_days">Every Tuesday</span> · <span data-setting="location">Shrewsbury, MA</span></p>
     <a class="cta-btn" id="cta-link" href="#">WhatsApp or call to order</a>
   </div>
 </div>
@@ -340,8 +340,8 @@
     const dishes = (data.dishes || []).map(buildDishCard).join('');
     const tiffin = key === 'this_week' ? `
       <div class="tiffin-info">
-        <div class="tiffin-fact"><div class="fact-label">Tiffin Days</div><div class="fact-value">${escHtml(s.tiffin_days || 'Mon – Sat')}</div></div>
-        <div class="tiffin-fact"><div class="fact-label">Order Cutoff</div><div class="fact-value">${escHtml(s.order_cutoff || 'Sunday 9 PM')}</div></div>
+        <div class="tiffin-fact"><div class="fact-label">Tiffin Days</div><div class="fact-value">${escHtml(s.tiffin_days || '—')}</div></div>
+        <div class="tiffin-fact"><div class="fact-label">Order Cutoff</div><div class="fact-value">${escHtml(s.order_cutoff || '—')}</div></div>
         <div class="tiffin-fact"><div class="fact-label">Delivery</div><div class="fact-value">${escHtml(s.location || 'Shrewsbury, MA')}</div></div>
         <div class="tiffin-fact"><div class="fact-label">Diet</div><div class="fact-value">100% Pure Veg</div></div>
       </div>` : '';
@@ -373,10 +373,8 @@
     if (s.phone_whatsapp) {
       document.getElementById('cta-link').href = `https://wa.me/${s.phone_whatsapp}`;
     }
-    const cutoff = s.order_cutoff || 'Sunday 9 PM';
-    const loc    = s.location    || 'Shrewsbury, MA';
-    const days   = s.tiffin_days || 'Mon–Sat';
-    document.getElementById('cta-sub').textContent = `${cutoff} cutoff · ${loc} · ${days} delivery`;
+    // the CTA's cutoff, days and location are filled by scripts/site.js
+    const loc = s.location || 'Shrewsbury, MA';
     document.getElementById('site-eyebrow').textContent = `${s.business_name || "Chaitrali's Kitchen"} · ${loc}`;
 
     const tabs = `
@@ -386,9 +384,9 @@
         <button class="week-tab next" role="tab" data-panel="next_week" aria-selected="false">Next Week →</button>
       </div>`;
 
-    const lastW  = buildPanel('last_week',  t.last_week  || {}, s, 's-past', '📅', 'Ended',       'Menu changes every week. Subscribe to get notified of upcoming dishes before Sunday.');
+    const lastW  = buildPanel('last_week',  t.last_week  || {}, s, 's-past', '📅', 'Ended',       'Menu changes every week. Subscribe to get notified of upcoming dishes before the order cutoff.');
     const thisW  = buildPanel('this_week',  t.this_week  || {}, s, 's-now',  '🍱', 'Now Serving', '');
-    const nextW  = buildPanel('next_week',  t.next_week  || {}, s, 's-next', '🔔', 'Coming Soon', "Next week's full menu will be announced by Sunday. Check back or ask Chaitrali for early access.");
+    const nextW  = buildPanel('next_week',  t.next_week  || {}, s, 's-next', '🔔', 'Coming Soon', "Next week's full menu will be announced before the order cutoff. Check back or ask Chaitrali for early access.");
 
     document.getElementById('tiffin-root').innerHTML = tabs + lastW + thisW + nextW;
 
@@ -416,61 +414,7 @@
 })();
 </script>
 
-<script>
-(function(){
-  function nextCutoff() {
-    // Sunday 9 PM Eastern — compute next occurrence
-    const now = new Date();
-    // Work in the visitor's local time but cutoff is "Sunday 9 PM ET"
-    // We'll compute UTC offset for Eastern: EST = UTC-5, EDT = UTC-4
-    // Simple approach: find next Sunday then set to 21:00 ET
-    const ET_OFFSET_HOURS = (() => {
-      // Detect whether ET is currently EDT or EST using Intl
-      try {
-        const fmt = new Intl.DateTimeFormat('en-US', {timeZone:'America/New_York', hour:'numeric', hour12:false});
-        const localH = parseInt(fmt.format(now));
-        const utcH = now.getUTCHours();
-        const diff = utcH - localH;
-        return diff < 0 ? diff + 24 : diff;  // offset hours ET is behind UTC
-      } catch(e) { return 4; }  // fallback to EDT
-    })();
-    // Find next Sunday 9 PM ET as a UTC Date
-    const d = new Date(now);
-    const dayOfWeek = d.getUTCDay(); // 0=Sun
-    const daysUntilSun = dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
-    d.setUTCDate(d.getUTCDate() + daysUntilSun);
-    d.setUTCHours(21 + ET_OFFSET_HOURS, 0, 0, 0);
-    // If that's already past, add 7 days
-    if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
-    return d;
-  }
-
-  function fmt2(n) { return String(n).padStart(2,'0'); }
-
-  function tick() {
-    const el = document.getElementById('cd-time');
-    const badge = document.getElementById('ck-countdown');
-    if (!el || !badge) return;
-    const now = new Date();
-    const cutoff = nextCutoff();
-    const diff = cutoff - now;
-    if (diff <= 0) { el.textContent = 'Opens next Sun!'; badge.classList.remove('cd-urgent'); return; }
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-    const urgent = diff < 3600000 * 6; // last 6 hours = red
-    badge.classList.toggle('cd-urgent', urgent);
-    if (days > 0) {
-      el.textContent = days + 'd ' + fmt2(hours) + 'h ' + fmt2(mins) + 'm';
-    } else {
-      el.textContent = fmt2(hours) + 'h ' + fmt2(mins) + 'm ' + fmt2(secs) + 's';
-    }
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
-</script>
+<script src="../scripts/site.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Observer.min.js"></script>
