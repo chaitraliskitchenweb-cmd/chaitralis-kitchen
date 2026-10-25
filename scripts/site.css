@@ -1,0 +1,139 @@
+/* Shared by every page; scripts/site.js adds the elements these style. */
+
+/* ══════════════════════════════════════
+   COUNTDOWN — the cooker whistles in the last hour
+══════════════════════════════════════ */
+.cd-cooker { display:none; position:relative; width:22px; height:22px; flex-shrink:0; }
+.cd-cooker svg { display:block; transform-origin:50% 85%; }
+.cd-puff {
+  position:absolute; left:8px; top:-3px; width:7px; height:7px; border-radius:50%;
+  background:#cfcfcf; opacity:0;
+}
+.ck-countdown.cd-whistle .cd-cooker { display:block; }
+.ck-countdown.cd-whistle .cd-clock { display:none; }
+.ck-countdown.cd-whistle .cd-cooker svg { animation:cd-shake .45s ease-in-out infinite; }
+.ck-countdown.cd-whistle .cd-puff { animation:cd-puff 1.1s ease-out infinite; }
+.ck-countdown.cd-whistle .cd-puff + .cd-puff { animation-delay:.55s; }
+@keyframes cd-shake { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-5deg)} 75%{transform:rotate(5deg)} }
+@keyframes cd-puff { 0%{transform:translate(0,0) scale(.4);opacity:.95} 100%{transform:translate(7px,-22px) scale(1.7);opacity:0} }
+
+/* ══════════════════════════════════════
+   FESTIVAL MODE — <html class="ck-fest ck-fest-ganpati|diwali|holi">
+══════════════════════════════════════ */
+/* Hangs from the bottom of the fixed nav on every page. */
+.fest-hang {
+  position:absolute; left:0; right:0; top:100%; height:46px;
+  pointer-events:none; overflow:hidden; z-index:150;
+}
+
+/* Ganpati: a marigold toran with mango leaves, gently swaying */
+.fest-toran { position:absolute; inset:0; animation:fest-sway 3.4s ease-in-out infinite; transform-origin:50% 0; }
+.fest-flower {
+  position:absolute; width:18px; height:18px; border-radius:50%;
+  box-shadow:0 2px 3px rgba(120,50,0,.25);
+}
+.fest-flower.f1 { background:radial-gradient(circle at 40% 35%, #fde68a, #f59e0b 70%); }
+.fest-flower.f2 { background:radial-gradient(circle at 40% 35%, #fdba74, #ea580c 70%); }
+.fest-leaf {
+  position:absolute; width:9px; height:15px; border-radius:0 0 60% 60%;
+  background:linear-gradient(180deg, #4d8a2a, #2f5f17);
+}
+@keyframes fest-sway { 0%,100%{transform:rotate(0)} 50%{transform:rotate(.5deg)} }
+
+/* Diwali: a string of lights */
+.fest-wire { position:absolute; left:0; right:0; top:2px; height:2px; background:rgba(60,40,10,.35); }
+.fest-bulb {
+  position:absolute; top:4px; width:8px; height:12px; border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;
+  background:#fcd34d; box-shadow:0 0 8px 2px rgba(252,211,77,.7);
+  animation:fest-twinkle 2.2s ease-in-out infinite;
+}
+.fest-bulb.b2 { background:#fb923c; box-shadow:0 0 8px 2px rgba(251,146,60,.7); }
+.fest-bulb.b3 { background:#f472b6; box-shadow:0 0 8px 2px rgba(244,114,182,.6); }
+@keyframes fest-twinkle { 0%,100%{opacity:.45} 50%{opacity:1} }
+
+/* Holi: a drift of gulal under the nav */
+.fest-dust {
+  position:absolute; top:-10px; border-radius:50%; filter:blur(5px); opacity:.55;
+  animation:fest-drift 6s ease-in-out infinite;
+}
+@keyframes fest-drift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(10px,4px)} }
+
+/* ── Home page hero ── */
+.fest-ribbon {
+  display:inline-flex; align-items:center; flex-wrap:wrap; gap:4px 10px;
+  margin:0 0 18px; padding:9px 18px; border-radius:100px;
+  font-size:13px; font-weight:600; line-height:1.4;
+  animation:fest-rise .7s ease both;
+}
+.fest-ribbon .fest-greet { font-family:'Tiro Devanagari Marathi','Noto Serif Devanagari',serif; font-size:16px; font-weight:400; }
+@keyframes fest-rise { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+.ck-fest .hero { position:relative; }
+.ck-fest .hero-right { position:relative; overflow:hidden; }
+.ck-fest .hero-right > * { position:relative; z-index:1; }
+.ck-fest .hero-right > .fest-layer { position:absolute; inset:0; z-index:0; pointer-events:none; }
+
+.ck-fest-ganpati .hero-right {
+  background:linear-gradient(180deg, rgba(245,158,11,.10), rgba(234,88,12,.16)), var(--bg-card);
+}
+.ck-fest-ganpati .fest-ribbon { background:#9a3412; color:#fff; }
+.ck-fest-ganpati .fest-ribbon:hover { background:#7c2d12; }
+
+/* Diwali turns the hero's text panel to night, whatever the site theme */
+.ck-fest-diwali .hero-right {
+  background:radial-gradient(ellipse at 50% 115%, #4a1d6b 0%, #1e0f3a 55%, #120a26 100%);
+  --olive:#d4f040; --navy-ink:#fde68a; --fg:#ffffff; --fg-s:#e9dcff; --fg-xs:#c4b5fd;
+  --border:rgba(255,255,255,.16); --bg-card:rgba(255,255,255,.06); --olive-bg:rgba(255,255,255,.08);
+  color-scheme:dark;
+}
+.ck-fest-diwali .hero-right .btn-festival { color:#fff; border-color:rgba(255,255,255,.3); }
+.ck-fest-diwali .hero-right { padding-bottom:110px; }   /* room for the row of diyas */
+.ck-fest-diwali .fest-ribbon { background:#f59e0b; color:#2a1600; }
+.ck-fest-diwali .fest-ribbon:hover { background:#fbbf24; }
+.fest-star {
+  position:absolute; border-radius:1px; background:#fde68a;
+  animation:fest-star 2.2s ease-in-out infinite;
+}
+@keyframes fest-star { 0%,100%{opacity:.15;transform:rotate(45deg) scale(.6)} 50%{opacity:1;transform:rotate(45deg) scale(1)} }
+.fest-diyas {
+  position:absolute; left:0; right:0; bottom:14px; z-index:2;
+  display:flex; justify-content:center; gap:clamp(18px,4vw,46px); pointer-events:none;
+}
+.fest-diya { position:relative; width:40px; height:52px; display:flex; flex-direction:column; justify-content:flex-end; }
+.fest-diya .glow {
+  position:absolute; left:-20px; top:-32px; width:80px; height:80px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,190,60,.55), rgba(255,190,60,0) 65%);
+  animation:fest-pulse 2.6s ease-in-out infinite;
+}
+.fest-diya .flame {
+  width:12px; height:21px; margin:0 auto -2px; transform-origin:50% 100%;
+  border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+  background:radial-gradient(ellipse at 50% 75%, #fff7d6 0%, #fcd34d 40%, #f97316 100%);
+  animation:fest-flicker 1.3s ease-in-out infinite;
+}
+.fest-diya .bowl {
+  position:relative; width:40px; height:19px; border-radius:0 0 40px 40px;
+  background:linear-gradient(180deg, #d97706, #92400e); box-shadow:inset 0 3px 0 #f59e0b;
+}
+@keyframes fest-flicker {
+  0%,100%{transform:scale(1,1) rotate(-2deg);opacity:1} 30%{transform:scale(.92,1.08) rotate(2deg)}
+  55%{transform:scale(1.05,.94) rotate(-1deg);opacity:.85} 80%{transform:scale(.97,1.04) rotate(1deg)}
+}
+@keyframes fest-pulse { 0%,100%{opacity:.55;transform:scale(1)} 50%{opacity:.85;transform:scale(1.12)} }
+
+/* Holi: gulal bursts from the middle of the panel, then drifts */
+.ck-fest-holi .fest-ribbon { background:#7e22ce; color:#fff; }
+.ck-fest-holi .fest-ribbon:hover { background:#6b21a8; }
+.fest-gulal {
+  position:absolute; border-radius:50%; filter:blur(6px); opacity:0;
+  animation:fest-burst 1.4s cubic-bezier(.15,.8,.25,1) forwards, fest-float 7s ease-in-out 1.4s infinite;
+}
+@keyframes fest-burst { from{transform:translate(var(--sx),var(--sy)) scale(.1);opacity:0} to{transform:translate(0,0) scale(1);opacity:.5} }
+@keyframes fest-float { 0%,100%{transform:translate(0,0) scale(1);opacity:.5} 50%{transform:translate(8px,-10px) scale(1.05);opacity:.5} }
+
+@media (prefers-reduced-motion: reduce) {
+  .ck-countdown.cd-whistle .cd-cooker svg, .ck-countdown.cd-whistle .cd-puff,
+  .fest-toran, .fest-bulb, .fest-dust, .fest-ribbon, .fest-star,
+  .fest-diya .glow, .fest-diya .flame { animation:none; }
+  .fest-gulal { animation:none; opacity:.45; }
+}
