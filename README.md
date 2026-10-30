@@ -1,45 +1,114 @@
 # Chaitrali's Kitchen
 
-A responsive website for homemade vegetarian Maharashtrian food, weekly tiffin and celebration catering.
+The website for Chaitrali's Kitchen: homemade vegetarian Maharashtrian food from Shrewsbury, MA, with a weekly tiffin and festival and event catering.
 
-## Update the website without editing code
+Live at **https://chaitraliskitchen.com**. It is a static site served by GitHub Pages from the `main` branch. Anything pushed to `main` is live a minute or two later.
 
-1. Open `admin.html` on the website and sign in.
-2. Edit the business details, this week's curries, the weekly order (combos, add-ons, specials, delivery zones), events or carousel.
-3. Choose **Save Changes**. The site updates in a minute or two.
+## The pages
 
-Saving writes `data/ChaitralisKitchen_ContentPack.xlsx` on GitHub. A GitHub Action (`.github/workflows/rebuild-menu.yml`) then runs `excel-to-json.py` to rebuild `data/menu.json`, which every page reads.
+| Page | File | What it shows |
+|---|---|---|
+| Home | `index.html` | Hero, this week's curries, the delivery schedule and order cutoff, favourites, contact |
+| Weekly Tiffin | `pages/weekly-menu.html` | This week's combos, curries, add-ons and specials, delivery zones, notes and FAQ |
+| Order | `pages/order.html` | The online order form for the weekly tiffin; festival and custom events go to WhatsApp or a call |
+| Events | `pages/event-menu.html` | Festival menus (Ganpati, Diwali, Holi) and custom event catering |
+| Admin | `admin.html` | Password-protected editor for everything above (not linked from the site, hidden from search engines) |
 
-## Taking orders on the website
+Every page reads its menu, prices and settings from `data/menu.json`, so a change made on the admin page shows up everywhere at once.
 
-The Order page has its own order form: customers pick a combo, its curries, add-ons, specials and a delivery zone, see the total (free delivery over the amount set on the admin page), and send the order. Each order becomes a row in a Google Sheet, and Chaitrali gets an email for it. Because the form reads the same menu as the website, there is nothing to keep in sync.
+## Updating the menu each week (no code)
 
-Until the Orders sheet is connected, the Order buttons open the Google Form set under **Business Info → Order Form Link**.
+1. Open **chaitraliskitchen.com/admin.html** and enter the admin password.
+2. Change what you need:
+   - **⚙️ Business Info:** phone, WhatsApp, email, delivery day and time, order cutoff, free-delivery amount, what every combo includes (e.g. *complimentary rice*), payment details, allergen note, order notes, and the two order links below.
+   - **📅 This Week's Curries:** the delivery date and this week's curries (name, description, tag).
+   - **🛒 Weekly Order:** combos (size, number of curries, price), add-ons, specials and delivery zones with their fees.
+   - **🎉 Events:** festival menus, their order-by dates and whether each is shown.
+   - **🖼 Carousel:** *not used by any page at the moment*. The home page photo strip is written into `index.html`.
+3. Choose **Save Changes**. The site updates in a minute or two (refresh the page to see it).
 
-### One-time setup (about 10 minutes, in Chaitrali's Google account)
+How it works: saving writes `data/ChaitralisKitchen_ContentPack.xlsx` to GitHub. A GitHub Action (`.github/workflows/rebuild-menu.yml`) then runs `excel-to-json.py`, which regenerates `data/menu.json` and commits it. Don't edit `menu.json` by hand: the next save overwrites it.
 
-1. Create a new Google Sheet, for example **Tiffin Orders**.
-2. In the sheet, choose **Extensions → Apps Script**.
-3. Delete what is in the editor, paste in everything from [`scripts/order-sheet.gs`](scripts/order-sheet.gs), and save.
-4. Choose **Deploy → New deployment**. Under **Select type** pick **Web app**, then set
-   - **Execute as:** Me
-   - **Who has access:** Anyone
-5. Choose **Deploy**, then **Authorize access** and allow it with the same Google account. (Google warns that the app is unverified because you wrote it yourself: choose **Advanced → Go to … (unsafe)**.)
-6. Copy the **Web app URL** (it ends in `/exec`).
-7. On the website's admin page, paste it into **Business Info → Order Sheet Link** and choose **Save Changes**.
+The admin password is a GitHub fine-grained token with write access to this one repository. If it stops working, create a new one under GitHub → Settings → Developer settings → Fine-grained tokens (Contents: Read and write, this repository only).
 
-The Order page switches to the built-in form a minute or two later. The first order adds an **Orders** tab with a header row; the last column, **Status**, is for Chaitrali's own notes (Invoiced, Paid…).
+### Dish photos
 
-To stop taking orders on the website, clear the **Order Sheet Link** and save: the buttons go back to the Google Form.
+The Weekly Tiffin page shows a photo for a dish when `images/menu-items/` has a file named after the dish in lower case with dashes, e.g. *Saoji Masala Vangi* → `saoji-masala-vangi.jpg`. Dishes without a photo are simply left out of the photo strip.
 
-**If you edit the script later,** use **Deploy → Manage deployments → ✏️ → Version: New version → Deploy** so the same link keeps working.
+## Orders
 
-Settings at the top of the script: `NOTIFY_EMAIL` (blank = the account that deployed it) and `SEND_CUSTOMER_CONFIRMATION` (emails the customer a copy).
+### How a customer orders
 
-## Site content
+On the Order page the customer picks a combo and size, exactly the number of curries the combo includes, any add-ons and specials, and delivery or pickup. They see the total as they go, with free delivery above the **Free Delivery Over** amount. They then add their name, phone, email and address and choose **Place order**.
 
-- `index.html` is the public home page; `pages/` holds the tiffin menu, order and events pages.
-- `data/menu.json` holds the menu, settings and events every page reads. It is generated: edit through the admin page.
-- `admin.html` is the browser-based editor.
-- `scripts/site.js` and `scripts/site.css` are shared by every page (settings, countdown, festival mode).
-- `scripts/order-sheet.gs` is the Google Apps Script behind the order form.
+Each order:
+- is checked and re-priced against the live menu by the Google Apps Script, so the prices can't be changed in the browser;
+- becomes a row in the **Orders** tab of the order Google Sheet, with an order number like `CK-1030-002`;
+- sends an email to Chaitrali, and a confirmation email to the customer.
+
+The last column in the sheet, **Status**, is for Chaitrali's own notes (Invoiced, Paid, Delivered…). If an order can't be sent, the page offers to send it on WhatsApp instead.
+
+### Order links on the admin page
+
+- **Order Sheet Link (website order form):** the Apps Script web app URL (ends in `/exec`). While it is set, every Order button on the site opens the built-in form.
+- **Order Form Link (Google Form):** the fallback. If the Order Sheet Link is cleared, the Order buttons open this Google Form instead.
+
+### Setting up the order sheet (already done; for reference)
+
+1. Create a Google Sheet (e.g. **Tiffin Orders**) in Chaitrali's Google account and choose **Extensions → Apps Script**.
+2. Replace the editor's contents with [`scripts/order-sheet.gs`](scripts/order-sheet.gs) and save.
+3. Choose **Deploy → New deployment → Web app**, with **Execute as: Me** and **Who has access: Anyone**.
+4. Choose **Deploy → Authorize access**. Google warns the app is unverified because you wrote it; choose **Advanced → Go to … (unsafe)**.
+5. Copy the **Web app URL**, paste it into **Order Sheet Link** on the admin page and save.
+
+**After editing the script,** use **Deploy → Manage deployments → ✏️ → Version: New version → Deploy**, so the same link keeps working. A new deployment would get a new link.
+
+Settings at the top of the script: `NOTIFY_EMAIL` (blank means the account that deployed it) and `SEND_CUSTOMER_CONFIRMATION`.
+
+To check the script is up, open the `/exec` link in a browser: it should show `{"ok":true,…}`.
+
+## Things that happen on their own
+
+- **Order countdown:** the nav shows the time left until the **Order Cutoff** (US Eastern time). In the last hour a pressure cooker whistles.
+- **Festival mode:** from 21 days before an active Ganpati, Diwali or Holi event's order-by date until 7 days after it, the site dresses up for that festival: a toran, lights or gulal under the nav, plus a festival banner on the home page.
+- **Dark mode:** pages follow the visitor's phone or computer setting.
+
+To preview these looks, add `?festival=ganpati`, `?festival=diwali`, `?festival=holi` (or `?festival=off`) or `?whistle` to any page's address.
+
+## Files
+
+```
+index.html                 Home page
+pages/                     weekly-menu.html, order.html, event-menu.html
+admin.html                 Content editor
+data/
+  ChaitralisKitchen_ContentPack.xlsx   The content (edited through admin.html)
+  menu.json                Generated from the spreadsheet; read by every page
+excel-to-json.py           Spreadsheet → menu.json converter (run by the GitHub Action)
+scripts/
+  site.js, site.css        Shared by every page: settings, nav, countdown, festival mode
+  order-sheet.gs           Google Apps Script behind the order form
+images/                    hero/, carousel/, menu-items/, weekly-menu/, events/, favourites/, general/
+Logo/                      Logo files
+.github/workflows/         rebuild-menu.yml (spreadsheet → menu.json)
+CNAME                      Custom domain (chaitraliskitchen.com)
+robots.txt, sitemap.xml    Search engine settings
+```
+
+## Working on the code
+
+Preview locally from the repository root:
+
+```bash
+python3 -m http.server 8123
+```
+
+Then open http://localhost:8123. The pages fetch `data/menu.json`, so opening the HTML files directly from disk won't load the menu.
+
+To rebuild `menu.json` locally after changing the spreadsheet or the converter:
+
+```bash
+pip install openpyxl && python3 excel-to-json.py data/ChaitralisKitchen_ContentPack.xlsx
+```
+
+Before pushing layout changes, check a phone width (320–390px), a tablet and a laptop, in light and dark mode. The nav collapses into the ☰ menu below 780px.

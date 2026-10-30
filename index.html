@@ -705,15 +705,6 @@ footer {
     .ck-countdown { display: none; }   /* the hero repeats the cutoff anyway */
   }
 
-
-/* ── CONSTRUCTION BANNER ── */
-.construction-banner { position:relative; z-index:1; background: #1A2B4A; color: #fff; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; overflow: hidden; white-space: nowrap; padding: 7px 0; }
-.construction-track { display: inline-block; animation: banner-scroll 30s linear infinite; }
-.construction-track span { padding: 0 36px; }
-.construction-track .dot { color: #a8c214; padding: 0 6px; }
-@keyframes banner-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-
 /* Fills that carry white text, and navy used as text, need their own
    dark-mode values: the dark --olive and --navy are tuned for accents
    and surfaces, not for sitting under or behind text. */
@@ -725,7 +716,7 @@ footer {
 </head>
 <body>
 
-<!-- Fixed top stack: nav, construction banner, marquee.
+<!-- Fixed top stack: nav and marquee.
      Height is measured at runtime into --topstack-h, so the page below
      always starts right under it instead of guessing at pixel offsets. -->
 <div class="topstack" id="topstack">
@@ -744,22 +735,6 @@ footer {
   <a class="ck-order" href="pages/order.html">Order Now</a>
   <button class="ck-burger" onclick="document.getElementById('ck-nav').classList.toggle('open')" aria-label="Menu">☰</button>
 </nav>
-
-<!-- CONSTRUCTION BANNER -->
-<div class="construction-banner">
-  <div class="construction-track">
-    <span>🚧 Site Under Construction</span><span class="dot">✦</span>
-    <span>Tiffin Menu — Coming Soon</span><span class="dot">✦</span>
-    <span>Event Menu — Coming Soon</span><span class="dot">✦</span>
-    <span>Online Orders — Coming Soon</span><span class="dot">✦</span>
-    <span>Favourites Section — Coming Soon</span><span class="dot">✦</span>
-    <span>🚧 Site Under Construction</span><span class="dot">✦</span>
-    <span>Tiffin Menu — Coming Soon</span><span class="dot">✦</span>
-    <span>Event Menu — Coming Soon</span><span class="dot">✦</span>
-    <span>Online Orders — Coming Soon</span><span class="dot">✦</span>
-    <span>Favourites Section — Coming Soon</span><span class="dot">✦</span>
-  </div>
-</div>
 
 <!-- MARQUEE -->
 <div class="marquee-wrap">
