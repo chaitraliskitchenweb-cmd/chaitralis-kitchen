@@ -192,6 +192,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
         <div class="field"><label>Order Cutoff</label><input id="s-order_cutoff" placeholder="e.g. Sunday 5 PM" oninput="markDirty()"></div>
         <div class="field"><label>Order Form Link (Google Form)</label><input id="s-order_form_url" placeholder="https://docs.google.com/forms/…" oninput="markDirty()"></div>
         <div class="field"><label>Free Delivery Over</label><input id="s-free_delivery_over" placeholder="e.g. $70" oninput="markDirty()"></div>
+        <div class="field"><label>Every Combo Includes</label><input id="s-combo_includes" placeholder="e.g. complimentary rice" oninput="markDirty()"></div>
         <div class="field"><label>Zelle (email/phone)</label><input id="s-payment_zelle" oninput="markDirty()"></div>
         <div class="field"><label>Venmo Handle</label><input id="s-payment_venmo" oninput="markDirty()"></div>
       </div>
@@ -459,7 +460,8 @@ function populateSettings() {
   const ws = getSheet('⚙️ Business Info');
   const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
                    tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14,
-                   order_form_url:15, free_delivery_over:16, order_notes:17, order_endpoint:18 };
+                   order_form_url:15, free_delivery_over:16, order_notes:17, order_endpoint:18,
+                   combo_includes:19 };
   for (const [key, row] of Object.entries(fields)) {
     const el = document.getElementById('s-' + key);
     if (el) el.value = cellVal(ws, row, 2);
@@ -914,7 +916,8 @@ function collectSettings() {
   const ws = getSheet('⚙️ Business Info');
   const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
                    tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14,
-                   order_form_url:15, free_delivery_over:16, order_notes:17, order_endpoint:18 };
+                   order_form_url:15, free_delivery_over:16, order_notes:17, order_endpoint:18,
+                   combo_includes:19 };
   for (const [key, row] of Object.entries(fields)) {
     const el = document.getElementById('s-' + key);
     if (el) setCell(ws, row, 2, el.value);

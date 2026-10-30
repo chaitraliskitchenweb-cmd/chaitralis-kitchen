@@ -18,7 +18,8 @@
       "No size customizations.",
       "Many vegan and gluten-free options available."
     ],
-    "order_endpoint": "https://script.google.com/macros/s/AKfycbzEJrsGyC6GuPFCz0JWUbSy__0muLGporgAzqxxnuHg5oz_8MHCQJvmMZhAHF2wEG5F/exec"
+    "order_endpoint": "https://script.google.com/macros/s/AKfycbzEJrsGyC6GuPFCz0JWUbSy__0muLGporgAzqxxnuHg5oz_8MHCQJvmMZhAHF2wEG5F/exec",
+    "combo_includes": "complimentary rice"
   },
   "carousel": [
     {

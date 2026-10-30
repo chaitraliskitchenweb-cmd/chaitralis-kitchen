@@ -1099,7 +1099,8 @@ window.addEventListener('scroll',()=>{
       .filter(function (n) { return n > 0; });
     if (prices.length) {
       var from = document.getElementById('wk-from');
-      from.textContent = 'Combos from $' + Math.min.apply(null, prices).toFixed(2) + ' · complimentary rice with every combo';
+      var inc = String((menu.settings || {}).combo_includes || '').trim();
+      from.textContent = 'Combos from $' + Math.min.apply(null, prices).toFixed(2) + (inc ? ' · ' + inc + ' with every combo' : '');
       from.hidden = false;
     }
     var dishes = w.dishes || [];

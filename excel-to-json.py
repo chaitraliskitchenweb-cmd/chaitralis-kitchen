@@ -53,7 +53,7 @@ TAG_MAP = {
 }
 
 # ── 1. Business Settings ───────────────────────────────────────────────────────
-# Sheet: ⚙️ Business Info, Column A = label, Column B = value (rows 4–18)
+# Sheet: ⚙️ Business Info, Column A = label, Column B = value (rows 4–19)
 ws_biz = wb["⚙️ Business Info"]
 settings = {
     "business_name":  v(ws_biz, 4,  2),
@@ -71,6 +71,7 @@ settings = {
     "free_delivery_over": v(ws_biz, 16, 2),
     "order_notes":    [line.strip() for line in v(ws_biz, 17, 2).splitlines() if line.strip()],
     "order_endpoint": v(ws_biz, 18, 2),
+    "combo_includes": v(ws_biz, 19, 2),
 }
 
 # ── 2. Carousel Images ────────────────────────────────────────────────────────

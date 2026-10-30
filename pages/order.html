@@ -368,7 +368,10 @@ a { text-decoration:none; color:inherit; }
 .btotal { display:flex; justify-content:space-between; align-items:baseline; border-top:1.5px solid var(--border); margin-top:14px; padding-top:14px; }
 .btotal span { font-weight:600; color:var(--fg); }
 .btotal strong { font-size:1.6rem; color:var(--fg); font-variant-numeric:tabular-nums; }
-.bsmall { font-size:11.5px; color:var(--fg-s); margin:8px 0 14px; line-height:1.5; }
+.bsmall { font-size:11.5px; color:var(--fg-s); margin:8px 0 6px; line-height:1.5; }
+.bnotes { list-style:none; margin:0 0 14px; display:grid; gap:4px; }
+.bnotes li { position:relative; padding-left:14px; font-size:11.5px; line-height:1.45; color:var(--fg-s); }
+.bnotes li::before { content:''; position:absolute; left:2px; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--olive); }
 .bsubmit { width:100%; border:none; cursor:pointer; font-family:inherit; min-height:50px; font-size:15px; }
 .bsubmit:disabled { opacity:.6; cursor:wait; }
 .bstatus { font-size:12.5px; margin-top:10px; line-height:1.5; color:var(--red); }
@@ -445,7 +448,7 @@ a { text-decoration:none; color:inherit; }
   <form class="build" id="build" hidden novalidate>
     <div class="build-main">
       <fieldset class="bstep" id="b-combo"><legend><span class="bnum">1</span> Choose your combo</legend>
-        <p class="bhint">Every combo comes with complimentary rice. No size customizations.</p>
+        <p class="bhint" id="b-combo-hint" hidden></p>
         <div class="bcombos" id="b-combos"></div>
       </fieldset>
       <fieldset class="bstep" id="b-curry"><legend><span class="bnum">2</span> Pick your curries</legend>
@@ -475,7 +478,8 @@ a { text-decoration:none; color:inherit; }
       <h3>Your order</h3>
       <div id="b-lines" class="blines"><p class="bempty">Pick a combo to start.</p></div>
       <div class="btotal"><span>Total</span><strong id="b-total">$0.00</strong></div>
-      <p class="bsmall">Order by <span data-setting="order_cutoff">Sunday 5 PM</span>. We email your invoice; payment confirms the order.</p>
+      <p class="bsmall">Order by <span data-setting="order_cutoff">Sunday 5 PM</span>.</p>
+      <ul class="bnotes" id="b-notes"></ul>
       <button type="submit" class="form-btn bsubmit" id="b-submit">Place order</button>
       <p class="bstatus" id="b-status" role="status" aria-live="polite"></p>
     </aside>
@@ -594,7 +598,7 @@ a { text-decoration:none; color:inherit; }
 
   <!-- Allergy Note -->
   <div class="allergy-box">
-    <strong>Allergen notice:</strong> Our food is prepared in a home kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible. Please tell us about all allergies when ordering.
+    <strong>Allergen notice:</strong> <span data-setting="allergy_note">Our food is prepared in a cloud kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible. For allergies you will need to inform while placing the order.</span>
   </div>
 
 </div>
@@ -662,6 +666,10 @@ fetch('../data/menu.json')
     var curries = ((menu.tiffin || {}).this_week || {}).dishes || [];
     var week = ((menu.tiffin || {}).this_week || {}).dates || '';
     var freeOver = amount(s.free_delivery_over);
+    var inc = String(s.combo_includes || '').trim();   // e.g. "complimentary rice"
+    if (inc) { $('b-combo-hint').textContent = 'Every combo comes with ' + inc + '.'; $('b-combo-hint').hidden = false; }
+    // The admin page's order notes (payment, no size changes, vegan options) sit under the total
+    $('b-notes').innerHTML = (s.order_notes || []).map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('');
     if (!combos.length || !curries.length || !zones.length) return;
 
     // Combos, grouped by name: Solo → Standard / Large
@@ -672,7 +680,7 @@ fetch('../data/menu.json')
       g.rows.push({ c: c, i: i });
     });
     $('b-combos').innerHTML = groups.map(function (g) {
-      return '<div class="bcombo"><h4>' + esc(g.name) + '</h4><p>' + g.curries + (g.curries === 1 ? ' curry' : ' curries') + ' + complimentary rice</p>' +
+      return '<div class="bcombo"><h4>' + esc(g.name) + '</h4><p>' + g.curries + (g.curries === 1 ? ' curry' : ' curries') + (inc ? ' + ' + esc(inc) : '') + '</p>' +
         g.rows.map(function (r) {
           return '<label class="bsize"><input type="radio" name="combo" value="' + r.i + '" aria-label="' + esc(g.name + ', ' + r.c.size + ', ' + r.c.price) + '">' +
             '<span>' + sizeHtml(r.c.size) + '</span><b>' + esc(r.c.price) + '</b></label>';

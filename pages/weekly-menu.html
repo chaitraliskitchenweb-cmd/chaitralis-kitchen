@@ -399,10 +399,11 @@
     </div>`;
 
     const combos = groupBy(wo.combos || []);
-    const comboHtml = combos.length ? step(1, 'Choose your combo', 'Every combo comes with complimentary rice.',
+    const inc = String(s.combo_includes || '').trim();   // e.g. "complimentary rice"
+    const comboHtml = combos.length ? step(1, 'Choose your combo', inc ? `Every combo comes with ${escHtml(inc)}.` : '',
       `<div class="combo-grid">${combos.map(c => {
         const n = parseInt(c.rows[0].curries, 10);
-        const what = n ? `${n} ${n === 1 ? 'curry' : 'curries'} + complimentary rice` : 'with complimentary rice';
+        const what = (n ? `${n} ${n === 1 ? 'curry' : 'curries'}` : '') + (inc ? `${n ? ' + ' : 'With '}${escHtml(inc)}` : '');
         return `<div class="combo">
           <div class="combo-name">${escHtml(c.name)}</div>
           <div class="combo-what">${what}</div>
