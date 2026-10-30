@@ -22,6 +22,16 @@
       var v = settings[el.getAttribute('data-setting')];
       if (v != null && String(v).trim()) el.textContent = String(v).trim();
     });
+    // Order buttons open the weekly Google Form once it is set; until then
+    // they keep their href (the Order page).
+    var form = String(settings.order_form_url || '').trim();
+    if (/^https:\/\//.test(form)) {
+      (root || document).querySelectorAll('a[data-order-form]').forEach(function (a) {
+        a.href = form;
+        a.target = '_blank';
+        a.rel = 'noopener';
+      });
+    }
   };
 
   /* Preview switches for trying the looks out: ?festival=ganpati|diwali|holi|off

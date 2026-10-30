@@ -69,30 +69,58 @@
   .subtitle { margin-top: 7px; font-size: 12px; color: var(--fg-soft); }
   .divider { margin: 14px auto 0; width: 36px; height: 2px; background: var(--olive); opacity: .4; border-radius: 2px; }
 
-  .week-tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
-  .week-tab {
-    padding: 7px 22px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer;
-    border: 1.5px solid var(--border); background: var(--bg-card); color: var(--fg-soft);
-    transition: all .18s; font-family: 'Poppins', sans-serif;
+  /* ── Weekly order menu ── */
+  .order-strip {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px;
+    padding: 14px 18px; margin-bottom: 34px;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
   }
-  .week-tab:hover { border-color: var(--olive); color: var(--olive); }
-  .week-tab.active { background: var(--olive-fill); color: #fff; border-color: var(--olive-fill); font-weight: 600; box-shadow: 0 3px 12px rgba(107,130,13,.28); }
-  .week-tab.next.active { background: var(--amber); border-color: var(--amber); box-shadow: 0 3px 12px rgba(196,125,10,.25); }
-
-  .week-panel { display: none; }
-  .week-panel.visible { display: block; }
-
-  .week-header {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-    padding: 14px 18px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border);
+  .os-fact { display: flex; flex-direction: column; min-width: 120px; }
+  .os-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-xsoft); }
+  .os-value { font-size: 13.5px; font-weight: 600; color: var(--fg); }
+  .os-cta { margin-left: auto; }
+  .form-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; padding: 0 24px; border-radius: 100px;
+    background: var(--olive-fill); color: #fff; font-weight: 600; font-size: 13.5px;
+    text-decoration: none; transition: background .2s;
   }
-  .week-badge { width: 38px; height: 38px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 19px; flex-shrink: 0; }
-  .wh-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--fg-xsoft); margin-bottom: 1px; }
-  .wh-dates { font-size: 14px; font-weight: 600; color: var(--fg); }
-  .week-status { margin-left: auto; padding: 3px 11px; border-radius: 100px; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
-  .s-past { background: var(--bg); color: var(--fg-soft); border: 1px solid var(--border); }
-  .s-now  { background: var(--olive-fill); color: #fff; }
-  .s-next { background: var(--amber-bg); color: var(--amber); border: 1px solid #f0d090; }
+  .form-btn:hover { background: var(--olive-fill-h); }
+
+  .step { margin-bottom: 38px; }
+  .step-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+  .step-num {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--olive-fill); color: #fff; font-size: 13px; font-weight: 700;
+    transform: translateY(5px);
+  }
+  .step-head h2 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--fg); line-height: 1.2; }
+  .step-head p { font-size: 12px; color: var(--fg-soft); }
+
+  .combo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .combo {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px; display: flex; flex-direction: column; gap: 4px;
+  }
+  .combo-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--navy-ink); }
+  .combo-what { font-size: 12px; color: var(--fg-soft); margin-bottom: 8px; }
+  .combo-size { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 8px 0; border-top: 1px dashed var(--border); }
+  .combo-size span { font-size: 12.5px; color: var(--fg); }
+  .combo-size strong { font-size: 16px; color: var(--fg); font-variant-numeric: tabular-nums; }
+
+  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+  .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; }
+  .price-card h3 { font-size: 13px; font-weight: 700; color: var(--fg); margin-bottom: 6px; }
+  .price-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 7px 0; border-top: 1px dashed var(--border); }
+  .price-row:first-of-type { border-top: none; }
+  .price-row span { font-size: 12.5px; color: var(--fg); }
+  .price-row small { display: block; font-size: 11px; color: var(--fg-soft); }
+  .price-row strong { font-size: 14px; color: var(--fg); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  .zone-note { margin-top: 10px; font-size: 12px; color: var(--fg-soft); }
+  .notes { list-style: none; display: grid; gap: 8px; margin-top: 4px; }
+  .notes li { font-size: 12.5px; color: var(--fg); padding: 10px 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; }
 
   .dish-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
   .dish-card {
@@ -141,11 +169,8 @@
   .error-msg { text-align: center; padding: 40px 20px; color: #c0392b; font-size: 13px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); }
 
   @media (max-width: 500px) {
-    .week-header { flex-wrap: wrap; }
-    .week-status { margin-left: 0; }
-    .tiffin-info { gap: 12px; }
-    .tiffin-fact { border-right: none; border-bottom: 1px solid var(--border); padding: 10px 0; }
-    .tiffin-fact:last-child { border-bottom: none; }
+    .os-cta { margin-left: 0; width: 100%; }
+    .os-cta .form-btn { width: 100%; }
     .dish-grid { grid-template-columns: 1fr; }
   }
 
@@ -294,7 +319,7 @@
 <div class="page-header">
   <p class="eyebrow" id="site-eyebrow">Chaitrali's Kitchen · Shrewsbury</p>
   <h1>Weekly <em>Tiffin</em> Menu</h1>
-  <p class="subtitle">Pure Veg · Authentic Maharashtrian Home Cooking · Delivered Fresh</p>
+  <p class="subtitle">Pure Veg · Authentic Maharashtrian Home Cooking · Pick a combo, choose your curries</p>
   <div class="divider"></div>
 </div>
 
@@ -312,26 +337,19 @@
   <div class="loading">Loading menu…</div>
 </div>
 
-<!-- HOW IT WORKS (static) -->
-<div class="how-section">
-  <h2>How Tiffin Works</h2>
-  <div class="how-steps">
-    <div class="how-step"><div class="how-icon">📋</div><h3>Check the Menu</h3><p>New dishes announced every week. Browse this week and next week's options.</p></div>
-    <div class="how-step"><div class="how-icon">📱</div><h3>Place Your Order</h3><p>WhatsApp or call Chaitrali by <span data-setting="order_cutoff">Sunday Noon</span> to book your tiffin for the week.</p></div>
-    <div class="how-step"><div class="how-icon">🏠</div><h3>Pickup or Delivery</h3><p>Fresh home-cooked tiffin: <span data-setting="tiffin_days">Every Tuesday</span>.</p></div>
-    <div class="how-step"><div class="how-icon">♻️</div><h3>Return the Box</h3><p>Return your tiffin box at next delivery. We reuse — no waste, no plastic.</p></div>
-  </div>
-  <div class="order-cta" id="order-cta">
-    <h3>Ready to order this week's tiffin?</h3>
-    <p id="cta-sub">Order by <span data-setting="order_cutoff">Sunday Noon</span> · <span data-setting="tiffin_days">Every Tuesday</span> · <span data-setting="location">Shrewsbury, MA</span></p>
-    <a class="cta-btn" id="cta-link" href="#">WhatsApp or call to order</a>
-  </div>
+<div class="order-cta">
+  <h3>Ready to order this week's tiffin?</h3>
+  <p>Order by <span data-setting="order_cutoff">Sunday 5 PM</span> · <span data-setting="tiffin_days">Tuesday delivery · 6–9 PM</span></p>
+  <a class="cta-btn" data-order-form href="order.html">Order on the form</a>
 </div>
 
 <script>
 (function() {
-  // Try relative path from pages/ folder; also supports root-level fallback
   const DATA_PATH = '../data/menu.json';
+
+  function escHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
 
   function buildDishCard(dish) {
     return `<div class="dish-card">
@@ -344,72 +362,85 @@
     </div>`;
   }
 
-  function buildPanel(key, data, s, statusClass, badge, statusLabel, notice) {
-    const dishes = (data.dishes || []).map(buildDishCard).join('');
-    const tiffin = key === 'this_week' ? `
-      <div class="tiffin-info">
-        <div class="tiffin-fact"><div class="fact-label">Tiffin Days</div><div class="fact-value">${escHtml(s.tiffin_days || '—')}</div></div>
-        <div class="tiffin-fact"><div class="fact-label">Order Cutoff</div><div class="fact-value">${escHtml(s.order_cutoff || '—')}</div></div>
-        <div class="tiffin-fact"><div class="fact-label">Delivery</div><div class="fact-value">${escHtml(s.location || 'Shrewsbury, MA')}</div></div>
-        <div class="tiffin-fact"><div class="fact-label">Diet</div><div class="fact-value">100% Pure Veg</div></div>
-      </div>` : '';
-    const noticeHtml = notice ? `<div class="week-notice">${escHtml(notice)}</div>` : '';
-    return `<div class="week-panel${key === 'this_week' ? ' visible' : ''}" id="panel-${key}">
-      <div class="week-header">
-        <div class="week-badge">${badge}</div>
-        <div><div class="wh-label">${key === 'last_week' ? 'Last Week' : key === 'this_week' ? 'This Week' : 'Next Week'}</div>
-        <div class="wh-dates">${escHtml(data.dates || '')}</div></div>
-        <span class="week-status ${statusClass}">${escHtml(statusLabel)}</span>
-      </div>
-      <div class="dish-grid">${dishes}</div>
-      ${tiffin}${noticeHtml}
-    </div>`;
+  function step(n, title, sub, body) {
+    return `<section class="step">
+      <div class="step-head"><span class="step-num">${n}</span>
+        <div><h2>${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div></div>
+      ${body}
+    </section>`;
   }
 
-  function escHtml(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  // Rows that share a name (Solo, Hand-made Roti) become one card with a line per option.
+  function groupBy(rows) {
+    const out = [];
+    rows.forEach(r => {
+      let g = out.find(x => x.name === r.name);
+      if (!g) { g = { name: r.name, rows: [] }; out.push(g); }
+      g.rows.push(r);
+    });
+    return out;
   }
 
   function render(menu) {
-    // let the cover flow build from the same payload
-    document.dispatchEvent(new CustomEvent('ck:menu', { detail: menu }));
-
-    const s = menu.settings || {};
-    const t = menu.tiffin || {};
-
-    // Update CTA
-    if (s.phone_whatsapp) {
-      document.getElementById('cta-link').href = `https://wa.me/${s.phone_whatsapp}`;
-    }
-    // the CTA's cutoff, days and location are filled by scripts/site.js
+    const s  = menu.settings || {};
+    const w  = (menu.tiffin || {}).this_week || {};
+    const wo = menu.weekly_order || {};
     const loc = s.location || 'Shrewsbury, MA';
     document.getElementById('site-eyebrow').textContent = `${s.business_name || "Chaitrali's Kitchen"} · ${loc}`;
 
-    const tabs = `
-      <div class="week-tabs" role="tablist">
-        <button class="week-tab past" role="tab" data-panel="last_week" aria-selected="false">← Last Week</button>
-        <button class="week-tab now active" role="tab" data-panel="this_week" aria-selected="true">This Week</button>
-        <button class="week-tab next" role="tab" data-panel="next_week" aria-selected="false">Next Week →</button>
-      </div>`;
+    const facts = [
+      ['Order by', s.order_cutoff],
+      ['Delivery', w.dates ? `${w.dates}` : s.tiffin_days],
+      ['Free delivery', s.free_delivery_over ? `Orders over ${s.free_delivery_over}` : '']
+    ].filter(f => f[1]);
+    const strip = `<div class="order-strip">
+      ${facts.map(f => `<div class="os-fact"><span class="os-label">${f[0]}</span><span class="os-value">${escHtml(f[1])}</span></div>`).join('')}
+      <div class="os-cta"><a class="form-btn" data-order-form href="order.html">Order on the form →</a></div>
+    </div>`;
 
-    const lastW  = buildPanel('last_week',  t.last_week  || {}, s, 's-past', '📅', 'Ended',       'Menu changes every week. Subscribe to get notified of upcoming dishes before the order cutoff.');
-    const thisW  = buildPanel('this_week',  t.this_week  || {}, s, 's-now',  '🍱', 'Now Serving', '');
-    const nextW  = buildPanel('next_week',  t.next_week  || {}, s, 's-next', '🔔', 'Coming Soon', "Next week's full menu will be announced before the order cutoff. Check back or ask Chaitrali for early access.");
+    const combos = groupBy(wo.combos || []);
+    const comboHtml = combos.length ? step(1, 'Choose your combo', 'Every combo comes with complimentary rice.',
+      `<div class="combo-grid">${combos.map(c => {
+        const n = parseInt(c.rows[0].curries, 10);
+        const what = n ? `${n} ${n === 1 ? 'curry' : 'curries'} + complimentary rice` : 'with complimentary rice';
+        return `<div class="combo">
+          <div class="combo-name">${escHtml(c.name)}</div>
+          <div class="combo-what">${what}</div>
+          ${c.rows.map(r => `<div class="combo-size"><span>${escHtml(r.size)}</span><strong>${escHtml(r.price)}</strong></div>`).join('')}
+        </div>`;
+      }).join('')}</div>`) : '';
 
-    document.getElementById('tiffin-root').innerHTML = tabs + lastW + thisW + nextW;
+    const counts = [...new Set((wo.combos || []).map(c => parseInt(c.curries, 10)).filter(Boolean))].sort((a, b) => a - b);
+    const pickSub = counts.length ? `Pick ${counts.join(', ').replace(/, (\d+)$/, ' or $1')} — whatever your combo includes.` : '';
+    const dishes = w.dishes || [];
+    const curryHtml = dishes.length
+      ? step(combos.length ? 2 : 1, "This week's curries", pickSub, `<div class="dish-grid">${dishes.map(buildDishCard).join('')}</div>`)
+      : '';
 
-    // Tab switching
-    const tabEls  = document.querySelectorAll('.week-tab');
-    const panelMap = { last_week: 'panel-last_week', this_week: 'panel-this_week', next_week: 'panel-next_week' };
-    tabEls.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const key = tab.dataset.panel;
-        tabEls.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-        document.querySelectorAll('.week-panel').forEach(p => p.classList.remove('visible'));
-        tab.classList.add('active'); tab.setAttribute('aria-selected','true');
-        document.getElementById('panel-' + key).classList.add('visible');
-      });
-    });
+    const addons = groupBy(wo.addons || []);
+    const specials = wo.specials || [];
+    const extrasBody = `<div class="two-col">
+      ${addons.map(a => `<div class="price-card"><h3>${escHtml(a.name)}</h3>
+        ${a.rows.map(r => `<div class="price-row"><span>${escHtml(r.option)}</span><strong>${escHtml(r.price)}</strong></div>`).join('')}</div>`).join('')}
+      ${specials.length ? `<div class="price-card"><h3>This week's specials</h3>
+        ${specials.map(r => `<div class="price-row"><span>${escHtml(r.name)}${r.desc ? `<small>${escHtml(r.desc)}</small>` : ''}</span><strong>${escHtml(r.price)}</strong></div>`).join('')}</div>` : ''}
+    </div>`;
+    const extrasHtml = (addons.length || specials.length) ? step(combos.length ? 3 : 2, 'Add-ons &amp; specials', '', extrasBody) : '';
+
+    const zones = wo.zones || [];
+    const zoneHtml = zones.length ? `<section class="step">
+      <div class="step-head"><div><h2>Delivery &amp; pickup</h2><p>${escHtml(s.tiffin_days || '')}</p></div></div>
+      <div class="price-card">
+        ${zones.map(z => `<div class="price-row"><span>${escHtml(z.name)}<small>${escHtml(z.areas)}</small></span><strong>${escHtml(z.fee)}</strong></div>`).join('')}
+      </div>
+      ${s.free_delivery_over ? `<p class="zone-note">Free delivery on orders over ${escHtml(s.free_delivery_over)}.</p>` : ''}
+    </section>` : '';
+
+    const notes = s.order_notes || [];
+    const notesHtml = notes.length ? `<section class="step"><ul class="notes">${notes.map(n => `<li>${escHtml(n)}</li>`).join('')}</ul></section>` : '';
+
+    document.getElementById('tiffin-root').innerHTML = strip + comboHtml + curryHtml + extrasHtml + zoneHtml + notesHtml;
+    if (window.ckFillSettings) ckFillSettings(document.getElementById('tiffin-root'));
   }
 
   fetch(DATA_PATH)
@@ -428,7 +459,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Observer.min.js"></script>
 <script>
 /* Cover flow over the weekly menu.
-   Sleeves are this week's dishes first, then next and last week. Each photo is
+   Sleeves are this week's curries, then the specials. Each photo is
    images/menu-items/<dish name as a slug>.jpg — add a photo with that name and
    the dish joins the flow on its own. Dishes without a photo are skipped. */
 (function () {
@@ -452,8 +483,9 @@
 
   function candidates(menu) {
     var t = (menu && menu.tiffin) || {}, out = [], seen = {};
-    ['this_week', 'next_week', 'last_week'].forEach(function (k) {
-      ((t[k] || {}).dishes || []).forEach(function (d) {
+    var lists = [((t.this_week || {}).dishes || []), ((menu && menu.weekly_order) || {}).specials || []];
+    lists.forEach(function (list) {
+      list.forEach(function (d) {
         var sl = slug(d.name);
         if (!sl || seen[sl]) return;
         seen[sl] = 1;
@@ -554,11 +586,14 @@
     renderFlow();
   }
 
-  document.addEventListener('ck:menu', function (e) {
-    var list = candidates(e.detail);
+  // window.ckMenu (scripts/site.js) is the same menu.json request, and is
+  // still there however long this CDN script took to arrive.
+  if (!window.ckMenu) return;
+  window.ckMenu.then(function (menu) {
+    var list = candidates(menu);
     if (!list.length) return;
     keepExisting(list).then(start);
-  }, { once: true });
+  }).catch(function () {});
 })();
 </script>
 

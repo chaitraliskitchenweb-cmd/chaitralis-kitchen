@@ -165,7 +165,8 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
   <!-- Tabs -->
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('settings')">⚙️ Business Info</button>
-    <button class="tab-btn" onclick="switchTab('tiffin')">📅 Weekly Menu</button>
+    <button class="tab-btn" onclick="switchTab('tiffin')">📅 This Week's Curries</button>
+    <button class="tab-btn" onclick="switchTab('order')">🛒 Weekly Order</button>
     <button class="tab-btn" onclick="switchTab('events')">🎉 Events</button>
     <button class="tab-btn" onclick="switchTab('carousel')">🖼 Carousel</button>
   </div>
@@ -187,10 +188,18 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
     <div class="card">
       <h3>Order & Payment</h3>
       <div class="form-grid">
-        <div class="field"><label>Tiffin Days</label><input id="s-tiffin_days" oninput="markDirty()"></div>
-        <div class="field"><label>Order Cutoff</label><input id="s-order_cutoff" oninput="markDirty()"></div>
+        <div class="field"><label>Delivery Day &amp; Time</label><input id="s-tiffin_days" placeholder="e.g. Tuesday delivery · 6–9 PM" oninput="markDirty()"></div>
+        <div class="field"><label>Order Cutoff</label><input id="s-order_cutoff" placeholder="e.g. Sunday 5 PM" oninput="markDirty()"></div>
+        <div class="field"><label>Order Form Link (Google Form)</label><input id="s-order_form_url" placeholder="https://docs.google.com/forms/…" oninput="markDirty()"></div>
+        <div class="field"><label>Free Delivery Over</label><input id="s-free_delivery_over" placeholder="e.g. $70" oninput="markDirty()"></div>
         <div class="field"><label>Zelle (email/phone)</label><input id="s-payment_zelle" oninput="markDirty()"></div>
         <div class="field"><label>Venmo Handle</label><input id="s-payment_venmo" oninput="markDirty()"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Order Notes (one per line, shown with the menu)</h3>
+      <div class="form-grid wide">
+        <div class="field"><textarea id="s-order_notes" rows="4" placeholder="Payment is required to confirm your order.&#10;No size customizations." oninput="markDirty()"></textarea></div>
       </div>
     </div>
     <div class="card">
@@ -203,37 +212,22 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
 
   <!-- TIFFIN TAB -->
   <div class="tab-pane" id="tab-tiffin">
-    <div class="section-h"><h2>📅 Weekly Tiffin Menu</h2></div>
-
-    <!-- Last Week -->
+    <div class="section-h"><h2>📅 This Week's Curries</h2></div>
     <div class="card">
-      <div class="week-header"><h3>⬅ Last Week</h3></div>
-      <div class="dates-row"><label>Dates (e.g. Oct 1 – Oct 6, 2026)</label><input id="tiffin-last-dates" placeholder="e.g. Oct 1 – Oct 6, 2026" oninput="markDirty()"></div>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;line-height:1.6">Customers choose their combo's curries from this list. A dish with a photo in <code>images/menu-items/</code> named after it (e.g. <code>kadhai-paneer.jpg</code>) also shows in the photo flow.</p>
+      <div class="dates-row"><label>Delivery date (shown on the menu)</label><input id="tiffin-this-dates" placeholder="e.g. Tuesday, 3 November" oninput="markDirty()"></div>
       <div class="col-headers">
-        <div class="col-h">#</div><div class="col-h">Dish Name</div><div class="col-h">Description</div><div class="col-h">Category</div>
-      </div>
-      <div id="tiffin-last-dishes"></div>
-    </div>
-
-    <!-- This Week -->
-    <div class="card">
-      <div class="week-header"><h3>✨ This Week</h3></div>
-      <div class="dates-row"><label>Dates (e.g. Oct 7 – Oct 12, 2026)</label><input id="tiffin-this-dates" placeholder="e.g. Oct 7 – Oct 12, 2026" oninput="markDirty()"></div>
-      <div class="col-headers">
-        <div class="col-h">#</div><div class="col-h">Dish Name</div><div class="col-h">Description</div><div class="col-h">Category</div>
+        <div class="col-h">#</div><div class="col-h">Curry</div><div class="col-h">Short description</div><div class="col-h">Category</div>
       </div>
       <div id="tiffin-this-dishes"></div>
     </div>
+  </div>
 
-    <!-- Next Week -->
-    <div class="card">
-      <div class="week-header"><h3>➡ Next Week</h3></div>
-      <div class="dates-row"><label>Dates (e.g. Oct 14 – Oct 19, 2026)</label><input id="tiffin-next-dates" placeholder="e.g. Oct 14 – Oct 19, 2026" oninput="markDirty()"></div>
-      <div class="col-headers">
-        <div class="col-h">#</div><div class="col-h">Dish Name</div><div class="col-h">Description</div><div class="col-h">Category</div>
-      </div>
-      <div id="tiffin-next-dishes"></div>
-    </div>
+  <!-- WEEKLY ORDER TAB -->
+  <div class="tab-pane" id="tab-order">
+    <div class="section-h"><h2>🛒 Weekly Order</h2></div>
+    <p style="font-size:.85rem;color:var(--muted);margin:-6px 0 18px;line-height:1.6">Everything here appears on the Tiffin Menu and Order pages. Keep it matching the Google Form.</p>
+    <div id="order-lists"></div>
   </div>
 
   <!-- EVENTS TAB -->
@@ -452,6 +446,7 @@ function setCell(ws, row, col, value) {
 function populateAll() {
   populateSettings();
   populateTiffin();
+  populateOrder();
   populateEvents();
   populateCarousel();
 }
@@ -459,7 +454,8 @@ function populateAll() {
 function populateSettings() {
   const ws = getSheet('⚙️ Business Info');
   const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
-                   tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14 };
+                   tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14,
+                   order_form_url:15, free_delivery_over:16, order_notes:17 };
   for (const [key, row] of Object.entries(fields)) {
     const el = document.getElementById('s-' + key);
     if (el) el.value = cellVal(ws, row, 2);
@@ -468,7 +464,8 @@ function populateSettings() {
 
 function populateTiffin() {
   const ws = getSheet('📅 Weekly Tiffin Menu');
-  for (const week of ['last','this','next']) {
+  // Last and next week are no longer shown on the site; only this week is edited.
+  for (const week of ['this']) {
     const meta = TIFFIN_META[week];
     const dates = cellVal(ws, meta.dateLabelRow, 2) || cellVal(ws, meta.dateLabelRow, 1);
     const datesEl = document.getElementById(`tiffin-${week}-dates`);
@@ -486,7 +483,7 @@ function populateTiffin() {
       row.dataset.week = week;
       row.innerHTML = `
         <span class="dish-num">${idx}</span>
-        <input class="dish-name" placeholder="Dish name…" value="${esc(name)}" oninput="markDirty()">
+        <input class="dish-name" placeholder="Curry name…" value="${esc(name)}" oninput="markDirty()">
         <input class="dish-desc" placeholder="Short description…" value="${esc(desc)}" oninput="markDirty()">
         <select class="dish-tag tag-cell" onchange="markDirty()">
           ${CATEGORIES.map(c => `<option value="${c}" ${c===tag?'selected':''}>${c}</option>`).join('')}
@@ -715,6 +712,106 @@ function renderSection(ei, si, sec) {
     </div>`;
 }
 
+// ─── WEEKLY ORDER ─────────────────────────────────────────────
+// Combos, add-ons, specials and delivery zones live on the "🛒 Weekly Order"
+// sheet, each list under a "▸ <name>" row and a column-header row. Like the
+// events, the lists are parsed into a model and the sheet is rebuilt on save.
+const ORDER_SHEET = '🛒 Weekly Order';
+const ORDER_LISTS = [
+  { key:'combos',   title:'Combos',         word:'combo',   cols:[['name','Combo','Solo'],['size','Size','Standard (16 oz)'],['curries','Curries','1'],['price','Price','$18.99']] },
+  { key:'addons',   title:'Add-ons',        word:'add',     cols:[['name','Item','Hand-made Roti'],['option','Option','5 Rotis'],['price','Price','$7']] },
+  { key:'specials', title:'Specials',       word:'special', cols:[['name','Dish','Sabudana Khichadi'],['desc','Description','optional'],['price','Price','$9.99']] },
+  { key:'zones',    title:'Delivery Zones', word:'zone',    cols:[['name','Zone','Zone A'],['areas','Areas / Address','Worcester, Auburn & Shrewsbury'],['fee','Fee','$5']] },
+];
+let orderModel = { combos:[], addons:[], specials:[], zones:[] };
+
+function populateOrder() {
+  orderModel = { combos:[], addons:[], specials:[], zones:[] };
+  const ws = wb.Sheets[ORDER_SHEET];
+  if (ws) {
+    let cur = null, skipHeader = false;
+    for (let r = 1; r <= sheetMaxRow(ws); r++) {
+      const a = cellVal(ws, r, 1);
+      if (a.startsWith('▸')) {
+        const label = a.replace('▸','').trim().toLowerCase();
+        const list = ORDER_LISTS.find(l => label.includes(l.word));
+        cur = list || null; skipHeader = true;
+        continue;
+      }
+      if (!cur || !a) continue;
+      if (skipHeader) { skipHeader = false; continue; }
+      const item = {};
+      cur.cols.forEach(([f], i) => { item[f] = cellVal(ws, r, i + 1); });
+      orderModel[cur.key].push(item);
+    }
+  }
+  renderOrder();
+}
+
+function syncOrderFromDom() {
+  document.querySelectorAll('#order-lists .order-row').forEach(row => {
+    const item = orderModel[row.dataset.list][+row.dataset.i];
+    if (!item) return;
+    row.querySelectorAll('input').forEach(inp => { item[inp.dataset.f] = inp.value.trim(); });
+  });
+}
+
+function renderOrder() {
+  const box = document.getElementById('order-lists');
+  box.innerHTML = ORDER_LISTS.map(l => {
+    const tpl = l.cols.map(() => '1fr').join(' ') + ' 28px';
+    return `
+    <div class="card">
+      <h3>${l.title}</h3>
+      <div style="display:grid;grid-template-columns:${tpl};gap:8px;margin-bottom:6px">
+        ${l.cols.map(([, label]) => `<span class="col-h">${label}</span>`).join('')}<span></span>
+      </div>
+      ${orderModel[l.key].map((item, i) => `
+        <div class="order-row" data-list="${l.key}" data-i="${i}" style="display:grid;grid-template-columns:${tpl};gap:8px;margin-bottom:8px">
+          ${l.cols.map(([f, , ph]) => `<input data-f="${f}" value="${esc(item[f])}" placeholder="${esc(ph)}" oninput="markDirty()"
+             style="border:1px solid var(--border);border-radius:6px;padding:8px 10px;font:inherit;font-size:.85rem;width:100%">`).join('')}
+          <button class="del-btn" title="Remove" onclick="removeOrderRow('${l.key}',${i})">✕</button>
+        </div>`).join('')}
+      <button class="add-row-btn" onclick="addOrderRow('${l.key}')">＋ Add ${l.title.toLowerCase().replace(/s$/, '')}</button>
+    </div>`;
+  }).join('');
+}
+
+function addOrderRow(key) {
+  syncOrderFromDom();
+  orderModel[key].push({});
+  renderOrder(); markDirty();
+}
+
+function removeOrderRow(key, i) {
+  syncOrderFromDom();
+  orderModel[key].splice(i, 1);
+  renderOrder(); markDirty();
+}
+
+function collectOrder() {
+  syncOrderFromDom();
+  const aoa = [
+    ['🛒  Weekly Order — Combos, Add-ons, Specials & Delivery'],
+    ["Edit from the admin page. Each list can have as many rows as you need. This week's curries are on the Weekly Tiffin Menu sheet (This Week)."],
+    []
+  ];
+  for (const l of ORDER_LISTS) {
+    aoa.push(['▸ ' + l.title]);
+    aoa.push(l.cols.map(([, label]) => label));
+    for (const item of orderModel[l.key]) {
+      if (!(item.name || '').trim()) continue;     // a row without a name is dropped
+      aoa.push(l.cols.map(([f]) => item[f] || ''));
+    }
+    aoa.push([]);
+  }
+  wb.Sheets[ORDER_SHEET] = XLSX.utils.aoa_to_sheet(aoa);
+  if (!wb.SheetNames.includes(ORDER_SHEET)) {
+    const at = wb.SheetNames.indexOf('📅 Weekly Tiffin Menu');
+    wb.SheetNames.splice(at >= 0 ? at + 1 : wb.SheetNames.length, 0, ORDER_SHEET);
+  }
+}
+
 // ─── STRUCTURAL EDITS ─────────────────────────────────────────
 function addDish(ei, si) {
   const sec = eventsModel[ei] && eventsModel[ei].sections[si];
@@ -804,6 +901,7 @@ function populateCarousel() {
 function collectAll() {
   collectSettings();
   collectTiffin();
+  collectOrder();
   collectEvents();
   collectCarousel();
 }
@@ -811,7 +909,8 @@ function collectAll() {
 function collectSettings() {
   const ws = getSheet('⚙️ Business Info');
   const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
-                   tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14 };
+                   tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14,
+                   order_form_url:15, free_delivery_over:16, order_notes:17 };
   for (const [key, row] of Object.entries(fields)) {
     const el = document.getElementById('s-' + key);
     if (el) setCell(ws, row, 2, el.value);
@@ -820,7 +919,7 @@ function collectSettings() {
 
 function collectTiffin() {
   const ws = getSheet('📅 Weekly Tiffin Menu');
-  for (const week of ['last','this','next']) {
+  for (const week of ['this']) {
     const meta = TIFFIN_META[week];
     const datesEl = document.getElementById(`tiffin-${week}-dates`);
     if (datesEl) setCell(ws, meta.dateLabelRow, 2, datesEl.value);

@@ -273,6 +273,13 @@ a { text-decoration:none; color:inherit; }
 :root { --olive-fill:#6b820d; --olive-fill-h:#8fa812; --fg-xs:#76766e; --navy-ink:#1A2B4A; --wa:#168a45; --wa-h:#11733a; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --olive-fill:#5f760c; --olive-fill-h:#6b820d; --navy-ink:#8fb0e8; --wa:#168a45; --wa-h:#11733a; --fg-xs:#8a8a82; } }
 :root[data-theme="dark"] { --olive-fill:#5f760c; --olive-fill-h:#6b820d; --navy-ink:#8fb0e8; --wa:#168a45; --wa-h:#11733a; --fg-xs:#8a8a82; }
+.form-cta { display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin:-6px 0 28px; }
+.form-cta span { font-size:12.5px; color:var(--fg-s); }
+.form-btn {
+  display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 26px;
+  border-radius:100px; background:var(--olive-fill); color:#fff; font-size:14px; font-weight:600; text-decoration:none;
+}
+.form-btn:hover { background:var(--olive-fill-h); }
 </style>
 <link rel="stylesheet" href="../scripts/site.css">
 </head>
@@ -305,7 +312,7 @@ a { text-decoration:none; color:inherit; }
 <header class="page-header">
   <div class="eyebrow">Chaitrali's Kitchen · Shrewsbury, MA</div>
   <h1>Place Your <em>Order</em></h1>
-  <p>Weekly Tiffin · Festival Catering · Custom Events — all via WhatsApp or phone</p>
+  <p>Weekly Tiffin on our order form · Festival Catering &amp; Custom Events by WhatsApp or phone</p>
 </header>
 
 <div class="wrap">
@@ -316,8 +323,8 @@ a { text-decoration:none; color:inherit; }
     <div class="otype-card selected" onclick="selectType(this,'tiffin')">
       <div class="otype-icon">🍱</div>
       <div class="otype-title">Weekly Tiffin</div>
-      <div class="otype-desc">Home-cooked meal box, new menu every week. <span data-setting="tiffin_days">Every Tuesday</span>. Order by <span data-setting="order_cutoff">Sunday Noon</span>.</div>
-      <span class="otype-badge badge-olive">Order closes <span data-setting="order_cutoff">Sunday Noon</span></span>
+      <div class="otype-desc">Pick a Solo, Family or Feast combo and choose this week's curries. <span data-setting="tiffin_days">Tuesday delivery · 6–9 PM</span>.</div>
+      <span class="otype-badge badge-olive">Order by <span data-setting="order_cutoff">Sunday 5 PM</span></span>
     </div>
     <div class="otype-card" onclick="selectType(this,'festival')">
       <div class="otype-icon">🪔</div>
@@ -335,7 +342,7 @@ a { text-decoration:none; color:inherit; }
 
   <!-- This Week's Menu preview (shown by default for tiffin) -->
   <div id="tiffinPreview">
-    <div class="section-label">This week's dishes</div>
+    <div class="section-label">This week's curries</div>
     <div class="menu-preview">
       <div class="menu-preview-head">
         <h3 id="weekLabel">Loading…</h3>
@@ -350,41 +357,29 @@ a { text-decoration:none; color:inherit; }
   <!-- How to Order -->
   <div class="section-label">How to order</div>
   <div class="how-steps" id="howSteps">
-    <div class="how-step">
-      <div class="step-num">Step 1</div>
-      <div class="step-title">Check the Menu</div>
-      <div class="step-body">Browse this week's dishes on the <a href="weekly-menu.html" style="color:var(--olive);">Tiffin Menu</a> page.</div>
-    </div>
-    <div class="how-step">
-      <div class="step-num">Step 2</div>
-      <div class="step-title">WhatsApp or Call</div>
-      <div class="step-body">Message Chaitrali by <span data-setting="order_cutoff">Sunday Noon</span> with the dishes you want and how many servings.</div>
-    </div>
-    <div class="how-step">
-      <div class="step-num">Step 3</div>
-      <div class="step-title">Confirm & Pay</div>
-      <div class="step-body">She'll confirm availability and send your total. Pay via Zelle or Venmo.</div>
-    </div>
-    <div class="how-step">
-      <div class="step-num">Step 4</div>
-      <div class="step-title">Pickup or Delivery</div>
-      <div class="step-body"><span data-setting="tiffin_days">Every Tuesday</span>. Pickup in Shrewsbury, or delivery within the area for a small fee.</div>
-    </div>
+      <div class="how-step"><div class="step-num">Step 1</div><div class="step-title">See the Menu</div><div class="step-body">Combos, this week's curries, add-ons and specials are on the <a href="weekly-menu.html" style="color:var(--olive);">Tiffin Menu</a> page.</div></div>
+      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">Fill in the Form</div><div class="step-body">Choose your combo, curries, add-ons and delivery zone on our order form by <span data-setting="order_cutoff">Sunday 5 PM</span>.</div></div>
+      <div class="how-step"><div class="step-num">Step 3</div><div class="step-title">Pay the Invoice</div><div class="step-body">We send an invoice once your order arrives. Payment confirms it.</div></div>
+      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Delivery or Pickup</div><div class="step-body"><span data-setting="tiffin_days">Tuesday delivery · 6–9 PM</span>, priced by zone, or free pickup in Shrewsbury.</div></div>
+  </div>
+  <div class="form-cta" id="formCta">
+    <a class="form-btn" data-order-form href="weekly-menu.html">Open the order form →</a>
+    <span>Free delivery on orders over <span data-setting="free_delivery_over">$70</span></span>
   </div>
 
   <!-- Info Bar -->
   <div class="info-bar">
     <div class="info-item">
-      <span class="ii-label">Tiffin Days</span>
-      <span class="ii-val" data-setting="tiffin_days">Every Tuesday</span>
+      <span class="ii-label">Delivery</span>
+      <span class="ii-val" data-setting="tiffin_days">Tuesday delivery · 6–9 PM</span>
     </div>
     <div class="info-item">
-      <span class="ii-label">Order Cutoff</span>
-      <span class="ii-val" data-setting="order_cutoff">Sunday Noon</span>
+      <span class="ii-label">Order By</span>
+      <span class="ii-val" data-setting="order_cutoff">Sunday 5 PM</span>
     </div>
     <div class="info-item">
-      <span class="ii-label">Pickup</span>
-      <span class="ii-val">Shrewsbury, MA</span>
+      <span class="ii-label">Free Delivery Over</span>
+      <span class="ii-val" data-setting="free_delivery_over">$70</span>
     </div>
     <div class="info-item">
       <span class="ii-label">Diet</span>
@@ -392,7 +387,7 @@ a { text-decoration:none; color:inherit; }
     </div>
     <div class="info-item">
       <span class="ii-label">Payment</span>
-      <span class="ii-val">Zelle · Venmo</span>
+      <span class="ii-val">Invoice after you order</span>
     </div>
   </div>
 
@@ -402,8 +397,8 @@ a { text-decoration:none; color:inherit; }
     <div class="contact-card">
       <div class="cc-label">WhatsApp</div>
       <div class="cc-value">617-320-5229</div>
-      <div class="cc-note">Fastest way to order. Send your dish list and serving size.</div>
-      <a class="cc-action cc-wa" href="https://wa.me/16173205229?text=Hi%20Chaitrali!%20I%20would%20like%20to%20order%20this%20week%27s%20tiffin." target="_blank">
+      <div class="cc-note">Questions about the menu, or festival and event orders.</div>
+      <a class="cc-action cc-wa" href="https://wa.me/16173205229?text=Hi%20Chaitrali!" target="_blank">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
         Message on WhatsApp
       </a>
@@ -428,13 +423,10 @@ a { text-decoration:none; color:inherit; }
     </div>
     <div class="contact-card">
       <div class="cc-label">Payment</div>
-      <div class="cc-value">Zelle · Venmo</div>
-      <div class="cc-note">Pay after confirming your order. No payment needed to place the order request.</div>
+      <div class="cc-value">Invoice · Zelle</div>
+      <div class="cc-note">We send an invoice once your order arrives. Payment confirms the order.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
         <span class="cc-action cc-zelle" style="font-size:11.5px;padding:7px 13px;">Zelle: chaitraliskitchen@gmail.com</span>
-      </div>
-      <div>
-        <span class="cc-action cc-venmo" style="font-size:11.5px;padding:7px 13px;">Venmo: @Chaitralis-Kitchen</span>
       </div>
     </div>
   </div>
@@ -456,7 +448,8 @@ fetch('../data/menu.json')
   .then(r => r.json())
   .then(data => {
     const tw = data.tiffin.this_week;
-    document.getElementById('weekLabel').textContent = 'This Week · ' + tw.dates;
+    const esc = t => String(t || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    document.getElementById('weekLabel').textContent = tw.dates ? 'This Week · ' + tw.dates : 'This Week';
     const tagMap = {
       gravy:'badge-olive', rassa:'badge-teal', dal:'badge-gold',
       dry:'badge-olive', usal:'badge-purple', spicy:'badge-gold',
@@ -464,9 +457,9 @@ fetch('../data/menu.json')
     };
     document.getElementById('dishesRow').innerHTML = tw.dishes.map(d => `
       <div class="dish-chip">
-        <div class="dc-name">${d.name}</div>
-        <div class="dc-desc">${d.desc}</div>
-        ${d.tag_label ? `<span class="dc-tag ${tagMap[d.tag]||''}">${d.tag_label}</span>` : ''}
+        <div class="dc-name">${esc(d.name)}</div>
+        <div class="dc-desc">${esc(d.desc)}</div>
+        ${d.tag_label ? `<span class="dc-tag ${tagMap[d.tag]||''}">${esc(d.tag_label)}</span>` : ''}
       </div>
     `).join('');
   })
@@ -485,6 +478,7 @@ function selectType(el, type) {
   const tiffinPreview = document.getElementById('tiffinPreview');
   const howSteps = document.getElementById('howSteps');
   tiffinPreview.style.display = type === 'tiffin' ? 'block' : 'none';
+  document.getElementById('formCta').style.display = type === 'tiffin' ? '' : 'none';
 
   if (type === 'festival') {
     howSteps.innerHTML = `
@@ -502,10 +496,10 @@ function selectType(el, type) {
     `;
   } else {
     howSteps.innerHTML = `
-      <div class="how-step"><div class="step-num">Step 1</div><div class="step-title">Check the Menu</div><div class="step-body">Browse this week's dishes on the <a href="weekly-menu.html" style="color:var(--olive);">Tiffin Menu</a> page.</div></div>
-      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">WhatsApp or Call</div><div class="step-body">Message Chaitrali by <span data-setting="order_cutoff">Sunday Noon</span> with the dishes you want and how many servings.</div></div>
-      <div class="how-step"><div class="step-num">Step 3</div><div class="step-title">Confirm & Pay</div><div class="step-body">She'll confirm availability and send your total. Pay via Zelle or Venmo.</div></div>
-      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Pickup or Delivery</div><div class="step-body"><span data-setting="tiffin_days">Every Tuesday</span>. Pickup in Shrewsbury, or delivery within the area for a small fee.</div></div>
+      <div class="how-step"><div class="step-num">Step 1</div><div class="step-title">See the Menu</div><div class="step-body">Combos, this week's curries, add-ons and specials are on the <a href="weekly-menu.html" style="color:var(--olive);">Tiffin Menu</a> page.</div></div>
+      <div class="how-step"><div class="step-num">Step 2</div><div class="step-title">Fill in the Form</div><div class="step-body">Choose your combo, curries, add-ons and delivery zone on our order form by <span data-setting="order_cutoff">Sunday 5 PM</span>.</div></div>
+      <div class="how-step"><div class="step-num">Step 3</div><div class="step-title">Pay the Invoice</div><div class="step-body">We send an invoice once your order arrives. Payment confirms it.</div></div>
+      <div class="how-step"><div class="step-num">Step 4</div><div class="step-title">Delivery or Pickup</div><div class="step-body"><span data-setting="tiffin_days">Tuesday delivery · 6–9 PM</span>, priced by zone, or free pickup in Shrewsbury.</div></div>
     `;
   }
   if (window.ckFillSettings) ckFillSettings(howSteps);

@@ -6,11 +6,18 @@
     "phone_whatsapp": "16173205229",
     "email": "chaitraliskitchen@gmail.com",
     "location": "Shrewsbury, MA",
-    "tiffin_days": "Every Tuesday Delivery.Pickup",
-    "order_cutoff": "Sunday Noon",
+    "tiffin_days": "Tuesday delivery · 6–9 PM",
+    "order_cutoff": "Sunday 5 PM",
     "payment_zelle": "chaitraliskitchen@gmail.com",
     "payment_venmo": "Not Applicable",
-    "allergy_note": "Our food is prepared in a cloud kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible. For allergies you will need to inform while placing the order."
+    "allergy_note": "Our food is prepared in a cloud kitchen that handles dairy, gluten (wheat), peanuts, tree nuts, sesame and mustard. Cross-contact is possible. For allergies you will need to inform while placing the order.",
+    "order_form_url": "https://docs.google.com/forms/d/e/1FAIpQLSevhaOVGf0R5J4cgUvdcUHZdhy2OTCrVosa_7H4ZUtOEVOc4w/viewform",
+    "free_delivery_over": "$70",
+    "order_notes": [
+      "Payment is required to confirm your order. We send the invoice once we receive it.",
+      "No size customizations.",
+      "Many vegan and gluten-free options available."
+    ]
   },
   "carousel": [
     {
@@ -64,27 +71,39 @@
       "dishes": [
         {
           "name": "Saoji Masala Vangi",
-          "desc": "Nagpur-style Spicy Brinjal Curry",
+          "desc": "Nagpur-style spicy brinjal curry",
           "tag": "spicy",
           "tag_label": "Spicy Gravy"
         },
         {
-          "name": "Batata Rassa",
-          "desc": "Thin Potato Curry",
-          "tag": "rassa",
-          "tag_label": "Rassa"
+          "name": "Flower Batata Matar",
+          "desc": "Cauliflower, potato & green peas",
+          "tag": "gravy",
+          "tag_label": "Gravy"
         },
         {
-          "name": "Matki chi Usal",
-          "desc": "Sprouted Moth Bean Curry",
+          "name": "Mix Kathol",
+          "desc": "Mixed lentil curry",
           "tag": "usal",
           "tag_label": "Usal"
         },
         {
-          "name": "Kobi Matar",
-          "desc": "Cabbage & Green Peas",
-          "tag": "dry",
-          "tag_label": "Dry Sabzi"
+          "name": "Chole",
+          "desc": "Chickpea curry",
+          "tag": "gravy",
+          "tag_label": "Gravy"
+        },
+        {
+          "name": "Kadhai Paneer",
+          "desc": "Paneer & peppers in kadhai masala",
+          "tag": "gravy",
+          "tag_label": "Gravy"
+        },
+        {
+          "name": "Dal Tadka",
+          "desc": "Tempered yellow lentils",
+          "tag": "dal",
+          "tag_label": "Dal"
         }
       ]
     },
@@ -526,5 +545,96 @@
       "active": true,
       "sections": []
     }
+  },
+  "weekly_order": {
+    "combos": [
+      {
+        "name": "Solo",
+        "size": "Standard (16 oz)",
+        "curries": "1",
+        "price": "$18.99"
+      },
+      {
+        "name": "Solo",
+        "size": "Large (32 oz)",
+        "curries": "1",
+        "price": "$28.99"
+      },
+      {
+        "name": "Family",
+        "size": "Standard (16 oz)",
+        "curries": "3",
+        "price": "$52.99"
+      },
+      {
+        "name": "Family",
+        "size": "Large (32 oz)",
+        "curries": "3",
+        "price": "$79.99"
+      },
+      {
+        "name": "Feast",
+        "size": "Standard (16 oz)",
+        "curries": "5",
+        "price": "$84.99"
+      },
+      {
+        "name": "Feast",
+        "size": "Large (32 oz)",
+        "curries": "5",
+        "price": "$108.99"
+      }
+    ],
+    "addons": [
+      {
+        "name": "Hand-made Roti",
+        "option": "5 Rotis",
+        "price": "$7"
+      },
+      {
+        "name": "Hand-made Roti",
+        "option": "10 Rotis",
+        "price": "$12"
+      },
+      {
+        "name": "Hand-made Roti",
+        "option": "20 Rotis",
+        "price": "$19"
+      }
+    ],
+    "specials": [
+      {
+        "name": "Hakka Noodles with Veg Manchurian",
+        "desc": "",
+        "price": "$16.99"
+      },
+      {
+        "name": "Sabudana Khichadi",
+        "desc": "",
+        "price": "$9.99"
+      }
+    ],
+    "zones": [
+      {
+        "name": "Zone A",
+        "areas": "Worcester, Auburn & Shrewsbury",
+        "fee": "$5"
+      },
+      {
+        "name": "Zone B",
+        "areas": "Southborough, Northborough, Westborough, Grafton",
+        "fee": "$7"
+      },
+      {
+        "name": "Zone C",
+        "areas": "Framingham, Marlborough, Milford, Leominster, Hopkinton, Ashland",
+        "fee": "$10"
+      },
+      {
+        "name": "Pickup",
+        "areas": "1000 Boston Turnpike, Shrewsbury, MA · 6:30–7:00 PM",
+        "fee": "Free"
+      }
+    ]
   }
 }

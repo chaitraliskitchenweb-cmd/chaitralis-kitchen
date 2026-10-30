@@ -53,7 +53,7 @@ TAG_MAP = {
 }
 
 # ── 1. Business Settings ───────────────────────────────────────────────────────
-# Sheet: ⚙️ Business Info, Column A = label, Column B = value (rows 4–14)
+# Sheet: ⚙️ Business Info, Column A = label, Column B = value (rows 4–17)
 ws_biz = wb["⚙️ Business Info"]
 settings = {
     "business_name":  v(ws_biz, 4,  2),
@@ -67,6 +67,9 @@ settings = {
     "payment_zelle":  v(ws_biz, 12, 2),
     "payment_venmo":  v(ws_biz, 13, 2),
     "allergy_note":   v(ws_biz, 14, 2),
+    "order_form_url": v(ws_biz, 15, 2),
+    "free_delivery_over": v(ws_biz, 16, 2),
+    "order_notes":    [line.strip() for line in v(ws_biz, 17, 2).splitlines() if line.strip()],
 }
 
 # ── 2. Carousel Images ────────────────────────────────────────────────────────
@@ -237,12 +240,48 @@ for idx, head in enumerate(header_rows):
         ],
     }
 
-# ── 5. Assemble & Write ───────────────────────────────────────────────────────
+# ── 5. Weekly Order ───────────────────────────────────────────────────────────
+# Sheet: 🛒 Weekly Order. Lists of any length, each under a "▸ <name>" row
+# followed by one column-header row:
+#
+#   ▸ Combos          Combo | Size | Curries | Price
+#   ▸ Add-ons         Item  | Option | Price
+#   ▸ Specials        Dish  | Description | Price
+#   ▸ Delivery Zones  Zone  | Areas / Address | Fee
+#
+# This week's curries are the This Week dishes on the Weekly Tiffin sheet.
+ORDER_LISTS = {
+    "combos":   ("combo",    ["name", "size", "curries", "price"]),
+    "addons":   ("add",      ["name", "option", "price"]),
+    "specials": ("special",  ["name", "desc", "price"]),
+    "zones":    ("zone",     ["name", "areas", "fee"]),
+}
+weekly_order = {key: [] for key in ORDER_LISTS}
+if "🛒 Weekly Order" in wb.sheetnames:
+    ws_order = wb["🛒 Weekly Order"]
+    current, skip_header = None, False
+    for r in range(1, ws_order.max_row + 1):
+        col_a = v(ws_order, r, 1)
+        if col_a.startswith("▸"):
+            label = col_a.replace("▸", "").strip().lower()
+            current = next((k for k, (word, _) in ORDER_LISTS.items() if word in label), None)
+            skip_header = True
+            continue
+        if not current or not col_a:
+            continue
+        if skip_header:                      # the column-header row under "▸ name"
+            skip_header = False
+            continue
+        fields = ORDER_LISTS[current][1]
+        weekly_order[current].append({f: v(ws_order, r, i + 1) for i, f in enumerate(fields)})
+
+# ── 6. Assemble & Write ───────────────────────────────────────────────────────
 menu = {
     "settings": settings,
     "carousel":  carousel,
     "tiffin":   tiffin,
     "events":   events,
+    "weekly_order": weekly_order,
 }
 
 OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
