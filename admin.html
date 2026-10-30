@@ -17,7 +17,8 @@
 body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
 /* Top bar */
-.topbar { background: var(--navy); color: white; padding: 14px 24px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,.3); }
+.topbar { background: var(--navy); color: white; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,.3); }
+@media(max-width:600px){ .topbar { padding: 10px 14px; } .topbar .brand { flex-basis: 100%; } .topbar .save-btn { min-height: 40px; } }
 .topbar .brand { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--gold); flex: 1; }
 .topbar .badge { font-size: .7rem; background: var(--olive); color: white; padding: 3px 10px; border-radius: 20px; font-weight: 600; letter-spacing: .05em; }
 .topbar .save-btn { background: var(--gold); color: var(--navy); border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; font-family: 'Poppins',sans-serif; cursor: pointer; font-size: .85rem; transition: .15s; }
@@ -40,7 +41,7 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
 #app { display: none; max-width: 960px; margin: 0 auto; padding: 24px 20px; }
 
 /* Tabs */
-.tabs { display: flex; gap: 4px; background: var(--card); padding: 6px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 24px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--card); padding: 6px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 24px; }
 .tab-btn { flex: 1; padding: 9px 12px; border: none; background: transparent; border-radius: 7px; font-family: 'Poppins', sans-serif; font-size: .85rem; font-weight: 500; color: var(--muted); cursor: pointer; transition: .15s; }
 .tab-btn.active { background: var(--navy); color: white; }
 .tab-pane { display: none; }

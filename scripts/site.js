@@ -8,6 +8,22 @@
   'use strict';
 
   var src = document.currentScript && document.currentScript.src;
+
+  // Phone menu: say whether it is open, and close it once a link is chosen.
+  var nav = document.getElementById('ck-nav');
+  var burger = nav && nav.querySelector('.ck-burger');
+  if (burger) {
+    burger.setAttribute('aria-expanded', 'false');
+    burger.addEventListener('click', function () {
+      burger.setAttribute('aria-expanded', String(nav.classList.contains('open')));
+    });
+    nav.querySelectorAll('.ck-links a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
   var url = new URL('../data/menu.json', src || location.href).href;
 
   window.ckMenu = fetch(url)

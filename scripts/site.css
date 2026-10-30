@@ -1,6 +1,48 @@
 /* Shared by every page; scripts/site.js adds the elements these style. */
 
 /* ══════════════════════════════════════
+   NAV ON PHONES AND SMALL TABLETS
+   Each page styles its own nav; below 780px they all collapse to the
+   ☰ menu the same way, so the Order button and ☰ never run off-screen.
+══════════════════════════════════════ */
+.ck-order, .ck-order-btn { display:inline-flex; align-items:center; min-height:36px; }
+@media (max-width:780px) {
+  .ck-nav { padding-left:14px; padding-right:14px; gap:8px; }
+  .ck-links {
+    display:none; position:absolute; top:100%; left:0; right:0; z-index:201;
+    flex-direction:column; gap:0; margin:0; padding:6px 20px 12px;
+    /* solid, so the page never shows through; matches each page's nav bar */
+    background:#fff;
+    border-bottom:1px solid rgba(107,130,13,.18);
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+  }
+  .ck-nav.open .ck-links { display:flex; }
+  /* the home and Order pages' nav bars turn dark with the theme; the others stay white */
+  @media (prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) .topstack .ck-links,
+    :root:not([data-theme="light"]) .ck-nav:has(.ck-right) .ck-links { background:#1c1c20; }
+  }
+  .ck-links a { display:block; padding:12px 0; font-size:15px; }
+  .ck-burger {
+    display:inline-flex !important; align-items:center; justify-content:center;
+    width:44px; height:44px; padding:0; flex-shrink:0; font-size:24px;
+  }
+  .ck-countdown .cd-label { display:none; }
+}
+@media (max-width:440px) {
+  .ck-countdown { display:none !important; }   /* each page shows the cutoff in its own content */
+  .ck-brand span, .ck-brand-text { font-size:.9rem; }
+  .ck-brand img { width:30px; height:30px; }
+  .ck-order, .ck-order-btn { padding:0 14px; font-size:12px; }
+}
+@media (max-width:360px) {
+  .ck-nav { padding-left:10px; padding-right:6px; gap:6px; }
+  .ck-brand { gap:6px; }
+  .ck-brand span, .ck-brand-text { font-size:.8rem; }
+  .ck-order, .ck-order-btn { padding:0 11px; }
+}
+
+/* ══════════════════════════════════════
    COUNTDOWN — the cooker whistles in the last hour
 ══════════════════════════════════════ */
 .cd-cooker { display:none; position:relative; width:22px; height:22px; flex-shrink:0; }
