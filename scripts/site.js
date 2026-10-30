@@ -22,11 +22,17 @@
       var v = settings[el.getAttribute('data-setting')];
       if (v != null && String(v).trim()) el.textContent = String(v).trim();
     });
-    // Order buttons open the weekly Google Form once it is set; until then
-    // they keep their href (the Order page).
+    // Order buttons go to the order form on the Order page once its Orders
+    // sheet is connected (order_endpoint), else to the Google Form, else they
+    // keep their href.
+    var links = (root || document).querySelectorAll('a[data-order-form]');
+    var endpoint = String(settings.order_endpoint || '').trim();
     var form = String(settings.order_form_url || '').trim();
-    if (/^https:\/\//.test(form)) {
-      (root || document).querySelectorAll('a[data-order-form]').forEach(function (a) {
+    if (/^https:\/\/script\.google(usercontent)?\.com\//.test(endpoint)) {
+      var build = new URL('../pages/order.html#build', src || location.href).href;
+      links.forEach(function (a) { a.href = build; a.removeAttribute('target'); });
+    } else if (/^https:\/\//.test(form)) {
+      links.forEach(function (a) {
         a.href = form;
         a.target = '_blank';
         a.rel = 'noopener';

@@ -195,6 +195,10 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
         <div class="field"><label>Zelle (email/phone)</label><input id="s-payment_zelle" oninput="markDirty()"></div>
         <div class="field"><label>Venmo Handle</label><input id="s-payment_venmo" oninput="markDirty()"></div>
       </div>
+      <div class="form-grid wide" style="margin-top:14px">
+        <div class="field"><label>Order Sheet Link (website order form)</label><input id="s-order_endpoint" placeholder="https://script.google.com/macros/s/…/exec" oninput="markDirty()">
+          <span style="font-size:.78rem;color:var(--muted);line-height:1.5">Paste the web-app link from the Orders sheet's Apps Script. While this is blank, the Order buttons open the Google Form above.</span></div>
+      </div>
     </div>
     <div class="card">
       <h3>Order Notes (one per line, shown with the menu)</h3>
@@ -455,7 +459,7 @@ function populateSettings() {
   const ws = getSheet('⚙️ Business Info');
   const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
                    tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14,
-                   order_form_url:15, free_delivery_over:16, order_notes:17 };
+                   order_form_url:15, free_delivery_over:16, order_notes:17, order_endpoint:18 };
   for (const [key, row] of Object.entries(fields)) {
     const el = document.getElementById('s-' + key);
     if (el) el.value = cellVal(ws, row, 2);
@@ -910,7 +914,7 @@ function collectSettings() {
   const ws = getSheet('⚙️ Business Info');
   const fields = { business_name:4, tagline:5, phone:6, phone_whatsapp:7, email:8, location:9,
                    tiffin_days:10, order_cutoff:11, payment_zelle:12, payment_venmo:13, allergy_note:14,
-                   order_form_url:15, free_delivery_over:16, order_notes:17 };
+                   order_form_url:15, free_delivery_over:16, order_notes:17, order_endpoint:18 };
   for (const [key, row] of Object.entries(fields)) {
     const el = document.getElementById('s-' + key);
     if (el) setCell(ws, row, 2, el.value);

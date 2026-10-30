@@ -280,6 +280,69 @@ a { text-decoration:none; color:inherit; }
   border-radius:100px; background:var(--olive-fill); color:#fff; font-size:14px; font-weight:600; text-decoration:none;
 }
 .form-btn:hover { background:var(--olive-fill-h); }
+
+/* ── Build your order ── */
+.build { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:22px; align-items:start; margin:0 0 34px; }
+@media (max-width:820px) { .build { grid-template-columns:1fr; } }
+.bstep { border:1px solid var(--border); background:var(--bg-card); border-radius:var(--r); padding:18px 18px 16px; margin:0 0 14px; min-width:0; }
+.bstep legend { display:flex; align-items:center; gap:10px; padding:0 6px; margin-left:-6px; font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700; color:var(--fg); }
+.bstep legend small { font-family:'Poppins',sans-serif; font-size:11px; font-weight:500; color:var(--fg-s); }
+.bnum { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--olive-fill); color:#fff; font-family:'Poppins',sans-serif; font-size:12px; font-weight:700; }
+.bhint { font-size:12px; color:var(--fg-s); margin:2px 0 12px; }
+.bhint.bad { color:var(--red); font-weight:600; }
+.bgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:8px; }
+.bgrid.one { grid-template-columns:1fr; }
+.bopt { position:relative; display:flex; align-items:center; gap:10px; min-height:48px; padding:10px 12px; border:1.5px solid var(--border); border-radius:var(--r-sm); cursor:pointer; background:var(--bg); transition:border-color .15s, background .15s; }
+.bopt:hover { border-color:var(--olive); }
+.bopt input { width:18px; height:18px; accent-color:var(--olive-fill); flex-shrink:0; margin:0; }
+.bopt .bt { flex:1; min-width:0; font-size:13px; font-weight:600; color:var(--fg); line-height:1.3; }
+.bopt .bt small { display:block; font-size:11px; font-weight:400; color:var(--fg-s); }
+.bopt b { font-size:13.5px; color:var(--fg); white-space:nowrap; font-variant-numeric:tabular-nums; }
+.bopt:has(input:checked) { border-color:var(--olive-fill); background:var(--olive-bg); }
+.bopt:has(input:disabled) { opacity:.45; cursor:not-allowed; }
+.bopt:has(input:focus-visible) { outline:2px solid var(--olive); outline-offset:2px; }
+.bgroup { margin:0 0 14px; }
+.bgroup:last-child { margin-bottom:0; }
+.bgroup h4 { font-size:12.5px; font-weight:700; color:var(--fg); margin:0 0 8px; }
+.bqty { display:flex; align-items:center; gap:10px; min-height:48px; padding:6px 8px 6px 12px; border:1.5px solid var(--border); border-radius:var(--r-sm); background:var(--bg); margin-bottom:8px; }
+.bqty .bt { flex:1; font-size:13px; font-weight:600; color:var(--fg); }
+.bqty .bt small { display:block; font-size:11px; font-weight:400; color:var(--fg-s); }
+.bstepper { display:flex; align-items:center; gap:2px; }
+.bstepper button { width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--bg-card); color:var(--fg); font-size:18px; cursor:pointer; }
+.bstepper button:hover { border-color:var(--olive); }
+.bstepper output { min-width:22px; text-align:center; font-weight:700; color:var(--fg); }
+.bfields { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:560px) { .bfields { grid-template-columns:1fr; } }
+.bfield { display:flex; flex-direction:column; gap:5px; }
+.bfield.wide { grid-column:1 / -1; }
+.bfield > span { font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--fg-s); }
+.bfield > span small { text-transform:none; letter-spacing:0; font-weight:400; }
+.bfield input, .bfield textarea { font:inherit; font-size:14px; color:var(--fg); background:var(--bg); border:1.5px solid var(--border); border-radius:var(--r-sm); padding:10px 12px; min-height:44px; width:100%; }
+.bfield input:focus, .bfield textarea:focus { outline:none; border-color:var(--olive); }
+.bfield [aria-invalid="true"] { border-color:var(--red); }
+.bhoney { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+.build-sum { position:sticky; top:84px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r); padding:18px; box-shadow:var(--shadow); }
+.build-sum h3 { font-family:'Playfair Display',serif; font-size:1.15rem; color:var(--fg); margin:0 0 10px; }
+.blines { display:grid; gap:6px; font-size:12.5px; color:var(--fg); }
+.bline { display:flex; justify-content:space-between; gap:10px; }
+.bline span { min-width:0; }
+.bline small { display:block; color:var(--fg-s); font-size:11px; }
+.bline b { white-space:nowrap; font-variant-numeric:tabular-nums; }
+.bempty { color:var(--fg-s); }
+.btotal { display:flex; justify-content:space-between; align-items:baseline; border-top:1.5px solid var(--border); margin-top:12px; padding-top:12px; }
+.btotal span { font-weight:600; color:var(--fg); }
+.btotal strong { font-size:1.4rem; color:var(--fg); font-variant-numeric:tabular-nums; }
+.bsmall { font-size:11.5px; color:var(--fg-s); margin:8px 0 12px; line-height:1.5; }
+.bsubmit { width:100%; border:none; cursor:pointer; font-family:inherit; }
+.bsubmit:disabled { opacity:.6; cursor:wait; }
+.bstatus { font-size:12.5px; margin-top:10px; line-height:1.5; color:var(--red); }
+.bstatus a { color:inherit; font-weight:600; }
+@media (max-width:820px) { .build-sum { position:static; } }
+.build-done { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--r); padding:28px 24px; margin:0 0 34px; text-align:center; }
+.build-done h2 { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--fg); margin:0 0 6px; }
+.build-done .bid { display:inline-block; font-weight:700; letter-spacing:.06em; color:var(--olive); margin-bottom:12px; }
+.build-done p { font-size:13px; color:var(--fg-s); line-height:1.6; max-width:460px; margin:0 auto 8px; }
+.build-done .blines { max-width:360px; margin:16px auto 0; text-align:left; }
 </style>
 <link rel="stylesheet" href="../scripts/site.css">
 </head>
@@ -339,6 +402,48 @@ a { text-decoration:none; color:inherit; }
       <span class="otype-badge badge-teal">Get a quote</span>
     </div>
   </div>
+
+  <!-- Build your order: switched on by scripts once settings.order_endpoint is set -->
+  <form class="build" id="build" hidden novalidate>
+    <div class="build-main">
+      <fieldset class="bstep" id="b-combo"><legend><span class="bnum">1</span> Choose your combo</legend>
+        <p class="bhint">Every combo comes with complimentary rice. No size customizations.</p>
+        <div class="bgrid" id="b-combos"></div>
+      </fieldset>
+      <fieldset class="bstep" id="b-curry"><legend><span class="bnum">2</span> Pick your curries</legend>
+        <p class="bhint" id="b-curry-hint" aria-live="polite">Choose a combo first.</p>
+        <div class="bgrid" id="b-curries"></div>
+      </fieldset>
+      <fieldset class="bstep" id="b-extra"><legend><span class="bnum">3</span> Add-ons &amp; specials <small>optional</small></legend>
+        <div id="b-addons"></div>
+        <div id="b-specials"></div>
+      </fieldset>
+      <fieldset class="bstep" id="b-zone"><legend><span class="bnum">4</span> Delivery or pickup</legend>
+        <p class="bhint"><span data-setting="tiffin_days">Tuesday delivery · 6–9 PM</span> · free delivery on orders over <span data-setting="free_delivery_over">$70</span></p>
+        <div class="bgrid one" id="b-zones"></div>
+      </fieldset>
+      <fieldset class="bstep" id="b-you"><legend><span class="bnum">5</span> Your details</legend>
+        <div class="bfields">
+          <label class="bfield"><span>Full name</span><input name="name" autocomplete="name" required></label>
+          <label class="bfield"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" required></label>
+          <label class="bfield"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+          <label class="bfield wide" id="b-address"><span>Delivery address</span><textarea name="address" rows="2" autocomplete="street-address"></textarea></label>
+          <label class="bfield wide"><span>Special instructions or dietary preferences <small>optional</small></span><textarea name="notes" rows="2"></textarea></label>
+          <label class="bhoney" aria-hidden="true">Company <input name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+      </fieldset>
+    </div>
+    <aside class="build-sum">
+      <h3>Your order</h3>
+      <div id="b-lines" class="blines"><p class="bempty">Pick a combo to start.</p></div>
+      <div class="btotal"><span>Total</span><strong id="b-total">$0.00</strong></div>
+      <p class="bsmall">Order by <span data-setting="order_cutoff">Sunday 5 PM</span>. We email your invoice; payment confirms the order.</p>
+      <button type="submit" class="form-btn bsubmit" id="b-submit">Place order</button>
+      <p class="bstatus" id="b-status" role="status" aria-live="polite"></p>
+    </aside>
+  </form>
+
+  <div class="build-done" id="build-done" hidden tabindex="-1"></div>
 
   <!-- This Week's Menu preview (shown by default for tiffin) -->
   <div id="tiffinPreview">
@@ -470,6 +575,7 @@ fetch('../data/menu.json')
 
 /* ── Order type selection ── */
 let selectedType = 'tiffin';
+let buildOn = false;   // true once the order form below takes over from the Google Form
 function selectType(el, type) {
   document.querySelectorAll('.otype-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
@@ -478,7 +584,9 @@ function selectType(el, type) {
   const tiffinPreview = document.getElementById('tiffinPreview');
   const howSteps = document.getElementById('howSteps');
   tiffinPreview.style.display = type === 'tiffin' ? 'block' : 'none';
-  document.getElementById('formCta').style.display = type === 'tiffin' ? '' : 'none';
+  document.getElementById('formCta').style.display = type === 'tiffin' && !buildOn ? '' : 'none';
+  if (buildOn) document.getElementById('build').hidden = type !== 'tiffin';
+  if (buildOn) tiffinPreview.style.display = 'none';
 
   if (type === 'festival') {
     howSteps.innerHTML = `
@@ -506,5 +614,228 @@ function selectType(el, type) {
 }
 </script>
 <script src="../scripts/site.js"></script>
+<script>
+/* ── Build your order ──
+   Built from the same menu.json as the Tiffin Menu page. It takes over from the
+   Google Form once settings.order_endpoint holds the Orders sheet's web-app link
+   (scripts/order-sheet.gs), which saves each order and re-prices it. */
+(function () {
+  var form = document.getElementById('build');
+  if (!form || !window.ckMenu) return;
+
+  function esc(t) {
+    return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function amount(t) { var n = parseFloat(String(t || '').replace(/[^0-9.]/g, '')); return isNaN(n) ? 0 : n; }
+  function money(n) { return '$' + n.toFixed(2); }
+  function $(id) { return document.getElementById(id); }
+  function isPickup(z) { return /pick\s*-?\s*up/i.test(z.name) || /^free$/i.test(String(z.fee).trim()); }
+
+  window.ckMenu.then(function (menu) {
+    var s = menu.settings || {}, wo = menu.weekly_order || {};
+    var endpoint = String(s.order_endpoint || '').trim();
+    if (!/^https:\/\/script\.google(usercontent)?\.com\//.test(endpoint)) return;   // still on the Google Form
+
+    var combos = wo.combos || [], addons = wo.addons || [], specials = wo.specials || [], zones = wo.zones || [];
+    var curries = ((menu.tiffin || {}).this_week || {}).dishes || [];
+    var week = ((menu.tiffin || {}).this_week || {}).dates || '';
+    var freeOver = amount(s.free_delivery_over);
+    if (!combos.length || !curries.length || !zones.length) return;
+
+    // Combos, grouped by name: Solo → Standard / Large
+    var groups = [];
+    combos.forEach(function (c, i) {
+      var g = groups.filter(function (x) { return x.name === c.name; })[0];
+      if (!g) { g = { name: c.name, curries: parseInt(c.curries, 10) || 0, rows: [] }; groups.push(g); }
+      g.rows.push({ c: c, i: i });
+    });
+    $('b-combos').innerHTML = groups.map(function (g) {
+      return g.rows.map(function (r) {
+        return '<label class="bopt"><input type="radio" name="combo" value="' + r.i + '">' +
+          '<span class="bt">' + esc(g.name) + ' · ' + esc(r.c.size) + '<small>' + g.curries + (g.curries === 1 ? ' curry' : ' curries') + ' + rice</small></span>' +
+          '<b>' + esc(r.c.price) + '</b></label>';
+      }).join('');
+    }).join('');
+
+    $('b-curries').innerHTML = curries.map(function (d, i) {
+      return '<label class="bopt"><input type="checkbox" name="curry" value="' + i + '">' +
+        '<span class="bt">' + esc(d.name) + (d.desc ? '<small>' + esc(d.desc) + '</small>' : '') + '</span></label>';
+    }).join('');
+
+    // Add-ons: one choice per item (None, 5 Rotis, 10 Rotis…)
+    var addonGroups = [];
+    addons.forEach(function (a, i) {
+      var g = addonGroups.filter(function (x) { return x.name === a.name; })[0];
+      if (!g) { g = { name: a.name, rows: [] }; addonGroups.push(g); }
+      g.rows.push({ a: a, i: i });
+    });
+    $('b-addons').innerHTML = addonGroups.map(function (g, gi) {
+      return '<div class="bgroup"><h4>' + esc(g.name) + '</h4><div class="bgrid">' +
+        '<label class="bopt"><input type="radio" name="addon' + gi + '" value="" checked><span class="bt">None</span></label>' +
+        g.rows.map(function (r) {
+          return '<label class="bopt"><input type="radio" name="addon' + gi + '" value="' + r.i + '"><span class="bt">' + esc(r.a.option) + '</span><b>' + esc(r.a.price) + '</b></label>';
+        }).join('') + '</div></div>';
+    }).join('');
+
+    var qty = specials.map(function () { return 0; });
+    $('b-specials').innerHTML = specials.length ? '<div class="bgroup"><h4>This week\'s specials</h4>' +
+      specials.map(function (sp, i) {
+        return '<div class="bqty"><span class="bt">' + esc(sp.name) + '<small>' + esc(sp.price) + (sp.desc ? ' · ' + esc(sp.desc) : '') + '</small></span>' +
+          '<div class="bstepper"><button type="button" data-sp="' + i + '" data-d="-1" aria-label="One less ' + esc(sp.name) + '">−</button>' +
+          '<output id="b-sq' + i + '" aria-live="polite">0</output>' +
+          '<button type="button" data-sp="' + i + '" data-d="1" aria-label="One more ' + esc(sp.name) + '">+</button></div></div>';
+      }).join('') + '</div>' : '';
+    if (!addonGroups.length && !specials.length) $('b-extra').hidden = true;
+
+    $('b-zones').innerHTML = zones.map(function (z, i) {
+      return '<label class="bopt"><input type="radio" name="zone" value="' + i + '">' +
+        '<span class="bt">' + esc(z.name) + '<small>' + esc(z.areas) + '</small></span><b>' + esc(z.fee) + '</b></label>';
+    }).join('');
+
+    // Hand the tiffin view over to the form
+    buildOn = true;
+    form.hidden = selectedType !== 'tiffin';
+    $('tiffinPreview').style.display = 'none';
+    $('formCta').style.display = 'none';
+    if (window.ckFillSettings) ckFillSettings(form);
+
+    function chosen() {
+      var ci = form.querySelector('input[name=combo]:checked');
+      var combo = ci ? combos[+ci.value] : null;
+      var zi = form.querySelector('input[name=zone]:checked');
+      var zone = zi ? zones[+zi.value] : null;
+      var picked = Array.prototype.map.call(form.querySelectorAll('input[name=curry]:checked'), function (el) { return curries[+el.value]; });
+      var ad = addonGroups.map(function (g, gi) {
+        var el = form.querySelector('input[name=addon' + gi + ']:checked');
+        return el && el.value !== '' ? addons[+el.value] : null;
+      }).filter(Boolean);
+      var sp = specials.map(function (x, i) { return { s: x, qty: qty[i] }; }).filter(function (x) { return x.qty > 0; });
+      var subtotal = (combo ? amount(combo.price) : 0) +
+        ad.reduce(function (t, a) { return t + amount(a.price); }, 0) +
+        sp.reduce(function (t, x) { return t + amount(x.s.price) * x.qty; }, 0);
+      subtotal = Math.round(subtotal * 100) / 100;
+      var pickup = zone ? isPickup(zone) : false;
+      var fee = !zone || pickup || (freeOver && subtotal > freeOver) ? 0 : amount(zone.fee);
+      return { combo: combo, need: combo ? parseInt(combo.curries, 10) || 0 : 0, curries: picked, addons: ad,
+               specials: sp, zone: zone, pickup: pickup, fee: fee, subtotal: subtotal, total: subtotal + fee };
+    }
+
+    function linesHtml(o) {
+      var l = [];
+      if (o.combo) l.push(['Combo · ' + o.combo.name, o.combo.size, amount(o.combo.price)]);
+      if (o.curries.length) l.push(['Curries', o.curries.map(function (c) { return c.name; }).join(', '), null]);
+      o.addons.forEach(function (a) { l.push([a.name, a.option, amount(a.price)]); });
+      o.specials.forEach(function (x) { l.push([x.s.name + ' × ' + x.qty, '', amount(x.s.price) * x.qty]); });
+      if (o.zone) l.push([o.pickup ? 'Pickup' : 'Delivery · ' + o.zone.name,
+        !o.pickup && o.fee === 0 && freeOver && o.subtotal > freeOver ? 'Free over ' + s.free_delivery_over : '', o.fee]);
+      return l.length ? l.map(function (x) {
+        return '<div class="bline"><span>' + esc(x[0]) + (x[1] ? '<small>' + esc(x[1]) + '</small>' : '') + '</span>' +
+          (x[2] === null ? '' : '<b>' + (x[2] === 0 && /Delivery|Pickup/.test(x[0]) ? 'Free' : money(x[2])) + '</b>') + '</div>';
+      }).join('') : '<p class="bempty">Pick a combo to start.</p>';
+    }
+
+    function update() {
+      var o = chosen();
+      // Exactly as many curries as the combo includes
+      var boxes = form.querySelectorAll('input[name=curry]');
+      Array.prototype.forEach.call(boxes, function (b) { b.disabled = !o.combo || (!b.checked && o.curries.length >= o.need); });
+      var hint = $('b-curry-hint');
+      hint.classList.remove('bad');
+      hint.textContent = !o.combo ? 'Choose a combo first.'
+        : 'Pick ' + o.need + ' · ' + o.curries.length + ' of ' + o.need + ' chosen';
+      $('b-address').hidden = !o.zone || o.pickup;
+      $('b-lines').innerHTML = linesHtml(o);
+      $('b-total').textContent = money(o.total);
+      return o;
+    }
+
+    form.addEventListener('change', function (e) {
+      // Moving to a smaller combo drops the extra curries, latest first
+      if (e.target.name === 'combo') {
+        var o = chosen(), extra = o.curries.length - o.need;
+        var checked = Array.prototype.slice.call(form.querySelectorAll('input[name=curry]:checked'));
+        while (extra-- > 0) checked.pop().checked = false;
+      }
+      update();
+    });
+    form.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-sp]');
+      if (!b) return;
+      var i = +b.dataset.sp;
+      qty[i] = Math.max(0, Math.min(10, qty[i] + (+b.dataset.d)));
+      $('b-sq' + i).textContent = qty[i];
+      update();
+    });
+    update();
+
+    function fail(msg, el) {
+      $('b-status').textContent = msg;
+      if (el) { el.focus(); if (el.scrollIntoView) el.scrollIntoView({ block: 'center' }); }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var o = update(), f = form.elements;
+      ['name', 'phone', 'email', 'address'].forEach(function (n) { f[n].removeAttribute('aria-invalid'); });
+      if (!o.combo) return fail('Please choose a combo.', form.querySelector('input[name=combo]'));
+      if (o.curries.length !== o.need) {
+        $('b-curry-hint').classList.add('bad');
+        return fail('Please pick ' + o.need + (o.need === 1 ? ' curry.' : ' curries.'), form.querySelector('input[name=curry]:not(:disabled)'));
+      }
+      if (!o.zone) return fail('Please choose delivery or pickup.', form.querySelector('input[name=zone]'));
+      var need = [['name', 'your name'], ['phone', 'your phone number'], ['email', 'your email']];
+      if (!o.pickup) need.push(['address', 'your delivery address']);
+      for (var k = 0; k < need.length; k++) {
+        var el = f[need[k][0]];
+        if (!el.value.trim() || (need[k][0] === 'email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim()))) {
+          el.setAttribute('aria-invalid', 'true');
+          return fail('Please add ' + need[k][1] + '.', el);
+        }
+      }
+
+      var payload = {
+        week: week,
+        order: {
+          combo: { name: o.combo.name, size: o.combo.size },
+          curries: o.curries.map(function (c) { return c.name; }),
+          addons: o.addons.map(function (a) { return { name: a.name, option: a.option }; }),
+          specials: o.specials.map(function (x) { return { name: x.s.name, qty: x.qty }; }),
+          zone: { name: o.zone.name }
+        },
+        customer: { name: f.name.value, phone: f.phone.value, email: f.email.value,
+                    address: o.pickup ? '' : f.address.value, notes: f.notes.value },
+        website: f.website.value
+      };
+      var btn = $('b-submit');
+      btn.disabled = true; btn.textContent = 'Sending…'; $('b-status').textContent = '';
+
+      // text/plain keeps this a "simple" request, which Apps Script answers without a CORS preflight
+      fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.ok) throw new Error((res && res.error) || 'The order was not saved.');
+          var done = $('build-done');
+          done.innerHTML = '<h2>Thank you, ' + esc(f.name.value.trim().split(' ')[0]) + '!</h2>' +
+            '<span class="bid">Order ' + esc(res.order_id) + '</span>' +
+            '<p>We have your order and have emailed a copy to ' + esc(f.email.value.trim()) + '. ' +
+            'Chaitrali will send your invoice shortly; payment confirms the order.</p>' +
+            '<div class="blines">' + linesHtml(o) + '<div class="btotal"><span>Total</span><strong>' +
+            money(typeof res.total === 'number' ? res.total : o.total) + '</strong></div></div>';
+          form.hidden = true; done.hidden = false; done.focus();
+          done.scrollIntoView({ block: 'start' });
+        })
+        .catch(function (err) {
+          var wa = 'https://wa.me/' + (s.phone_whatsapp || '16173205229') + '?text=' + encodeURIComponent(
+            'Hi Chaitrali! My website order did not go through:\n' +
+            o.combo.name + ' ' + o.combo.size + ' — ' + o.curries.map(function (c) { return c.name; }).join(', ') +
+            '\nName: ' + f.name.value);
+          $('b-status').innerHTML = esc(err && err.message ? err.message : 'Something went wrong.') +
+            ' Please try again, or <a href="' + wa + '" target="_blank" rel="noopener">send it on WhatsApp</a>.';
+        })
+        .then(function () { btn.disabled = false; btn.textContent = 'Place order'; });
+    });
+  });
+})();
+</script>
 </body>
 </html>

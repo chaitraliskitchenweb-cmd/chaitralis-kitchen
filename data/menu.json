@@ -17,7 +17,8 @@
       "Payment is required to confirm your order. We send the invoice once we receive it.",
       "No size customizations.",
       "Many vegan and gluten-free options available."
-    ]
+    ],
+    "order_endpoint": ""
   },
   "carousel": [
     {
