@@ -141,11 +141,11 @@
   /* ── Festival mode ──
      A festival's look is on while its event is marked Active in the content
      pack and today falls between three weeks before its Order-By date and a
-     week after it. Diwali and Holi switch on the same way once they are made
-     Active with a date. */
+     week after it. Without an Order-By date, the festival's own date (listed
+     below; add next year's when you know it) is used instead. */
   var FESTIVALS = {
     ganpati: { match: /ganpati|ganesh/, greet: 'गणपती बाप्पा मोरया!', name: 'Ganpati' },
-    diwali:  { match: /diwali|deepavali/, greet: 'शुभ दीपावली', name: 'Diwali' },
+    diwali:  { match: /diwali|deepavali/, greet: 'शुभ दीपावली', name: 'Diwali', dates: ['2026-11-08'] },
     holi:    { match: /holi/, greet: 'होळीच्या शुभेच्छा!', name: 'Holi' }
   };
   var MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
@@ -176,6 +176,13 @@
       if (!ev || !ev.active) continue;
       var due = parseOrderBy(ev.order_by, today);
       if (due && today >= due - 21 * DAY && today <= +due + 7 * DAY) return { key: key, ev: ev };
+      if (!due && (ev.sections || []).length) {
+        var on = (FESTIVALS[key].dates || []).some(function (d) {
+          var p = d.split('-'), day = new Date(+p[0], p[1] - 1, +p[2]);
+          return today >= day - 21 * DAY && today <= +day + 2 * DAY;
+        });
+        if (on) return { key: key, ev: ev };
+      }
     }
     return null;
   }
@@ -242,6 +249,22 @@
     ribbon.appendChild(document.createTextNode(title));
     var btns = right.querySelector('.hero-btns');
     right.insertBefore(ribbon, btns || null);
+
+    // If the festival has a menu flyer (images/events/<key>/flyer.jpg), it takes
+    // the logo's place at the top of the home page and links to the menu.
+    var left = document.querySelector('.hero-left');
+    var flyer = new Image();
+    flyer.alt = (ev.title || fest.name) + ' menu from Chaitrali\'s Kitchen';
+    flyer.onload = function () {
+      if (!left) return;
+      var link = el('a', 'fest-flyer');
+      link.href = ribbon.href;
+      link.appendChild(flyer);
+      left.innerHTML = '';
+      left.appendChild(link);
+      left.classList.add('fest-has-flyer');
+    };
+    flyer.src = 'images/events/' + key + '/flyer.jpg';
 
     var layer = el('div', 'fest-layer');
     layer.setAttribute('aria-hidden', 'true');

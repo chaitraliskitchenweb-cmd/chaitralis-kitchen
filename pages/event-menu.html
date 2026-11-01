@@ -259,6 +259,44 @@
    so its text keeps the light-theme colours (gold darkened to read on cream). */
 .fest-header { --olive:#6b820d; --gold:#9a6a10; --navy:#1A2B4A; --navy-ink:#1A2B4A; --fg-soft:#6b6b63; }
 .order-banner strong { color:#e8b84c; }
+
+/* ── Menu flyer, shown beside the title (stacked on phones) ── */
+.fest-header-inner.has-flyer { max-width: 980px; display: grid; grid-template-columns: 1fr minmax(0, 420px); gap: 28px 40px; align-items: center; }
+.flyer-wrap { position: relative; z-index: 2; }
+.flyer-wrap a.flyer-view { display: block; border-radius: 14px; }
+.flyer-wrap img { display: block; width: 100%; height: auto; border-radius: 14px; box-shadow: 0 18px 48px rgba(0,0,0,.35), 0 0 0 3px #e8b84c; }
+.flyer-wrap .flyer-link { margin-top: 16px; }
+@media (max-width: 760px) {
+  .fest-header-inner.has-flyer { grid-template-columns: 1fr; gap: 18px; }
+  .has-flyer .hero-img-wrap, .has-flyer .licensed-badge { display: none; }   /* the flyer comes straight after the title */
+  .flyer-wrap { max-width: 440px; margin: 0 auto; width: 100%; }
+}
+
+/* ── Diwali: a night sky, a string of lights, stars and diyas ── */
+.theme-diwali { --diwali:#7a1d55; --diwali-ink:#7a1d55; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-diwali { --diwali-ink:#f3a6cf; } }
+:root[data-theme="dark"] .theme-diwali { --diwali-ink:#f3a6cf; }
+.theme-diwali .fest-header {
+  background: radial-gradient(ellipse at 50% 115%, #5c2070 0%, #2a0d45 50%, #13082a 100%);
+  padding-bottom: 120px;   /* room for the row of diyas */
+}
+.theme-diwali .garland { background: repeating-linear-gradient(90deg,#ff9800 0,#ff9800 18px,#ffc107 18px,#ffc107 26px,#ff5722 26px,#ff5722 36px,#9c27b0 36px,#9c27b0 44px); }
+.theme-diwali .garland-dots { background: #4a0080; }
+.theme-diwali .fest-header-inner { position: relative; z-index: 1; }
+.theme-diwali .fest-greet-line { font-family: 'Tiro Devanagari Marathi', 'Noto Serif Devanagari', serif; font-size: clamp(1.3rem, 4vw, 1.7rem); color: #fde68a; margin-bottom: 6px; }
+.theme-diwali .fest-brand { color: #f5c76b; }
+.theme-diwali .fest-title { color: #ffc94d; text-shadow: 0 0 28px rgba(255,190,60,.5); }
+.theme-diwali .fest-subtitle { color: #f9d77e; }
+.theme-diwali .order-banner { background: #f59e0b; color: #2a1600; }
+.theme-diwali .order-banner strong { color: #2a1600; }
+.theme-diwali .licensed-badge { border-color: #e8b84c; color: #e8b84c; }
+.theme-diwali .hero-img { box-shadow: 0 0 40px rgba(255,190,60,.45), 0 0 0 2px #e8b84c; }
+.theme-diwali .flyer-link { background: #f59e0b; color: #2a1600; }
+.theme-diwali .ev-sky { position: absolute; inset: 0; pointer-events: none; }
+.theme-diwali .fest-diyas { bottom: 18px; }
+.theme-diwali .section-head { background: var(--diwali); }
+.theme-diwali .dish-row.platter .dish-price .price-line strong { color: var(--diwali-ink); }
+.theme-diwali .footer-card.contact { background: var(--diwali); }
 </style>
 <link rel="stylesheet" href="../scripts/site.css">
 </head>
@@ -478,20 +516,41 @@
       ? `<div class="order-banner">Book your order by <strong>${esc(ev.order_by)}</strong></div>`
       : '';
 
-    return `<div class="event-page${isFirst?' visible':''}" id="page-${key}">
-      <div class="fest-header" style="background:linear-gradient(180deg,#fdf0d0 0%,#fde8b0 60%,#fdf6e8 100%);">
+    // Diwali gets its own night-sky look: stars behind, diyas along the bottom
+    const diwali = key === 'diwali';
+    const sky = diwali
+      ? `<div class="ev-sky" aria-hidden="true">${Array.from({length: 22}, (_, i) => {
+          const sz = 4 + (i % 3) * 2;
+          return `<span class="fest-star" style="left:${(i * 37) % 96 + 2}%;top:${(i * 23) % 60 + 6}%;width:${sz}px;height:${sz}px;animation-delay:${(i % 7) * 0.3}s"></span>`;
+        }).join('')}</div>
+        <div class="fest-diyas" aria-hidden="true">${Array.from({length: window.innerWidth < 700 ? 5 : 9}, (_, i) =>
+          `<div class="fest-diya"><span class="glow" style="animation-delay:${(i % 3) * 0.4}s"></span><span class="flame" style="animation-delay:${(i % 4) * 0.27}s"></span><span class="bowl"></span></div>`
+        ).join('')}</div>`
+      : '';
+    const flyer = `../images/events/${key}/flyer.jpg`;
+
+    return `<div class="event-page${diwali ? ' theme-diwali' : ''}${isFirst?' visible':''}" id="page-${key}">
+      <div class="fest-header" style="${diwali ? '' : 'background:linear-gradient(180deg,#fdf0d0 0%,#fde8b0 60%,#fdf6e8 100%);'}">
         <div class="garland"></div>
         <div class="garland-dots"></div>
-        <div class="fest-header-inner">
-          <div class="hero-img-wrap"><img class="hero-img" src="${heroImg}" alt="${esc(ev.title)}" onerror="this.style.display='none'"></div>
-          <p class="fest-brand">Chaitrali's Kitchen LLC · Homemade with Love</p>
-          <div class="fest-title">${esc(ev.title)}</div>
-          <div class="fest-subtitle">${esc(ev.subtitle)}</div>
-          ${orderBanner}
-          <br>
-          <a class="flyer-link" data-flyer="${key}" href="../images/events/${key}/flyer.jpg" download="Chaitralis-Kitchen-${esc(ev.title)}-Menu.jpg" hidden>⬇ Download the menu flyer</a>
-          <br>
-          <span class="licensed-badge">✓ Licensed Food Vendor</span>
+        ${sky}
+        <div class="fest-header-inner has-flyer">
+          <div class="fest-text">
+            <div class="hero-img-wrap"><img class="hero-img" src="${heroImg}" alt="${esc(ev.title)}" onerror="this.style.display='none'"></div>
+            ${diwali ? '<div class="fest-greet-line" lang="mr">शुभ दीपावली</div>' : ''}
+            <p class="fest-brand">Chaitrali's Kitchen LLC · Homemade with Love</p>
+            <div class="fest-title">${esc(ev.title)}</div>
+            <div class="fest-subtitle">${esc(ev.subtitle)}</div>
+            ${orderBanner}
+            <br>
+            <span class="licensed-badge">✓ Licensed Food Vendor</span>
+          </div>
+          <div class="flyer-wrap">
+            <a class="flyer-view" href="${flyer}" target="_blank" rel="noopener" aria-label="Open the ${esc(ev.title)} menu flyer full size">
+              <img src="${flyer}" alt="${esc(ev.title)} menu flyer from Chaitrali's Kitchen" onerror="ckNoFlyer(this)">
+            </a>
+            <a class="flyer-link" href="${flyer}" download="Chaitralis-Kitchen-${esc(ev.title)}-Menu.jpg">⬇ Download the menu flyer</a>
+          </div>
         </div>
       </div>
       <div class="menu-body">${sectionHtml}</div>
@@ -535,13 +594,6 @@
     const pagesHtml = evKeys.map(k => buildEventPage(k, events[k], s, k===first)).join('');
     document.getElementById('events-root').innerHTML = pagesHtml;
 
-    // Show "Download the menu flyer" only where images/events/<key>/flyer.jpg exists
-    document.querySelectorAll('[data-flyer]').forEach(a => {
-      fetch(a.getAttribute('href'), { method: 'HEAD' })
-        .then(r => { if (r.ok) a.hidden = false; })
-        .catch(() => {});
-    });
-
     // Tab switching
     const btnEls  = document.querySelectorAll('.event-btn');
     const pageEls = document.querySelectorAll('.event-page');
@@ -558,6 +610,13 @@
       });
     });
   }
+
+  // No images/events/<key>/flyer.jpg: drop the flyer column and centre the title
+  window.ckNoFlyer = img => {
+    const wrap = img.closest('.flyer-wrap');
+    wrap.parentElement.classList.remove('has-flyer');
+    wrap.remove();
+  };
 
   // An active festival with a menu whose order-by date (e.g. "10 September")
   // is not more than a week gone. No date counts as coming up.

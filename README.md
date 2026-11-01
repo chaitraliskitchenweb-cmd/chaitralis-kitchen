@@ -70,7 +70,8 @@ To check the script is up, open the `/exec` link in a browser: it should show `{
 ## Things that happen on their own
 
 - **Order countdown:** the nav shows the time left until the **Order Cutoff** (US Eastern time). In the last hour a pressure cooker whistles.
-- **Festival mode:** from 21 days before an active Ganpati, Diwali or Holi event's order-by date until 7 days after it, the site dresses up for that festival: a toran, lights or gulal under the nav, plus a festival banner on the home page.
+- **Festival mode:** from 21 days before an active Ganpati, Diwali or Holi event's order-by date until 7 days after it, the site dresses up for that festival: a toran, lights or gulal under the nav, plus a festival banner on the home page. With no order-by date, the festival's own date is used instead (listed in `scripts/site.js`; Diwali 2026 is set to 8 November, so add next year's there).
+- **Festival flyers:** put a flyer at `images/events/<festival>/flyer.jpg` (e.g. `images/events/diwali/flyer.jpg`). It then shows large at the top of that festival's menu with a **Download the menu flyer** button, and during festival mode it takes the logo's place at the top of the home page.
 - **Dark mode:** pages follow the visitor's phone or computer setting.
 
 To preview these looks, add `?festival=ganpati`, `?festival=diwali`, `?festival=holi` (or `?festival=off`) or `?whistle` to any page's address.
