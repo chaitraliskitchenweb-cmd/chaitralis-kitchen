@@ -233,7 +233,7 @@
     var right = document.querySelector('.hero-right');
     if (!right) return;
     var ribbon = el('a', 'fest-ribbon');
-    ribbon.href = 'pages/event-menu.html';
+    ribbon.href = 'pages/event-menu.html#' + key;
     var greet = el('span', 'fest-greet');
     greet.lang = 'mr';
     greet.textContent = fest.greet;

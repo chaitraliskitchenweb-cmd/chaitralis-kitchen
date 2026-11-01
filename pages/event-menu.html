@@ -106,6 +106,20 @@
   .dish-price .price-line { font-size: 11px; color: var(--fg-soft); line-height: 1.6; white-space: nowrap; }
   .dish-price .price-line strong { font-weight: 700; color: var(--fg); margin-left: 4px; }
 
+  /* Platters and packages: a long "·"-separated description becomes a list */
+  .dish-row.platter { align-items: flex-start; padding: 12px 0; }
+  .dish-row.platter .dish-dname { font-size: 14px; }
+  .dish-row.platter .dish-price .price-line strong { font-size: 15px; color: var(--maroon); }
+  .dish-line  { font-size: 11.5px; color: var(--fg-soft); margin-top: 4px; line-height: 1.5; }
+  .dish-items { list-style: none; margin: 6px 0 2px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(150px,100%), 1fr)); gap: 2px 14px; }
+  .dish-items li { font-size: 12px; color: var(--fg); line-height: 1.5; padding-left: 12px; position: relative; }
+  .dish-items li::before { content: '•'; position: absolute; left: 0; color: var(--gold); }
+
+  /* Downloadable flyer */
+  .flyer-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; min-height: 44px; padding: 0 20px; border-radius: 100px; background: var(--maroon); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; }
+  .flyer-link:hover { filter: brightness(1.1); }
+  .flyer-link[hidden] { display: none; }
+
   /* Sweets grid */
   .sweets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px; }
   .sweet-card { text-align: center; padding: 10px 6px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); }
@@ -332,16 +346,29 @@
     <text x="100" y="70" text-anchor="middle" font-size="13" fill="#8b1a1a" font-family="serif" opacity=".7">ॐ</text>
   </svg>`;
 
+  // Platters list their contents as "18" tray · Pani Puri 20 pcs, Sev Puri 12 pcs · …":
+  // each "·" part is a line, and a part with three or more comma-separated items is a list.
+  const isPlatter = dish => (dish.desc || '').split(' · ').length > 2;
+  function platterDesc(desc) {
+    return desc.split(' · ').map(part => {
+      const items = part.split(/,\s*/);
+      return items.length >= 3
+        ? `<ul class="dish-items">${items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`
+        : `<div class="dish-line">${esc(part)}</div>`;
+    }).join('');
+  }
+
   function buildDishRow(dish) {
     const prices = (dish.prices||[]).map(p => {
       const lbl = p.label ? `${esc(p.label)} ` : '';
       return `<div class="price-line">${lbl}<strong>${esc(p.amount)}</strong></div>`;
     }).join('');
-    return `<div class="dish-row">
-      <div class="dish-img">${esc(dish.icon||'🍽')}</div>
+    const platter = isPlatter(dish);
+    return `<div class="dish-row${platter ? ' platter' : ''}">
+      ${platter ? '' : `<div class="dish-img">${esc(dish.icon||'🍽')}</div>`}
       <div class="dish-details">
         <div class="dish-dname">${esc(dish.name)}</div>
-        ${dish.desc ? `<div class="dish-sub">${esc(dish.desc)}</div>` : ''}
+        ${dish.desc ? (platter ? platterDesc(dish.desc) : `<div class="dish-sub">${esc(dish.desc)}</div>`) : ''}
       </div>
       <div class="dish-price">${prices}</div>
     </div>`;
@@ -441,7 +468,7 @@
       // Sweet section gets span2, Ganesh Sweets gets its own cell
       const isSweet = sec.name && sec.name.toLowerCase().includes('sweet') && !sec.name.includes('Ganesh');
       const html = buildSection(sec);
-      if (isSweet) {
+      if (isSweet || (sec.dishes || []).some(isPlatter)) {
         return html.replace('<div class="menu-section">', '<div class="menu-section span2">');
       }
       return html;
@@ -461,6 +488,8 @@
           <div class="fest-title">${esc(ev.title)}</div>
           <div class="fest-subtitle">${esc(ev.subtitle)}</div>
           ${orderBanner}
+          <br>
+          <a class="flyer-link" data-flyer="${key}" href="../images/events/${key}/flyer.jpg" download="Chaitralis-Kitchen-${esc(ev.title)}-Menu.jpg" hidden>⬇ Download the menu flyer</a>
           <br>
           <span class="licensed-badge">✓ Licensed Food Vendor</span>
         </div>
@@ -489,17 +518,29 @@
     const evKeys = Object.keys(events);
     const emojis = { ganpati:'🐘', diwali:'🪔', holi:'🌸', custom:'🎉' };
 
+    // Which tab opens: the one in the link (event-menu.html#diwali), otherwise
+    // the first festival with a menu that is still coming up.
+    const hashKey = decodeURIComponent(location.hash.slice(1));
+    const first = evKeys.includes(hashKey) ? hashKey
+      : evKeys.find(k => upcoming(events[k])) || evKeys[0];
+
     // Build nav
-    const navHtml = evKeys.map((k, i) => {
+    const navHtml = evKeys.map(k => {
       const ev = events[k];
       const emoji = (ev && ev.emoji) || emojis[k] || '🎊';
-      return `<button class="event-btn${i===0?' active':''}" data-event="${k}">${emoji} ${esc(ev.title)}</button>`;
+      return `<button class="event-btn${k===first?' active':''}" data-event="${k}">${emoji} ${esc(ev.title)}</button>`;
     }).join('');
     document.getElementById('event-nav').innerHTML = navHtml;
 
-    // Build event pages (first active is shown)
-    const pagesHtml = evKeys.map((k, i) => buildEventPage(k, events[k], s, i===0)).join('');
+    const pagesHtml = evKeys.map(k => buildEventPage(k, events[k], s, k===first)).join('');
     document.getElementById('events-root').innerHTML = pagesHtml;
+
+    // Show "Download the menu flyer" only where images/events/<key>/flyer.jpg exists
+    document.querySelectorAll('[data-flyer]').forEach(a => {
+      fetch(a.getAttribute('href'), { method: 'HEAD' })
+        .then(r => { if (r.ok) a.hidden = false; })
+        .catch(() => {});
+    });
 
     // Tab switching
     const btnEls  = document.querySelectorAll('.event-btn');
@@ -512,9 +553,25 @@
         btn.classList.add('active');
         const pg = document.getElementById('page-' + ev);
         if (pg) pg.classList.add('visible');
+        history.replaceState(null, '', '#' + ev);
         window.scrollTo({top: 0, behavior: 'smooth'});
       });
     });
+  }
+
+  // An active festival with a menu whose order-by date (e.g. "10 September")
+  // is not more than a week gone. No date counts as coming up.
+  const MONTHS = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+  function upcoming(ev) {
+    if (!ev || !ev.active || !(ev.sections || []).length) return false;
+    const t = String(ev.order_by || '').toLowerCase();
+    const mon = MONTHS.findIndex(m => t.includes(m));
+    const day = t.match(/\b(\d{1,2})(?:st|nd|rd|th)?\b/);
+    if (mon < 0 || !day) return true;
+    const now = new Date();
+    const yr = t.match(/\b(20\d\d)\b/);
+    const due = new Date(yr ? +yr[1] : now.getFullYear(), mon, +day[1]);
+    return now - due < 7 * 864e5;
   }
 
   fetch('../data/menu.json')
