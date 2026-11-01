@@ -528,8 +528,153 @@
       "subtitle": "Festival of Lights Menu",
       "emoji": "🪔",
       "order_by": "",
-      "active": false,
-      "sections": []
+      "active": true,
+      "sections": [
+        {
+          "name": "Party Platters",
+          "style": "green",
+          "dishes": [
+            {
+              "icon": "",
+              "name": "Street Chaat Platter",
+              "desc": "18\" round tray · Pani Puri 20 pcs, Sev Puri 12 pcs, Mini Dabeli 10 pcs, Dahi Vada Cups 10 pcs, Masala Corn Cups 10 pcs · green & tamarind chutneys and pani served separate · 64 pieces total",
+              "prices": [
+                {
+                  "label": "Serves 10–12",
+                  "amount": "$120"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Premium Snack Platter",
+              "desc": "18\" round tray · Mini Kothimbir Vadi 20 pcs, Mini Samosa 20 pcs, Mini Batata Vada 15 pcs, Mini Dabeli 10 pcs, Thecha Paneer 15 pcs · 80 pieces total",
+              "prices": [
+                {
+                  "label": "Serves 10–12",
+                  "amount": "$150"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Premium Snack + Biryani Package",
+              "desc": "18\" round tray + medium tray · Mini Kothimbir Vadi 20 pcs, Mini Samosa 20 pcs, Mini Batata Vada 15 pcs, Mini Dabeli 10 pcs, Thecha Paneer 15 pcs · vegetable biryani and cucumber raita · green & tamarind chutneys separate · a complete festive meal in one package",
+              "prices": [
+                {
+                  "label": "Serves 10–12",
+                  "amount": "$225"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Street Chaat + Biryani Package",
+              "desc": "18\" round tray + medium tray · Pani Puri 20 pcs, Sev Puri 12 pcs, Mini Dabeli 10 pcs, Dahi Vada Cups 10 pcs, Masala Corn Cups 10 pcs · vegetable biryani and cucumber raita · green & tamarind chutneys and pani served separate · chaat, biryani and raita, the ultimate feast",
+              "prices": [
+                {
+                  "label": "Serves 10–12",
+                  "amount": "$250"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Add-On Menu",
+          "style": "green",
+          "dishes": [
+            {
+              "icon": "",
+              "name": "Pav Bhaji + 24 Pav",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "10–12 guests",
+                  "amount": "$50"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Misal Pav + 24 Pav",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "10–12 guests",
+                  "amount": "$55"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Paneer Makhni",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "64 oz",
+                  "amount": "$55"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Dal Makhni",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "64 oz",
+                  "amount": "$45"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Veg Kurma",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "64 oz",
+                  "amount": "$45"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Garlic Bhendi",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "64 oz",
+                  "amount": "$45"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Veg Biryani",
+              "desc": "medium tray",
+              "prices": [
+                {
+                  "label": "96–112 oz",
+                  "amount": "$120"
+                }
+              ]
+            },
+            {
+              "icon": "",
+              "name": "Cucumber Raita",
+              "desc": "",
+              "prices": [
+                {
+                  "label": "32 oz",
+                  "amount": "$18"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     "holi": {
       "title": "Holi",
