@@ -751,14 +751,14 @@
     ],
     "specials": [
       {
-        "name": "Hakka Noodles with Veg Manchurian",
-        "desc": "",
-        "price": "$16.99"
+        "name": "Dahi Vada",
+        "desc": "Soft lentil dumplings topped with creamy yogurt and tangy chutneys",
+        "price": "$9.99"
       },
       {
-        "name": "Sabudana Khichadi",
-        "desc": "",
-        "price": "$9.99"
+        "name": "Veg Pulao (24) oz with Tomato Sar (8) oz.",
+        "desc": "Fragrant vegetable rice served with tangy, spiced tomato saar",
+        "price": "$18.99"
       }
     ],
     "zones": [
