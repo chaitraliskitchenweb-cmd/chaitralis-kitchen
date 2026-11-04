@@ -69,43 +69,43 @@
       ]
     },
     "this_week": {
-      "dates": "",
+      "dates": "Tuesday, 10 November",
       "dishes": [
         {
-          "name": "Saoji Masala Vangi",
-          "desc": "Nagpur-style spicy brinjal curry",
-          "tag": "spicy",
-          "tag_label": "Spicy Gravy"
-        },
-        {
-          "name": "Flower Batata Matar",
-          "desc": "Cauliflower, potato & green peas",
+          "name": "Veg Kadhai",
+          "desc": "Mixed vegetables in spicy kadai masala",
           "tag": "gravy",
           "tag_label": "Gravy"
         },
         {
-          "name": "Mix Kathol",
-          "desc": "Mixed lentil curry",
+          "name": "Dal Makhni",
+          "desc": "Creamy black lentils slow-cooked with butter",
+          "tag": "gravy",
+          "tag_label": "Gravy"
+        },
+        {
+          "name": "Kadhi Pakoda",
+          "desc": "Crispy fritters in tangy yogurt curry",
+          "tag": "gravy",
+          "tag_label": "Gravy"
+        },
+        {
+          "name": "Matki Usal",
+          "desc": "Sprouted moth beans in spicy gravy",
           "tag": "usal",
           "tag_label": "Usal"
         },
         {
-          "name": "Chole",
-          "desc": "Chickpea curry",
+          "name": "Cobi Matar",
+          "desc": "Cabbage and green peas cooked with aromatic Indian spices",
           "tag": "gravy",
           "tag_label": "Gravy"
         },
         {
-          "name": "Kadhai Paneer",
-          "desc": "Paneer & peppers in kadhai masala",
-          "tag": "gravy",
-          "tag_label": "Gravy"
-        },
-        {
-          "name": "Dal Tadka",
-          "desc": "Tempered yellow lentils",
-          "tag": "dal",
-          "tag_label": "Dal"
+          "name": "Maharashtrian Amti",
+          "desc": "Traditional tangy and spicy Maharashtrian dal",
+          "tag": "spicy",
+          "tag_label": "Spicy Gravy"
         }
       ]
     },
