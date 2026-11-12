@@ -183,6 +183,21 @@ function cellDay(v) {
   return m ? m[0] : '';
 }
 
+// Older rows hold the delivery date as text ("Tuesday, 10 November"): read it,
+// taking the year from when the order came in (December orders for January roll over).
+function textDay(v, received) {
+  const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  const s = String(v || '').toLowerCase();
+  const name = (s.match(/[a-z]+/g) || []).find(w => w.length >= 3 && months.indexOf(w.slice(0, 3)) >= 0 && !/^(mon|sun|sat|fri|tue|wed|thu)/.test(w));
+  const num = s.match(/\b\d{1,2}\b/);
+  if (!name || !num || !received || isNaN(received)) return '';
+  const day = +num[0], month = months.indexOf(name.slice(0, 3));
+  if (day < 1 || day > 31) return '';
+  let year = +Utilities.formatDate(received, TIME_ZONE, 'yyyy');
+  if (month < +Utilities.formatDate(received, TIME_ZONE, 'MM') - 7) year++;
+  return year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+}
+
 function nextOrderId(sheet, week) {
   const prefix = 'CK-' + week.slice(5, 7) + week.slice(8, 10) + '-';
   let last = 0;
@@ -205,12 +220,14 @@ function readOrders(settings) {
   const col = name => head.indexOf(name);
   return rows.filter(r => r[col('Order ID')]).map(r => {
     const get = name => (col(name) >= 0 ? r[col(name)] : '');
-    let week = cellDay(get('Week'));
-    if (!week) {
-      const rec = get('Received');
-      const when = rec instanceof Date ? rec : Utilities.parseDate(String(rec), TIME_ZONE, 'yyyy-MM-dd HH:mm');
-      week = isoDay(deliveryFor(when, settings));
+    const rec = get('Received');
+    let when = rec instanceof Date ? rec : null;
+    if (!when) {
+      const t = String(rec).match(/(\d{4}-\d{2}-\d{2})\s+(\d{1,2}):(\d{2})/);
+      try { if (t) when = Utilities.parseDate(t[1] + ' ' + t[2].padStart(2, '0') + ':' + t[3], TIME_ZONE, 'yyyy-MM-dd HH:mm'); } catch (e) {}
     }
+    const week = cellDay(get('Week')) || textDay(get('Week'), when) ||
+      (when && !isNaN(when) ? isoDay(deliveryFor(when, settings)) : '');
     return {
       id: String(get('Order ID')), week: week, name: String(get('Name')), phone: String(get('Phone')),
       email: String(get('Email')), zone: String(get('Delivery')), address: String(get('Address')),
@@ -243,7 +260,7 @@ function buildReport(week, settings) {
   const cooking = ['Combos', 'Curries', 'Add-ons', 'Specials'].map(g => ({
     group: g, items: Object.keys(tally[g] || {}).map(k => [k, tally[g][k]]).sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
   }));
-  const weeks = Array.from(new Set(all.map(o => o.week))).sort().reverse();
+  const weeks = Array.from(new Set(all.map(o => o.week).filter(Boolean))).sort().reverse();
   return {
     ok: true, week: week, label: niceDay(week), weeks: weeks,
     count: live.length, cancelled: orders.length - live.length,
