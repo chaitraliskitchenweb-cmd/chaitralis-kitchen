@@ -783,5 +783,49 @@
         "fee": "Free"
       }
     ]
-  }
+  },
+  "reviews": [
+    {
+      "name": "Neha K.",
+      "place": "Hopkinton, MA",
+      "note": "Diwali Order",
+      "icon": "🪔",
+      "text": "I have to give Sakshi G a shout-out for the fabulous food and all the wonderful Diwali goodies she made! Everything I tried was delicious, and you could tell how much care she put into it. I especially loved the variety of Diwali treats. There's something so special about sharing homemade goodies during the holidays, and Sakshi made ours feel a little more festive. If you've been thinking about trying Sakshi's food or ordering goodies for your next celebration, I'd happily recommend her. Thank you, Sakshi, for making our Diwali a little sweeter!"
+    },
+    {
+      "name": "Manreet K.",
+      "place": "Shrewsbury, MA",
+      "note": "",
+      "icon": "🍱",
+      "text": "I absolutely love the homemade food! Every dish is delicious, healthy, authentic, and consistently prepared with love and care. The flavors remind me of home-cooked meals, and the quality never disappoints. She is always happy to accommodate customization requests with a smile. Highly recommend for anyone looking for tasty, wholesome homemade meals for the whole family!"
+    },
+    {
+      "name": "Priya Deshpande",
+      "place": "Westborough, MA",
+      "note": "Regular Customer",
+      "icon": "🌸",
+      "text": "The Kanda Batata Rassa tastes exactly like my aai's recipe back in Pune. I've been ordering every week since I found Chaitrali's Kitchen. Absolutely no comparison!"
+    },
+    {
+      "name": "Suresh Kulkarni",
+      "place": "Shrewsbury, MA",
+      "note": "Ganpati Order",
+      "icon": "🎊",
+      "text": "The Ganpati special menu was outstanding. Modaks were perfect — just the right sweetness. Batata Vada crispy and hot. Everyone at our celebration loved it!"
+    },
+    {
+      "name": "Anita Joshi",
+      "place": "Northborough, MA",
+      "note": "Tiffin Customer",
+      "icon": "🍮",
+      "text": "Shreekhand was divine — thick, saffron-laced, restaurant quality but better because it's homemade. Portions are generous and packaging really neat."
+    },
+    {
+      "name": "Meera Patil",
+      "place": "Marlborough, MA",
+      "note": "Custom Event",
+      "icon": "🙏",
+      "text": "Ordered custom pooja catering — coordinated everything beautifully, delivered on time, food was spotless. Will always come back for events!"
+    }
+  ]
 }

@@ -528,6 +528,8 @@ nav {
 .rv-stars { color:#f5a623; font-size:13.5px; letter-spacing:2px; }
 .rv-text { font-size:12.5px; color:var(--fg); line-height:1.75; font-style:italic; flex:1; }
 .rv-text::before { content:'\201C'; } .rv-text::after { content:'\201D'; }
+.rv-text.rv-fold { display:-webkit-box; -webkit-line-clamp:7; -webkit-box-orient:vertical; overflow:hidden; flex:none; }
+.rv-more { align-self:flex-start; margin-top:-4px; padding:8px 0; min-height:36px; background:none; border:none; font:inherit; font-size:12.5px; font-weight:600; color:var(--olive); cursor:pointer; }
 .rv-who { display:flex; align-items:center; gap:10px; }
 .rv-av { width:34px; height:34px; border-radius:50%; background:var(--olive-bg); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
 .rv-nm { font-size:12px; font-weight:700; }
@@ -907,7 +909,7 @@ footer {
           <p style="font-size:12px;color:var(--fg-s);">Loading this week's dishes…</p>
         </div>
         <div style="margin-top:14px;">
-          <a href="pages/weekly-menu.html" style="display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:100px;border:1.5px solid var(--border);font-size:11.5px;font-weight:600;color:var(--fg-s);transition:.2s;">See full menu + past weeks →</a>
+          <a href="pages/weekly-menu.html" style="display:inline-flex;align-items:center;gap:5px;padding:9px 18px;border-radius:100px;border:1.5px solid var(--border);font-size:13px;font-weight:600;color:var(--fg-s);transition:.2s;">See the full menu →</a>
         </div>
       </div>
     </div>
@@ -1088,6 +1090,44 @@ window.addEventListener('scroll',()=>{
   }).catch(function () {
     list.innerHTML = '<p style="font-size:12px;color:var(--fg-s);">See <a href="pages/weekly-menu.html" style="color:var(--olive);">this week\'s menu</a>.</p>';
   });
+})();
+</script>
+
+<script>
+/* Customer reviews, from the admin page's Reviews tab. The cards written into
+   the page stay if menu.json has none. Long reviews fold to a few lines. */
+(function () {
+  var grid = document.querySelector('#reviews .reviews-grid');
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  window.ckMenu.then(function (menu) {
+    var reviews = menu.reviews || [];
+    if (!grid || !reviews.length) return;
+    grid.innerHTML = reviews.map(function (r) {
+      var meta = [r.place, r.note].filter(Boolean).join(' · ');
+      return '<div class="rv-card"><div class="rv-stars" aria-hidden="true">★★★★★</div>' +
+        '<p class="rv-text">' + esc(r.text) + '</p>' +
+        '<div class="rv-who"><div class="rv-av" aria-hidden="true">' + esc(r.icon || '⭐') + '</div><div>' +
+        '<div class="rv-nm">' + esc(r.name) + '</div>' + (meta ? '<div class="rv-mt">' + esc(meta) + '</div>' : '') +
+        '</div></div></div>';
+    }).join('');
+    grid.querySelectorAll('.rv-text').forEach(function (p) {
+      p.classList.add('rv-fold');
+      if (p.scrollHeight <= p.clientHeight + 2) { p.classList.remove('rv-fold'); return; }
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'rv-more';
+      more.textContent = 'Read more';
+      more.setAttribute('aria-expanded', 'false');
+      more.addEventListener('click', function () {
+        var open = p.classList.toggle('rv-fold') === false;
+        more.textContent = open ? 'Show less' : 'Read more';
+        more.setAttribute('aria-expanded', String(open));
+      });
+      p.after(more);
+    });
+  }).catch(function () {});
 })();
 </script>
 

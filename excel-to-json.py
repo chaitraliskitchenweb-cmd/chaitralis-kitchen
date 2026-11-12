@@ -277,13 +277,30 @@ if "🛒 Weekly Order" in wb.sheetnames:
         fields = ORDER_LISTS[current][1]
         weekly_order[current].append({f: v(ws_order, r, i + 1) for i, f in enumerate(fields)})
 
-# ── 6. Assemble & Write ───────────────────────────────────────────────────────
+# ── 6. Reviews ────────────────────────────────────────────────────────────────
+# Sheet: ⭐ Reviews. A header row starting "Name", then one review per row:
+#   Name | Place | Note | Icon | Review | Show (Y/N)
+# Rows marked N are kept in the sheet but left off the website.
+reviews = []
+if "⭐ Reviews" in wb.sheetnames:
+    ws_rv = wb["⭐ Reviews"]
+    header = next((r for r in range(1, ws_rv.max_row + 1) if v(ws_rv, r, 1) == "Name"), None)
+    if header:
+        for r in range(header + 1, ws_rv.max_row + 1):
+            text = v(ws_rv, r, 5)
+            if not text or v(ws_rv, r, 6).upper() == "N":
+                continue
+            reviews.append({"name": v(ws_rv, r, 1), "place": v(ws_rv, r, 2), "note": v(ws_rv, r, 3),
+                            "icon": v(ws_rv, r, 4), "text": text})
+
+# ── 7. Assemble & Write ───────────────────────────────────────────────────────
 menu = {
     "settings": settings,
     "carousel":  carousel,
     "tiffin":   tiffin,
     "events":   events,
     "weekly_order": weekly_order,
+    "reviews":  reviews,
 }
 
 OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
@@ -293,6 +310,7 @@ with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
 print(f"✓ Written: {OUTPUT_JSON}")
 print(f"  Settings fields: {sum(1 for v in settings.values() if v)}/{len(settings)}")
 print(f"  Carousel images: {len(carousel)}")
+print(f"  Reviews shown: {len(reviews)}")
 print(f"  Tiffin — last:{len(tiffin['last_week']['dishes'])}  this:{len(tiffin['this_week']['dishes'])}  next:{len(tiffin['next_week']['dishes'])} dishes")
 for k, ev in events.items():
     total = sum(len(s['dishes']) for s in ev['sections'])

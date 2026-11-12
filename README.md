@@ -24,7 +24,9 @@ Every page reads its menu, prices and settings from `data/menu.json`, so a chang
    - **📅 This Week's Curries:** the delivery date and this week's curries (name, description, tag).
    - **🛒 Weekly Order:** combos (size, number of curries, price), add-ons, specials and delivery zones with their fees.
    - **🎉 Events:** festival menus, their order-by dates and whether each is shown.
+   - **⭐ Reviews:** the customer reviews on the home page, in order. Untick **Show** to hide one. Only post reviews the customer has agreed to share.
    - **🖼 Carousel:** *not used by any page at the moment*. The home page photo strip is written into `index.html`.
+   - **📊 Reports:** the weekly order report (see *Reports* below). It reads the order sheet and saves nothing.
 3. Choose **Save Changes**. The site updates in a minute or two (refresh the page to see it).
 
 How it works: saving writes `data/ChaitralisKitchen_ContentPack.xlsx` to GitHub. A GitHub Action (`.github/workflows/rebuild-menu.yml`) then runs `excel-to-json.py`, which regenerates `data/menu.json` and commits it. Don't edit `menu.json` by hand: the next save overwrites it.
@@ -43,10 +45,18 @@ On the Order page the customer picks a combo and size, exactly the number of cur
 
 Each order:
 - is checked and re-priced against the live menu by the Google Apps Script, so the prices can't be changed in the browser;
-- becomes a row in the **Orders** tab of the order Google Sheet, with an order number like `CK-1030-002`;
+- becomes a row in the **Orders** tab of the order Google Sheet, with an order number made from its delivery date: every order for Tuesday 17 November is `CK-1117-001`, `CK-1117-002`… and the next week starts again at `CK-1124-001`. Orders after the Sunday cutoff count toward the following week's delivery, and the **Week** column holds that delivery date;
 - sends an email to Chaitrali, and a confirmation email to the customer.
 
-The last column in the sheet, **Status**, is for Chaitrali's own notes (Invoiced, Paid, Delivered…). If an order can't be sent, the page offers to send it on WhatsApp instead.
+The last column in the sheet, **Status**, is for Chaitrali's own notes (Invoiced, Paid, Delivered…). Writing *Cancelled* there keeps the order out of the report totals. If an order can't be sent, the page offers to send it on WhatsApp instead.
+
+### Reports
+
+Each report covers one delivery: number of orders and sales, a cooking list (how many of each combo, curry by size, add-on and special) and every order grouped by delivery zone, with addresses, phone numbers and notes.
+
+- **In the order sheet:** the **Chaitrali's Kitchen** menu (next to Help) has *Weekly report — next delivery*, *— last delivery* and *— choose a delivery date…*. Each one fills the **Weekly Report** tab.
+- **By email:** choose **Chaitrali's Kitchen → Email the report every week when orders close** once. The report then arrives an hour after the cutoff every week. Run it again if the cutoff day or time changes.
+- **On the admin page:** the **📊 Reports** tab shows the same report, with Print and a CSV download. Choose **Chaitrali's Kitchen → Set the report password for the admin page…** in the sheet first, then enter that password on the Reports tab. The password is kept in the script's settings, not in this repository.
 
 ### Order links on the admin page
 
@@ -66,6 +76,8 @@ The last column in the sheet, **Status**, is for Chaitrali's own notes (Invoiced
 Settings at the top of the script: `NOTIFY_EMAIL` (blank means the account that deployed it) and `SEND_CUSTOMER_CONFIRMATION`.
 
 To check the script is up, open the `/exec` link in a browser: it should show `{"ok":true,…}`.
+
+**When `scripts/order-sheet.gs` changes** (as it did for delivery-date order numbers and reports): open the sheet's **Extensions → Apps Script**, replace everything with the new file, save, then **Deploy → Manage deployments → ✏️ → Version: New version → Deploy**. Reload the sheet to see the **Chaitrali's Kitchen** menu; the first time you use it, Google asks you to allow it again.
 
 ## Things that happen on their own
 

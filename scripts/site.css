@@ -43,6 +43,33 @@
 }
 
 /* ══════════════════════════════════════
+   READABLE TEXT ON PHONES
+   The pages were laid out with 9–12px captions, labels and descriptions,
+   which are hard to read on a phone. Below 700px nothing goes under 12px:
+   reading text is 14px, details 13px, small uppercase labels and tags 12px.
+   !important because each page styles these with its own, more specific rules.
+══════════════════════════════════════ */
+@media (max-width:700px) {
+  /* reading text: descriptions, reviews, notes */
+  .rv-text, .offer-card p, .ev-body p, .ev-body strong, .step p, .step span, .order-panel p,
+  .d-inf span, .d-inf strong, .tiffin-photo-caption, .foot-tag,
+  .step-head p, .notes li, .order-cta p, .combo-what, .zone-note, .dish-desc, .subtitle,
+  .bcombo p, .bhint, .bnotes li, .ev-card p, .ev-card li, .cc-note, .allergy-box span, .allergy-box strong,
+  .dish-sub, .dish-line, .dish-items li, .dish-dname, .deadline-box, .deadline-box * { font-size:14px !important; line-height:1.55 !important; }
+
+  /* details: names, prices, sizes, links */
+  .rv-nm, .rv-mt, .rv-more, .ev-link, .card-cta, .tf-v, .price-line, .price-line strong, .strip-half,
+  .combo-size span, .price-row span, .price-row small, .order-cta span, .bsize small, .bt small,
+  #b-extra > small, .bsmall, .bsmall span, .cc-action, .event-btn, .foot-links a, .tiffin-grid > a { font-size:13px !important; }
+  .price-line strong, .dish-row.platter .dish-price .price-line strong { font-size:15px !important; }
+
+  /* small labels, tags and badges */
+  .tf-l, .dtag, .dish-tag, .cd-lbl, .wk-chip, .eyebrow, .hero-eyebrow, .t-lbl, .tag-strip span, .hero-badge,
+  .os-label, .hfacts dt, .cc-label, .section-label, .fc-label, .fest-brand, .section-head, .licensed-badge,
+  .bfield > span, .bfield small, .bstep legend small, .bbar span, .foot-bottom span, .footer-strip { font-size:12px !important; }
+}
+
+/* ══════════════════════════════════════
    COUNTDOWN — the cooker whistles in the last hour
 ══════════════════════════════════════ */
 .cd-cooker { display:none; position:relative; width:22px; height:22px; flex-shrink:0; }

@@ -124,6 +124,40 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
 /* Tag chips for reference */
 .tag-chip { display: inline-block; font-size: .7rem; font-weight: 600; padding: 2px 8px; border-radius: 12px; background: #e8eecc; color: var(--olive-dark); }
 
+/* Reviews */
+.rv-edit { display: grid; grid-template-columns: 70px 1fr 1fr 1fr auto 28px; gap: 8px; align-items: center; }
+.rv-edit input, .rv-text-in { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font: inherit; font-size: .85rem; width: 100%; background: white; }
+.rv-text-in { margin-top: 8px; min-height: 84px; resize: vertical; line-height: 1.5; }
+.rv-show { display: flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 600; color: var(--navy); white-space: nowrap; }
+.rv-show input { width: 18px; height: 18px; accent-color: var(--olive); }
+@media(max-width:640px) { .rv-edit { grid-template-columns: 60px 1fr 28px; } .rv-edit .rv-wide { grid-column: 1 / -1; } }
+
+/* Reports */
+.rp-controls { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; }
+.rp-controls .rp-go { min-height: 40px; }
+@media(max-width:600px) { .rp-controls { grid-template-columns: 1fr; } }
+.rp-note { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+.rp-note.err { color: var(--red); }
+.rp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.rp-tile { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.rp-tile .v { font-size: 1.5rem; font-weight: 600; color: var(--navy); }
+.rp-tile .l { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.rp-cook { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 18px; }
+.rp-list { list-style: none; margin-bottom: 14px; }
+.rp-list li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border); font-size: .88rem; }
+.rp-list li b { color: var(--olive-dark); min-width: 2.5em; text-align: right; }
+.rp-table-wrap { overflow-x: auto; }
+.rp-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.rp-table th { text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 6px 8px; border-bottom: 2px solid var(--border); }
+.rp-table td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.rp-table tr.cancelled td { color: var(--muted); text-decoration: line-through; }
+.rp-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 4px 0 18px; }
+@media print {
+  .topbar, .tabs, .rp-controls, .rp-actions, .status-bar { display: none !important; }
+  #app { padding: 0; max-width: none; }
+  .card { break-inside: avoid; border: none; padding: 0 0 12px; }
+}
+
 /* Responsive dishes */
 @media(max-width:640px) {
   .dish-row { grid-template-columns: auto 1fr; }
@@ -170,7 +204,9 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
     <button class="tab-btn" onclick="switchTab('tiffin')">📅 This Week's Curries</button>
     <button class="tab-btn" onclick="switchTab('order')">🛒 Weekly Order</button>
     <button class="tab-btn" onclick="switchTab('events')">🎉 Events</button>
+    <button class="tab-btn" onclick="switchTab('reviews')">⭐ Reviews</button>
     <button class="tab-btn" onclick="switchTab('carousel')">🖼 Carousel</button>
+    <button class="tab-btn" onclick="switchTab('reports')">📊 Reports</button>
   </div>
 
   <!-- SETTINGS TAB -->
@@ -242,6 +278,25 @@ body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--t
     <div class="section-h"><h2>🎉 Event & Festival Menus</h2></div>
     <div id="events-container"></div>
     <button class="add-row-btn" onclick="addEvent()" style="margin-top:14px">＋ Add a new event</button>
+  </div>
+
+  <!-- REVIEWS TAB -->
+  <div class="tab-pane" id="tab-reviews">
+    <div class="section-h"><h2>⭐ Customer Reviews</h2></div>
+    <p style="font-size:.85rem;color:var(--muted);margin:-6px 0 18px;line-height:1.6">Shown on the home page in this order. Only post reviews the customer has agreed to share. Untick <strong>Show</strong> to hide one without deleting it.</p>
+    <div id="review-rows"></div>
+    <button class="add-row-btn" onclick="addReview()">＋ Add a review</button>
+  </div>
+
+  <!-- REPORTS TAB -->
+  <div class="tab-pane" id="tab-reports">
+    <div class="section-h"><h2>📊 Weekly Reports</h2></div>
+    <div class="card rp-controls">
+      <div class="field"><label>Report password</label><input id="rp-key" type="password" autocomplete="off" placeholder="Set in the order sheet's Chaitrali's Kitchen menu"></div>
+      <div class="field"><label>Delivery</label><select id="rp-week" onchange="loadReport()"><option value="">Next delivery</option></select></div>
+      <button class="save-btn rp-go" onclick="loadReport()">Show report</button>
+    </div>
+    <div id="rp-out"><p class="rp-note">Reports come from the orders in the Google Sheet. Enter the report password and choose <strong>Show report</strong>.</p></div>
   </div>
 
   <!-- CAROUSEL TAB -->
@@ -455,6 +510,7 @@ function populateAll() {
   populateTiffin();
   populateOrder();
   populateEvents();
+  populateReviews();
   populateCarousel();
 }
 
@@ -820,6 +876,149 @@ function collectOrder() {
   }
 }
 
+// ─── REVIEWS ──────────────────────────────────────────────────
+// The "⭐ Reviews" sheet: a header row, then one review per row. Rebuilt on save.
+const REVIEW_SHEET = '⭐ Reviews';
+const REVIEW_COLS = ['Name', 'Place', 'Note', 'Icon', 'Review', 'Show (Y/N)'];
+let reviewModel = [];
+
+function populateReviews() {
+  reviewModel = [];
+  const ws = wb.Sheets[REVIEW_SHEET];
+  if (ws) {
+    let header = 0;
+    for (let r = 1; r <= sheetMaxRow(ws); r++) {
+      if (!header) { if (cellVal(ws, r, 1) === 'Name') header = r; continue; }
+      const rv = { name: cellVal(ws, r, 1), place: cellVal(ws, r, 2), note: cellVal(ws, r, 3),
+                   icon: cellVal(ws, r, 4), text: cellVal(ws, r, 5), show: cellVal(ws, r, 6).toUpperCase() !== 'N' };
+      if (rv.name || rv.text) reviewModel.push(rv);
+    }
+  }
+  renderReviews();
+}
+
+function syncReviewsFromDom() {
+  document.querySelectorAll('#review-rows [data-rv]').forEach(card => {
+    const rv = reviewModel[+card.dataset.rv];
+    if (!rv) return;
+    card.querySelectorAll('[data-f]').forEach(inp => {
+      rv[inp.dataset.f] = inp.type === 'checkbox' ? inp.checked : inp.value.trim();
+    });
+  });
+}
+
+function renderReviews() {
+  const input = (f, ph, v, cls) => `<input data-f="${f}" class="${cls || ''}" value="${esc(v)}" placeholder="${ph}" oninput="markDirty()">`;
+  document.getElementById('review-rows').innerHTML = reviewModel.map((rv, i) => `
+    <div class="card" data-rv="${i}">
+      <div class="rv-edit">
+        ${input('icon', '🌸', rv.icon)}
+        ${input('name', 'Name, e.g. Neha K.', rv.name)}
+        ${input('place', 'Town, e.g. Hopkinton, MA', rv.place, 'rv-wide')}
+        ${input('note', 'e.g. Diwali Order', rv.note, 'rv-wide')}
+        <label class="rv-show"><input type="checkbox" data-f="show" ${rv.show ? 'checked' : ''} onchange="markDirty()"> Show</label>
+        <button class="del-btn" title="Remove" onclick="removeReview(${i})">✕</button>
+      </div>
+      <textarea class="rv-text-in" data-f="text" placeholder="What the customer said" oninput="markDirty()">${esc(rv.text)}</textarea>
+    </div>`).join('');
+}
+
+function addReview()      { syncReviewsFromDom(); reviewModel.push({ show: true }); renderReviews(); markDirty(); }
+function removeReview(i)  { syncReviewsFromDom(); reviewModel.splice(i, 1); renderReviews(); markDirty(); }
+
+function collectReviews() {
+  syncReviewsFromDom();
+  const aoa = [['⭐  Customer Reviews'],
+    ['Edit from the admin page. Shown on the home page in this order. Only post reviews the customer has agreed to share.'],
+    [], REVIEW_COLS];
+  reviewModel.filter(rv => (rv.name || rv.text)).forEach(rv =>
+    aoa.push([rv.name || '', rv.place || '', rv.note || '', rv.icon || '', rv.text || '', rv.show ? 'Y' : 'N']));
+  wb.Sheets[REVIEW_SHEET] = XLSX.utils.aoa_to_sheet(aoa);
+  if (!wb.SheetNames.includes(REVIEW_SHEET)) {
+    const at = wb.SheetNames.indexOf('🖼️ Hero & Carousel Images');
+    wb.SheetNames.splice(at >= 0 ? at : wb.SheetNames.length, 0, REVIEW_SHEET);
+  }
+}
+
+// ─── REPORTS ──────────────────────────────────────────────────
+// Read from the order script (the Order Sheet Link on Business Info) with the
+// report password set in the sheet. Nothing here is saved to the content pack.
+const RP_KEY = 'ck-report-key';
+let lastReport = null;
+try { document.getElementById('rp-key').value = localStorage.getItem(RP_KEY) || ''; } catch (e) {}
+
+function money(n) { return '$' + Number(n || 0).toFixed(2); }
+function niceWeek(iso) {
+  return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+async function loadReport() {
+  const out = document.getElementById('rp-out');
+  const url = (document.getElementById('s-order_endpoint').value || '').trim();
+  const key = document.getElementById('rp-key').value.trim();
+  if (!/^https:\/\/script\.google(usercontent)?\.com\//.test(url)) {
+    out.innerHTML = '<p class="rp-note err">Add the Order Sheet Link on the Business Info tab first.</p>'; return;
+  }
+  if (!key) { out.innerHTML = '<p class="rp-note err">Enter the report password.</p>'; return; }
+  try { localStorage.setItem(RP_KEY, key); } catch (e) {}
+  out.innerHTML = '<p class="rp-note">Loading the report…</p>';
+  try {
+    const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'report', key, week: document.getElementById('rp-week').value }) });
+    const r = await res.json();
+    if (!r.ok && r.error) throw new Error(r.error);
+    if (!r.cooking) throw new Error('The order script in the Google Sheet is an older version. Paste in the new scripts/order-sheet.gs and deploy a new version (see the README).');
+    lastReport = r;
+    renderReport(r);
+  } catch (err) {
+    out.innerHTML = `<p class="rp-note err">${esc(err.message || 'Could not load the report.')}</p>`;
+  }
+}
+
+function renderReport(r) {
+  const sel = document.getElementById('rp-week');
+  const weeks = Array.from(new Set([r.upcoming].concat(r.weeks))).sort().reverse();
+  sel.innerHTML = weeks.map(w => `<option value="${w}" ${w === r.week ? 'selected' : ''}>${niceWeek(w)}${w === r.upcoming ? ' (next delivery)' : ''}</option>`).join('');
+  const cook = r.cooking.filter(g => g.items.length).map(g => `
+      <div><h3>${esc(g.group)}</h3><ul class="rp-list">${g.items.map(([k, n]) => `<li><span>${esc(k)}</span><b>${n}</b></li>`).join('')}</ul></div>`).join('');
+  const rows = r.orders.map(o => `
+      <tr class="${/cancel/i.test(o.status) ? 'cancelled' : ''}">
+        <td>${esc(o.id)}</td><td>${esc(o.zone)}</td><td>${esc(o.name)}<br><small>${esc(o.phone)}</small></td>
+        <td>${esc(o.address)}</td><td>${esc(o.combo)}<br><small>${esc(o.curries)}${o.addons ? '<br>' + esc(o.addons) : ''}${o.specials ? '<br>' + esc(o.specials) : ''}</small></td>
+        <td>${money(o.total)}</td><td>${esc([o.status, o.notes].filter(Boolean).join(' · '))}</td>
+      </tr>`).join('');
+  document.getElementById('rp-out').innerHTML = `
+    <h2 style="font-family:'Playfair Display',serif;color:var(--navy);font-size:1.15rem;margin-bottom:12px">Delivery ${esc(niceWeek(r.week))}</h2>
+    <div class="rp-tiles">
+      <div class="rp-tile"><div class="v">${r.count}</div><div class="l">Orders${r.cancelled ? ' · ' + r.cancelled + ' cancelled' : ''}</div></div>
+      <div class="rp-tile"><div class="v">${money(r.sales)}</div><div class="l">Total sales</div></div>
+      <div class="rp-tile"><div class="v">${money(r.subtotal)}</div><div class="l">Food</div></div>
+      <div class="rp-tile"><div class="v">${money(r.fees)}</div><div class="l">Delivery fees</div></div>
+    </div>
+    <div class="rp-actions">
+      <button class="add-row-btn" onclick="window.print()">🖨 Print</button>
+      <button class="add-row-btn" onclick="downloadReportCsv()">⬇ Download orders (CSV)</button>
+    </div>
+    ${r.count ? `<div class="card"><h3>Cooking list</h3><div class="rp-cook">${cook}</div></div>` : ''}
+    <div class="card"><h3>Orders by delivery zone (${r.orders.length})</h3>
+      ${r.orders.length ? `<div class="rp-table-wrap"><table class="rp-table">
+        <thead><tr><th>Order</th><th>Zone</th><th>Customer</th><th>Address</th><th>Order</th><th>Total</th><th>Status / notes</th></tr></thead>
+        <tbody>${rows}</tbody></table></div>` : '<p class="rp-note">No orders for this delivery yet.</p>'}
+    </div>`;
+}
+
+function downloadReportCsv() {
+  if (!lastReport) return;
+  const cols = ['id', 'zone', 'name', 'phone', 'email', 'address', 'combo', 'curries', 'addons', 'specials', 'subtotal', 'fee', 'total', 'status', 'notes'];
+  // quoted, and a leading = + - @ neutralised so a spreadsheet won't run it as a formula
+  const cell = v => { const t = String(v == null ? '' : v); return '"' + (/^[=+\-@]/.test(t) ? "'" : '') + t.replace(/"/g, '""') + '"'; };
+  const csv = [cols.join(',')].concat(lastReport.orders.map(o => cols.map(c => cell(o[c])).join(','))).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = 'orders-delivery-' + lastReport.week + '.csv';
+  a.click();
+}
+
 // ─── STRUCTURAL EDITS ─────────────────────────────────────────
 function addDish(ei, si) {
   const sec = eventsModel[ei] && eventsModel[ei].sections[si];
@@ -911,6 +1110,7 @@ function collectAll() {
   collectTiffin();
   collectOrder();
   collectEvents();
+  collectReviews();
   collectCarousel();
 }
 
