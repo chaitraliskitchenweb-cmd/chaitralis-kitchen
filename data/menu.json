@@ -751,14 +751,14 @@
     ],
     "specials": [
       {
-        "name": "Dahi Vada",
-        "desc": "Soft lentil dumplings topped with creamy yogurt and tangy chutneys",
+        "name": "Thalipith (2)",
+        "desc": "Two traditional Maharashtrian multigrain savory flatbreads, served with a delicious accompaniment",
         "price": "$9.99"
       },
       {
-        "name": "Veg Pulao (24) oz with Tomato Sar (8) oz.",
-        "desc": "Fragrant vegetable rice served with tangy, spiced tomato saar",
-        "price": "$18.99"
+        "name": "Pav Bhaji",
+        "desc": "Mumbai-style mixed vegetable mash cooked with buttery spices, served with soft pav",
+        "price": "$9.99"
       }
     ],
     "zones": [
