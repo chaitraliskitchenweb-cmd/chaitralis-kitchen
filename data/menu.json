@@ -72,40 +72,40 @@
       "dates": "Tuesday, 10 November",
       "dishes": [
         {
-          "name": "Veg Kadhai",
-          "desc": "Mixed vegetables in spicy kadai masala",
+          "name": "Akkha Masur",
+          "desc": "Whole brown lentils cooked in a flavorful Maharashtrian-style spiced gravy",
           "tag": "gravy",
           "tag_label": "Gravy"
         },
         {
-          "name": "Dal Makhni",
-          "desc": "Creamy black lentils slow-cooked with butter",
+          "name": "Baingan Bharta (Vangyacha Bharit)",
+          "desc": "Smoky roasted eggplant mashed and blended with onions, spices, and fresh herbs",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
+        },
+        {
+          "name": "Batata Rassa",
+          "desc": "Traditional Maharashtrian potato curry cooked in a spicy and flavorful gravy",
           "tag": "gravy",
           "tag_label": "Gravy"
         },
         {
-          "name": "Kadhi Pakoda",
-          "desc": "Crispy fritters in tangy yogurt curry",
+          "name": "Paneer Bhurji",
+          "desc": "Crumbled paneer sautéed with onions, tomatoes, and aromatic Indian spices",
+          "tag": "dry",
+          "tag_label": "Dry Sabzi"
+        },
+        {
+          "name": "Rajma",
+          "desc": "Red kidney beans slow-cooked in a rich, homestyle North Indian gravy",
           "tag": "gravy",
           "tag_label": "Gravy"
         },
         {
-          "name": "Matki Usal",
-          "desc": "Sprouted moth beans in spicy gravy",
-          "tag": "usal",
-          "tag_label": "Usal"
-        },
-        {
-          "name": "Cobi Matar",
-          "desc": "Cabbage and green peas cooked with aromatic Indian spices",
-          "tag": "gravy",
-          "tag_label": "Gravy"
-        },
-        {
-          "name": "Maharashtrian Amti",
-          "desc": "Traditional tangy and spicy Maharashtrian dal",
-          "tag": "spicy",
-          "tag_label": "Spicy Gravy"
+          "name": "Palak Dal",
+          "desc": "Nutritious lentils cooked with fresh spinach and traditional Indian spices",
+          "tag": "dal",
+          "tag_label": "Dal"
         }
       ]
     },
